@@ -1,0 +1,42 @@
+{
+  "hello": {
+    "fr": "Bonjour",
+    "en": "Hello",
+    "ka": "გამარჯობა"
+  },
+  "welcome": {
+    "fr": "Bienvenue",
+    "en": "Welcome",
+    "ka": "მოგესალმებით"
+  },
+  "search": {
+    "fr": "Recherche",
+    "en": "Search",
+    "ka": "ძიება"
+  },
+  "login": {
+    "fr": "Connexion",
+    "en": "Login",
+    "ka": "შესვლა"
+  },
+  "register": {
+    "fr": "Inscription",
+    "en": "Register",
+    "ka": "რეგისტრაცია"
+  },
+  "home": {
+    "fr": "Accueil",
+    "en": "Home",
+    "ka": "მთავარი"
+  },
+  "books": {
+    "fr": "Livres",
+    "en": "Books",
+    "ka": "წიგნები"
+  },
+  "lessons": {
+    "fr": "Leçons",
+    "en": "Lessons",
+    "ka": "გაკვეთები"
+  }
+}
