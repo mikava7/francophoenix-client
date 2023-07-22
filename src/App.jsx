@@ -11,7 +11,8 @@ import Navbar from "./components/navbar/Navbar";
 import A2B1Books from "./components/books/A2_B1-Books/A2B1Books";
 import A1A2Books from "./components/books/A1-A2-Books/A1A2Books";
 import B1B2Books from "./components/books/B1_B2-Books/B1B2Books";
-import BookDisplay from "./components/books/BookDisplay";
+import BookDetails from "./components/books/bookDisplay/BookDetails";
+import BookPage from "./components/books/Book";
 function App() {
   return (
     <>
@@ -24,7 +25,9 @@ function App() {
         <Route path="/advanced" element={<AdvancedPage />} />
 
         <Route path="/books" element={<Books />} />
-        <Route path="/book-display" element={<BookDisplay />} />
+        <Route path="/books/:bookId" element={<BookPage />} />
+
+        <Route path="/book-display" element={<BookDetails />} />
 
         <Route path="/books/level/a1-a2" element={<A1A2Books />} />
         <Route path="/books/level/a2-b1" element={<A2B1Books />} />

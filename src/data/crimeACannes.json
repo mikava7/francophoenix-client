@@ -3,6 +3,9 @@
     "title": "Crime a Cannes",
     "author": "Christian Lause",
     "level": "B1",
+    "poster": "/images/L'étranger.png",
+
+    "description": "Découvrez les aventures d’Alex Leroc, un journaliste d’investigation français qui travaille à Bruxelles et qui vit uniquement pour son travail.\nRésumé:\nLe festival de Cannes rassemble, comme chaque année, les stars du cinéma et toute la presse. Naturellement, Alex Leroc y va. C’est le printemps, il fait beau sur la Côte d’Azur. Les conditions sont idéales pour la grande fête du cinéma. Alex s’intéresse à un acteur parisien et sa petite amie top modèle, un couple apparemment parfait.",
     "chapters": [
       {
         "title": "Jeudi 8 mai",
@@ -14,41 +17,49 @@
   {
     "title": "L'étranger",
     "author": "Albert Camus",
-    "level": "A2"
+    "level": "A2",
+    "poster": "/images/camu.jpg"
   },
   {
     "title": "Le Petit Prince",
     "author": "Antoine de Saint-Exupéry",
-    "level": "A2"
+    "level": "A2",
+    "poster": "/images/Le-Petit-Prince.png"
   },
   {
     "title": "Les Misérables",
     "author": "Victor Hugo",
-    "level": "B2"
+    "level": "B2",
+    "poster": "/images/Le-Petit-Prince.png"
   },
   {
     "title": "La Peste",
     "author": "Albert Camus",
-    "level": "B1"
+    "level": "B1",
+    "poster": "/images/LaPeste.png"
   },
   {
     "title": "Madame Bovary",
     "author": "Gustave Flaubert",
-    "level": "B2"
+    "level": "B2",
+    "poster": "/images/MadameBovary.png"
   },
   {
     "title": "L'Éducation sentimentale",
     "author": "Gustave Flaubert",
-    "level": "C1"
+    "level": "C1",
+    "poster": "/client/public/images/Education-sentimentale.png"
   },
   {
     "title": "Les Trois Mousquetaires",
     "author": "Alexandre Dumas",
-    "level": "B2"
+    "level": "B2",
+    "poster": "/images/3mus.png"
   },
   {
     "title": "Le Comte de Monte-Cristo",
     "author": "Alexandre Dumas",
-    "level": "C1"
+    "level": "C1",
+    "poster": "https://github.com/mikava7/francophoenix-client/blob/main/public/images/Monte-Cristo.png"
   }
 ]

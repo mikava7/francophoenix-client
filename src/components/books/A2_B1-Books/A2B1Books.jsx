@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import BookDisplay from "../BookDisplay";
+import BookDetails from "../bookDisplay/BookDetails";
 import { fetchBooksByLevel } from "../../../redux/slices/books/booksSlice";
 const description = `Découvrez les aventures d’Alex Leroc, un journaliste d’investigation français qui travaille à Bruxelles et qui vit uniquement pour son travail.
 Résumé:
@@ -10,35 +12,41 @@ Le festival de Cannes rassemble, comme chaque année, les stars du cinéma et to
 const A2B1Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books) || [];
-  console.log("books", books);
+  const isLoading = useSelector((state) => state.books.isLoading);
 
   useEffect(() => {
     dispatch(fetchBooksByLevel("B1"));
-  }, []);
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <PageWrapper>
+    <BooksPageContainer>
       <Title>A1-A2 Level Books</Title>
       <BookList>
-        {books &&
-          books.map((book) => (
-            <div>
-              <BookDisplay
-                title={book.title}
-                authot={book.author}
-                description={description}
-              />
-            </div>
-          ))}
+        {books.map((book) => (
+          <BookItem key={book._id}>
+            <Link to={`/books/${book._id}`}>
+              <BookDetails books={book} />
+            </Link>
+          </BookItem>
+        ))}
       </BookList>
-    </PageWrapper>
+    </BooksPageContainer>
   );
 };
 
 export default A2B1Books;
-const PageWrapper = styled.div`
-  padding: 20px;
+const BooksPageContainer = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdf3f2;
 `;
-
 const Title = styled.h2`
   font-size: 24px;
   font-weight: bold;
@@ -47,8 +55,8 @@ const Title = styled.h2`
 
 const BookList = styled.ul`
   display: grid;
-  grid-template-columns: 45% 45% 45%;
-  gap: 3rem;
+  grid-template-columns: 25% 25% 25% 25%;
+  gap: 2rem;
   list-style: none;
   padding: 0;
 `;
