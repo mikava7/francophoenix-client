@@ -33,7 +33,7 @@ const Book = () => {
   return (
     <BookContainer>
       <h2>{selectedBook.title}</h2>
-      <p>{selectedBook.author}</p>
+      <h4>{selectedBook.author}</h4>
       <p>
         {selectedBook.chapters.map((chapter, index) => (
           <ChapterText key={index}>

@@ -10,12 +10,48 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.theme.colors.secondaryColor};
     color: ${(props) => props.theme.colors.primeColor};
     margin: 0;
-    padding: 0.1rem;
+    padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
+    overflow-x: hidden;
     width: 100vw;
+    
   }
+  /* slick-custom-styles.css */
+.slick-prev,
+.slick-next {
+
+  color: #fff; 
+  background-color: #333; 
+   width: 40px;
+  height: 40px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1; 
+  &:hover{
+  background-color: #444; 
+
+  }
+}
+
+
+.slick-prev:active,
+.slick-next:active {
+  background-color: #444;
+}
+.slick-next {
+  right: -30px; 
+}
+.slick-prev {
+  left: -30px; 
+}
  h1{
   font-size:2rem;
 

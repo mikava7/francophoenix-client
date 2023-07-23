@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./Styles/theme";
 import styled from "styled-components";
+import Home from "./pages/home/Home";
 import { Routes, Route } from "react-router-dom";
 import JaimeEtClaire from "./elementary/JaimeEtClaire";
 import IntermediatePage from "./Intermediate/IntermediatePage";
@@ -14,27 +17,41 @@ import B1B2Books from "./components/books/B1_B2-Books/B1B2Books";
 import BookDetails from "./components/books/bookDisplay/BookDetails";
 import BookPage from "./components/books/Book";
 function App() {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
   return (
-    <>
-      <GlobalStyle />
-      <Navbar />
-      <Routes>
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/beginner" element={<JaimeEtClaire />} />
-        <Route path="/intermediate" element={<IntermediatePage />} />
-        <Route path="/advanced" element={<AdvancedPage />} />
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <AppContainer>
+        <GlobalStyle />
+        <Navbar toggleTheme={toggleTheme} theme={theme} />
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/books" element={<Books />} />
-        <Route path="/books/:bookId" element={<BookPage />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/beginner" element={<JaimeEtClaire />} />
+          <Route path="/intermediate" element={<IntermediatePage />} />
+          <Route path="/advanced" element={<AdvancedPage />} />
 
-        <Route path="/book-display" element={<BookDetails />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/books/:bookId" element={<BookPage />} />
 
-        <Route path="/books/level/a1-a2" element={<A1A2Books />} />
-        <Route path="/books/level/a2-b1" element={<A2B1Books />} />
-        <Route path="/books/level/b1-b2" element={<B1B2Books />} />
-      </Routes>
-    </>
+          <Route path="/book-display" element={<BookDetails />} />
+
+          <Route path="/books/level/a1-a2" element={<A1A2Books />} />
+          <Route path="/books/level/a2-b1" element={<A2B1Books />} />
+          <Route path="/books/level/b1-b2" element={<B1B2Books />} />
+        </Routes>
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
 export default App;
+const AppContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+`;
