@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Greeting",
+    "french": [
+      "Bonjour",
+      "Bonsoir",
+      "Salut",
+      "Au revoir",
+      "À demain",
+      "À bientôt"
+    ],
+    "english": [
+      "Hello",
+      "Good evening",
+      "Hi",
+      "Goodbye",
+      "See you tomorrow",
+      "See you soon"
+    ],
+    "georgian": [
+      "გამარჯობა",
+      "საღამო მშვიდობის",
+      "სალამი",
+      "ნახვამდის",
+      "ხბალამდე",
+      "დროებით"
+    ]
+  },
+  {
+    "name": "Asking",
+    "french": [
+      "Ça va ?",
+      "Comment tu vas ?",
+      "Comment allez-vous ?",
+      "Ça va, merci",
+      "Ça va, et vous?",
+      "merci"
+    ],
+    "english": [
+      "How are you?",
+      "How are you doing?",
+      "How are you?",
+      "I'm fine, thank you",
+      "I'm fine, and you?",
+      "thank you"
+    ],
+    "georgian": [
+      "როგორ ხარ?",
+      "როგორ ხარ?",
+      "როგორ ხარ?",
+      "კარგად ვარ, მადლობა",
+      "კარგად ვარ, თქვენ?",
+      "მადლობა"
+    ]
+  }
+]

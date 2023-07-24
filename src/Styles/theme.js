@@ -1,6 +1,13 @@
 export const lightTheme = {
   colors: {
+    lightText: "#343541",
+    lightBack: "#ffffff",
+    textPrimary: "#202123",
+    textDefault: "#353740",
     primeColor: "#595959",
+    textSecondary: "#6e6e80",
+    textDisabled: "#acacbe",
+    backgroundColor: "rgba(217,217,227,.8)",
     primeBackground: "#FOEFF",
 
     secondaryColor: "#BFBFBF",
@@ -24,6 +31,8 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
+    lightText: "#BFBFBF",
+    lightBack: "ECECF1",
     primeColor: "#FOEFF",
     primeBackground: "#595959",
     secondaryColor: "#595959",

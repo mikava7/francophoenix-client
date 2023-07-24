@@ -1,5 +1,7 @@
 const courseData = [
   {
+    imgUrl: "/images/vitrine-des-baguettes.jpg",
+    phrase: "- Je veux une baguette s'il vous plaît",
     title: "Basic French",
     duration: "6 weeks",
     difficulty: "Beginner",
@@ -10,6 +12,9 @@ const courseData = [
   {
     title: "Intermediate French",
     duration: "8 weeks",
+    imgUrl: "/images/asking.jpg",
+    phrase: "- Qu'est que vous me conseillez?",
+
     difficulty: "Intermediate",
     vocabularyCount: "1000",
     description:
@@ -18,6 +23,10 @@ const courseData = [
   {
     title: "Advanced French",
     duration: "12 weeks",
+    imgUrl: "/images/advanceImage.jpg",
+
+    phrase: "- À qui est-ce que je dois m'adresser pour un échange?",
+
     difficulty: "Advanced",
     vocabularyCount: "2000",
     description:

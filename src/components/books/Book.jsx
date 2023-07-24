@@ -67,4 +67,7 @@ const ChapterText = styled.p`
   letter-spacing: 1px;
   font-family: "Palatino", sans-serif;
   text-indent: 30px;
+  background-color: ${(props) => props.theme.colors.lightText};
+
+  color: ${(props) => props.theme.colors.lightBack};
 `;

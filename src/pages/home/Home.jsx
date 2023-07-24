@@ -6,7 +6,10 @@ import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
 import Carousel from "../../components/carousel/Carousel";
 import WellcomeCarousel from "../../components/wellcome/WellcomeCarousel";
 import { wellcomeData } from "../../data/wellcomeData";
+import { useTranslation } from "react-i18next";
+import Loading from "../../components/loading/Loading";
 const Home = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const isLoading = useSelector((state) => state.books.isLoading);
@@ -16,20 +19,29 @@ const Home = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return <Loading />;
   }
   return (
     <HomeContainer>
-      <Section>
-        <TiTleMessage>Wellcome to Francophoenix</TiTleMessage>
+      <WellcomeSection>
+        <TiTleMessage>{t("Bienvenue à Francophoenix")}</TiTleMessage>
 
         <WellcomeCarousel wellcomeData={wellcomeData} />
+      </WellcomeSection>
+
+      <Section>
+        <TopOfCarousel>
+          <p>{t("Tous les livres")} </p>
+          <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
+        </TopOfCarousel>
+
+        <Carousel books={books} />
       </Section>
 
       <Section>
         <TopOfCarousel>
-          <p>nivaou A2</p>
-          <SeeAllLink to="/books/level/a2-b1">See All</SeeAllLink>
+          <p>{t("Niveau A1")} </p>
+          <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
         </TopOfCarousel>
 
         <Carousel books={books} />
@@ -40,22 +52,42 @@ const Home = () => {
 
 export default Home;
 const HomeContainer = styled.section`
-  width: 100%;
-  padding-left: 5rem;
-  background-color: #bfb4e6;
+  /* margin: 0 2rem; */
+  background-color: ${(props) => props.theme.colors.lightBack};
+  color: ${(props) => props.theme.colors.textPrimary};
+`;
+const WellcomeSection = styled.div`
+  margin-bottom: 2rem;
+  &:nth-child(2) {
+    border: 2px solid red;
+    margin: 0 3rem;
+  }
 `;
 const Section = styled.div`
   border: 2px solid grey;
-  background-color: white;
-  padding-left: 2rem;
+  background-image: url("/icons/tex.avif");
+  background-repeat: repeat-x;
+  margin: 0 2rem;
+  color: white;
+
+  border-bottom: 1.6rem solid #c26528;
+  margin-bottom: 2rem;
+  position: relative;
   h2 {
     text-align: center;
   }
 `;
 const SeeAllLink = styled(Link)`
   margin-right: 2rem;
+  color: #955cff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  background-color: white;
+
+  border-radius: 6px;
   &:hover {
-    color: blue;
+    color: white;
+    background-color: #955cff;
   }
 `;
 const TiTleMessage = styled.h2`
@@ -69,7 +101,11 @@ const TopOfCarousel = styled.div`
   justify-content: space-between;
   padding: 1rem;
   font-size: 1.4rem;
+
   p {
     font-size: 2rem;
   }
+`;
+const LineBrake = styled.div`
+  height: 2.5rem;
 `;

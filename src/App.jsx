@@ -16,6 +16,7 @@ import A1A2Books from "./components/books/A1-A2-Books/A1A2Books";
 import B1B2Books from "./components/books/B1_B2-Books/B1B2Books";
 import BookDetails from "./components/books/bookDisplay/BookDetails";
 import BookPage from "./components/books/Book";
+import Vocabularies from "./components/vocabulary/Vocabularies";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -43,6 +44,8 @@ function App() {
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
+
+          <Route path="/vocabularies" element={<Vocabularies />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>
@@ -54,4 +57,5 @@ const AppContainer = styled.section`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  margin-left: 0;
 `;

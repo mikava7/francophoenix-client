@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 // Rest of the code...
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${(props) => props.theme.colors.secondaryColor};
-    color: ${(props) => props.theme.colors.primeColor};
+    background-color: ${(props) => props.theme.colors.lightText};
+    color: ${(props) => props.theme.colors.lightBack};
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -22,8 +22,8 @@ export const GlobalStyle = createGlobalStyle`
 .slick-prev,
 .slick-next {
 
-  color: #fff; 
-  background-color: #333; 
+  color: black;
+  background-color: black;
    width: 40px;
   height: 40px; 
   display: flex;
@@ -36,16 +36,11 @@ export const GlobalStyle = createGlobalStyle`
   transform: translateY(-50%);
   z-index: 1; 
   &:hover{
-  background-color: #444; 
+    background-color: ${(props) => props.theme.colors.lightText};
 
   }
 }
 
-
-.slick-prev:active,
-.slick-next:active {
-  background-color: #444;
-}
 .slick-next {
   right: -30px; 
 }
@@ -97,10 +92,10 @@ export const StyledLink = styled(Link)`
   position: relative;
   transition: 0.8s all linear;
   padding: 0.5rem;
-  /* color: ${(props) => props.theme.colors.text}; */
+  color: ${(props) => props.theme.colors.text};
 
   &:hover {
-    /* color: ${(props) => props.theme.colors.text2}; */
+    color: ${(props) => props.theme.colors.text2};
   }
 
   &::before {

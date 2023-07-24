@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import User from "../../../public/icons/user-50.png";
 import ThemeToggle from "../themeToggle/themeToggle";
 import Localization from "../../localization/Localization";
-
 import { useTranslation } from "react-i18next";
 const Navbar = ({ toggleTheme, theme }) => {
   const { t } = useTranslation();
@@ -26,7 +25,7 @@ const Navbar = ({ toggleTheme, theme }) => {
       </StyledUl>
 
       <Account>
-        <Link to="/login">{t("Connexion")}</Link>
+        <LoginLink to="/login">{t("Connexion")}</LoginLink>
 
         <ThemeToggle toggleTheme={toggleTheme} theme={theme} />
         <Localization />
@@ -151,4 +150,10 @@ const Account = styled.div`
   p {
     align-self: center;
   }
+`;
+const LoginLink = styled(Link)`
+  text-decoration: none;
+  align-self: center;
+  font-weight: bold;
+  color: black;
 `;

@@ -79,7 +79,9 @@ const ReadExtract = styled.span`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: orange;
+  color: white;
+  font-weight: bold;
   padding: 8px;
   text-align: center;
   animation: ${slideOut} 0.3s ease-in-out;
@@ -89,14 +91,15 @@ const BookCard = styled.div`
   width: 100%;
   max-width: 12rem;
   height: 18rem;
-  border: 2px solid red;
-  position: relative;
+  margin: 0 2rem;
 
+  position: relative;
+  padding: 0;
   &:hover {
     cursor: pointer;
     ${ReadExtract} {
       display: block;
-      transform: translateY(0);
+      /* transform: translateY(0); */
     }
   }
 `;
@@ -105,6 +108,8 @@ const BookImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  padding: 0;
+  margin: 0;
 `;
 
 export default Carousel;

@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const slideOut = keyframes`
   0% {
@@ -17,10 +18,12 @@ const slideOut = keyframes`
 `;
 
 const WellcomeCarousel = ({ wellcomeData }) => {
+  const { t, i18n } = useTranslation(); // Get the current language and translation function (t)
+  const isEnglish = i18n.language === "en"; // Check if the current language is English
+
   const slidesToShow = () => {
     const containerWidth = window.innerWidth;
     if (containerWidth >= 1500) return 4;
-
     if (containerWidth >= 1200) return 3;
     if (containerWidth >= 992) return 2;
     if (containerWidth >= 768) return 2;
@@ -32,6 +35,9 @@ const WellcomeCarousel = ({ wellcomeData }) => {
     speed: 500,
     slidesToShow: slidesToShow(),
     slidesToScroll: 2,
+    prevArrow: <CustomArrow>{""}</CustomArrow>,
+    nextArrow: <CustomArrow>{""}</CustomArrow>,
+
     responsive: [
       {
         breakpoint: 1200,
@@ -72,8 +78,8 @@ const WellcomeCarousel = ({ wellcomeData }) => {
     <Slider {...settings}>
       {wellcomeData.map((data, index) => (
         <WellcomeCard key={index}>
-          <h2>{data.title}</h2>
-          <p>{data.description}</p>
+          <h2>{isEnglish ? data.title : data.titleGeo}</h2>
+          <p>{isEnglish ? data.description : data.descriptionGeo}</p>
           <ExploreLink to={pagePaths[index]}>Explore</ExploreLink>
         </WellcomeCard>
       ))}
@@ -84,27 +90,46 @@ const WellcomeCarousel = ({ wellcomeData }) => {
 const WellcomeCard = styled.div`
   width: 100%;
   max-width: 20rem;
-  height: 16rem;
+  height: 20rem;
   position: relative;
-  background-color: #fffbfb;
+
+  background-color: #fff1f1;
+
   padding: 1rem;
+  margin: 0 4rem;
+  margin-top: 2rem;
+  border-radius: 12px;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  &:hover {
-    transform: scale(1.05);
-    z-index: 1;
-    box-shadow: 0 0 10px rgba(197, 165, 165, 0.2);
+  h2 {
+    font-size: 1.4rem;
+  }
+  p {
+    /* text-indent: 30px; */
+    text-align: stretch;
+    width: 100%;
+    font-size: 1.2rem;
+    color: grey;
   }
 `;
 
 export const ExploreLink = styled(Link)`
   text-decoration: none;
   padding: 0.5rem 1rem;
+
   border: 1px solid grey;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background: #ffd105;
+  background-color: white;
+  color: orange;
+  font-weight: bold;
+  &:hover {
+    background-color: orange;
+    color: white;
+  }
 `;
-
+const CustomArrow = styled.button`
+  margin: 0 2rem;
+`;
 export default WellcomeCarousel;
