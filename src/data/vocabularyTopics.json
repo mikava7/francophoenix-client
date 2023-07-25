@@ -1,6 +1,10 @@
 [
   {
-    "name": "Greeting",
+    "nameEng": "Greeting",
+    "nameFr": "Saluet",
+    "nameGeo": "გამარჯობა",
+    "iconUrl": "/icons/greeting-50.png",
+    "imageUrl": "/images/bonjour.jpg",
     "french": [
       "Bonjour",
       "Bonsoir",
@@ -27,7 +31,12 @@
     ]
   },
   {
-    "name": "Asking",
+    "nameEng": "Greeting",
+    "imageUrl": "/images/handShake.avif",
+
+    "nameFr": "Saluet",
+    "nameGeo": "გამარჯობა",
+    "iconUrl": "/icons/greeting-50.png",
     "french": [
       "Ça va ?",
       "Comment tu vas ?",

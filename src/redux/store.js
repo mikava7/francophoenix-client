@@ -7,7 +7,7 @@ import newPhraseReducer from "./slices/elementary/newPhraseSlice";
 // const persistedReducer = persistReducer(persistConfig, authReducer);
 import grammerSliceReducer from "./slices/elementary/grammerSlice";
 import booksReducer from "./slices/books/booksSlice";
-import vocabullaryTopicsReducer from "./slices/vocabularyTopics/vocabullaryTopicSlice";
+import vocabularyTopicsReducer from "./slices/vocabularyTopics/vocabularyTopicSlice";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -15,7 +15,7 @@ const store = configureStore({
     sentenceBuilder: sentenceBuilderReducer,
     newPhrases: newPhraseReducer,
     grammer: grammerSliceReducer,
-    vocabullaryTopics: vocabullaryTopicsReducer,
+    vocabularyTopics: vocabularyTopicsReducer,
 
     books: booksReducer,
   },

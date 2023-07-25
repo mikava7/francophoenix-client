@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "../../api/axiosInstance";
 
-export const fetchVocabullaryTopics = createAsyncThunk(
-  "vocabullaryTopics/fetchVocabullaryTopics",
+export const fetchVocabularyTopics = createAsyncThunk(
+  "vocabularyTopics/fetchVocabularyTopics",
   async () => {
     try {
       const response = await instance.get("/vocabulary-topics");
@@ -14,30 +14,30 @@ export const fetchVocabullaryTopics = createAsyncThunk(
 );
 
 const initialState = {
-  vocabullaryTopics: [],
+  vocabularyTopics: [],
   isLoading: false,
   error: null,
 };
 
-const vocabullaryTopicsSlice = createSlice({
-  name: "vocabullaryTopics",
+const vocabularyTopicsSlice = createSlice({
+  name: "vocabularyTopics",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchVocabullaryTopics.pending, (state) => {
+      .addCase(fetchVocabularyTopics.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchVocabullaryTopics.fulfilled, (state, action) => {
-        state.vocabullaryTopics = action.payload;
+      .addCase(fetchVocabularyTopics.fulfilled, (state, action) => {
+        state.vocabularyTopics = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchVocabullaryTopics.rejected, (state, action) => {
+      .addCase(fetchVocabularyTopics.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });
   },
 });
 
-export default vocabullaryTopicsSlice.reducer;
+export default vocabularyTopicsSlice.reducer;

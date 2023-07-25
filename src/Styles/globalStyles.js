@@ -405,10 +405,10 @@ export const StarIcon = styled.div`
     filter: ${(props) => (props.favorited ? "invert(50%)" : "none")};
   }
 `;
-export const ListenIcon = styled.span`
+export const ListenIcon = styled.div`
   & > img {
-    width: ${(props) => props.width || "1rem"};
-    height: ${(props) => props.height || "1rem"};
+    width: ${(props) => props.width || "1.5rem"};
+    height: ${(props) => props.height || "1.5rem"};
     cursor: pointer;
 
     filter: ${(props) => (props.isActive ? "none" : "invert(50%)")};

@@ -69,7 +69,7 @@ const WellcomeCarousel = ({ wellcomeData }) => {
     "/courses",
     "/books",
     "/grammer",
-    "/vocabulary",
+    "/vocabulary-topics",
     "/myaccount",
     "/frenchmovies",
     "/frenchmusic",

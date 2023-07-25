@@ -17,6 +17,7 @@ import B1B2Books from "./components/books/B1_B2-Books/B1B2Books";
 import BookDetails from "./components/books/bookDisplay/BookDetails";
 import BookPage from "./components/books/Book";
 import Vocabularies from "./components/vocabulary/Vocabularies";
+import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -36,7 +37,7 @@ function App() {
           <Route path="/intermediate" element={<IntermediatePage />} />
           <Route path="/advanced" element={<AdvancedPage />} />
 
-          <Route path="/books" element={<Books />} />
+          <Route path="/books" element={<A2B1Books />} />
           <Route path="/books/:bookId" element={<BookPage />} />
 
           <Route path="/book-display" element={<BookDetails />} />
@@ -45,7 +46,11 @@ function App() {
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
 
-          <Route path="/vocabularies" element={<Vocabularies />} />
+          <Route path="/vocabulary-topics" element={<Vocabularies />} />
+          <Route
+            path="/vocabulary-topics/:vocabularyTopicId"
+            element={<Vocabulary />}
+          />
         </Routes>
       </AppContainer>
     </ThemeProvider>

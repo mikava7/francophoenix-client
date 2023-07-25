@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import { beginnerVocabulary } from "../../data/beginnerVocabulary";
-import Vocabulary from "./Vocabulary";
+import Vocabulary from "./vocabularyTopics/Vocabulary";
+import VocabularyTopics from "./vocabularyTopics/VocabularyTopics";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchVocabullaryTopics } from "../../redux/slices/vocabularyTopics/vocabullaryTopicSlice";
+import { Link } from "react-router-dom";
+import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Loading from "../loading/Loading";
+import { StyledLink } from "../../Styles/globalStyles";
 const Vocabularies = () => {
   const dispatch = useDispatch();
 
-  const vocabullaryTopics =
-    useSelector((state) => state.vocabullaryTopics.vocabullaryTopics) || [];
-  const french =
-    useSelector((state) => state.vocabullaryTopics.vocabullaryTopics.french) ||
-    [];
-  console.log(french);
-  const isLoading = useSelector((state) => state.vocabullaryTopics.isLoading);
+  const vocabularyTopics =
+    useSelector((state) => state.vocabularyTopics.vocabularyTopics) || [];
+  console.log(vocabularyTopics);
+
+  const isLoading = useSelector((state) => state.vocabularyTopics.isLoading);
   useEffect(() => {
-    dispatch(fetchVocabullaryTopics());
+    dispatch(fetchVocabularyTopics());
   }, [dispatch]);
 
   if (isLoading) {
@@ -23,7 +24,12 @@ const Vocabularies = () => {
   }
   return (
     <div>
-      <Vocabulary vocabullaryTopics={vocabullaryTopics} />
+      {/* Render each topic with a Link to its specific page */}
+      {vocabularyTopics.map((topic) => (
+        <StyledLink key={topic._id} to={`/vocabulary-topics/${topic._id}`}>
+          <VocabularyTopics vocabularyTopics={[topic]} />
+        </StyledLink>
+      ))}
     </div>
   );
 };

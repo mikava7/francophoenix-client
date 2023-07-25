@@ -21,7 +21,7 @@ const Navbar = ({ toggleTheme, theme }) => {
         <StyledList to="/courses">{t("Courses")}</StyledList>
         <StyledList to="/projects">{t("Articles")}</StyledList>
         <StyledList to="/contact">{t("Contacter")}</StyledList>
-        <StyledList to="/contact">{t("Film&Musique")}</StyledList>
+        <StyledList to="/vocabulary-topics">{t("Vocabulaire")}</StyledList>
       </StyledUl>
 
       <Account>
