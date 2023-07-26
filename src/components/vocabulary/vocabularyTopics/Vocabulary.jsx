@@ -7,6 +7,7 @@ import Listen from "../../Listen";
 import Favorite from "../../Favorite";
 import styled from "styled-components";
 import VocabularyQuiz from "./VocabularyQuiz";
+import ExerciseArticle from "./ExerciseArticle";
 const Vocabulary = () => {
   const { vocabularyTopicId } = useParams();
   const dispatch = useDispatch();
@@ -62,7 +63,8 @@ const Vocabulary = () => {
           </WordPairItem>
         ))}
       </WordPairContainer>
-      <VocabularyQuiz vocabularyData={selectedTopic} />
+      <ExerciseArticle frenchWords={selectedTopic.french} />
+      {/* <VocabularyQuiz vocabularyData={selectedTopic} /> */}
     </div>
   );
 };
@@ -72,7 +74,8 @@ export default Vocabulary;
 const WordPairContainer = styled.li`
   margin: 0 auto;
   padding: 0.5rem 1rem;
-  min-width: 370px;
+  min-width: 350px;
+  width: 100%;
 `;
 
 const WordPairItem = styled.li`
@@ -83,9 +86,8 @@ const WordPairItem = styled.li`
   border: 2px solid grey;
   padding: 0 1rem;
   margin: 1rem;
-  background-color: #030303;
-  color: ${(props) => props.theme.colors.text2};
-  background-color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.text2};
   gap: 1rem;
   border-radius: 6px;
   font-size: 1.4rem;

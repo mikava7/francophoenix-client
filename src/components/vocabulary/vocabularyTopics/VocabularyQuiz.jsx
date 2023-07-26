@@ -26,7 +26,6 @@ const VocabularyQuiz = ({ vocabularyData }) => {
     [vocabularyData, secondLanguage]
   );
 
-  console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
   ///////////////////////////////////////////////////////////
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(0);
@@ -112,25 +111,25 @@ export default VocabularyQuiz;
 const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid violet;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
+  margin: 0 2rem;
+  min-width: 350px;
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.text2};
 `;
 
 const QuizItem = styled.div`
-  border: 2px solid blueviolet;
-  margin: 2rem;
   padding: 1rem;
+  width: 100%;
 `;
 
 const QuizQuestion = styled.div`
   border: 2px solid wheat;
-  margin: 2rem;
   padding: 1rem;
+  margin-top: 1rem;
 
   h2 {
-    border: 2px solid red;
     padding: 1rem;
     border-radius: 1rem;
   }
@@ -144,16 +143,16 @@ const QuizOption = styled.li`
   border: 1px solid blue;
   padding: 1rem;
   margin: 1rem;
+
   border-radius: 1rem;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   background-color: ${(props) =>
     props.selectedAnswers
       ? props.correctAnswer
-        ? "#7CCD7C"
-        : "#FF9494"
+        ? "green"
+        : "red"
       : "transparent"};
   &:hover {
-    background-color: ${(props) =>
-      props.disabled ? "transparent" : "blueviolet"};
+    background-color: ${(props) => (props.disabled ? "" : "blueviolet")};
   }
 `;

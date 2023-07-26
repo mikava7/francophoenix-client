@@ -18,6 +18,7 @@ import BookDetails from "./components/books/bookDisplay/BookDetails";
 import BookPage from "./components/books/Book";
 import Vocabularies from "./components/vocabulary/Vocabularies";
 import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
+import ExerciseArticle from "./components/vocabulary/vocabularyTopics/ExerciseArticle";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -50,6 +51,10 @@ function App() {
           <Route
             path="/vocabulary-topics/:vocabularyTopicId"
             element={<Vocabulary />}
+          />
+          <Route
+            path="/vocabulary-topics/exercise-article"
+            element={<ExerciseArticle />}
           />
         </Routes>
       </AppContainer>
