@@ -37,5 +37,15 @@
   "Niveau B2": "დონე B2",
   "Quantité de mots dans ce sujet": "სიტყვების რაოდენობა ამ თემაში",
   "Les mots": "სიტყვები",
-  "Vocabulaire": "ლექსიკა"
+  "Vocabulaire": "ლექსიკა",
+  "Questions": "კითხვა",
+  "Total": "სულ",
+  "Masculin ou Féminin": "მამრობითი თუ მდედრობითი",
+  "Testez votre vocabulaire": "გამოცადე შენი ლექსიკა",
+  "Score": "ქულა",
+  "Fermer": "დახურე",
+  "Recommencer": "კიდევ სცადე",
+
+  "Félicitations! Vous avez répondu correctement à tous.": "გილოცავ! ყველაფერზე სწორად უპასუხე.",
+  "Toutes les réponses ne sont pas correctes. Réessayer!": "ყველა პასუხი არ არის სწორი. კიდევ სცადე!"
 }

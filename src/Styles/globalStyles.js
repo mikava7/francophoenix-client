@@ -18,6 +18,16 @@ export const GlobalStyle = createGlobalStyle`
     width: 100vw;
     
   }
+  @media (max-width: 920px) {
+    font-size: 1.3rem;
+  }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
   /* slick-custom-styles.css */
 .slick-prev,
 .slick-next {

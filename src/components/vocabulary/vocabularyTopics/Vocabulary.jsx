@@ -1,14 +1,34 @@
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { fetchVocabularyTopics } from "../../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Listen from "../../Listen";
 import Favorite from "../../Favorite";
 import styled from "styled-components";
 import VocabularyQuiz from "./VocabularyQuiz";
 import ExerciseArticle from "./ExerciseArticle";
+import VocabularyAccordion from "./vocabularyAccordion/VocabularyAccordion";
+import ChevronDown from "../../../../public/icons/chevron-down-24.png";
 const Vocabulary = () => {
+  const [showArticle, setShowArticle] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(-1);
+  const [rotationArticle, setRotationArticle] = useState(0);
+  const [rotationQuiz, setRotationQuiz] = useState(0);
+
+  const toggle = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
+  };
+  const handleArticleToggle = () => {
+    setShowArticle(!showArticle);
+    setRotationArticle((prevRotation) => prevRotation + 180);
+  };
+
+  const handleQuizToggle = () => {
+    setShowQuiz(!showQuiz);
+    setRotationQuiz((prevRotation) => prevRotation + 180);
+  };
   const { vocabularyTopicId } = useParams();
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.vocabularyTopics.isLoading);
@@ -34,17 +54,30 @@ const Vocabulary = () => {
   }
 
   // Destructure the selected topic data with optional chaining
-  const { french, english, georgian, nameFr, nameGeo, nameEng } = selectedTopic;
+  const {
+    french,
+    english,
+    georgian,
+    nameFr,
+    nameGeo,
+    nameEng,
+    frenchExamples,
+    englishExamples,
+    georgianExamples,
+  } = selectedTopic;
 
   // Determine the second language based on the 'isEnglish' flag
   const secondLanguage = isGeorgian ? georgian : english;
   const secondName = isGeorgian ? nameGeo : nameEng;
+  const secondLanguageExamples = isGeorgian
+    ? georgianExamples
+    : englishExamples;
 
   // Determine the maximum length of both language arrays to ensure pairs are correctly displayed
   const maxLength = Math.max(french.length, secondLanguage.length);
 
   return (
-    <div>
+    <VocabularyContainer>
       <h2>
         {nameFr} - {secondName}
       </h2>
@@ -52,63 +85,71 @@ const Vocabulary = () => {
         {t("Les mots")} <b>{maxLength}</b>
       </WordCount>
       <WordPairContainer>
-        {Array.from({ length: maxLength }).map((_, index) => (
-          <WordPairItem key={index}>
-            <span>{french[index] || ""}</span>
-            <IconsWrapper>
-              <Listen />
-              <Favorite />
-            </IconsWrapper>
-            <span>{secondLanguage[index] || ""}</span>
-          </WordPairItem>
-        ))}
+        <VocabularyAccordion
+          frenchWords={french}
+          secondLanguage={secondLanguage}
+          frenchExamples={frenchExamples}
+          secondLanguageExamples={secondLanguageExamples}
+        />
       </WordPairContainer>
-      <ExerciseArticle frenchWords={selectedTopic.french} />
-      {/* <VocabularyQuiz vocabularyData={selectedTopic} /> */}
-    </div>
+      <NextStepChoise>
+        <h2 onClick={handleArticleToggle}>
+          {t("Masculin ou Féminin")}
+          <ChevronImage
+            src={ChevronDown}
+            alt="ChevronDown"
+            expanded={showArticle}
+            rotation={rotationArticle}
+          />
+        </h2>
+        <ChoiseArticle>
+          {showArticle && (
+            <ExerciseArticle frenchWords={selectedTopic.french} />
+          )}
+        </ChoiseArticle>
+        <h2 onClick={handleQuizToggle}>
+          {t("Testez votre vocabulaire")}
+          <ChevronImage
+            src={ChevronDown}
+            alt="ChevronDown"
+            expanded={showQuiz}
+            rotation={rotationQuiz}
+          />
+        </h2>
+        <ChoiseArticle>
+          {showQuiz && <VocabularyQuiz vocabularyData={selectedTopic} />}
+        </ChoiseArticle>
+      </NextStepChoise>
+    </VocabularyContainer>
   );
 };
 
 export default Vocabulary;
-
+const VocabularyContainer = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const WordPairContainer = styled.li`
-  margin: 0 auto;
-  padding: 0.5rem 1rem;
-  min-width: 350px;
-  width: 100%;
-`;
-
-const WordPairItem = styled.li`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  height: 4rem;
-  border: 2px solid grey;
-  padding: 0 1rem;
-  margin: 1rem;
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
-  gap: 1rem;
-  border-radius: 6px;
-  font-size: 1.4rem;
-  &:hover {
-    cursor: pointer;
-    background-color: #e6af68;
-  }
-  span {
-    padding: 0.5rem 1rem;
-    width: 300px;
-  }
-`;
+  padding: 2rem;
+  width: 920px;
+  border-bottom: 2px solid orange;
 
-const IconsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  width: 50px;
-  max-width: 100px;
-  text-align: center;
+  @media (max-width: 920px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: 630px;
+  }
+
+  @media (max-width: 500px) {
+    width: 374px;
+  }
 `;
 const WordCount = styled.div`
   width: 200px;
@@ -121,4 +162,40 @@ const WordCount = styled.div`
   b {
     font-size: 1.4rem;
   }
+`;
+
+const NextStepChoise = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ChoiseArticle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 920px;
+  border-bottom: 2px solid orange;
+
+  @media (max-width: 920px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: 630px;
+  }
+
+  @media (max-width: 500px) {
+    width: 374px;
+  }
+`;
+const ChevronImage = styled.img`
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s ease;
+  margin-left: 1rem;
+  transform: ${({ rotation }) => `rotate(${rotation}deg)`};
+  cursor: pointer;
 `;

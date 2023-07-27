@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { StyledButton } from "../../../Styles/globalStyles";
-
+import { useTranslation } from "react-i18next";
 const ExerciseArticle = ({ frenchWords }) => {
+  const { t } = useTranslation();
   const [score, setScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -77,8 +77,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   };
 
   return (
-    <Container>
-      <h2>French Vocabulary Exercise</h2>
+    <ExerciseArticleContainer>
       <div>
         {frenchWords.map((word, index) => (
           <WordPair key={index}>
@@ -143,25 +142,25 @@ const ExerciseArticle = ({ frenchWords }) => {
         ))}
       </div>
 
-      {areAllCorrect() ? (
-        <Finish>Finish</Finish>
-      ) : (
+      <ExerciseArticleContainerApendix>
         <Score>
-          Score: {score}/{frenchWords.length}
+          {t("Score")}: {score}/{frenchWords.length}
         </Score>
-      )}
 
-      <StyledButton onClick={restartExercise}>Restart</StyledButton>
-    </Container>
+        <RestartButton onClick={restartExercise}>
+          {" "}
+          {t("Recommencer")}
+        </RestartButton>
+      </ExerciseArticleContainerApendix>
+    </ExerciseArticleContainer>
   );
 };
 
 export default ExerciseArticle;
 
-const Container = styled.div`
-  margin: 0 auto;
-  padding: 0.5rem 1rem;
-  min-width: 350px;
+const ExerciseArticleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
 `;
 const WordPair = styled.div`
@@ -169,7 +168,6 @@ const WordPair = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-
   padding: 0 1rem;
   margin: 1rem;
   color: ${(props) => props.theme.colors.text};
@@ -177,50 +175,72 @@ const WordPair = styled.div`
   gap: 1rem;
   border-radius: 6px;
   font-size: 1.4rem;
+  max-width: 100%;
 `;
-
 const WordText = styled.div`
   margin-right: 1rem;
   padding: 0.5rem 1rem;
 
   width: 70%;
+  max-width: 100%;
 `;
-
 const OptionsContainer = styled.div`
   display: flex;
-  margin: 0 auto;
-  gap: 3rem;
-  width: 30%;
+  justify-content: center;
+  gap: 1rem;
 `;
 const Option = styled.div`
   padding: 0.5rem 1rem;
-
   background-color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "green" : "red") : "transparent"};
+    props.isSelected ? (props.isCorrect ? "green" : "#EF3340") : "transparent"};
   color: ${(props) =>
     props.isSelected ? (props.isCorrect ? "white" : "black") : ""};
   margin: 0 0.5rem;
   border-radius: 6px;
-  border: 2px solid green;
+  border: 2px solid #0055a4;
   cursor: ${(props) => (props.isSelected ? "default" : "pointer")};
   pointer-events: ${(props) => (props.isSelected ? "none" : "auto")};
+  max-width: 100%;
 
   &:hover {
     ${(props) =>
       !props.isSelected &&
       `
-      background-color: blueviolet;
+      background-color: #0055A4;
       color: ${props.theme.colors.text2};
     `}
   }
 `;
-
-const Score = styled.div`
-  margin-top: 1rem;
+const ExerciseArticleContainerApendix = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+const Score = styled.div`
+  margin: 1rem;
+  /* margin-right: 2rem; */
+  margin-left: auto;
+  font-size: 1.2rem;
 
-const Finish = styled.div`
-  margin-top: 1rem;
-  font-weight: bold;
-  color: green;
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.text2};
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px #0055a4;
+`;
+const RestartButton = styled.button`
+  padding: 1rem;
+  text-align: center;
+  width: 12rem;
+  font-size: 1.2rem;
+  background-color: #0055a4;
+  color: #ffffff;
+  cursor: pointer;
+  border: 2px solid #0055a4;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: #ffffff;
+    color: #0055a4;
+  }
 `;

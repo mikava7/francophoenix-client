@@ -19,6 +19,7 @@ import BookPage from "./components/books/Book";
 import Vocabularies from "./components/vocabulary/Vocabularies";
 import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
 import ExerciseArticle from "./components/vocabulary/vocabularyTopics/ExerciseArticle";
+import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/VocabularyQuiz";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -55,6 +56,10 @@ function App() {
           <Route
             path="/vocabulary-topics/exercise-article"
             element={<ExerciseArticle />}
+          />
+          <Route
+            path="/vocabulary-topics/exercise-quiz"
+            element={<VocabularyQuiz />}
           />
         </Routes>
       </AppContainer>

@@ -68,6 +68,7 @@ const theme = {
     inputBoxShadow: "inset 2px 2px 5px #EFEFEF, inset -5px -5px 10px #FCFCFC",
     first: "#FBEAEB",
     primary: "#003366",
+
     secondary: "#660033",
     text: "black",
     text2: "white",

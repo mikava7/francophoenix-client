@@ -3,23 +3,12 @@ import styled from "styled-components";
 import { StyledButton } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../generateQuizQuestions";
-const quizData = [
-  {
-    question: "What does 'fenêtre' mean in English?",
-    options: ["Window", "Table", "Chair", "Door"],
-    answer: "Window",
-  },
-  {
-    question: "Find the French word for 'beautiful'",
-    options: ["Petit", "Grand", "Moche", "Joli"],
-    answer: "Joli",
-  },
-];
-
+import QuizModal from "./modal/QuizModal";
 const VocabularyQuiz = ({ vocabularyData }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const { french, english, georgian } = vocabularyData;
+  const [showModal, setShowModal] = useState(false);
   const secondLanguage = isGeorgian ? georgian : english;
   const vocabularyQuizQuestions = useMemo(
     () => generateQuizQuestions(vocabularyData, secondLanguage),
@@ -66,16 +55,26 @@ const VocabularyQuiz = ({ vocabularyData }) => {
       );
     }
   );
-  const isQuizFinished =
-    Object.keys(answered).length === vocabularyQuizQuestions.length;
+  const maxScore = vocabularyQuizQuestions.length;
+  const isQuizFinished = Object.keys(answered).length === maxScore;
+
+  useEffect(() => {
+    if (isQuizFinished) {
+      setShowModal(true);
+    }
+  }, [isQuizFinished]);
+
   return (
     <QuizContainer>
-      <h2>Quiz name</h2>
-      <h3>Number of Questions: {vocabularyQuizQuestions.length}</h3>
       <QuizItem>
         {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
           <QuizQuestion key={questionIndex}>
+            <Score>
+              {" "}
+              Score: {score}/{vocabularyQuizQuestions.length}
+            </Score>
             <h2>{quizItem.question}</h2>
+
             <ul>
               {quizItem.options.map((option, optionIndex) => (
                 <QuizOption
@@ -97,11 +96,19 @@ const VocabularyQuiz = ({ vocabularyData }) => {
           </QuizQuestion>
         ))}
       </QuizItem>
-      {!isAllCorrect && isQuizFinished && (
-        <StyledButton onClick={restartQuiz}>Restart</StyledButton>
-      )}
-      <p>Score: {score}</p>
-      <p>Total Questions: {vocabularyQuizQuestions.length}</p>
+      <RestartButton onClick={restartQuiz}> {t("Recommencer")}</RestartButton>
+      {showModal && (
+        <QuizModal
+          onClose={() => setShowModal(false)}
+          isQuizFinished={isQuizFinished}
+          isAllCorrect={isAllCorrect}
+          Restart={
+            <RestartButton onClick={restartQuiz}>
+              {t("Recommencer")}
+            </RestartButton>
+          }
+        />
+      )}{" "}
     </QuizContainer>
   );
 };
@@ -111,17 +118,14 @@ export default VocabularyQuiz;
 const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 0 2rem;
-  min-width: 350px;
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
+  width: 100%;
 `;
 
 const QuizItem = styled.div`
-  padding: 1rem;
-  width: 100%;
+  padding: 0 1rem;
+  /* margin: 0 auto; */
+  width: 95%;
 `;
 
 const QuizQuestion = styled.div`
@@ -129,6 +133,8 @@ const QuizQuestion = styled.div`
   padding: 1rem;
   margin-top: 1rem;
 
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.text2};
   h2 {
     padding: 1rem;
     border-radius: 1rem;
@@ -136,6 +142,9 @@ const QuizQuestion = styled.div`
 
   ul {
     list-style: none;
+    border: 2px solid orange;
+    text-align: center;
+    align-self: center;
   }
 `;
 
@@ -143,8 +152,10 @@ const QuizOption = styled.li`
   border: 1px solid blue;
   padding: 1rem;
   margin: 1rem;
-
+  margin-right: 2rem;
   border-radius: 1rem;
+  max-width: 100%;
+  align-self: center;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   background-color: ${(props) =>
     props.selectedAnswers
@@ -152,7 +163,40 @@ const QuizOption = styled.li`
         ? "green"
         : "red"
       : "transparent"};
+  color: ${(props) =>
+    props.selectedAnswers ? "white" : props.theme.colors.text};
+
   &:hover {
-    background-color: ${(props) => (props.disabled ? "" : "blueviolet")};
+    background-color: ${(props) => (props.disabled ? "" : "#007bff")};
+    color: ${(props) => (props.disabled ? "" : "white")};
+  }
+`;
+
+const Score = styled.div`
+  font-size: 1rem;
+  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.colors.text2};
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px #0055a4;
+  margin-left: auto;
+  width: 80px;
+`;
+const RestartButton = styled.button`
+  padding: 1rem;
+  text-align: center;
+  align-self: center;
+  width: 12rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  background-color: #0055a4;
+  color: #ffffff;
+  cursor: pointer;
+
+  border-radius: 6px;
+
+  &:hover {
+    background-color: #ffffff;
+    color: #0055a4;
   }
 `;

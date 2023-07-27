@@ -36,5 +36,15 @@
   "Niveau B2": "Level B2",
   "Quantité de mots dans ce sujet": "Number of words in this topic",
   "Les mots": "The words",
-  "Vocabulaire": "Vocabulary"
+  "Vocabulaire": "Vocabulary",
+  "Questions": "Questions",
+  "Total": "Total",
+  "Masculin ou Féminin": "Masculine or feminine",
+  "Example": "Example",
+  "Testez votre vocabulaire": "Test your vocabulary",
+  "Score": "Score",
+  "Toutes nos félicitations! Vous avez répondu correctement à tous.": "Congratulations! You have answered all correctly.",
+  "Toutes les réponses ne sont pas correctes. Réessayer!": "Not all answers are correct. Try again!",
+  "Fermer": "Close",
+  "Recommencer": "Restart"
 }
