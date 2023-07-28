@@ -38,20 +38,26 @@ export const ThemeToggleContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   position: relative;
+  width: 100%;
 `;
 export const ToggleImageContainer = styled.div`
   display: flex;
-  width: 3.2rem;
+  width: 3rem;
   background-color: ${(props) =>
     props.theme === "light" ? "#E0E0E0" : "#e4b315"};
-
   border-radius: 100px;
   cursor: pointer;
   &:not(input) {
     user-select: none;
   }
   img {
-    width: 2rem;
+    width: 1.6rem;
+    @media (min-width: 576px) and (max-width: 767px) {
+      width: 1.4rem;
+    }
+    @media (max-width: 576px) {
+      width: 1.3rem;
+    }
     animation: ${(props) =>
       props.theme === "light"
         ? css`

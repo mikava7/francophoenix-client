@@ -43,10 +43,9 @@ const VocabylaryTopicsConatiner = styled.div`
   margin: 2rem 3rem;
   position: relative;
   background-image: url(${(props) => props.imageUrl});
-  /* background-size: auto; */
   background-repeat: repeat;
   background-position: center;
-  background-size: 100%; /* Set the initial background-size */
+  background-size: 100%;
   transition: background-size 1s ease;
   z-index: 1;
   font-family: "Arial", "Helvetica", sans-serif, "Times New Roman", "Times",
@@ -66,7 +65,8 @@ const VocabylaryTopicsConatiner = styled.div`
   }
 
   &:hover {
-    background-size: 105%; /* Increase background-size on hover to make it approach */
+    background-size: 70%; /* Increase background-size on hover to make it approach */
+    transition: background-size 1s ease;
   }
 `;
 
@@ -75,11 +75,8 @@ const Titles = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  /* margin: 0 auto; */
   padding: 1rem;
-  h1 {
-    /* font-size: 3rem; */
-  }
+
   p {
     font-size: 1.2rem;
   }

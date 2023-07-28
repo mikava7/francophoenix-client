@@ -6,7 +6,7 @@ export const SentenceBasedExerciseContainer = styled.section`
   width: 100%;
   min-height: 100vh;
   h2 {
-    text-align: center; /* Center align the h2 element */
+    text-align: center;
   }
 `;
 export const BoxContainer = styled.div`
@@ -27,7 +27,6 @@ export const BoxContainer = styled.div`
 
     border-radius: 12px;
     background-color: rgb(219, 255, 161);
-    /* border: 2px solid grey; */
   }
 `;
 

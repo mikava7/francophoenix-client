@@ -163,14 +163,12 @@ const WordCount = styled.div`
     font-size: 1.4rem;
   }
 `;
-
 const NextStepChoise = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
-
 const ChoiseArticle = styled.div`
   display: flex;
   flex-direction: column;

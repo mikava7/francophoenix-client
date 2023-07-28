@@ -22,6 +22,7 @@ const Localization = () => {
 const LenguageButtons = styled.div`
   display: flex;
   flex-direction: column;
+
   button {
     font-size: 1.3rem;
     border: none;

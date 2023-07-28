@@ -20,6 +20,7 @@ import Vocabularies from "./components/vocabulary/Vocabularies";
 import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
 import ExerciseArticle from "./components/vocabulary/vocabularyTopics/ExerciseArticle";
 import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/VocabularyQuiz";
+import Loading from "./components/loading/Loading";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -61,6 +62,7 @@ function App() {
             path="/vocabulary-topics/exercise-quiz"
             element={<VocabularyQuiz />}
           />
+          <Route path="/loading" element={<Loading />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

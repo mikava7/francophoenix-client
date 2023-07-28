@@ -3,24 +3,35 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
+import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Carousel from "../../components/carousel/Carousel";
 import WellcomeCarousel from "../../components/wellcome/WellcomeCarousel";
 import { wellcomeData } from "../../data/wellcomeData";
 import { useTranslation } from "react-i18next";
 import Loading from "../../components/loading/Loading";
+import VocabularyTopicCarousel from "../../components/carousel/vocabularyTopicCarousel/vocabularyTopicCarousel";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books);
   const isLoading = useSelector((state) => state.books.isLoading);
 
+  const vocabularyTopic =
+    useSelector((state) => state.vocabularyTopics.vocabularyTopics) || [];
+  const isLoadingvocabularyTopic = useSelector(
+    (state) => state.vocabularyTopics.isLoading
+  );
   useEffect(() => {
     dispatch(fetchBooksByLevel("A2"));
+  }, []);
+  useEffect(() => {
+    dispatch(fetchVocabularyTopics());
   }, []);
 
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <HomeContainer>
       <WellcomeSection>
@@ -36,6 +47,18 @@ const Home = () => {
         </TopOfCarousel>
 
         <Carousel books={books} />
+      </Section>
+
+      <Section>
+        <TopOfCarousel>
+          <p>{t("Vocabulaire thématique")} </p>
+          <SeeAllLink to="/vocabulary-topics">{t("Tout afficher")}</SeeAllLink>
+        </TopOfCarousel>
+
+        <VocabularyTopicCarousel
+          vocabularyTopic={vocabularyTopic}
+          isLoadingvocabularyTopit={isLoadingvocabularyTopic}
+        />
       </Section>
 
       <Section>
