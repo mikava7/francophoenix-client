@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDialogueTopics } from "../../../redux/slices/dialogueTopics/dialogueTopicSlide";
-import Loading from "../../loading/Loading";
+import { fetchDialogueTopics } from "../../../../redux/slices/dialogueTopics/dialogueTopicSlide";
+import Loading from "../../../loading/Loading";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import ChevronDown from "../../../../public/icons/chevron-down-24.png";
-import SoundIcon from "../../../../public/icons/sound-50.png";
-import RotatingChevron from "../../Utility/RotatingChevron";
-import Listen from "../../Listen";
+import ChevronDown from "../../../../../public/icons/chevron-down-24.png";
+import Listen from "../../../Listen";
+import VocabularyPage from "../VocabularyPage/VocabularyPage";
 const DialoguePage = () => {
   const dispatch = useDispatch();
   const { dialogueTopicId } = useParams();
@@ -37,7 +36,6 @@ const DialoguePage = () => {
   const selectedTopic = dialogueTopics.find(
     (topic) => topic._id === dialogueTopicId
   );
-
   useEffect(() => {
     dispatch(fetchDialogueTopics());
   }, []);
@@ -55,6 +53,7 @@ const DialoguePage = () => {
     chapter,
     chapterName: { chapterNameEng, chapterNameFr, chapterNameGeo },
     dialogues,
+    vocabulary,
   } = selectedTopic || {};
 
   const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
@@ -125,6 +124,9 @@ const DialoguePage = () => {
                         </DialogueLine>
                       );
                     })}
+                    <div>
+                      <VocabularyPage vocabulary={vocabulary} />
+                    </div>
                   </DialogueContainer>
                 );
               })}
@@ -140,10 +142,10 @@ export default DialoguePage;
 const DialogueContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid blueviolet;
   padding: 1rem;
   margin: 1rem;
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 920px;
 `;
 const DialogueLine = styled.div`
   display: flex;
@@ -152,7 +154,7 @@ const DialogueLine = styled.div`
   padding: 1rem;
   border-radius: 12px;
   border-bottom: 3px solid orange;
-  border-right: 2px solid blue;
+  border-right: 2px solid orange;
 
   margin-bottom: 1rem;
 `;
@@ -161,16 +163,21 @@ const MessageLine = styled.div`
   flex-direction: column;
   padding: 0.5rem 1rem;
   background: #ffffec;
+
   min-height: 3.5rem;
+  border-radius: 12px;
   width: 100%;
+  border-bottom: 3px solid #f3c23c;
+  border-right: 2px solid #f3c23c;
   position: relative;
 `;
 const SpeakerSpan = styled.span`
   font-weight: bold;
   margin-right: 0.5rem;
   width: 20%;
+  font-size: 1.1rem;
+  color: #414e8d;
 `;
-
 const MessageParagraph = styled.p`
   padding: 0.5rem;
   border-radius: 0.5rem;

@@ -1,6 +1,6 @@
 [
   {
-    "chapter": 1,
+    "chapter": 5,
     "chapterName": {
       "chapterNameFr": "LA CLASSE DE FRANÇAIS",
       "chapterNameEng": "THE FRENCH CLASS",
@@ -297,6 +297,23 @@
       ]
     },
     "vocabulary": {
+      "definitions": [
+        "Instrument qui permet de tracer des traits, de faire des signes, d'écrire.",
+        "Enregistrement d'images animées, généralement accompagné de son.",
+        "Élément du lexique, en tant que signe.",
+        "Assemblage de feuilles imprimées, reliées ensemble.",
+        "Représentation visuelle réalisée avec des traits, des lignes et des formes.",
+        "Conversation entre deux personnes ou plus.",
+        "Livre formé de feuilles blanches reliées ensemble pour écrire ou dessiner.",
+        "Système de transmission d'images et de sons à distance.",
+        "Disque optique utilisé pour stocker et lire des données.",
+        "Bâton de calcium utilisé pour écrire sur une surface, comme un tableau noir.",
+        "Instrument d'écriture ou de dessin constitué d'un cylindre de bois contenant une mine.",
+        "Phrase exprimant le doute ou cherchant à obtenir des informations.",
+        "Instrument d'écriture avec une pointe qui dépose de l'encre sur le papier.",
+        "Ensemble cohérent de mots et de phrases formant un écrit.",
+        "Réaction ou solution apportée à une question ou une situation."
+      ],
       "fr": [
         "un marqueur",
         "une vidéo",

@@ -5,12 +5,6 @@ const DialogueTopics = ({ dialogueTopics }) => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "geo"; // Change "geo" to the appropriate language code for Georgian
 
-  // Function to get the message in the desired language
-  const getMessageInLanguage = (dialogueObject) => {
-    const messageField = isGeorgian ? "messageGeo" : "messageEng";
-    return dialogueObject[messageField];
-  };
-
   return (
     <DialogueTopicContainer>
       {dialogueTopics.map((topic) => {
@@ -21,8 +15,6 @@ const DialogueTopics = ({ dialogueTopics }) => {
           dialogues,
         } = topic;
         const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
-        //   const { lessonName, dialogue } = dialogues;
-        console.log("chapter", chapter);
 
         return (
           <DialogueTopicCard key={_id}>

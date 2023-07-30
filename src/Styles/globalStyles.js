@@ -406,12 +406,12 @@ export const UnknownWordsItem = styled.ul`
 export const StarIcon = styled.div`
   display: flex;
   align-items: center;
+
   img {
     width: 1.6rem;
     height: 1.6rem;
     cursor: pointer;
-    background-color: transparent;
-    filter: ${(props) => (props.favorited ? "invert(50%)" : "none")};
+    filter: ${(props) => (props.isStarred ? "invert(50%)" : "none")};
   }
 `;
 export const ListenIcon = styled.div`

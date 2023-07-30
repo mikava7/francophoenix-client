@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDialogueTopics } from "../../redux/slices/dialogueTopics/dialogueTopicSlide";
 import Loading from "../loading/Loading";
 import { Link } from "react-router-dom";
-import DialogueTopics from "./dialogueTopics/DialogueTopics";
+import DialogueTopics from "./dialogueTopics/DialogueTopics/DialogueTopics";
 import styled from "styled-components";
-const Dialogues = () => {
+const A1Dialogues = () => {
   const dispatch = useDispatch();
 
   const dialogues =
@@ -31,7 +31,7 @@ const Dialogues = () => {
   );
 };
 
-export default Dialogues;
+export default A1Dialogues;
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;

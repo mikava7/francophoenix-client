@@ -21,8 +21,8 @@ import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
 import ExerciseArticle from "./components/vocabulary/vocabularyTopics/ExerciseArticle";
 import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/VocabularyQuiz";
 import Loading from "./components/loading/Loading";
-import Dialogues from "./components/dialogues/Dialogues";
-import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage";
+import A1Dialogues from "./components/dialogues/A1Dialogues";
+import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage/DialoguePage";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -65,7 +65,7 @@ function App() {
             element={<VocabularyQuiz />}
           />
 
-          <Route path="/dialogue-topics" element={<Dialogues />} />
+          <Route path="/dialogue-topics" element={<A1Dialogues />} />
           <Route
             path="/dialogue-topics/:dialogueTopicId"
             element={<DialoguePage />}
