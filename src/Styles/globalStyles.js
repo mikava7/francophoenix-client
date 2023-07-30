@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 // Rest of the code...
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${(props) => props.theme.colors.lightText};
-    color: ${(props) => props.theme.colors.lightBack};
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;

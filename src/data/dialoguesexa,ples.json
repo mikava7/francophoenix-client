@@ -1,0 +1,429 @@
+const dialogue:[ {
+        "chapter": 2,
+        "chapterName": {
+          "chapterNameFr": "La politess",
+          "chapterNameEng": "La politess",
+          "chapterNameGeo": "ფრანგული კლასი"
+        },
+    
+        "vocabulary": {
+          "fr": [
+            "un marqueur",
+            "une vidéo",
+            "un mot",
+            "un livre",
+            "un page",
+            "un dessin",
+            "un dialogue",
+            "un cahier",
+            "la télévision",
+            "un CD",
+            "une craie",
+            "un crayon",
+            "une question",
+            "un stylo",
+            "un texte",
+            "une réponse"
+          ],
+          "en": [
+            "a marker",
+            "a video",
+            "a word",
+            "a book",
+            "a page",
+            "a drawing",
+            "a dialogue",
+            "a notebook",
+            "the television",
+            "a CD",
+            "a chalk",
+            "a pencil",
+            "a question",
+            "a pen",
+            "a text",
+            "an answer"
+          ],
+          "geo": [
+            "მარკერი",
+            "ვიდეო",
+            "სიტყვა",
+            "წიგნი",
+            "გვერდი",
+            "ხატვა",
+            "დიალოგი",
+            "პურუნანული",
+            "ტელევიზია",
+            "CD",
+            "შავიახვანი",
+            "კარადი",
+            "კითხვა",
+            "კალამი",
+            "ტექსტი",
+            "პასუხი"
+          ]
+        },
+        "dialogue": [
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Bonjour !",
+            "messageEng": "Hello!",
+            "messageGeo": "გამარჯობა"
+          },
+          {
+            "speaker": "Les étudiants",
+            "messageFr": "Bonjour madame.",
+            "messageEng": "Hello, ma'am.",
+            "messageGeo": "გამარჯობა ქმარი"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "On va corriger les exercices. Qui veut venir au tableau ?",
+            "messageEng": "We will correct the exercises. Who wants to come to the board?",
+            "messageGeo": "შევადაროთ დავალებები. ვის უნდა მოვიდეს ცარიელ ადგილას?"
+          },
+          {
+            "speaker": "Paul",
+            "messageFr": "Moi, je veux bien.",
+            "messageEng": "I'd like to.",
+            "messageGeo": "მე, მე მინდა"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Très bien, Paul. Vous me donnez votre cahier? Merci.",
+            "messageEng": "Very well, Paul. Can you give me your notebook? Thank you.",
+            "messageGeo": "ძალიან კარგი, პოლ. გამომცემ თქმას? მადლობა"
+          },
+          {
+            "speaker": "Valérie",
+            "messageFr": "« Comment vous vous appelez ? »",
+            "messageEng": "\"What is your name?\"",
+            "messageGeo": "« როგორ გქვიათ თქვენი სახელი? »"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Merci Valérie. Paul, vous écrivez la réponse au tableau?",
+            "messageEng": "Thank you, Valérie. Paul, will you write the answer on the board?",
+            "messageGeo": "მადლობა, ვალერი. პოლ, შეგიძლია წერო პასუხი ცარიელ დაფაზე?"
+          },
+          {
+            "speaker": "Paul",
+            "messageFr": "Oh, je n’ai pas de craie.",
+            "messageEng": "Oh, I don't have chalk.",
+            "messageGeo": "ო, ჩემს ხელში კრედები არ არის"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Tenez, voilà.",
+            "messageEng": "Here you go.",
+            "messageGeo": "აისია, აი რა"
+          },
+          {
+            "speaker": "Paul",
+            "messageFr": "(Paul écrit au tableau.)",
+            "messageEng": "(Paul writes on the board.)",
+            "messageGeo": "(პოლი წერს ცარიელ დაფაზე.)"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Emmanuel, vous pouvez lire la réponse de Paul, s’il vous plaît?",
+            "messageEng": "Emmanuel, can you read Paul's answer, please?",
+            "messageGeo": "ემანუელი, შეგიძლია წაიკითხო პოლის პასუხი, თუ გსურთ?"
+          },
+          {
+            "speaker": "Emmanuel",
+            "messageFr": "« Je m’appelle monsieur Dubois. »",
+            "messageEng": "\"My name is Mr. Dubois.\"",
+            "messageGeo": "« ჩემს სახელს მიუწერეთ ბატონ დუბოა. »"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Emmanuel, « je m’appelle, » avec un « 1 » ou deux « 1 » ?",
+            "messageEng": "Emmanuel, 'my name is,' with one '1' or two '1's?",
+            "messageGeo": "ემანუელი,  « je m’appelle, » ერთ  « 1 » თუ ორ  « 1 » ით?"
+          },
+          {
+            "speaker": "Emmanuel",
+            "messageFr": "Avec deux « 1 ».",
+            "messageEng": "With two '1's.",
+            "messageGeo": "ორ  « 1 » ით."
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Vous pouvez épeler?",
+            "messageEng": "Can you spell it?",
+            "messageGeo": "შეგიძლიათ დაიწეროთ ასო-ასო?"
+          },
+          {
+            "speaker": "Emmanuel",
+            "messageFr": "« m » apostrophe - « a » - 2 « p » - « e » - 2 « 1 » - « e ».",
+            "messageEng": "\"m\" apostrophe - \"a\" - 2 \"p\" - \"e\" - 2 \"1\" - \"e\".",
+            "messageGeo": "« მ » გამოხატავსთავდა - « ა » - 2 « პ » - « ე » - 2 « 1 » - « ე »."
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Très bien, Emmanuel ; Amélie, vous pouvez répéter la réponse ?",
+            "messageEng": "Very well, Emmanuel. Amélie, can you repeat the answer?",
+            "messageGeo": "ძალიან კარგი, ემანუელი. ამელი, შეგიძლია გამეცნო პასუხი?"
+          },
+          {
+            "speaker": "Amélie",
+            "messageFr": "« Je m’appelle monsieur Dubois. »",
+            "messageEng": "\"My name is Mr. Dubois.\"",
+            "messageGeo": "« ჩემს სახელს მიუწერეთ ბატონ დუბოა. »"
+          },
+          {
+            "speaker": "Le professeur",
+            "messageFr": "Bien. On continue l’exercice...",
+            "messageEng": "Good. Let's continue the exercise...",
+            "messageGeo": "კარგი. შევადაროთ დავალება..."
+          }
+        ],
+    
+        "verbs": [
+          "Écoutez",
+          "cochez",
+          "compléter",
+          "ouvre",
+          "ferme",
+          "comprend",
+          "épelle",
+          "dit",
+          "travaillez",
+          "avez",
+          "fait"
+        ],
+    
+        "exercise": {
+          "exerciseName": "Complétez les phrases avec les bonnes actions :",
+          "questions": [
+            {
+              "question": "On écoute et on ouvre le livre.",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "vrai"
+            },
+            {
+              "question": "On ferme le livre et on écoute.",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "faux"
+            },
+            {
+              "question": "On écoute deux fois le dialogue.",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "vrai"
+            },
+            {
+              "question": "On comprend le dialogue et on ouvre le livre.",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "on ne sait pas"
+            },
+            {
+              "question": "« Prenez vos cahiers » = « Ouvrez vos cahiers ».",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "vrai"
+            },
+            {
+              "question": "On ne sait pas dire ..., on dit « Comment on dit... en français? ».",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "on ne sait pas"
+            },
+            {
+              "question": "On écrit et après on comprend.",
+              "options": ["vrai", "faux", "on ne sait pas"],
+              "correctAnswer": "faux"
+            }
+          ]
+        }
+      },
+    
+      {
+        "dialogue": [
+          {
+            "speaker": "Mme Normand",
+            "messageFr": "Bonjour, Victor.",
+            "messageEng": "Hello, Victor.",
+            "messageGeo": "გამარჯობა, ვიქტორ."
+          },
+          {
+            "speaker": "Victor",
+            "messageFr": "Bonjour, madame Normand.",
+            "messageEng": "Hello, Mrs. Normand.",
+            "messageGeo": "გამარჯობა, მადამ ნორმანდ."
+          },
+          {
+            "speaker": "Mme Normand",
+            "messageFr": "Tu vas bien? Oh ! Mais tu as un copain aujourd’hui !",
+            "messageEng": "Are you doing well? Oh! But you have a friend today!",
+            "messageGeo": "იქნებ კარგად? ოჰ! მაგრამ დღეს გაქვს მეგობარი!"
+          },
+          {
+            "speaker": "Victor",
+            "messageFr": "Oh! oui, c’est Samuel ; on va à la piscine.",
+            "messageEng": "Oh! yes, it's Samuel; we're going to the pool.",
+            "messageGeo": "ოჰ! დიახ, ეს სამუელია; ჩვენ ვიწამებთ ბურთულში."
+          },
+          {
+            "speaker": "Samuel",
+            "messageFr": "Bonjour madame.",
+            "messageEng": "Hello, Mrs.",
+            "messageGeo": "გამარჯობა, მადამ."
+          },
+          {
+            "speaker": "Mme Normand",
+            "messageFr": "Bonjour Samuel. Bon, alors passez une bonne journée !",
+            "messageEng": "Hello, Samuel. Well, then have a good day!",
+            "messageGeo": "გამარჯობა, სამუელი. კარგად, მაშინ გაქვთ კარგი დღე!"
+          },
+          {
+            "speaker": "Samuel",
+            "messageFr": "Merci, vous aussi. Au revoir, madame.",
+            "messageEng": "Thank you, you too. Goodbye, Mrs.",
+            "messageGeo": "მადლობა, თქვენც. ნახვამდის, მადამ."
+          },
+          {
+            "speaker": "Samuel",
+            "messageFr": "Qui c’est?",
+            "messageEng": "Who is that?",
+            "messageGeo": "ვინ არის ეს?"
+          },
+          {
+            "speaker": "Victor",
+            "messageFr": "C’est ma voisine, elle est très gentille.",
+            "messageEng": "She's my neighbor, she's very kind.",
+            "messageGeo": "ეს ჩემი ახლოა, ის ძალიან კეთილია."
+          }
+        ]
+      },
+      {
+        "dialogue": [
+          {
+            "speaker": "Le directeur",
+            "messageFr": "Mademoiselle Legoff, je vous présente Charles Mangin, notre directeur marketing.",
+            "messageEng": "Miss Legoff, let me introduce you to Charles Mangin, our marketing director.",
+            "messageGeo": "შემოგთავაზებ ჩარლზ მანჟან, ჩვენი მარკეტინგის დირექტორს."
+          },
+          {
+            "speaker": "M. Mangin",
+            "messageFr": "Bonjour monsieur, bonjour mademoiselle. Vous êtes la nouvelle stagiaire, c’est ça?",
+            "messageEng": "Hello, sir. Hello, miss. You're the new intern, right?",
+            "messageGeo": "გამარჯობა ბატონო, გამარჯობა და წინამდებარე აბრე. თქვენ ხართ ახალი სტაჟიორი, ჭა?"
+          },
+          {
+            "speaker": "Le directeur",
+            "messageFr": "Oui, elle va travailler avec nous en juillet et en août. Elle est étudiante en gestion.",
+            "messageEng": "Yes, she will work with us in July and August. She is a management student.",
+            "messageGeo": "დიახ, ის თქვენს თანამეტრებაში იმუშავებს ივლისში და აგვისტოში. ის მართვის სწავლის სტუდენტია."
+          },
+          {
+            "speaker": "M. Mangin",
+            "messageFr": "Vous êtes la bienvenue, mademoiselle.",
+            "messageEng": "You are welcome, miss.",
+            "messageGeo": "მოგისარიებს ჩარლზ მანჟან."
+          },
+          {
+            "speaker": "Mlle Legoff",
+            "messageFr": "Merci monsieur, à bientôt.",
+            "messageEng": "Thank you, sir. See you soon.",
+            "messageGeo": "მადლობა, ბატონო. მალავე."
+          },
+          {
+            "speaker": "Le directeur",
+            "messageFr": "À tout à l’heure, Charles. Mademoiselle Legoff, je passe devant vous, excusez-moi. Je vais vous présenter Alice, notre assistante.",
+            "messageEng": "See you later, Charles. Miss Legoff, I'm passing in front of you, excuse me. I will introduce you to Alice, our assistant.",
+            "messageGeo": "ნახვამდის მხარდაჭერაში, ჩარლზ. ჩემოს პირიდან გადავდივარ, გამოგიერთდით. ვიქნებ თქვენ ალისს, ჩვენი ასისტენტს."
+          },
+          {
+            "speaker": "Mlle Legoff",
+            "messageFr": "Je vous en prie.",
+            "messageEng": "You're welcome.",
+            "messageGeo": "გთხოვთ."
+          }
+        ]
+      },
+      {
+        "dialogue": [
+          {
+            "speaker": "Sam",
+            "messageFr": "Bonjour, tu es étudiante ici ?",
+            "messageEng": "Hello, are you a student here?",
+            "messageGeo": "გამარჯობა, შენ სტუდენტი ხარ აქ?"
+          },
+          {
+            "speaker": "Sabrina",
+            "messageFr": "Oui, je suis journaliste et j’apprends le français.",
+            "messageEng": "Yes, I am a journalist, and I am learning French.",
+            "messageGeo": "დიახ, მე ჟურნალისტი ვარ და ვისწავ ფრანგულს."
+          },
+          {
+            "speaker": "Sam",
+            "messageFr": "Quelle est ta nationalité ?",
+            "messageEng": "What is your nationality?",
+            "messageGeo": "შენი ეროვნება რა არის?"
+          },
+          {
+            "speaker": "Sabrina",
+            "messageFr": "Je suis espagnole. Lui, c’est mon ami Igor; il est russe.",
+            "messageEng": "I am Spanish. This is my friend Igor; he is Russian.",
+            "messageGeo": "მე ვერსალიელი ვარ. იგორი, ეს ჩემი მეგობარია; იგი რუსიანელია."
+          },
+          {
+            "speaker": "Sam",
+            "messageFr": "Bonjour, Igor; moi, c’est Sam, je suis américain. Et tu fais quoi en Russie ?",
+            "messageEng": "Hello, Igor; I'm Sam, I'm American. And what do you do in Russia?",
+            "messageGeo": "გამარჯობა, იგორი; მე ვარ სემი, ამერიკელი ვარ. შენ რა გააკეთე რუსეთში?"
+          },
+          {
+            "speaker": "Igor",
+            "messageFr": "Je suis ingénieur et je fais un stage ici. Et toi, quelle est ta profession ?",
+            "messageEng": "I am an engineer, and I am doing an internship here. And you, what is your profession?",
+            "messageGeo": "მე ვარ ინჟინერი და ხელმისაწყეთად მუშავდები აქ. შენ კი, რა პროფესია შენი?"
+          },
+          {
+            "speaker": "Sam",
+            "messageFr": "Aux États-Unis, je suis informaticien. Je vous présente une autre étudiante, c’est Neila, elle est indienne. Elle est informaticienne comme moi.",
+            "messageEng": "In the United States, I am a computer scientist. Let me introduce you to another student, Neila, she is Indian. She is a computer scientist like me.",
+            "messageGeo": "აშშ-ში, მე ვარ კომპიუტერული მეცნიერებელი. გთხოვ მიგეთეთ სხვა სტუდენტი, ეს ნეილაა, იგი ინდიურია. იგი კომპიუტერული მეცნიერებელია როგორც მეცნიერებელი მე."
+          },
+          {
+            "speaker": "Neila",
+            "messageFr": "Bonjour.",
+            "messageEng": "Hello.",
+            "messageGeo": "გამარჯობა."
+          },
+          {
+            "speaker": "Sabrina",
+            "messageFr": "Bon, moi j’ai faim. On va déjeuner?",
+            "messageEng": "Well, I'm hungry. Shall we have lunch?",
+            "messageGeo": "კარგი, მე შემიძლია. წავიდეთ შესვლა?"
+          },
+          {
+            "speaker": "Igor",
+            "messageFr": "Bonne idée !",
+            "messageEng": "Good idea!",
+            "messageGeo": "კარგი იდეა!"
+          },
+          {
+            "speaker": "Sam",
+            "messageFr": "Au fait, tu t’appelles comment?",
+            "messageEng": "By the way, what's your name?",
+            "messageGeo": "შენი სახელი რა არის გვერდით?"
+          },
+          {
+            "speaker": "Sabrina",
+            "messageFr": "Sabrina. Tiens, voilà Marco ! Tu viens avec nous ?",
+            "messageEng": "Sabrina. Look, here's Marco! Are you coming with us?",
+            "messageGeo": "საბრინა. უყურე, აქ არის მარკო! შენ გვერდით მოდი?"
+          },
+          {
+            "speaker": "Marco",
+            "messageFr": "Oh, oui, ma belle, je viens avec toi !",
+            "messageEng": "Oh, yes, my beauty, I'm coming with you!",
+            "messageGeo": "ოჰ, დიახ, ჩემი ლამა, მე შენთა თუთით მიმავალ!"
+          },
+          {
+            "speaker": "Sabrina",
+            "messageFr": "Alors je vous présente Marco. Il est italien et c’est un... devinez... comédien !",
+            "messageEng": "So let me introduce you to Marco. He is Italian, and he is... guess... an actor!",
+            "messageGeo": "ამიტომ შემიძლია გთხოვ გეგმეო მარკო. იგი იტალიელია და იგი არის... შეგიგმებენ... კომედიანი!"
+          }
+        ]
+      }]

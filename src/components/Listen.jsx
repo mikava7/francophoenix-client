@@ -9,7 +9,7 @@ const Listen = () => {
     setIsActive(true);
     setTimeout(() => {
       setIsActive(false);
-    }, 3000);
+    }, 2000);
   };
 
   return (

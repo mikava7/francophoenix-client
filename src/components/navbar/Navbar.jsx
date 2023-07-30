@@ -23,8 +23,8 @@ const Navbar = ({ toggleTheme, theme }) => {
         <StyledList to="/courses" isGeorgian={isGeorgian}>
           {t("Courses")}
         </StyledList>
-        <StyledList to="/projects" isGeorgian={isGeorgian}>
-          {t("Articles")}
+        <StyledList to="/dialogue-topics" isGeorgian={isGeorgian}>
+          {t("Dialogues")}
         </StyledList>
         <StyledList to="/vocabulary-topics" isGeorgian={isGeorgian}>
           {t("Vocabulaire")}
@@ -35,7 +35,7 @@ const Navbar = ({ toggleTheme, theme }) => {
       </StyledUl>
 
       <Account>
-        <LoginLink to="/login">{t("Connexion")}</LoginLink>
+        {/* <LoginLink to="/login">{t("Connexion")}</LoginLink> */}
         <ToggleContainer>
           <ThemeToggle toggleTheme={toggleTheme} theme={theme} />
         </ToggleContainer>
@@ -69,16 +69,16 @@ const StyledUl = styled.ul`
   flex: 1;
 
   @media (min-width: 768px) and (max-width: 991px) {
-    & > :nth-child(3) {
+    & > :nth-child(5) {
       display: none;
     }
   }
 
   @media (min-width: 576px) and (max-width: 767px) {
-    & > :nth-child(3) {
+    & > :nth-child(2) {
       display: none;
     }
-    & > :nth-child(4) {
+    & > :nth-child(5) {
       display: none;
     }
   }

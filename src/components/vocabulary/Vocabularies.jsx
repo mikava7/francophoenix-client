@@ -12,7 +12,6 @@ const Vocabularies = () => {
 
   const vocabularyTopics =
     useSelector((state) => state.vocabularyTopics.vocabularyTopics) || [];
-  console.log(vocabularyTopics);
 
   const isLoading = useSelector((state) => state.vocabularyTopics.isLoading);
   useEffect(() => {

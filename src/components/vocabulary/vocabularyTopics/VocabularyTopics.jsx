@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const VocabularyTopics = ({ vocabularyTopics }) => {
-  const { t, i18n } = useTranslation(); // Get the current language and translation function (t)
+  // Get the current language and translation function (t)
+  const { t, i18n } = useTranslation();
   const isEnglish = i18n.language === "en";
   return (
     <div>

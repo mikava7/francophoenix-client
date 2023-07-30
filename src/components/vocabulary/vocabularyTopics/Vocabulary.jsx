@@ -3,13 +3,12 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchVocabularyTopics } from "../../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
-import Listen from "../../Listen";
-import Favorite from "../../Favorite";
 import styled from "styled-components";
 import VocabularyQuiz from "./VocabularyQuiz";
 import ExerciseArticle from "./ExerciseArticle";
 import VocabularyAccordion from "./vocabularyAccordion/VocabularyAccordion";
 import ChevronDown from "../../../../public/icons/chevron-down-24.png";
+import RotatingChevron from "../../Utility/RotatingChevron";
 const Vocabulary = () => {
   const [showArticle, setShowArticle] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -26,8 +25,8 @@ const Vocabulary = () => {
   };
 
   const handleQuizToggle = () => {
-    setShowQuiz(!showQuiz);
     setRotationQuiz((prevRotation) => prevRotation + 180);
+    setShowQuiz(!showQuiz);
   };
   const { vocabularyTopicId } = useParams();
   const dispatch = useDispatch();
@@ -95,11 +94,10 @@ const Vocabulary = () => {
       <NextStepChoise>
         <h2 onClick={handleArticleToggle}>
           {t("Masculin ou Féminin")}
-          <ChevronImage
-            src={ChevronDown}
-            alt="ChevronDown"
-            expanded={showArticle}
-            rotation={rotationArticle}
+
+          <RotatingChevron
+            isActive={showArticle}
+            onClick={handleArticleToggle}
           />
         </h2>
         <ChoiseArticle>
@@ -109,12 +107,15 @@ const Vocabulary = () => {
         </ChoiseArticle>
         <h2 onClick={handleQuizToggle}>
           {t("Testez votre vocabulaire")}
-          <ChevronImage
+
+          <RotatingChevron isActive={showQuiz} onClick={handleQuizToggle} />
+
+          {/* <ChevronImage
             src={ChevronDown}
             alt="ChevronDown"
             expanded={showQuiz}
             rotation={rotationQuiz}
-          />
+          /> */}
         </h2>
         <ChoiseArticle>
           {showQuiz && <VocabularyQuiz vocabularyData={selectedTopic} />}

@@ -8,6 +8,7 @@ import newPhraseReducer from "./slices/elementary/newPhraseSlice";
 import grammerSliceReducer from "./slices/elementary/grammerSlice";
 import booksReducer from "./slices/books/booksSlice";
 import vocabularyTopicsReducer from "./slices/vocabularyTopics/vocabularyTopicSlice";
+import dialogueTopicSlideReducer from "./slices/dialogueTopics/dialogueTopicSlide";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -18,6 +19,8 @@ const store = configureStore({
     vocabularyTopics: vocabularyTopicsReducer,
 
     books: booksReducer,
+
+    dialogueTopics: dialogueTopicSlideReducer,
   },
 });
 //
