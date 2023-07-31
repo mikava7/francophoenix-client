@@ -412,9 +412,13 @@ export const StarIcon = styled.div`
     height: 1.6rem;
     cursor: pointer;
     filter: ${(props) => (props.isStarred ? "invert(50%)" : "none")};
+    transition: transform 0.3s ease-in-out;
+    transform: ${(props) => (props.isStarred ? "scale(1)" : "scale(1.1)")};
   }
 `;
 export const ListenIcon = styled.div`
+  display: flex;
+  align-items: center;
   & > img {
     width: ${(props) => props.width || "1.5rem"};
     height: ${(props) => props.height || "1.5rem"};
@@ -422,7 +426,7 @@ export const ListenIcon = styled.div`
 
     filter: ${(props) => (props.isActive ? "none" : "invert(50%)")};
     transition: transform 0.3s ease-in-out;
-    transform: ${(props) => (props.isActive ? "scale(1.2)" : "scale(1)")};
+    transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
   }
 `;
 

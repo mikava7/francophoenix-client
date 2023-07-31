@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Listen from "../../../Listen";
 import Favorite from "../../../Favorite";
-
+import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const VocabularyPage = ({ vocabulary }) => {
   const { fr, geo, en, definitions } = vocabulary;
   const { t, i18n } = useTranslation();
@@ -66,8 +66,11 @@ const VocabularyPage = ({ vocabulary }) => {
             </SecondLangOrDef>
             <WordCArdApendix>
               <p>nom masculin</p>
-              <Listen />
-              <Favorite />
+              <IconsContainer>
+                <Listen />
+                <Favorite />
+                <AddToFlashcards />
+              </IconsContainer>
             </WordCArdApendix>
           </WordCard>
         ))}
@@ -114,4 +117,12 @@ const WordCArdApendix = styled.div`
 const SecondLangOrDef = styled.div`
   margin-left: 1rem;
   min-height: 3rem;
+  padding: 0.5rem;
+`;
+const IconsContainer = styled.div`
+  display: flex;
+
+  gap: 1rem;
+  margin-right: 1rem;
+  margin-left: auto;
 `;

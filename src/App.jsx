@@ -23,6 +23,7 @@ import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/VocabularyQ
 import Loading from "./components/loading/Loading";
 import A1Dialogues from "./components/dialogues/A1Dialogues";
 import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage/DialoguePage";
+import FindTranslationForFrenchWord from "./pages/SearchComponent/frenchWords/FindTranslationForFrenchWord";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -36,6 +37,10 @@ function App() {
         <Navbar toggleTheme={toggleTheme} theme={theme} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/dictionary"
+            element={<FindTranslationForFrenchWord />}
+          />
 
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />

@@ -8,6 +8,7 @@ import styled from "styled-components";
 import ChevronDown from "../../../../../public/icons/chevron-down-24.png";
 import Listen from "../../../Listen";
 import VocabularyPage from "../VocabularyPage/VocabularyPage";
+import DialoguePhrase from "../DialoguePhrase/DialoguePhrase";
 const DialoguePage = () => {
   const dispatch = useDispatch();
   const { dialogueTopicId } = useParams();
@@ -54,8 +55,8 @@ const DialoguePage = () => {
     chapterName: { chapterNameEng, chapterNameFr, chapterNameGeo },
     dialogues,
     vocabulary,
+    phrases,
   } = selectedTopic || {};
-
   const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
 
   return (
@@ -127,6 +128,7 @@ const DialoguePage = () => {
                     <div>
                       <VocabularyPage vocabulary={vocabulary} />
                     </div>
+                    <DialoguePhrase phrases={phrases} />
                   </DialogueContainer>
                 );
               })}

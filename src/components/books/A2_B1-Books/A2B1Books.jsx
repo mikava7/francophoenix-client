@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import BookDetails from "../bookDisplay/BookDetails";
 import { fetchBooksByLevel } from "../../../redux/slices/books/booksSlice";
@@ -25,13 +24,13 @@ const A2B1Books = () => {
 
   return (
     <BooksPageContainer>
-      <Title>A1-A2 Level Books</Title>
+      <Title>Our Best Books</Title>
       <BookList>
         {books.map((book) => (
           <BookItem key={book._id}>
-            <Link to={`/books/${book._id}`}>
+            <StyledLink to={`/books/${book._id}`}>
               <BookDetails books={book} />
-            </Link>
+            </StyledLink>
           </BookItem>
         ))}
       </BookList>
@@ -42,10 +41,11 @@ const A2B1Books = () => {
 export default A2B1Books;
 const BooksPageContainer = styled.div`
   min-height: 100vh;
+  margin: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #fdf3f2;
 `;
 const Title = styled.h2`
@@ -56,7 +56,8 @@ const Title = styled.h2`
 
 const BookList = styled.ul`
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  max-width: 100%;
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   list-style: none;
   padding: 0;
@@ -65,4 +66,10 @@ const BookList = styled.ul`
 const BookItem = styled.li`
   font-size: 18px;
   margin-bottom: 5px;
+  max-width: 100%;
+  margin: 0 2rem;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;

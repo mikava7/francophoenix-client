@@ -158,9 +158,7 @@
       "les nouveaux-mariés (m. pl.)",
       "le tout-petit, la toute-petite",
       "le veuf",
-      "la veuve",
-
-      ""
+      "la veuve"
     ],
     "english": [
       "adolescent",
@@ -504,7 +502,8 @@
     "iconUrl": "/icons/greeting-50.png",
     "french": [
       "la bru",
-      "le cousin, la cousine",
+      "le cousin",
+      "la cousine",
       "le demi-frère",
       "la demi-sœur",
       "la famille",
@@ -513,7 +512,8 @@
       "le fils",
       "le frère",
       "le gendre",
-      "le jumeau, la jumelle",
+      "le jumeau",
+      "la jumelle",
       "la maman",
       "le mari",
       "la mère",
@@ -535,6 +535,8 @@
     "english": [
       "daughter-in-law",
       "cousin",
+      "cousin",
+
       "half-brother",
       "half-sister",
       "relatives",
@@ -543,7 +545,9 @@
       "son",
       "brother",
       "son-in-law",
-      "twin brother, sister",
+      "twin brother",
+      "twin sister",
+
       "mom",
       "husband",
       "mother",
@@ -565,6 +569,8 @@
     "georgian": [
       "daughter-in-law",
       "cousin",
+      "cousin",
+
       "half-brother",
       "half-sister",
       "relatives",
@@ -573,7 +579,9 @@
       "son",
       "brother",
       "son-in-law",
-      "twin brother, sister",
+      "twin brother",
+      "twin sister",
+
       "mom",
       "husband",
       "mother",
@@ -685,8 +693,10 @@
     "imageUrl": "/images/handShake.avif",
     "iconUrl": "/icons/greeting-50.png",
     "french": [
-      "l’ami (m.), le copain",
-      "l’amie (f.), la copine",
+      "l’ami (m.)",
+      "le copain",
+      "l’amie (f.) ",
+      "la copine",
       "l’ami(e) intime",
       "les amoureux (m. pl.)",
       "l’amant(e)",
