@@ -29,8 +29,8 @@ const Navbar = ({ toggleTheme, theme }) => {
         <StyledList to="/vocabulary-topics" isGeorgian={isGeorgian}>
           {t("Vocabulaire")}
         </StyledList>
-        <StyledList to="/contact" isGeorgian={isGeorgian}>
-          {t("Contacter")}
+        <StyledList to="/dictionary" isGeorgian={isGeorgian}>
+          {t("Dictionnaire")}
         </StyledList>
       </StyledUl>
 
