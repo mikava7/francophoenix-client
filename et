@@ -1,0 +1,19 @@
+[33m9466e720[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: merge origin/main: Merge made by the 'ort' strategy.
+[33m82e4a209[m HEAD@{1}: commit: search component + data
+[33m2cb9bcee[m HEAD@{2}: commit: dictionary data 1300+ and FindTranslationForFrenchWord
+[33m018d7367[m HEAD@{3}: commit: dialogue vocabulaty component
+[33mab7e42e8[m HEAD@{4}: commit: added chevro and listen to dialogue page
+[33me886988e[m HEAD@{5}: commit: vocabulary carousel
+[33mc0f7d3ec[m HEAD@{6}: commit: accordion and modal
+[33m7d172619[m HEAD@{7}: commit: le la training and 7topic of voacbulary added
+[33mf23bd0b2[m HEAD@{8}: commit: quiz, generate random question from data
+[33m57e0cfff[m HEAD@{9}: commit: vocabulary topics, welcome styling
+[33m232cb876[m HEAD@{10}: commit: localization, carousel, day/night
+[33m53b341e1[m HEAD@{11}: commit: books added
+[33m8f0715be[m HEAD@{12}: pull --rebase origin main (finish): returning to refs/heads/main
+[33m8f0715be[m HEAD@{13}: pull --rebase origin main (start): checkout 8f0715be2834e1a240bf0a1f95cebf42f50b2cd6
+[33m52b8af9e[m HEAD@{14}: commit: grammer
+[33md4c15727[m HEAD@{15}: commit: audio done
+[33m834c0acb[m HEAD@{16}: commit: bug fixed
+[33m64e76584[m HEAD@{17}: Branch: renamed refs/heads/main to refs/heads/main
+[33m64e76584[m HEAD@{19}: commit (initial): first commit

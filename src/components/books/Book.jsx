@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
 import WordTooltip from "./wordTooltips/WordTooltip";
-import { newWords } from "../../data/wordTranslation";
 // import { fetchDictionary } from "../../redux/slices/dictionarySlice/dictionarySlice";
 import Loading from "../loading/Loading";
 import { useTranslation } from "react-i18next";
@@ -90,7 +89,7 @@ const Book = () => {
               <p>{formatChapterText(chapter.subtitle)}</p>
               <div>
                 {words.map((word, index) => {
-                  const translation = newWords[word]; // Get the translation for the word from the `newWords` object
+                  // const translation = newWords[word]; // Get the translation for the word from the `newWords` object
                   // const translation = dictionary.find(
                   //   (entry) => entry.french === word
                   // );
@@ -103,7 +102,7 @@ const Book = () => {
                       onMouseEnter={() => handleWordHover(word)}
                       onMouseLeave={handleWordLeave}
                     >
-                      {translation && isHovered ? ( // Display the tooltip if the translation exists and the word is hovered
+                      {isHovered ? ( // Display the tooltip if the translation exists and the word is hovered
                         <WordTooltip content={translation}>
                           {formatChapterText(word)}
                         </WordTooltip>

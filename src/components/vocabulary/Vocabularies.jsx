@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { beginnerVocabulary } from "../../data/beginnerVocabulary";
 import Vocabulary from "./vocabularyTopics/Vocabulary";
 import VocabularyTopics from "./vocabularyTopics/VocabularyTopics";
 import { useDispatch, useSelector } from "react-redux";

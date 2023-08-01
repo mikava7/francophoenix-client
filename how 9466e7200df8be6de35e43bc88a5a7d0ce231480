@@ -1,0 +1,68 @@
+[33mcommit 9466e7200df8be6de35e43bc88a5a7d0ce231480[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Merge: 82e4a209 d8c9ecc1
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Tue Aug 1 17:19:28 2023 +0200
+
+    have no idea why
+    
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit 82e4a20961f0b9521b013019f769b21ae9fe392b[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Tue Aug 1 17:16:50 2023 +0200
+
+    search component + data
+
+[33mcommit d8c9ecc138e2d769445afd9bfd0669c3f940417f[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: mikava7 <96695862+mikava7@users.noreply.github.com>
+Date:   Tue Aug 1 10:09:30 2023 +0200
+
+    Delete node_modules directory
+
+[33mcommit 1f75e04f9b6a487339b5b4e708ef44d39afe49d3[m
+Author: mikava7 <96695862+mikava7@users.noreply.github.com>
+Date:   Tue Aug 1 10:06:15 2023 +0200
+
+    Delete src/data directory
+
+[33mcommit 2cb9bcee5549ed5c13ffc811670a291550fa4e42[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Mon Jul 31 20:18:49 2023 +0200
+
+    dictionary data 1300+ and FindTranslationForFrenchWord
+
+[33mcommit 018d7367a5e610fcc54ee5b39d08c609ace54fa8[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Sun Jul 30 21:19:44 2023 +0200
+
+    dialogue vocabulaty component
+
+[33mcommit ab7e42e88669199bcf9992c2eb60da6c748d5300[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Sun Jul 30 18:16:35 2023 +0200
+
+    added chevro and listen to dialogue page
+
+[33mcommit e886988e747e918b73c1c3c4e59b6be3615a0580[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Fri Jul 28 19:50:20 2023 +0200
+
+    vocabulary carousel
+
+[33mcommit c0f7d3ecfcac66280b47c7562d85622739ad0a9a[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Thu Jul 27 21:10:54 2023 +0200
+
+    accordion and modal
+
+[33mcommit 7d1726193226cc0856e71f722df28e2e3f03204a[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Wed Jul 26 21:39:12 2023 +0200
+
+    le la training and 7topic of voacbulary added
+
+[33mcommit f23bd0b2a1f06cb1c39b1dcd3faa304fce616cc8[m
+Author: Irakli Mikava <i.mikava365@gmail.com>
+Date:   Tue Jul 25 22:29:28 2023 +0200
+
+    quiz, generate random question from data

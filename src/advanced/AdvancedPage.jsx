@@ -1,105 +1,95 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Dialogue2 from "../audio/dialogues/06VED.mp3";
-import { dialogue2, dialogue2Eng } from "../data/dialogue";
+// import { dialogue2, dialogue2Eng } from "../data/dialogue";
 
 const AdvancedPage = () => {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showTranslations, setShowTranslations] = useState(
-    dialogue2.map(() => false)
-  );
-  const [highlightedLine, setHighlightedLine] = useState(null);
-  const [showAllTranslations, setShowAllTranslations] = useState(false);
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleShowTranslation = (index) => {
-    setShowTranslations((prevShowTranslations) => {
-      const updatedShowTranslations = [...prevShowTranslations];
-      updatedShowTranslations[index] = !updatedShowTranslations[index];
-      return updatedShowTranslations;
-    });
-  };
-
-  const handleToggleAllTranslations = () => {
-    setShowAllTranslations(!showAllTranslations);
-  };
-
-  useEffect(() => {
-    const handleTimeUpdate = () => {
-      const currentTime = audioRef.current.currentTime;
-      const lineIndex = dialogue2.findIndex(
-        (line, index) =>
-          currentTime >= line.startTime &&
-          (index === dialogue2.length - 1 ||
-            currentTime < dialogue2[index + 1].startTime)
-      );
-      setHighlightedLine(lineIndex);
-    };
-
-    audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
-
-    return () => {
-      audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, []);
-
-  return (
-    <PageWrapper>
-      <Title>Dialogue 2</Title>
-
-      <ToggleTranslationsButton onClick={handleToggleAllTranslations}>
-        {showAllTranslations
-          ? "Hide All Translations"
-          : "Show All Translations"}
-      </ToggleTranslationsButton>
-
-      <Content>
-        {dialogue2.map((line, index) => (
-          <React.Fragment key={index}>
-            <ChapterInfo>
-              {line.chapter} - {line.chapterTitle}
-            </ChapterInfo>
-            <LessonTitle>{line.lessonTitle}</LessonTitle>
-            <DialogueLine highlighted={index === highlightedLine}>
-              <Speaker>{line.speaker}:</Speaker>
-              <Text>{line.text}</Text>
-            </DialogueLine>
-            <EngDialogueLine
-              show={showAllTranslations || showTranslations[index]}
-            >
-              <Speaker>{dialogue2Eng[index].speaker}:</Speaker>
-              <Text>{dialogue2Eng[index].text}</Text>
-            </EngDialogueLine>
-            {(!showAllTranslations || showTranslations[index]) && (
-              <ShowTranslationButton
-                onClick={() => handleShowTranslation(index)}
-              >
-                {showTranslations[index]
-                  ? "Hide Translation"
-                  : "Show Translation"}
-              </ShowTranslationButton>
-            )}
-          </React.Fragment>
-        ))}
-      </Content>
-
-      <AudioControls>
-        <audio ref={audioRef} src={Dialogue2} />
-        <PlayPauseButton onClick={handlePlayPause}>
-          {isPlaying ? "Pause" : "Play"}
-        </PlayPauseButton>
-      </AudioControls>
-    </PageWrapper>
-  );
+  // const audioRef = useRef(null);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [showTranslations, setShowTranslations] = useState(
+  //   dialogue2.map(() => false)
+  // );
+  // const [highlightedLine, setHighlightedLine] = useState(null);
+  // const [showAllTranslations, setShowAllTranslations] = useState(false);
+  // const handlePlayPause = () => {
+  //   if (isPlaying) {
+  //     audioRef.current.pause();
+  //   } else {
+  //     audioRef.current.play();
+  //   }
+  //   setIsPlaying(!isPlaying);
+  // };
+  // const handleShowTranslation = (index) => {
+  //   setShowTranslations((prevShowTranslations) => {
+  //     const updatedShowTranslations = [...prevShowTranslations];
+  //     updatedShowTranslations[index] = !updatedShowTranslations[index];
+  //     return updatedShowTranslations;
+  //   });
+  // };
+  // const handleToggleAllTranslations = () => {
+  //   setShowAllTranslations(!showAllTranslations);
+  // };
+  // useEffect(() => {
+  //   const handleTimeUpdate = () => {
+  //     const currentTime = audioRef.current.currentTime;
+  //     const lineIndex = dialogue2.findIndex(
+  //       (line, index) =>
+  //         currentTime >= line.startTime &&
+  //         (index === dialogue2.length - 1 ||
+  //           currentTime < dialogue2[index + 1].startTime)
+  //     );
+  //     setHighlightedLine(lineIndex);
+  //   };
+  //   audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
+  //   return () => {
+  //     audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+  //   };
+  // }, []);
+  // return (
+  //   <PageWrapper>
+  //     <Title>Dialogue 2</Title>
+  //     <ToggleTranslationsButton onClick={handleToggleAllTranslations}>
+  //       {showAllTranslations
+  //         ? "Hide All Translations"
+  //         : "Show All Translations"}
+  //     </ToggleTranslationsButton>
+  //     <Content>
+  //       {dialogue2.map((line, index) => (
+  //         <React.Fragment key={index}>
+  //           <ChapterInfo>
+  //             {line.chapter} - {line.chapterTitle}
+  //           </ChapterInfo>
+  //           <LessonTitle>{line.lessonTitle}</LessonTitle>
+  //           <DialogueLine highlighted={index === highlightedLine}>
+  //             <Speaker>{line.speaker}:</Speaker>
+  //             <Text>{line.text}</Text>
+  //           </DialogueLine>
+  //           <EngDialogueLine
+  //             show={showAllTranslations || showTranslations[index]}
+  //           >
+  //             <Speaker>{dialogue2Eng[index].speaker}:</Speaker>
+  //             <Text>{dialogue2Eng[index].text}</Text>
+  //           </EngDialogueLine>
+  //           {(!showAllTranslations || showTranslations[index]) && (
+  //             <ShowTranslationButton
+  //               onClick={() => handleShowTranslation(index)}
+  //             >
+  //               {showTranslations[index]
+  //                 ? "Hide Translation"
+  //                 : "Show Translation"}
+  //             </ShowTranslationButton>
+  //           )}
+  //         </React.Fragment>
+  //       ))}
+  //     </Content>
+  //     <AudioControls>
+  //       <audio ref={audioRef} src={Dialogue2} />
+  //       <PlayPauseButton onClick={handlePlayPause}>
+  //         {isPlaying ? "Pause" : "Play"}
+  //       </PlayPauseButton>
+  //     </AudioControls>
+  //   </PageWrapper>
+  // );
 };
 
 export default AdvancedPage;
