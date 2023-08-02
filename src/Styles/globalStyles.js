@@ -408,8 +408,8 @@ export const StarIcon = styled.div`
   align-items: center;
 
   img {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.2rem;
+    height: 1.2rem;
     cursor: pointer;
     filter: ${(props) => (props.isStarred ? "invert(50%)" : "none")};
     transition: transform 0.3s ease-in-out;
@@ -420,8 +420,8 @@ export const ListenIcon = styled.div`
   display: flex;
   align-items: center;
   & > img {
-    width: ${(props) => props.width || "1.5rem"};
-    height: ${(props) => props.height || "1.5rem"};
+    width: ${(props) => props.width || "1.2rem"};
+    height: ${(props) => props.height || "1.2rem"};
     cursor: pointer;
 
     filter: ${(props) => (props.isActive ? "none" : "invert(50%)")};

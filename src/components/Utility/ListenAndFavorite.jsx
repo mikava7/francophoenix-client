@@ -6,11 +6,13 @@ const ListenAndFavorite = () => {
   return (
     <ListenAndFavoriteContainer>
       <Listen />
-
       <Favorite />
     </ListenAndFavoriteContainer>
   );
 };
 
 export default ListenAndFavorite;
-const ListenAndFavoriteContainer = styled.div``;
+const ListenAndFavoriteContainer = styled.span`
+  display: flex;
+  max-width: 50px;
+`;

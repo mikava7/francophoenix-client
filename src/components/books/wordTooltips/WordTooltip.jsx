@@ -1,12 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import ListenAndFavorite from "../../Utility/ListenAndFavorite";
+import flashCardIcon from "../../../../public/icons/flash-card.png";
+import Listen from "../../Listen";
+import Favorite from "../../Favorite";
+import AddToFlashcards from "../../Utility/AddToFlashcards";
 const WordTooltip = ({ content, children }) => {
+  const [isActive, setIsActive] = useState(false);
+  const [isStarred, setIsStarred] = useState(true);
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToFlashcards = (event) => {
+    event.stopPropagation();
+    console.log("handleAddToFlashcards Clicked");
+    setIsAdded(!isAdded);
+  };
+
+  const handleFavorite = (event) => {
+    event.stopPropagation();
+    console.log("handleFavorite Clicked");
+
+    setIsStarred(!isStarred);
+  };
+  const addToFlashCards = (event) => {
+    console.log("flashCardIconContainer Clicked");
+    event.stopPropagation();
+  };
+  const handleListen = (event) => {
+    event.stopPropagation();
+    console.log("handleListen Clicked");
+
+    setIsActive(true);
+    setTimeout(() => {
+      setIsActive(false);
+    }, 2000);
+  };
+
   return (
     <TooltipContainer>
       {children}
-      <TooltipContent>{content}</TooltipContent>
-      <ListenAndFavorite />
+      <ContentAndIconWrapper>
+        <TooltipContent>{content}</TooltipContent>
+        <IconsBox>
+          <AddToFlashcards
+            handleAddToFlashcards={handleAddToFlashcards}
+            isAdded={isAdded}
+          />
+
+          <Listen handleListen={handleListen} isActive={isActive} />
+          <Favorite handleFavorite={handleFavorite} isStarred={isStarred} />
+        </IconsBox>
+      </ContentAndIconWrapper>
     </TooltipContainer>
   );
 };
@@ -14,30 +57,51 @@ const WordTooltip = ({ content, children }) => {
 export default WordTooltip;
 const TooltipContainer = styled.div`
   position: relative;
-  display: inline-block;
+  display: inline;
+  position: relative;
+  background-color: #80808030;
+  /* padding: 0.2rem 0.3rem; */
+  border-radius: 4px;
+  outline: 2px solid #808080dc;
 `;
-
-const TooltipContent = styled.div`
+const ContentAndIconWrapper = styled.div`
+  display: flex; /* Flex container to put the content and icon side by side */
+  position: absolute;
   display: flex;
   position: absolute;
-  top: -100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #333;
-  color: #fff;
-  padding: 0.5rem;
+  top: -90%;
+  left: 100%;
+  transform: translate(-30%, -50%);
+
+  align-items: center;
+  justify-content: center;
+  max-width: 200px;
+
+  background-color: #fffd70;
+  outline: 2px solid #f89411;
+
+  /* padding: 0.2rem 0.3rem; */
   border-radius: 4px;
-  font-size: 14px;
-  visibility: hidden;
-  opacity: 0;
+  font-size: 1.1rem;
+`;
+const TooltipContent = styled.div`
+  display: inline-block; /* Change from position: absolute; to inline-block */
+
+  color: black;
+
+  width: 100%;
+  height: 2rem;
+  border-radius: 4px;
+
+  visibility: visible;
+  opacity: 1;
+  text-indent: 5px;
   transition: opacity 0.3s ease;
-  img {
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-  }
-  ${TooltipContainer}:hover & {
-    visibility: visible;
-    opacity: 1;
-  }
+`;
+
+const IconsBox = styled.span`
+  display: flex;
+  max-width: 100%;
+  padding-right: 4px;
+  gap: 4px;
 `;

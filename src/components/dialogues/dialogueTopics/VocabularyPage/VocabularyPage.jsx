@@ -6,6 +6,7 @@ import Favorite from "../../../Favorite";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const VocabularyPage = ({ vocabulary }) => {
   const { fr, geo, en, definitions } = vocabulary;
+  // console.log("vocabulary", vocabulary);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const [activeIndex, setActiveIndex] = useState(-1);

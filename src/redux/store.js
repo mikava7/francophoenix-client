@@ -10,6 +10,7 @@ import booksReducer from "./slices/books/booksSlice";
 import vocabularyTopicsReducer from "./slices/vocabularyTopics/vocabularyTopicSlice";
 import dialogueTopicSlideReducer from "./slices/dialogueTopics/dialogueTopicSlide";
 import dictionaryReducer from "./slices/dictionarySlice/dictionarySlice";
+import allWordsFromDictionaryReducer from "./slices/dictionarySlice/allWordsFromDictionarySlice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,8 @@ const store = configureStore({
 
     dialogueTopics: dialogueTopicSlideReducer,
     dictionary: dictionaryReducer,
+
+    allWordsFromDictionary: allWordsFromDictionaryReducer,
   },
 });
 //

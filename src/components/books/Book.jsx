@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
 import WordTooltip from "./wordTooltips/WordTooltip";
-// import { fetchDictionary } from "../../redux/slices/dictionarySlice/dictionarySlice";
+import { fetchDictionary } from "../../redux/slices/dictionarySlice/allWordsFromDictionarySlice";
 import Loading from "../loading/Loading";
 import { useTranslation } from "react-i18next";
 
@@ -12,47 +12,57 @@ const Book = () => {
   const { bookId } = useParams();
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
-  const isGeorgian = i18n.language === "ka"; // Change 'geo' to the appropriate language code for Georgian
+  const isGeorgian = i18n.language === "ka";
+
+  const speakWord = (word) => {
+    responsiveVoice.speak(word, "French Female");
+  };
 
   const selectedBook =
     useSelector((state) =>
       state.books.books.find((book) => book._id === bookId)
     ) || [];
   const { chapters } = selectedBook || [];
-  // console.log(chapters);
 
-  // const dictionary = useSelector((state) => state.dictionary.dictionary) || [];
-  // const isLoadingDictionary = useSelector(
-  //   (state) => state.dictionary.isLoading
-  // );
-  // const english = dictionary.map((word) => word.english);
-  // const georgian = dictionary.map((word) => word.georgian);
+  const dictionary =
+    useSelector((state) => state.allWordsFromDictionary.dictionary) || [];
+  const isLoadingDictionary = useSelector(
+    (state) => state.dictionary.isLoading
+  );
 
-  // const secondLanguage = isGeorgian ? georgian : english;
-  // console.log("secondLanguage", secondLanguage);
-  // console.log("georgian", georgian);
+  const [englishTr, setEnglishTr] = useState({});
+  const [georgianTr, setGeorgianTr] = useState({});
+  useEffect(() => {
+    // Fetch dictionary data and update extracted dictionaries
+    dispatch(fetchDictionary()).then(() => {
+      const updatedEnglishTr = {};
+      const updatedGeorgianTr = {};
 
-  // console.log("dictionary", dictionary);
-  // console.log("isLoadingDictionaryisLoadingDictionary", isLoadingDictionary);
+      dictionary.forEach((item) => {
+        const french = item["french"];
+        const english = item["english"];
+        const georgian = item["georgian"];
+
+        updatedEnglishTr[french] = english;
+        updatedGeorgianTr[french] = georgian;
+      });
+
+      // Update the state with the extracted dictionaries
+      setEnglishTr(updatedEnglishTr);
+      setGeorgianTr(updatedGeorgianTr);
+    });
+  }, [dispatch, dictionary]); // Make sure to include dictionary as a dependency to update the extracted dictionaries when dictionary data changes
+
+  const secondLanguage = isGeorgian ? georgianTr : englishTr;
 
   const isLoading = useSelector((state) => state.books.isLoading);
-  // State to keep track of the hovered word
-  const [hoveredWord, setHoveredWord] = useState("");
+
   const [selectedChapter, setSelectedChapter] = useState(0); // State to keep track of the selected chapter index
+  const [selectedWord, setSelectedWord] = useState("");
 
-  const handleWordHover = (word) => {
-    // Event handler when a word is hovered
-    setHoveredWord(word);
+  const handleWordClick = (word) => {
+    setSelectedWord((prevWord) => (prevWord === word ? "" : word));
   };
-
-  const handleWordLeave = () => {
-    // Event handler when the word hover is left
-    setHoveredWord("");
-  };
-
-  // useEffect(() => {
-  //   dispatch(fetchDictionary());
-  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchBooksByLevel("B1"));
@@ -78,7 +88,9 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h2>{selectedBook.title}</h2>
+      <h2 onClick={() => speakWord(selectedBook.title)}>
+        {selectedBook.title}
+      </h2>
 
       <h4>{selectedBook.author}</h4>
       <div>
@@ -89,26 +101,26 @@ const Book = () => {
               <p>{formatChapterText(chapter.subtitle)}</p>
               <div>
                 {words.map((word, index) => {
-                  // const translation = newWords[word]; // Get the translation for the word from the `newWords` object
-                  // const translation = dictionary.find(
-                  //   (entry) => entry.french === word
-                  // );
-                  // console.log("translations", translation);
-                  const isHovered = hoveredWord === word; // Check if the word is currently being hovered
+                  const translation = secondLanguage[word];
+
+                  // Check if the word is clicked
+                  const isClicked = selectedWord === word;
 
                   return (
                     <ChapterText
                       key={index}
-                      onMouseEnter={() => handleWordHover(word)}
-                      onMouseLeave={handleWordLeave}
+                      onClick={() => handleWordClick(word)}
                     >
-                      {isHovered ? ( // Display the tooltip if the translation exists and the word is hovered
-                        <WordTooltip content={translation}>
+                      {isClicked && translation ? ( // Display the tooltip if the translation exists and the word is hovered
+                        <WordTooltip
+                          content={translation}
+                          handleWordClick={handleWordClick}
+                        >
                           {formatChapterText(word)}
                         </WordTooltip>
                       ) : (
-                        formatChapterText(word)
                         // Display the word as is
+                        formatChapterText(word)
                       )}{" "}
                     </ChapterText>
                   );

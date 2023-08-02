@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import FlashCardIcon from "../../../public/icons/flash-card.png";
 
-const AddToFlashcards = ({ word }) => {
-  const [isAdded, setIsAdded] = useState(false);
-
-  const handleAddToFlashcards = () => {
-    // Add logic here to handle adding/removing the word to/from flashcards
-    setIsAdded(!isAdded);
-  };
-
+const AddToFlashcards = ({ isAdded, handleAddToFlashcards, word }) => {
   return (
     <AddButton onClick={handleAddToFlashcards}>
       <IconWrapper isAdded={isAdded}>
@@ -33,8 +26,8 @@ const IconWrapper = styled.span`
   align-items: center;
 
   img {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.2rem;
+    height: 1.2rem;
     cursor: pointer;
     filter: ${(props) => (props.isAdded ? "" : "invert(50%)")};
     transition: transform 0.3s ease-in-out;

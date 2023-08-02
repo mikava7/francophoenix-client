@@ -18,6 +18,11 @@ const DialoguePage = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [rotationChevron, setRotationChevron] = useState({});
   const [activeSoundIndex, setActiveSoundIndex] = useState(-1); // Keep track of the active SoundContainer index
+
+  const speakWord = (word) => {
+    responsiveVoice.speak(word, "French Female");
+  };
+
   const handleSoundToggle = (index) => {
     setActiveSoundIndex((prevIndex) => (prevIndex === index ? -1 : index));
   };
@@ -58,7 +63,7 @@ const DialoguePage = () => {
     phrases,
   } = selectedTopic || {};
   const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
-
+  console.log("selectedTopic", selectedTopic);
   return (
     <div>
       <div>
@@ -98,7 +103,11 @@ const DialoguePage = () => {
                         <DialogueLine key={lineIndex}>
                           <SpeakerSpan>{speaker}:</SpeakerSpan>
                           <MessageLine>
-                            <MessageParagraph>{messageFr}</MessageParagraph>
+                            <MessageParagraph
+                              onClick={() => speakWord(messageFr)}
+                            >
+                              {messageFr}
+                            </MessageParagraph>
                             <SoundContainer
                               onClick={() => handleSoundToggle(lineIndex)}
                               isActive={isSoundActive}

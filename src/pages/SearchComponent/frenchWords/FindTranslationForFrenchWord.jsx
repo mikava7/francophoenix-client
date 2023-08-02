@@ -4,7 +4,7 @@ import { fetchWordsByFrench } from "../../../redux/slices/dictionarySlice/dictio
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import SearchIcon from "../../../../public/icons/search-50.png";
-
+import ClearIcon from "../../../../public/icons/cross-24.png";
 const FindTranslationForFrenchWord = () => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -13,15 +13,24 @@ const FindTranslationForFrenchWord = () => {
     useSelector((state) => state.dictionary.searchResults) || [];
   const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query input
   const [showAllResults, setShowAllResults] = useState(false);
-
   // Function to handle the search query and call the action to fetch the search results
   const handleSearch = () => {
-    dispatch(fetchWordsByFrench(searchQuery));
+    if (!searchQuery.trim()) {
+      // If the search query is empty, reset the search results
+      dispatch(fetchWordsByFrench(""));
+    } else {
+      dispatch(fetchWordsByFrench(searchQuery));
+    }
   };
-
   // Function to toggle showing all results or the first four results
   const handleShowAllResults = () => {
     setShowAllResults(!showAllResults);
+  };
+
+  // Function to handle clearing the search query and results
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    dispatch(fetchWordsByFrench("")); // Clear the search results
   };
 
   // Function to handle Enter key press
@@ -40,6 +49,11 @@ const FindTranslationForFrenchWord = () => {
   return (
     <DictionaryContainer>
       <DictionaryInputContainer>
+        <ClearSearch
+          onClick={handleClearSearch}
+          src={ClearIcon}
+          alt="ClearIcon"
+        />
         <DictionaryInput
           type="text"
           value={searchQuery}
@@ -47,6 +61,7 @@ const FindTranslationForFrenchWord = () => {
           onKeyPress={handleKeyPress} // Add the Enter key listener
           placeholder={isGeorgian ? "შეიყვანე სიტყვა..." : "Enter word..."}
         />
+
         <SearchImg onClick={handleSearch} src={SearchIcon} alt="SearchIcon" />
       </DictionaryInputContainer>
       {filteredResults.map((result) => (
@@ -61,7 +76,10 @@ const FindTranslationForFrenchWord = () => {
       ))}
       {searchResults.length > 4 && !showAllResults && (
         <ShowAllButton onClick={handleShowAllResults}>Show All</ShowAllButton>
-      )}
+      )}{" "}
+      {searchQuery.trim() && searchResults.length === 0 && (
+        <NoResultsMessage>No word found</NoResultsMessage>
+      )}{" "}
     </DictionaryContainer>
   );
 };
@@ -107,8 +125,8 @@ const DictionaryInput = styled.input`
 const SearchImg = styled.img`
   width: 2rem;
   height: 2rem;
+  margin-right: 0.6rem;
   cursor: pointer;
-  margin-right: 1rem;
 `;
 const SearchResultsContainer = styled.div`
   display: flex;
@@ -129,3 +147,17 @@ const SecondLangWord = styled.p`
   font-size: ${(props) => (props.isGeorgian ? "1rem" : "1.3rem")};
 `;
 const ShowAllButton = styled.button``;
+const ClearSearch = styled.img`
+  background-color: transparent;
+  border: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 0.6rem;
+
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+const NoResultsMessage = styled.div``;
