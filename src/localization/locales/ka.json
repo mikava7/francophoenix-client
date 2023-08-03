@@ -45,11 +45,12 @@
   "Score": "ქულა",
   "Fermer": "დახურე",
   "Recommencer": "კიდევ სცადე",
-
   "Félicitations! Vous avez répondu correctement à tous.": "გილოცავ! ყველაფერზე სწორად უპასუხე.",
   "Toutes les réponses ne sont pas correctes. Réessayer!": "ყველა პასუხი არ არის სწორი. კიდევ სცადე!",
   "Vocabulaire thématique": "თემატური ლექსიკა",
   "Read Extract": "დაიწყე კითხვა",
   "Explorez des sujets": "ნახე მთლიანად",
-  "Dictionnaire": "ლექსიკონი"
+  "Dictionnaire": "ლექსიკონი",
+  "Mots favoris": "ფავორიტი სიტყვების სია",
+  "Pas de mots favoris": "სია ცარიელია"
 }

@@ -78,3 +78,8 @@ const theme = {
 };
 
 export default theme;
+// Background: #3d3d3d; Color: gold; (Dark Gray)
+// Background: #1a1a1a; Color: gold; (Black)
+// Background: #1a1a4b; Color: gold; (Navy Blue)
+// Background: #4b1a1a; Color: gold; (Dark Red)
+// Background: #001a1a; Color: gold; (Dark Green)

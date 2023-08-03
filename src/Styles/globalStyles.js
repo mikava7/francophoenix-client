@@ -407,7 +407,7 @@ export const StarIcon = styled.div`
   display: flex;
   align-items: center;
 
-  img {
+  & > img {
     width: 1.2rem;
     height: 1.2rem;
     cursor: pointer;

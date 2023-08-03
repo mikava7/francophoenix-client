@@ -14,10 +14,6 @@ const Book = () => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
 
-  const speakWord = (word) => {
-    responsiveVoice.speak(word, "French Female");
-  };
-
   const selectedBook =
     useSelector((state) =>
       state.books.books.find((book) => book._id === bookId)

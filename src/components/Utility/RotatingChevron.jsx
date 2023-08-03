@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ChevronDown from "../../../public/icons/chevron-down-24.png";
 const RotatingChevron = ({ isActive, onClick }) => {
-  console.log({ isActive, onClick });
+  // console.log({ isActive, onClick });
   return (
     <ChevronImage
       src={ChevronDown}

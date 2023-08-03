@@ -9,6 +9,10 @@ const WordTooltip = ({ content, children }) => {
   const [isStarred, setIsStarred] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
 
+  const speakWord = (word) => {
+    responsiveVoice.speak(word, "French Female");
+  };
+
   const handleAddToFlashcards = (event) => {
     event.stopPropagation();
     console.log("handleAddToFlashcards Clicked");
@@ -27,7 +31,6 @@ const WordTooltip = ({ content, children }) => {
   };
   const handleListen = (event) => {
     event.stopPropagation();
-    console.log("handleListen Clicked");
 
     setIsActive(true);
     setTimeout(() => {
@@ -39,14 +42,18 @@ const WordTooltip = ({ content, children }) => {
     <TooltipContainer>
       {children}
       <ContentAndIconWrapper>
-        <TooltipContent>{content}</TooltipContent>
+        <TooltipContent onClick={() => speakWord(content)}>
+          {content}
+        </TooltipContent>
         <IconsBox>
+          <ListenContainer onClick={() => speakWord(content)}>
+            <Listen handleListen={handleListen} isActive={isActive} />
+          </ListenContainer>
           <AddToFlashcards
             handleAddToFlashcards={handleAddToFlashcards}
             isAdded={isAdded}
           />
 
-          <Listen handleListen={handleListen} isActive={isActive} />
           <Favorite handleFavorite={handleFavorite} isStarred={isStarred} />
         </IconsBox>
       </ContentAndIconWrapper>
@@ -105,3 +112,4 @@ const IconsBox = styled.span`
   padding-right: 4px;
   gap: 4px;
 `;
+const ListenContainer = styled.span``;

@@ -11,7 +11,7 @@ import vocabularyTopicsReducer from "./slices/vocabularyTopics/vocabularyTopicSl
 import dialogueTopicSlideReducer from "./slices/dialogueTopics/dialogueTopicSlide";
 import dictionaryReducer from "./slices/dictionarySlice/dictionarySlice";
 import allWordsFromDictionaryReducer from "./slices/dictionarySlice/allWordsFromDictionarySlice";
-
+import isFavoriteReducer from "./slices/favorites/addToFavorite";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -27,6 +27,7 @@ const store = configureStore({
     dictionary: dictionaryReducer,
 
     allWordsFromDictionary: allWordsFromDictionaryReducer,
+    isFavorite: isFavoriteReducer,
   },
 });
 //

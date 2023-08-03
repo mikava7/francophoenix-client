@@ -1,16 +1,26 @@
 import { useState } from "react";
-import Listen from "../../../Listen";
-import Favorite from "../../../Favorite";
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
+import ListenImg from "../../../../../public/icons/sound-50.png";
+import AddToFavorites from "../../../Utility/AddToFavorites";
+import AccordionExpendedContent from "./AccordionExpendedContent";
+import useListenWord from "../../../../hooks/useListenWord";
+import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 const VocabularyAccordion = ({
   frenchWords,
   secondLanguage,
   frenchExamples,
   secondLanguageExamples,
 }) => {
+  useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const [isActiveState, setIsActiveState] = useState(
+    frenchWords.map(() => false)
+  );
+
+  const { handleListen, isActiveStates } = useListenWord();
 
   const toggleAccordion = (index) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -27,8 +37,18 @@ const VocabularyAccordion = ({
               {secondLanguage[index] || ""}
             </SecondLanguageWord>
             <IconsWrapper>
-              <Listen />
-              <Favorite />
+              <AccordionListenIcon
+                onClick={handleListen(word)}
+                isActive={isActiveStates[index]}
+              >
+                <img src={ListenImg} alt="ListenImg" />
+              </AccordionListenIcon>
+              <AddToFavorites
+                word={word}
+                frenchExamples={frenchExamples[index]}
+                secondLanguageExamples={secondLanguageExamples[index]}
+                secondLanguage={secondLanguage[index]}
+              />
             </IconsWrapper>
             <Example>{t("Example")}</Example>
             <ChevronIcon
@@ -38,12 +58,12 @@ const VocabularyAccordion = ({
               &#9662;
             </ChevronIcon>
           </AccordionHeader>
-          <AccordionContent isExpanded={index === expandedIndex}>
-            <FrenchExamples>{frenchExamples[index]}</FrenchExamples>
-            <SecondLanguageExamples>
-              Second Language Example: {secondLanguageExamples[index]}
-            </SecondLanguageExamples>
-          </AccordionContent>
+          <AccordionExpendedContent
+            index={index}
+            expandedIndex={expandedIndex}
+            frenchExamples={frenchExamples}
+            secondLanguageExamples={secondLanguageExamples}
+          />
         </AccordionItem>
       ))}
     </AccordionContaner>
@@ -134,23 +154,10 @@ const IconsWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  width: 50px;
-  max-width: 100px;
+  width: 60px;
+  max-width: 120px;
   text-align: center;
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
-`;
-
-const AccordionContent = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  max-height: ${(props) => (props.isExpanded ? "1000px" : "0")};
-  opacity: ${(props) => (props.isExpanded ? "1" : "0")};
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  background-color: #0055a4;
-  color: #ffffff;
-  position: relative;
-  clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
 `;
 
 const Example = styled.span`
@@ -163,17 +170,17 @@ const ChevronIcon = styled.div`
   cursor: pointer;
   margin: 0 0.5rem;
 `;
-const FrenchExamples = styled.div`
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 700;
-  padding: 1rem 2rem;
-  margin-top: 0.5rem;
-  background-color: #0055a4;
-  color: #ffffff;
-`;
-const SecondLanguageExamples = styled.div`
-  text-align: center;
-  font-size: 1rem;
-  padding: 0.5rem 2rem;
+
+const AccordionListenIcon = styled.div`
+  display: flex;
+  align-items: center;
+  & > img {
+    width: ${(props) => props.width || "1.2rem"};
+    height: ${(props) => props.height || "1.2rem"};
+    cursor: pointer;
+
+    filter: ${(props) => (props.isActive ? "none" : "invert(-150%)")};
+    transition: transform 0.3s ease-in-out;
+    transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
+  }
 `;
