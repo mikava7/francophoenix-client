@@ -5,7 +5,11 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import SearchIcon from "../../../../public/icons/search-50.png";
 import ClearIcon from "../../../../public/icons/cross-24.png";
+import ListenImg from "../../../../public/icons/sound-50.png";
+import useListenWord from "../../../hooks/useListenWord";
 const FindTranslationForFrenchWord = () => {
+  const { handleListen, isActiveStates } = useListenWord();
+
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const dispatch = useDispatch();
@@ -64,8 +68,15 @@ const FindTranslationForFrenchWord = () => {
 
         <SearchImg onClick={handleSearch} src={SearchIcon} alt="SearchIcon" />
       </DictionaryInputContainer>
-      {filteredResults.map((result) => (
+      {filteredResults.map((result, index) => (
         <SearchResultsContainer key={result._id}>
+          <ListenIcon onClick={handleListen(result.french)}>
+            <img
+              src={ListenImg}
+              alt="ListenImg"
+              isActive={isActiveStates[index]}
+            />
+          </ListenIcon>
           <FrenchWord>{result.french}</FrenchWord>
           <SecondLangWord isGeorgian={isGeorgian}>
             {" "}
@@ -89,8 +100,6 @@ const DictionaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid red;
-  height: 100vh;
   width: 100%;
 `;
 
@@ -100,7 +109,6 @@ const DictionaryInputContainer = styled.div`
   justify-content: space-between;
   margin-top: 5rem;
   margin-bottom: 2rem;
-
   padding: 4px;
   height: 3rem;
   min-width: 375px;
@@ -146,7 +154,27 @@ const FrenchWord = styled.p`
 const SecondLangWord = styled.p`
   font-size: ${(props) => (props.isGeorgian ? "1rem" : "1.3rem")};
 `;
-const ShowAllButton = styled.button``;
+const ShowAllButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  width: 10rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  background: #001a1a;
+  color: gold;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background: gold;
+    color: #001a1a;
+  }
+`;
 const ClearSearch = styled.img`
   background-color: transparent;
   border: none;
@@ -161,3 +189,18 @@ const ClearSearch = styled.img`
   }
 `;
 const NoResultsMessage = styled.div``;
+const ListenIcon = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 0.3rem;
+  font-weight: bold;
+  & > img {
+    width: ${(props) => props.width || "1.2rem"};
+    height: ${(props) => props.height || "1.2rem"};
+    cursor: pointer;
+
+    filter: ${(props) => (props.isActive ? "none" : "invert(-150%)")};
+    transition: transform 0.3s ease-in-out;
+    transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
+  }
+`;

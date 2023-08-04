@@ -22,7 +22,6 @@ const FavoriteWords = () => {
 
   const handleRemoveFavorite = (index) => {
     dispatch(removeFromFavorites(favorites[index]));
-    console.log("favorites[index]", favorites[index]);
   };
 
   const handleClearAllFavorites = () => {

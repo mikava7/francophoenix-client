@@ -26,6 +26,7 @@ import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage/Dia
 import FindTranslationForFrenchWord from "./pages/SearchComponent/frenchWords/FindTranslationForFrenchWord";
 import LegumesTTS from "./components/test/LegumesTTS";
 import FavoriteWords from "./components/favoriteList/FavoriteWords";
+import QuizPictures from "./components/quizPictures/QuizPictures";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -77,9 +78,9 @@ function App() {
             path="/dialogue-topics/:dialogueTopicId"
             element={<DialoguePage />}
           />
-          <Route path="/LegumesTTS" element={<LegumesTTS />} />
+          <Route path="/QuizPictures" element={<QuizPictures />} />
 
-          <Route path="/FavoriteWords" element={<FavoriteWords />} />
+          <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import {
-  DialogueExerciseBox,
   DialogueExerciseContainer,
   DialogueOptionButton,
   SubmitDialogue,
@@ -170,3 +170,81 @@ const DialogueExercise = ({ Continue, lessonsCurrentIndex }) => {
 };
 
 export default DialogueExercise;
+const DialogueExerciseBox = styled.div`
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 2rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  div {
+    display: flex;
+    align-items: center;
+    p {
+      background-color: #4b9fff;
+      padding: 1rem;
+      color: white;
+      font-size: 1.3rem;
+      border-radius: 1rem;
+      letter-spacing: 2px;
+      min-width: 400px;
+      width: 100%;
+    }
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin: 0 1rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    p {
+      min-width: 350px;
+      padding: 0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    display: flex;
+    margin: 0 0.5rem;
+    margin-bottom: 1rem;
+    min-width: 300px;
+
+    flex-direction: column;
+    div {
+      p {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.3rem;
+    margin-bottom: 1rem;
+    min-width: 300px;
+
+    div {
+      p {
+        min-width: 300px;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.3rem;
+    margin-bottom: 1rem;
+    min-width: 300px;
+
+    div {
+      min-width: 300px;
+
+      p {
+        min-width: 300px;
+        width: 100%;
+      }
+    }
+  }
+`;

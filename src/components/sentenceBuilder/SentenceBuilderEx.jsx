@@ -26,13 +26,12 @@ const SentenceBuilder = ({ Continue, lessonsCurrentIndex }) => {
   const sentenceBuilders =
     useSelector((state) => state.sentenceBuilder.sentenceBuilder) || [];
 
-  // console.log("sentenceBuilders", sentenceBuilders);
+  console.log("sentenceBuilders", sentenceBuilders);
 
   const [newPair, setNewPair] = useState(0);
 
   const { sentence, words } = sentenceBuilders || {};
   console.log({ sentence, words });
-
   useEffect(() => {
     dispatch(fetchSentenceBuilder(lessonsCurrentIndex));
   }, [dispatch, lessonsCurrentIndex]);
@@ -40,7 +39,7 @@ const SentenceBuilder = ({ Continue, lessonsCurrentIndex }) => {
   const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
-  // console.log("selectedWords", selectedWords);
+  console.log("selectedWords", selectedWords);
   const handleWordSelect = (index) => {
     setSelectedWords((prevSelectedWords) => {
       if (prevSelectedWords.includes(index)) {
@@ -64,12 +63,10 @@ const SentenceBuilder = ({ Continue, lessonsCurrentIndex }) => {
       .trim(); // Trim whitespace from the selected sentence
 
     const isEqual = selectedSentence === sentence;
-    console.log(isEqual, selectedSentence, sentence);
+
     setIsCorrect(isEqual);
     setShowAnswers(true);
   };
-  console.log("newPair", newPair);
-  console.log("sentenceBuilders length", sentenceBuilders.length);
 
   const handleRetry = () => {
     setSelectedWords([]);
@@ -83,7 +80,7 @@ const SentenceBuilder = ({ Continue, lessonsCurrentIndex }) => {
   };
 
   const nextComponent = newPair === sentenceBuilders.length - 1;
-  console.log("nextComponent", nextComponent);
+
   return (
     <BuildBoxContainer>
       <h2>Build the Sentence</h2>
@@ -113,7 +110,13 @@ const SentenceBuilder = ({ Continue, lessonsCurrentIndex }) => {
         <div>
           {showAnswers ? (
             isCorrect ? (
-              Continue
+              nextComponent ? (
+                Continue
+              ) : (
+                <div onClick={handleNext}>
+                  <Button>Next</Button>
+                </div>
+              )
             ) : (
               <div onClick={handleRetry}>
                 <Button>Retry</Button>

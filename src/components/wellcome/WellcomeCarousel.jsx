@@ -96,8 +96,8 @@ const WellcomeCard = styled.div`
   background-color: #fff1f1;
 
   padding: 1rem;
-  margin: 0 4rem;
-  margin-top: 2rem;
+  margin: 1rem 4rem;
+
   border-radius: 12px;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;

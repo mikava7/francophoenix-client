@@ -6,10 +6,12 @@ import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
 import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Carousel from "../../components/carousel/Carousel";
 import WellcomeCarousel from "../../components/wellcome/WellcomeCarousel";
-// import { wellcomeData } from "../../data/wellcomeData";
+import { wellcomeData } from "../../data/wellcome/wellcome";
 import { useTranslation } from "react-i18next";
 import Loading from "../../components/loading/Loading";
 import VocabularyTopicCarousel from "../../components/carousel/vocabularyTopicCarousel/vocabularyTopicCarousel";
+import QuizPictures from "../../components/quizPictures/QuizPictures";
+import FindTranslationForFrenchWord from "../SearchComponent/frenchWords/FindTranslationForFrenchWord";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -34,12 +36,16 @@ const Home = () => {
 
   return (
     <HomeContainer>
+      <FindTranslationForFrenchWord />
+
       <WellcomeSection>
         <TiTleMessage>{t("Bienvenue à Francophoenix")}</TiTleMessage>
-
-        {/* <WellcomeCarousel wellcomeData={wellcomeData} /> */}
+        <WellcomeCarousel wellcomeData={wellcomeData} />
       </WellcomeSection>
 
+      <SearchAndQuiz>
+        <QuizPictures />
+      </SearchAndQuiz>
       <Section>
         <TopOfCarousel>
           <p>{t("Tous les livres")} </p>
@@ -75,16 +81,12 @@ const Home = () => {
 
 export default Home;
 const HomeContainer = styled.section`
-  /* margin: 0 2rem; */
   background-color: ${(props) => props.theme.colors.lightBack};
   color: ${(props) => props.theme.colors.textPrimary};
 `;
 const WellcomeSection = styled.div`
-  margin-bottom: 2rem;
-  &:nth-child(2) {
-    border: 2px solid red;
-    margin: 0 3rem;
-  }
+  background: #b4bdcfc7;
+  max-height: 100%;
 `;
 const Section = styled.div`
   border: 2px solid grey;
@@ -131,4 +133,33 @@ const TopOfCarousel = styled.div`
 `;
 const LineBrake = styled.div`
   height: 2.5rem;
+`;
+const SearchAndQuiz = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  border: 2px solid green;
+  @media (min-width: 992px) and (max-width: 1199px) {
+    font-size: 2rem;
+    background-size: 130%;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    display: grid;
+    grid-template-columns: 60% 25%;
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    font-size: 1.5rem;
+
+    background-size: 120%;
+    margin-left: 1rem;
+  }
+
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
 `;

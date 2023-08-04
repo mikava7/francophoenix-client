@@ -4,12 +4,16 @@ import { getGrammer } from "../../redux/slices/elementary/grammerSlice";
 import styled from "styled-components";
 import Listen from "../../components/Listen";
 import { ContinueButtonWrapper } from "../style-elementaryComponant";
+import useListenWord from "../../hooks/useListenWord";
+import ListenImg from "../../../public/icons/sound-50.png";
+
 const Grammer = ({ lessonsCurrentIndex, Continue }) => {
   const dispatch = useDispatch();
   const grammer = useSelector((state) => state.grammer.grammer) || [];
   const isLoading = useSelector((state) => state.grammer.isLoading);
+  const { handleListen, isActiveStates } = useListenWord();
 
-  console.log("grammer", grammer);
+  // console.log("grammer", grammer);
   useEffect(() => {
     dispatch(getGrammer(lessonsCurrentIndex));
   }, [dispatch]);
@@ -27,29 +31,56 @@ const Grammer = ({ lessonsCurrentIndex, Continue }) => {
 
               <ListContainer>
                 {item.verbe.map((verbe, index) => (
-                  <li key={index}>
-                    <Index>{index + 1}</Index>
+                  <ListItem key={index}>
+                    <Index>{index + 1}.</Index>
 
                     <OriginalVerbe>
-                      <Listen width="5rem" height="5rem" />
+                      <ListenIcon
+                        onClick={handleListen(verbe)}
+                        className={
+                          isActiveStates[index] ? "active" : "inactive"
+                        }
+                      >
+                        <img
+                          src={ListenImg}
+                          alt="ListenImg"
+                          isActive={isActiveStates[index]}
+                        />
+                      </ListenIcon>
+
                       {verbe}
                     </OriginalVerbe>
                     <GeoVerbe>{item.verbeGeo[index]}</GeoVerbe>
-                  </li>
+                  </ListItem>
                 ))}
               </ListContainer>
               <ListContainer>
-                <h2>examples</h2>
+                <ListContainer>
+                  <h2>examples</h2>
 
-                {item.examples &&
-                  item.examples.map((example, index) => (
-                    <li key={index}>
-                      {index + 1} <OriginalVerbe>{example}</OriginalVerbe>
-                      <GeoVerbe>
-                        {item.examplesGeo && item.examplesGeo[index]}
-                      </GeoVerbe>
-                    </li>
-                  ))}
+                  {item.examples &&
+                    item.examples.map((example, index) => (
+                      <ExampleItem key={index}>
+                        <Index>{index + 1}.</Index>
+                        <ListenIcon
+                          onClick={handleListen(example)}
+                          className={
+                            isActiveStates[index] ? "active" : "inactive"
+                          }
+                        >
+                          <img
+                            src={ListenImg}
+                            alt="ListenImg"
+                            isActive={isActiveStates[index]}
+                          />
+                        </ListenIcon>
+                        <OriginalVerbe>{example}</OriginalVerbe>
+                        <GeoVerbe>
+                          {item.examplesGeo && item.examplesGeo[index]}
+                        </GeoVerbe>
+                      </ExampleItem>
+                    ))}
+                </ListContainer>
               </ListContainer>
             </div>
           ))}
@@ -72,22 +103,29 @@ const GrammerContainer = styled.section`
 const ListContainer = styled.ul`
   display: flex;
   flex-direction: column;
-
-  li {
-    list-style: none;
-    line-height: 2rem;
-  }
+`;
+const ListItem = styled.div`
+  list-style: none;
+  line-height: 2rem;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid gold;
+  border-radius: 0 0 0 8px;
+  padding: 0.5rem;
+  width: 100%;
 `;
 const OriginalVerbe = styled.span`
+  display: flex;
+  min-width: 300px;
   font-size: 1.4rem;
-  letter-spacing: 1/8px;
+  letter-spacing: 1px;
 
   font-weight: bold;
   &::after {
-    content: " - ";
+    content: "  ";
   }
   &::before {
-    content: " . ";
+    content: "  ";
   }
 `;
 const GeoVerbe = styled.span`
@@ -98,4 +136,31 @@ const Index = styled.span`
   font-size: 1.6rem;
 `;
 
+const ListenIcon = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0.3rem;
+  & > img {
+    width: ${(props) => props.width || "1.2rem"};
+    height: ${(props) => props.height || "1.2rem"};
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &.active > img {
+    transform: scale(1.1);
+    filter: none;
+  }
+
+  &.inactive > img {
+    transform: scale(1);
+    filter: invert(-150%);
+  }
+`;
+const ExampleItem = styled.div`
+  display: flex;
+  padding: 0.5rem;
+  width: 100%;
+  border-bottom: 2px solid gold;
+`;
 export default Grammer;

@@ -19,11 +19,15 @@ const Book = () => {
       state.books.books.find((book) => book._id === bookId)
     ) || [];
   const { chapters } = selectedBook || [];
+  const errorBook = useSelector((state) => state.books.error);
 
   const dictionary =
     useSelector((state) => state.allWordsFromDictionary.dictionary) || [];
   const isLoadingDictionary = useSelector(
     (state) => state.dictionary.isLoading
+  );
+  const errorDictionary = useSelector(
+    (state) => state.allWordsFromDictionary.error
   );
 
   const [englishTr, setEnglishTr] = useState({});
@@ -64,16 +68,36 @@ const Book = () => {
     dispatch(fetchBooksByLevel("B1"));
   }, [dispatch, bookId]);
 
+  // Error handling
   if (isLoading) {
     return <Loading />;
+  }
+
+  if (errorBook) {
+    return (
+      <p>
+        Oops, an error occurred while fetching book data: {errorBook.message}
+      </p>
+    );
   }
 
   if (!selectedBook) {
     return <p>Book not found.</p>;
   }
+
   if (isLoadingDictionary) {
     return <Loading />;
   }
+
+  if (errorDictionary) {
+    return (
+      <p>
+        Oops, an error occurred while fetching dictionary data:{" "}
+        {errorDictionary.message}
+      </p>
+    );
+  }
+
   // Function to add a newline before every occurrence of '-'
   const formatChapterText = (text) => {
     return text.replace(/—/g, "\n-");
@@ -89,51 +113,57 @@ const Book = () => {
       </h2>
 
       <h4>{selectedBook.author}</h4>
-      <div>
+      <ChapterBoxesContainer>
         {selectedBook.chapters.map((chapter, index) => (
-          <ChapterText key={index}>
+          <ChapterBox key={index}>
+            <h3>{formatChapterText(chapter.chapterTitle)}</h3>
+            <p>{formatChapterText(chapter.subtitle)}</p>
             <div>
-              <h3>{formatChapterText(chapter.chapterTitle)}</h3>
-              <p>{formatChapterText(chapter.subtitle)}</p>
-              <div>
-                {words.map((word, index) => {
-                  const translation = secondLanguage[word];
+              {words.map((word, index) => {
+                const translation = secondLanguage[word];
 
-                  // Check if the word is clicked
-                  const isClicked = selectedWord === word;
+                // Check if the word is clicked
+                const isClicked = selectedWord === word;
 
-                  return (
-                    <ChapterText
-                      key={index}
-                      onClick={() => handleWordClick(word)}
-                    >
-                      {isClicked && translation ? ( // Display the tooltip if the translation exists and the word is hovered
-                        <WordTooltip
-                          content={translation}
-                          handleWordClick={handleWordClick}
-                        >
-                          {formatChapterText(word)}
-                        </WordTooltip>
-                      ) : (
-                        // Display the word as is
-                        formatChapterText(word)
-                      )}{" "}
-                    </ChapterText>
-                  );
-                })}
-              </div>
+                return (
+                  <ChapterText
+                    key={index}
+                    onClick={() => handleWordClick(word)}
+                  >
+                    {isClicked && translation ? ( // Display the tooltip if the translation exists and the word is hovered
+                      <WordTooltip
+                        content={translation}
+                        handleWordClick={handleWordClick}
+                      >
+                        {formatChapterText(word)}
+                      </WordTooltip>
+                    ) : (
+                      // Display the word as is
+                      formatChapterText(word)
+                    )}{" "}
+                  </ChapterText>
+                );
+              })}
             </div>
-          </ChapterText>
+          </ChapterBox>
         ))}
-      </div>
+      </ChapterBoxesContainer>
     </BookContainer>
   );
 };
 
 export default Book;
 
+const ChapterBox = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3rem;
+`;
 const BookContainer = styled.div`
-  background: white;
+  background: #f5dcdc;
   display: flex;
 
   flex-direction: column;
@@ -149,10 +179,16 @@ const ChapterText = styled.span`
   white-space: pre-line;
   line-height: 2;
   width: 100%;
-  /* border: 2px solid blue; */
 
   font-size: 1.3rem;
   letter-spacing: 1px;
   font-family: "Palatino", sans-serif;
   text-indent: 30px;
+`;
+const ChapterBoxesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the ChapterBox horizontally */
+  gap: 1rem; /* Add some gap between the ChapterBoxes */
+  width: 100%; /* Set the width to 100% to ensure the boxes are in a single row */
 `;

@@ -95,13 +95,15 @@ export const DialogueExerciseContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   text-align: center;
 `;
 export const DialogueExerciseBox = styled.div`
   display: grid;
-  grid-template-columns: 70% 70%;
+  grid-template-columns: 50% 50%;
   padding: 2rem;
   padding-left: 3rem;
   gap: 1rem 2rem;
