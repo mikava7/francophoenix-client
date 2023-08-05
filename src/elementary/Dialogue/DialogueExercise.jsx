@@ -21,7 +21,7 @@ const DialogueExercise = ({ Continue, lessonsCurrentIndex }) => {
   const error = useSelector((state) => state.dialogueExercises.error);
   const dialogueExercises =
     useSelector((state) => state.dialogueExercises.dialogueExercises) || [];
-
+  console.log("dialogueExercises", dialogueExercises);
   const [answers, setAnswers] = useState(
     Array(dialogueExercises.length).fill("")
   );
@@ -108,12 +108,12 @@ const DialogueExercise = ({ Continue, lessonsCurrentIndex }) => {
       <h2>Choisissez la bonne réponse.</h2>
       <DialogueExerciseBox>
         {dialogueExercises.map((question, index) => {
+          console.log("question", question);
           const underscoreIndex = question.message.indexOf("_");
           const beforeUnderscore = question.message.slice(0, underscoreIndex);
           const afterUnderscore = question.message.slice(underscoreIndex + 5);
 
           containerRefs.current[index] = containerRef;
-
           return (
             <div key={index} ref={containerRef}>
               <p>

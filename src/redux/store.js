@@ -13,6 +13,7 @@ import dictionaryReducer from "./slices/dictionarySlice/dictionarySlice";
 import allWordsFromDictionaryReducer from "./slices/dictionarySlice/allWordsFromDictionarySlice";
 import isFavoriteReducer from "./slices/favorites/addToFavorite";
 import quizDataReducer from "./slices/quizPictures/quizPictures";
+import presentTenseReducer from "./slices/verbeTenses/presentTenseSlice";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -30,6 +31,7 @@ const store = configureStore({
     allWordsFromDictionary: allWordsFromDictionaryReducer,
     isFavorite: isFavoriteReducer,
     quizData: quizDataReducer,
+    presentTense: presentTenseReducer,
   },
 });
 //

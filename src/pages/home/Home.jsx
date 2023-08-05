@@ -12,6 +12,7 @@ import Loading from "../../components/loading/Loading";
 import VocabularyTopicCarousel from "../../components/carousel/vocabularyTopicCarousel/vocabularyTopicCarousel";
 import QuizPictures from "../../components/quizPictures/QuizPictures";
 import FindTranslationForFrenchWord from "../SearchComponent/frenchWords/FindTranslationForFrenchWord";
+import PresentTense from "../../components/verbs/presentTense/PresentTense";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -43,9 +44,10 @@ const Home = () => {
         <WellcomeCarousel wellcomeData={wellcomeData} />
       </WellcomeSection>
 
-      <SearchAndQuiz>
+      <PickAndQuiz>
         <QuizPictures />
-      </SearchAndQuiz>
+        <PresentTense />
+      </PickAndQuiz>
       <Section>
         <TopOfCarousel>
           <p>{t("Tous les livres")} </p>
@@ -134,32 +136,23 @@ const TopOfCarousel = styled.div`
 const LineBrake = styled.div`
   height: 2.5rem;
 `;
-const SearchAndQuiz = styled.div`
+const PickAndQuiz = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   margin: 0 auto;
   margin-bottom: 1rem;
   border: 2px solid green;
   @media (min-width: 992px) and (max-width: 1199px) {
-    font-size: 2rem;
-    background-size: 130%;
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
-    display: grid;
-    grid-template-columns: 60% 25%;
   }
 
-  @media (min-width: 576px) and (max-width: 767px) {
-    font-size: 1.5rem;
-
-    background-size: 120%;
-    margin-left: 1rem;
+  @media (min-width: 576px) and (max-width: 766px) {
+    flex-direction: column;
   }
 
   @media (max-width: 576px) {
-    display: flex;
     flex-direction: column;
-    border: none;
   }
 `;

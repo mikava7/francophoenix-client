@@ -27,6 +27,7 @@ import FindTranslationForFrenchWord from "./pages/SearchComponent/frenchWords/Fi
 import LegumesTTS from "./components/test/LegumesTTS";
 import FavoriteWords from "./components/favoriteList/FavoriteWords";
 import QuizPictures from "./components/quizPictures/QuizPictures";
+import PresentTense from "./components/verbs/presentTense/PresentTense";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -79,6 +80,7 @@ function App() {
             element={<DialoguePage />}
           />
           <Route path="/QuizPictures" element={<QuizPictures />} />
+          <Route path="/PresentTense" element={<PresentTense />} />
 
           <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
         </Routes>

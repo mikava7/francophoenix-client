@@ -11,15 +11,18 @@ const QuizPictures = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [score, setScore] = useState(0);
-  const [quizStarted, setQuizStarted] = useState(false); // State to track if the quiz has started
+  const [quizStarted, setQuizStarted] = useState(true); // State to track if the quiz has started
 
+  console.log("quizData", quizData);
   useEffect(() => {
     dispatch(fetchQuizData());
   }, []);
 
   useEffect(() => {
-    generateQuizQuestion();
-  }, [currentWordIndex, topicIndex]);
+    if (quizData.length > 0 && quizStarted) {
+      generateQuizQuestion();
+    }
+  }, [currentWordIndex, quizData, quizStarted]);
 
   const generateQuizQuestion = () => {
     if (!quizStarted) return; // Stop generating questions if the quiz has not started
@@ -86,40 +89,37 @@ const QuizPictures = () => {
       }
     }, 800); // Adjust the delay (in milliseconds) as needed
   };
-
-  useEffect(() => {
-    generateQuizQuestion();
-  }, [currentWordIndex, quizStarted]);
-
+  const handleRestart = () => {
+    setScore(0);
+    setCurrentWordIndex(0); // Reset the word index to 0 to start the quiz from the beginning
+    setTopicIndex(0); // Reset the topic index to 0 to start the quiz from the beginning
+    setQuizStarted(true); // Start the quiz
+  };
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (!quizStarted) {
-    // Display the "Start" button
-    return (
-      <QuizWelcome>
-        <WelcomeMessage>Welcome to the Quiz!</WelcomeMessage>
-
-        <StartButton onClick={() => setQuizStarted(true)}>
-          Start Quiz
-        </StartButton>
-      </QuizWelcome>
-    );
-  }
-
   if (quizData.length === 0 || quizData.length <= topicIndex) {
-    return <div>No data available for the quiz.</div>;
+    return (
+      <QuizContainer>
+        <EndMessage>
+          <h2>No data available for the quiz.</h2>
+          <StartButton onClick={handleRestart}>Restart Quiz</StartButton>
+        </EndMessage>
+      </QuizContainer>
+    );
   }
 
   return (
     <QuizContainer>
       <QuizBox>
-        <h2>Topic Title </h2>
-        {currentQuestion.image && (
-          <QuestionImage src={currentQuestion.image} alt="Quiz Question" />
-        )}
-        {Array.isArray(currentQuestion.options) ? (
+        <h2>Topic Title</h2>
+        <ImageContainer>
+          {currentQuestion.image && (
+            <QuestionImage src={currentQuestion.image} alt="Quiz Question" />
+          )}
+        </ImageContainer>
+        {Array.isArray(currentQuestion.options) &&
           currentQuestion.options.map((option, index) => (
             <Options
               key={index}
@@ -129,15 +129,7 @@ const QuizPictures = () => {
             >
               {option}
             </Options>
-          ))
-        ) : (
-          <div>
-            No options available for the current question.
-            <StartButton onClick={() => setQuizStarted(true)}>
-              Restart Quiz
-            </StartButton>
-          </div>
-        )}
+          ))}
       </QuizBox>
       <Score>Score: {score}</Score>
       {/* <NextTopicButton
@@ -155,11 +147,20 @@ const QuizContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
-  max-width: 400px;
-  margin: 0 auto;
+  margin: 1rem auto;
+  height: 600px;
+  max-width: 390px;
+  -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
+  -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
+  box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   background: #0055a4dd;
   color: white;
+  @media (max-width: 576px) {
+    max-width: 370px;
+
+    display: flex;
+    flex-direction: column;
+  }
 `;
 const QuizBox = styled.div`
   display: flex;
@@ -167,27 +168,35 @@ const QuizBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-bottom: 2rem;
 `;
 const QuestionImage = styled.img`
-  max-width: 300px;
+  width: 100%;
+  height: 100%;
   margin-bottom: 1rem;
 `;
 
 const Options = styled.div`
-  border: 2px solid blue;
+  border-bottom: 2px solid blue;
+  border-right: 2px solid blue;
   padding: 0.3rem 1rem;
   margin: 0.3rem 1rem;
   font-size: 1.2rem;
 
   cursor: pointer;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   max-width: 100%;
-  width: 300px;
+  width: 330px;
   align-self: center;
+
   background-color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "green" : "red") : "#0055a4"};
+    props.isSelected ? (props.isCorrect ? "green" : "red") : "#0f6dd8"};
   color: ${(props) =>
     props.isSelected ? (props.isCorrect ? "white" : "black") : ""};
+
+  @media (max-width: 576px) {
+    width: 300px;
+  }
 `;
 
 const Score = styled.div`
@@ -226,23 +235,18 @@ const StartButton = styled.button`
     color: #0055a4;
   }
 `;
-const QuizWelcome = styled.div`
+const ImageContainer = styled.div`
+  display: flex;
+
+  align-items: center;
+  width: 350px;
+  height: 250px;
+  background: white;
+`;
+const EndMessage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 2rem;
-  max-width: 400px;
-  width: 100%;
-  background-color: #0055a4dd;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-`;
-
-const WelcomeMessage = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffffff;
+  width: 350px;
+  height: 250px;
 `;

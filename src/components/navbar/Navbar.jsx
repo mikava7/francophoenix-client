@@ -12,7 +12,7 @@ const Navbar = ({ toggleTheme, theme }) => {
   const isGeorgian = i18n.language === "ka";
 
   return (
-    <NavbarContainer isScrolled={isScrolled}>
+    <NavbarContainer>
       <Logo>
         <StyledLogo to="/">Francophoenix</StyledLogo>
       </Logo>
