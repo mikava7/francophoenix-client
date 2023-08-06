@@ -14,6 +14,7 @@ import allWordsFromDictionaryReducer from "./slices/dictionarySlice/allWordsFrom
 import isFavoriteReducer from "./slices/favorites/addToFavorite";
 import quizDataReducer from "./slices/quizPictures/quizPictures";
 import presentTenseReducer from "./slices/verbeTenses/presentTenseSlice";
+import sentencesReducer from "./slices/sentence builder/sentenceBuild";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -32,6 +33,7 @@ const store = configureStore({
     isFavorite: isFavoriteReducer,
     quizData: quizDataReducer,
     presentTense: presentTenseReducer,
+    sentences: sentencesReducer,
   },
 });
 //

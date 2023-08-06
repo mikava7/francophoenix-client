@@ -28,6 +28,7 @@ import LegumesTTS from "./components/test/LegumesTTS";
 import FavoriteWords from "./components/favoriteList/FavoriteWords";
 import QuizPictures from "./components/quizPictures/QuizPictures";
 import PresentTense from "./components/verbs/presentTense/PresentTense";
+import SentenceBuilderEx from "./components/sentenceBuilder/SentenceBuilderEx";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -45,21 +46,16 @@ function App() {
             path="/dictionary"
             element={<FindTranslationForFrenchWord />}
           />
-
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />
           <Route path="/intermediate" element={<IntermediatePage />} />
           <Route path="/advanced" element={<AdvancedPage />} />
-
           <Route path="/books" element={<A2B1Books />} />
           <Route path="/books/:bookId" element={<BookPage />} />
-
           <Route path="/book-display" element={<BookDetails />} />
-
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
-
           <Route path="/vocabulary-topics" element={<Vocabularies />} />
           <Route
             path="/vocabulary-topics/:vocabularyTopicId"
@@ -73,7 +69,6 @@ function App() {
             path="/vocabulary-topics/exercise-quiz"
             element={<VocabularyQuiz />}
           />
-
           <Route path="/dialogue-topics" element={<A1Dialogues />} />
           <Route
             path="/dialogue-topics/:dialogueTopicId"
@@ -81,8 +76,9 @@ function App() {
           />
           <Route path="/QuizPictures" element={<QuizPictures />} />
           <Route path="/PresentTense" element={<PresentTense />} />
-
           <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
+          <Route path="/SentenceBuilderEx" element={<SentenceBuilderEx />} />
+          SentenceBuilderEx
         </Routes>
       </AppContainer>
     </ThemeProvider>

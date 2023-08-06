@@ -20,13 +20,8 @@ const PresentTense = () => {
   const [showAnswers, setShowAnswers] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [hasNextSet, setHasNextSet] = useState(true);
-
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  };
+  const [showSubmitButton, setShowSubmitButton] = useState(true);
+  const [showRetryButton, setShowRetryButton] = useState(false);
 
   useEffect(() => {
     dispatch(fetchPresentTense());
@@ -78,20 +73,45 @@ const PresentTense = () => {
       // Update the score based on the number of correct answers
       setCurrentScore((prevScore) => prevScore + correctAnswersCount);
 
-      // Show the next set of questions after 2 seconds
-      setTimeout(handleNextQuestions, 1200);
+      // Show the Retry and Next buttons
+      setShowSubmitButton(false);
+      setShowRetryButton(!areAllAnswersCorrect);
     }
   };
 
-  const handleNextQuestions = () => {
+  const handleNext = () => {
+    // Show the next set of questions after clicking Next
     if (questionIndex + 5 >= presentTenseVerbe.length) {
-      // No more sets of questions, disable the next set button
+      // No more sets of questions, show the final score
       setHasNextSet(false);
     } else {
       setQuestionIndex((prevIndex) => prevIndex + 5);
-      setAnswers(Array(presentTenseVerbe.length).fill("")); // Reset answers to empty array
       setShowAnswers(false);
+      setShowSubmitButton(true);
+      setShowRetryButton(false);
+      setAnswers(Array(presentTenseVerbe.length).fill("")); // Reset answers to empty array
     }
+  };
+
+  const handleRetry = () => {
+    // Reset the state to allow the user to retry the questions
+    setShowAnswers(false);
+    setShowSubmitButton(true);
+    setShowRetryButton(false);
+    setAnswers(Array(presentTenseVerbe.length).fill(""));
+
+    // Calculate the number of correct answers in the current set
+    const correctAnswersCount = currentQuestions.reduce(
+      (count, question, index) => {
+        return answers[index + questionIndex] === question.correctAnswer
+          ? count + 1
+          : count;
+      },
+      0
+    );
+
+    // Deduct the score of the current set from the total score
+    setCurrentScore((prevScore) => prevScore - correctAnswersCount);
   };
 
   const handleRestart = () => {
@@ -144,17 +164,22 @@ const PresentTense = () => {
         );
       })}
 
-      {showAnswers && !allAnswersCorrect && hasNextSet ? (
-        <SubmitButton onClick={handleSubmit} disabled>
-          Submit
-        </SubmitButton>
-      ) : (
+      {/* Render different buttons based on the state */}
+      {showSubmitButton && (
         <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
       )}
-
+      {showAnswers && !allAnswersCorrect && hasNextSet && (
+        <>
+          {showRetryButton ? (
+            <SubmitButton onClick={handleRetry}>Retry</SubmitButton>
+          ) : (
+            <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+          )}
+        </>
+      )}
+      <NextButton onClick={handleNext}>Next</NextButton>
       {showAnswers && !allAnswersCorrect && !hasNextSet && (
         <FinalScore>
-          {" "}
           Your final score is: {currentScore}
           <RestartButton onClick={handleRestart}>Restart</RestartButton>
         </FinalScore>
@@ -247,7 +272,7 @@ const WordOption = styled.button`
     color: rgb(40, 175, 253);
   }
 `;
-const SubmitButton = styled.button`
+export const SubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -298,4 +323,8 @@ const RestartButton = styled.button`
     background-color: #ffffff;
     color: #0055a4;
   }
+`;
+export const NextButton = styled(SubmitButton)`
+  background-color: #0055a4dd;
+  color: #fff;
 `;

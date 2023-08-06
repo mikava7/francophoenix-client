@@ -13,6 +13,7 @@ import VocabularyTopicCarousel from "../../components/carousel/vocabularyTopicCa
 import QuizPictures from "../../components/quizPictures/QuizPictures";
 import FindTranslationForFrenchWord from "../SearchComponent/frenchWords/FindTranslationForFrenchWord";
 import PresentTense from "../../components/verbs/presentTense/PresentTense";
+import SentenceBuilderEx from "../../components/sentenceBuilder/SentenceBuilderEx";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const Home = () => {
       <PickAndQuiz>
         <QuizPictures />
         <PresentTense />
+        <SentenceBuilderEx />
       </PickAndQuiz>
       <Section>
         <TopOfCarousel>
