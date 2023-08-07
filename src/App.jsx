@@ -29,6 +29,9 @@ import FavoriteWords from "./components/favoriteList/FavoriteWords";
 import QuizPictures from "./components/quizPictures/QuizPictures";
 import PresentTense from "./components/verbs/presentTense/PresentTense";
 import SentenceBuilderEx from "./components/sentenceBuilder/SentenceBuilderEx";
+import BasicGrammerLessons from "./components/grammer/BasicGrammerLessons";
+import BasicGrammerTopic from "./components/grammer/BasicGrammerTopic";
+import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -56,6 +59,14 @@ function App() {
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
+          <Route
+            path="/grammer/basic-grammer"
+            element={<BasicGrammerLessons />}
+          />
+          <Route
+            path="/grammer/:BasicGrammerTopicId"
+            element={<GrammerTopicPage />}
+          />
           <Route path="/vocabulary-topics" element={<Vocabularies />} />
           <Route
             path="/vocabulary-topics/:vocabularyTopicId"

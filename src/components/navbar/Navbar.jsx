@@ -20,6 +20,10 @@ const Navbar = ({ toggleTheme, theme }) => {
         <StyledList to="/books" isGeorgian={isGeorgian}>
           {t("Livres")}
         </StyledList>
+
+        <StyledList to="/grammer/basic-grammer" isGeorgian={isGeorgian}>
+          {t("Grammer")}
+        </StyledList>
         <StyledList to="/courses" isGeorgian={isGeorgian}>
           {t("Courses")}
         </StyledList>

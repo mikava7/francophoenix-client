@@ -99,7 +99,7 @@ const AccordionHeader = styled.div`
     props.isExpanded ? "#e6af68" : props.theme.colors.text2};
   color: ${(props) => props.theme.colors.text};
   &:hover {
-    background-color: #e6af68;
+    background-color: #68e2e6;
   }
   @media (max-width: 920px) {
     font-size: 1.3rem;

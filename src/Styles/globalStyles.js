@@ -101,9 +101,8 @@ export const StyledLink = styled(Link)`
   position: relative;
   transition: 0.8s all linear;
   padding: 0.5rem;
-  color: ${(props) => props.theme.colors.text};
-
-  &:hover {
+  color: black;
+  /* &:hover {
     color: ${(props) => props.theme.colors.text2};
   }
 
@@ -121,9 +120,28 @@ export const StyledLink = styled(Link)`
 
   &:hover::before {
     animation: ${ani} 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  }
+  } */
 `;
-
+export const ChevronIcon = styled.span`
+  transform: ${(props) =>
+    props.isExpanded ? "rotate(180deg)" : "rotate(0deg)"};
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 0 0.5rem;
+`;
+export const AccordionContent = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  max-height: ${(props) => (props.isExpanded ? "1000px" : "0")};
+  opacity: ${(props) => (props.isExpanded ? "1" : "0")};
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  background-color: #0055a4;
+  color: #ffffff;
+  position: relative;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+`;
 export const StyledButton = styled.button`
   padding: 1rem;
   text-align: center;
