@@ -10,7 +10,7 @@ const GrammerTopicPage = () => {
   const { BasicGrammerTopicId } = useParams();
 
   const { i18n } = useTranslation();
-  const isGeorgian = i18n.language === "geo";
+  const isGeorgian = i18n.language === "ka";
   const dispatch = useDispatch();
   const selectedGrammerTopic =
     useSelector((state) =>
@@ -70,7 +70,11 @@ const GrammerTopicPage = () => {
                   &#9662;
                 </ChevronIcon>
               </ChevronBox>
-              <AccordionContent isExpanded={index === expandedIndex}>
+              <AccordionContent
+                backgroundColor={"grey"}
+                padding={"0.3rem 0"}
+                isExpanded={index === expandedIndex}
+              >
                 {secondLanguageDescription[index]}
               </AccordionContent>
             </DescriptionBox>
@@ -82,7 +86,8 @@ const GrammerTopicPage = () => {
           exampleFr.map((example, index) => (
             <ExampleBox>
               <ChevronBox>
-                <span>{example}</span>
+                <div dangerouslySetInnerHTML={{ __html: example }} />
+
                 <ChevronIcon
                   onClick={() => toggleAccordion2(index)}
                   isExpanded={index === expandedIndex2}
@@ -90,8 +95,15 @@ const GrammerTopicPage = () => {
                   &#9662;
                 </ChevronIcon>
               </ChevronBox>
-              <AccordionContent isExpanded={index === expandedIndex2}>
-                {secondLanguageExample[index]}
+              <AccordionContent
+                backgroundColor={"grey"}
+                isExpanded={index === expandedIndex2}
+              >
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: secondLanguageExample[index],
+                  }}
+                />
               </AccordionContent>
             </ExampleBox>
           ))}
@@ -105,8 +117,7 @@ const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 1rem 2rem; */
-  /* padding: 0.5rem 1rem; */
+
   @media (max-width: 920px) {
     min-width: 550px;
   }
@@ -128,14 +139,12 @@ const DescriptionContainer = styled.div`
   padding: 1rem;
   max-width: 100%;
   font-size: 1.3rem;
-  outline: 1px solid grey;
   border-bottom: 3px solid black;
-  border-right: 3px solid black;
+
   cursor: pointer;
   margin-bottom: 2rem;
 `;
 const DescriptionBox = styled.div`
-  outline: 1px solid grey;
   border-bottom: 3px solid black;
   border-right: 3px solid black;
   margin: 0.3rem;
@@ -165,15 +174,10 @@ const ExampleContainer = styled.div`
   padding: 1rem;
   max-width: 100%;
   font-size: 1.3rem;
-  outline: 1px solid grey;
-  border-bottom: 3px solid black;
-  border-right: 3px solid black;
+
   cursor: pointer;
 `;
 const ExampleBox = styled.div`
-  outline: 1px solid grey;
-  border-bottom: 3px solid black;
-  border-right: 3px solid black;
   margin: 0.3rem;
   min-width: 550px;
   span {
@@ -196,7 +200,6 @@ const ChevronBox = styled.div`
   display: flex;
   justify-content: space-between;
 
-  border-bottom: 3px solid blue;
   &:last-child {
     margin-left: auto;
   }

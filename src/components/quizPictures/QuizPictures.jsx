@@ -13,7 +13,7 @@ const QuizPictures = () => {
   const [score, setScore] = useState(0);
   const [quizStarted, setQuizStarted] = useState(true); // State to track if the quiz has started
 
-  console.log("quizData", quizData);
+  // console.log("quizData", quizData);
   useEffect(() => {
     dispatch(fetchQuizData());
   }, []);
@@ -148,7 +148,7 @@ const QuizContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 1rem auto;
-  height: 600px;
+
   max-width: 390px;
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);

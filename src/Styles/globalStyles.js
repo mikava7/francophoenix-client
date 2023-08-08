@@ -136,8 +136,10 @@ export const AccordionContent = styled.div`
   opacity: ${(props) => (props.isExpanded ? "1" : "0")};
   overflow: hidden;
   transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  background-color: #0055a4;
-  color: #ffffff;
+  background-color: ${(props) => props.backgroundColor || "#0055a4"};
+  color: ${(props) => props.textColor || "#ffffff"};
+  padding: ${(props) => props.padding || ""};
+
   position: relative;
   text-align: center;
   clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);

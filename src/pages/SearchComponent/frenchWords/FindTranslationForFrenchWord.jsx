@@ -7,6 +7,7 @@ import SearchIcon from "../../../../public/icons/search-50.png";
 import ClearIcon from "../../../../public/icons/cross-24.png";
 import ListenImg from "../../../../public/icons/sound-50.png";
 import useListenWord from "../../../hooks/useListenWord";
+import AddToFavorites from "../../../components/Utility/AddToFavorites";
 const FindTranslationForFrenchWord = () => {
   const { handleListen, isActiveStates } = useListenWord();
 
@@ -82,6 +83,12 @@ const FindTranslationForFrenchWord = () => {
             {" "}
             {isGeorgian ? result.georgian : result.english}
           </SecondLangWord>
+          <AddToFavorites
+            word={result.french}
+            secondLanguage={isGeorgian ? result.georgian : result.english}
+            frenchExamples={result.frenchExamples} // You need to make sure these properties exist in your data
+            secondLanguageExamples={result.secondLanguageExamples} // You need to make sure these properties exist in your data
+          />
           <hr />
         </SearchResultsContainer>
       ))}

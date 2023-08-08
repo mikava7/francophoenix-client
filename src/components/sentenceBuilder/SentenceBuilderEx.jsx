@@ -144,8 +144,8 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  max-width: 390px;
-  min-width: 360px;
+  width: 390px;
+
   margin: 1rem auto;
   background: #0055a4dd;
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
@@ -166,9 +166,11 @@ const TopBox = styled.div`
   margin-top: 2rem;
   color: black;
   position: relative;
+  flex-wrap: wrap;
   display: flex;
+
   background-color: ${(props) =>
-    props.isSubmit ? (props.isCorrect ? "green" : "red") : "white"};
+    props.isSubmit ? (props.isCorrect ? "green" : "red") : "#ebf5ffdd"};
 `;
 export const BuildBox = styled.div`
   max-width: 100%;
@@ -181,23 +183,23 @@ export const TopWord = styled.span`
   text-align: center;
   display: flex;
   background-color: #8ae8ff;
-  border-radius: 8px;
+
   cursor: pointer;
   align-items: center;
   font-size: 2rem;
   margin: 0.5rem;
   padding: 0.5rem;
-  max-width: 100%;
   height: 3rem;
+  border-radius: 4px;
 `;
 export const BottomBox = styled.div`
   background-color: #8ae8ff;
 
   margin: 0 auto;
-  /* width: 100%; */
+  width: 100%;
+  min-width: 390px;
   height: 10rem;
   margin-bottom: 2rem;
-  min-width: 20rem;
   margin-top: 2rem;
   position: relative;
   display: flex;

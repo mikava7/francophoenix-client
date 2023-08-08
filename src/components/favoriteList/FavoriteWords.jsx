@@ -17,7 +17,6 @@ const FavoriteWords = () => {
   const { t } = useTranslation();
   const favorites = useSelector((state) => state.isFavorite.favorites);
   const dispatch = useDispatch();
-
   const { handleListen, isActiveStates } = useListenWord();
 
   const handleRemoveFavorite = (index) => {
@@ -39,43 +38,43 @@ const FavoriteWords = () => {
       ) : (
         <div>
           <FavoriteWordsUl>
-            {favorites.map((favorite, index) => (
-              <FavoriteInstance key={index}>
-                <AccordionHeader>
-                  <span>{favorite.word}</span>
-                  <span>{favorite.secondLanguage}</span>
-                  <IconsWrapper>
-                    <AccordionListenIcon
-                      onClick={handleListen(favorite.word)}
-                      isActive={isActiveStates[index]}
-                    >
-                      <img src={ListenImg} alt="ListenImg" />
-                    </AccordionListenIcon>
+            {favorites
+              .filter((favorite) => Object.keys(favorite).length > 0)
+              .map((favorite, index) => (
+                <FavoriteInstance key={index}>
+                  <AccordionHeader>
+                    <span>{favorite.word}</span>
+                    <span>{favorite.secondLanguage}</span>
+                    <IconsWrapper>
+                      <AccordionListenIcon
+                        onClick={handleListen(favorite.word)}
+                        isActive={isActiveStates[index]}
+                      >
+                        <img src={ListenImg} alt="ListenImg" />
+                      </AccordionListenIcon>
 
-                    <AddToFavoriteImg
-                      src={FavoriteIMG}
-                      alt="Favorite"
-                      onClick={() => handleRemoveFavorite(index)}
-                    />
-                    <ChevronIcon
-                      onClick={() => toggleAccordion(index)}
-                      isExpanded={index === expandedIndex}
-                    >
-                      &#9662;
-                    </ChevronIcon>
-                  </IconsWrapper>
-                </AccordionHeader>
+                      <AddToFavoriteImg
+                        src={FavoriteIMG}
+                        alt="Favorite"
+                        onClick={() => handleRemoveFavorite(index)}
+                      />
+                      <ChevronIcon
+                        onClick={() => toggleAccordion(index)}
+                        isExpanded={index === expandedIndex}
+                      >
+                        &#9662;
+                      </ChevronIcon>
+                    </IconsWrapper>
+                  </AccordionHeader>
 
-                <AccordionExpendedContent
-                  index={index}
-                  expandedIndex={expandedIndex}
-                  frenchExamples={favorite.frenchExamples[index]}
-                  secondLanguageExamples={
-                    favorite.secondLanguageExamples[index]
-                  }
-                />
-              </FavoriteInstance>
-            ))}
+                  <AccordionExpendedContent
+                    index={index}
+                    expandedIndex={expandedIndex}
+                    frenchExamples={favorite.frenchExamples}
+                    secondLanguageExamples={favorite.secondLanguageExamples}
+                  />
+                </FavoriteInstance>
+              ))}
             <ClearAllButton onClick={handleClearAllFavorites}>
               Clear All
             </ClearAllButton>
