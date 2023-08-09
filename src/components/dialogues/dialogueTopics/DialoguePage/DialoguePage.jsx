@@ -9,6 +9,9 @@ import ChevronDown from "../../../../../public/icons/chevron-down-24.png";
 import Listen from "../../../Listen";
 import VocabularyPage from "../VocabularyPage/VocabularyPage";
 import DialoguePhrase from "../DialoguePhrase/DialoguePhrase";
+import useListenWord from "../../../../hooks/useListenWord";
+import ToggleTranslation from "../ToggleTranslation";
+import ListenImg from "../../../../../public/icons/sound-50.png";
 const DialoguePage = () => {
   const dispatch = useDispatch();
   const { dialogueTopicId } = useParams();
@@ -16,16 +19,11 @@ const DialoguePage = () => {
   const isGeorgian = i18n.language === "ka"; // Change 'geo' to the appropriate language code for Georgian
   const [showAllTranslations, setShowAllTranslations] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+
   const [rotationChevron, setRotationChevron] = useState({});
-  const [activeSoundIndex, setActiveSoundIndex] = useState(-1); // Keep track of the active SoundContainer index
 
-  const speakWord = (word) => {
-    responsiveVoice.speak(word, "French Female");
-  };
+  const { handleListen, isActiveStates } = useListenWord();
 
-  const handleSoundToggle = (index) => {
-    setActiveSoundIndex((prevIndex) => (prevIndex === index ? -1 : index));
-  };
   const handleChevronToggle = (lineIndex) => {
     setRotationChevron((prevRotations) => ({
       ...prevRotations,
@@ -59,32 +57,28 @@ const DialoguePage = () => {
     chapter,
     chapterName: { chapterNameEng, chapterNameFr, chapterNameGeo },
     dialogues,
-    vocabulary,
-    phrases,
   } = selectedTopic || {};
   const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
-  console.log("selectedTopic", selectedTopic);
+
   return (
     <div>
       <div>
         <div key={_id}>
-          <p>chapter{chapter}</p>
+          <Header>
+            <h2>{chapterNameFr}:</h2>
+            <h3>{secondLanguage}</h3>
 
-          <h2>
-            {chapterNameFr}:{secondLanguage}
-            <button
+            <ToggleTranslation
+              isActive={showAllTranslations}
               onClick={() => setShowAllTranslations(!showAllTranslations)}
-            >
-              {showAllTranslations
-                ? "Hide All Translations"
-                : "Show All Translations"}
-            </button>
-          </h2>
+            />
+          </Header>
           <div>
             {dialogues &&
               dialogues.map((dialogueSet, dialogueIndex) => {
-                const { dialogueName, dialogueImg, dialogue } = dialogueSet;
-
+                const { dialogueName, dialogueImg, dialogue, words, phrases } =
+                  dialogueSet;
+                console.log(phrases);
                 return (
                   <DialogueContainer key={dialogueIndex}>
                     <h1>{dialogueName}</h1>
@@ -97,23 +91,17 @@ const DialoguePage = () => {
 
                       const isTranslationVisible =
                         showAllTranslations || activeIndex === lineIndex;
-                      const isSoundActive = activeSoundIndex === lineIndex;
 
                       return (
                         <DialogueLine key={lineIndex}>
                           <SpeakerSpan>{speaker}:</SpeakerSpan>
                           <MessageLine>
-                            <MessageParagraph
-                              onClick={() => speakWord(messageFr)}
-                            >
-                              {messageFr}
-                            </MessageParagraph>
-                            <SoundContainer
-                              onClick={() => handleSoundToggle(lineIndex)}
-                              isActive={isSoundActive}
+                            <MessageParagraph>{messageFr}</MessageParagraph>
+                            <ListenIconContainer
+                              onClick={handleListen(messageFr)}
                             >
                               <Listen />
-                            </SoundContainer>
+                            </ListenIconContainer>
                             <ChevronContainer
                               onClick={() => {
                                 handleChevronToggle(lineIndex);
@@ -135,7 +123,7 @@ const DialoguePage = () => {
                       );
                     })}
                     <div>
-                      <VocabularyPage vocabulary={vocabulary} />
+                      <VocabularyPage words={words} />
                     </div>
                     <DialoguePhrase phrases={phrases} />
                   </DialogueContainer>
@@ -161,33 +149,31 @@ const DialogueContainer = styled.div`
 const DialogueLine = styled.div`
   display: flex;
   align-items: center;
-  background: #fdffa3;
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 0 0 0 12px;
   border-bottom: 3px solid orange;
   border-right: 2px solid orange;
-
-  margin-bottom: 1rem;
 `;
 const MessageLine = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem;
   background: #ffffec;
-
+  font-size: 1.3rem;
   min-height: 3.5rem;
   border-radius: 12px;
   width: 100%;
-  border-bottom: 3px solid #f3c23c;
-  border-right: 2px solid #f3c23c;
+
   position: relative;
 `;
 const SpeakerSpan = styled.span`
   font-weight: bold;
+  font-size: 1.4rem;
   margin-right: 0.5rem;
   width: 20%;
-  font-size: 1.1rem;
-  color: #414e8d;
+  background: #8080808f;
+  padding: 2rem;
+  color: #4b1d02;
 `;
 const MessageParagraph = styled.p`
   padding: 0.5rem;
@@ -216,12 +202,23 @@ const ChevronImage = styled.img`
   transform: ${({ rotation }) => `rotate(${rotation}deg)`};
   cursor: pointer;
 `;
-const SoundContainer = styled(ChevronContainer)`
+const ListenIconContainer = styled.span`
+  display: flex;
+  align-items: center;
+  margin-right: 0.3rem;
+  font-weight: bold;
+  width: 2rem;
+  position: absolute;
+  top: 15%;
+  right: 12%;
   cursor: pointer;
-  img {
-    width: 2rem;
-    position: absolute;
-    top: 15%;
-    right: 12%;
+`;
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+  button {
+    margin: 0 auto;
   }
 `;

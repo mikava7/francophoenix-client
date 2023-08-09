@@ -32,6 +32,8 @@ import SentenceBuilderEx from "./components/sentenceBuilder/SentenceBuilderEx";
 import BasicGrammerLessons from "./components/grammer/BasicGrammerLessons";
 import BasicGrammerTopic from "./components/grammer/BasicGrammerTopic";
 import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
+
+import Flashcards from "./components/flashcard/Flashcards";
 function App() {
   const [theme, setTheme] = useState("light");
 
@@ -89,7 +91,7 @@ function App() {
           <Route path="/PresentTense" element={<PresentTense />} />
           <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
           <Route path="/SentenceBuilderEx" element={<SentenceBuilderEx />} />
-          SentenceBuilderEx
+          <Route path="/Flashcards" element={<Flashcards />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

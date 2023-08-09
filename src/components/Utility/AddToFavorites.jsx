@@ -52,8 +52,10 @@ export default AddToFavorites;
 const AddToFavoriteBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
+  cursor: pointer;
 `;
 const AddToFavoriteImg = styled.img`
   width: 100%;

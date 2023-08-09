@@ -17,6 +17,7 @@ const FavoriteWords = () => {
   const { t } = useTranslation();
   const favorites = useSelector((state) => state.isFavorite.favorites);
   const dispatch = useDispatch();
+
   const { handleListen, isActiveStates } = useListenWord();
 
   const handleRemoveFavorite = (index) => {
@@ -187,6 +188,7 @@ const IconsWrapper = styled.div`
   margin-right: 3rem;
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
 `;
+
 const AddToFavoriteImg = styled.img`
   max-width: 1.5rem;
   max-height: 1.5rem;

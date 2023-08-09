@@ -8,8 +8,8 @@ import Localization from "../../localization/Localization";
 import { useTranslation } from "react-i18next";
 const Navbar = ({ toggleTheme, theme }) => {
   const { t, i18n } = useTranslation();
-  const isScrolled = useScrollHandler();
   const isGeorgian = i18n.language === "ka";
+  const isScrolled = useScrollHandler();
 
   return (
     <NavbarContainer>

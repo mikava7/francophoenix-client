@@ -2,18 +2,24 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import Listen from "../../../Listen";
-import Favorite from "../../../Favorite";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
-const VocabularyPage = ({ vocabulary }) => {
-  const { fr, geo, en, definitions } = vocabulary;
-  // console.log("vocabulary", vocabulary);
+import useListenWord from "../../../../hooks/useListenWord";
+import AddToFavorites from "../../../Utility/AddToFavorites";
+import ListenImg from "../../../../../public/icons/sound-50.png";
+const VocabularyPage = ({ words }) => {
+  const french = words.map((word) => word.french);
+  const english = words.map((word) => word.english);
+  const georgian = words.map((word) => word.georgian);
+  const definition = words.map((word) => word.definition);
+  const { handleListen, isActiveStates } = useListenWord();
+
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const [activeIndex, setActiveIndex] = useState(-1);
 
   // Set initial state for button colors
-  const initialFrButtonColors = fr.map(() => "#ffb923");
-  const initialSecondLangButtonColors = fr.map(() => "#ffffec");
+  const initialFrButtonColors = french.map(() => "#ffb923");
+  const initialSecondLangButtonColors = french.map(() => "#ffffec");
   const [frButtonColors, setFrButtonColors] = useState(initialFrButtonColors);
   const [secondLangButtonColors, setSecondLangButtonColors] = useState(
     initialSecondLangButtonColors
@@ -36,16 +42,16 @@ const VocabularyPage = ({ vocabulary }) => {
     });
   };
 
-  const secondLanguage = isGeorgian ? geo : en;
+  const secondLanguage = isGeorgian ? georgian : english;
   const secondLangButtonName = isGeorgian ? "Geo" : "Eng";
 
   return (
     <VocabularyPageContainer>
       <h2>Vocabulary</h2>
       <div>
-        {fr.map((frWord, index) => (
+        {french.map((frWord, index) => (
           <WordCard key={index}>
-            <FrenchWord>{frWord}</FrenchWord>
+            <FrenchWord onClick={handleListen(frWord)}>{frWord}</FrenchWord>
             <ButtonContainer>
               <button
                 style={{ background: frButtonColors[index] }}
@@ -63,14 +69,26 @@ const VocabularyPage = ({ vocabulary }) => {
             <SecondLangOrDef>
               {activeIndex === index
                 ? secondLanguage[index]
-                : definitions[index]}
+                : definition[index]}
             </SecondLangOrDef>
             <WordCArdApendix>
               <p>nom masculin</p>
               <IconsContainer>
-                <Listen />
-                <Favorite />
-                <AddToFlashcards />
+                <ListenIconContainer onClick={handleListen(frWord)}>
+                  <Listen />
+                </ListenIconContainer>
+                <AddToFavorites
+                  word={frWord}
+                  frenchExamples={definition[index]}
+                  secondLanguage={secondLanguage[index]}
+                  secondLanguageExamples={"No examples"}
+                />
+                <AddToFlashcards
+                  word={frWord}
+                  frenchExamples={definition[index]}
+                  secondLanguage={secondLanguage[index]}
+                  secondLanguageExamples={"No examples"}
+                />
               </IconsContainer>
             </WordCArdApendix>
           </WordCard>
@@ -82,29 +100,39 @@ const VocabularyPage = ({ vocabulary }) => {
 
 export default VocabularyPage;
 
-const VocabularyPageContainer = styled.div``;
+const VocabularyPageContainer = styled.div`
+  margin-top: 5rem;
+  h2 {
+    margin-bottom: 3rem;
+  }
+`;
 const WordCard = styled.div`
-  background: #fdffa3;
+  background: #ffffec;
   padding: 1rem;
-  margin: 1rem;
+  margin: 1rem 0.5rem;
   position: relative;
   min-height: 3.5rem;
-  border-radius: 12px;
+  border-radius: 0 0 0 12px;
+  max-width: 100%;
   border-bottom: 3px solid orange;
   border-right: 2px solid orange;
 `;
 const FrenchWord = styled.div`
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 `;
 const ButtonContainer = styled.div`
   position: absolute;
   top: 10%;
   right: 2%;
+  font-size: 1.4rem;
+
   button {
     border: none;
-    width: 2.5rem;
-    transition: background-color 0.5s ease; /* Added the transition property */
+    font-size: 1.2rem;
+    width: 3rem;
+    height: 2rem;
+    transition: background-color 0.5s ease;
   }
 `;
 const WordCArdApendix = styled.div`
@@ -119,11 +147,18 @@ const SecondLangOrDef = styled.div`
   margin-left: 1rem;
   min-height: 3rem;
   padding: 0.5rem;
+  font-size: 1.2rem;
+  font-style: italic;
 `;
 const IconsContainer = styled.div`
   display: flex;
 
   gap: 1rem;
+  align-items: center;
+  justify-content: space-evenly;
   margin-right: 1rem;
   margin-left: auto;
+`;
+const ListenIconContainer = styled.div`
+  display: flex;
 `;

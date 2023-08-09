@@ -1,11 +1,40 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addToFlashcard,
+  removeFromFlashcards,
+} from "../../redux/slices/fleshCards/fleshCardSlice";
 import FlashCardIcon from "../../../public/icons/flash-card.png";
 
-const AddToFlashcards = ({ isAdded, handleAddToFlashcards, word }) => {
+const AddToFlashcards = ({
+  word,
+  secondLanguage,
+  frenchExamples,
+  secondLanguageExamples,
+}) => {
+  const flashcards = useSelector((state) => state.flashcards.flashcards);
+  const dispatch = useDispatch();
+  const isWordInFlashcards = flashcards.some(
+    (flashcard) => flashcard.word === word
+  );
+  const handleFlashcards = () => {
+    if (isWordInFlashcards) {
+      dispatch(removeFromFlashcards(word));
+    } else {
+      dispatch(
+        addToFlashcard({
+          word,
+          frenchExamples,
+          secondLanguageExamples,
+          secondLanguage,
+        })
+      );
+    }
+  };
   return (
-    <AddButton onClick={handleAddToFlashcards}>
-      <IconWrapper isAdded={isAdded}>
+    <AddButton onClick={handleFlashcards}>
+      <IconWrapper isWordInFlashcards={isWordInFlashcards}>
         <img src={FlashCardIcon} alt="FlashCardIcon" />
       </IconWrapper>
     </AddButton>
@@ -29,9 +58,10 @@ const IconWrapper = styled.span`
     width: 1.2rem;
     height: 1.2rem;
     cursor: pointer;
-    filter: ${(props) => (props.isAdded ? "" : "invert(50%)")};
+    filter: ${(props) => (props.isWordInFlashcards ? "" : "invert(50%)")};
     transition: transform 0.3s ease-in-out;
-    transform: ${(props) => (props.isAdded ? "scale(1.1)" : "scale(1)")};
+    transform: ${(props) =>
+      props.isWordInFlashcards ? "scale(1.1)" : "scale(1)"};
   }
 `;
 

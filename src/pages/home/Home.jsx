@@ -14,6 +14,8 @@ import QuizPictures from "../../components/quizPictures/QuizPictures";
 import FindTranslationForFrenchWord from "../SearchComponent/frenchWords/FindTranslationForFrenchWord";
 import PresentTense from "../../components/verbs/presentTense/PresentTense";
 import SentenceBuilderEx from "../../components/sentenceBuilder/SentenceBuilderEx";
+
+import Footer from "../footer/Footer";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -79,6 +81,8 @@ const Home = () => {
 
         <Carousel books={books} />
       </Section>
+
+      <Footer />
     </HomeContainer>
   );
 };

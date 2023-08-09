@@ -94,6 +94,65 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1.4rem;
   }
 `;
+/////////////////
+export const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+export const ContinueButton = styled.button`
+  background-color: #70ff41;
+  color: #1a1a4b;
+  width: 20rem;
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  &:hover {
+    color: #70ff41;
+    background: #1a1a4b;
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    width: 18rem;
+    font-size: 1.6rem;
+    padding: 0.8rem 1.6rem;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 14rem;
+    font-size: 1.4rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    width: 12rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+  }
+
+  @media (max-width: 576px) {
+    width: 10rem;
+    font-size: 1.3rem;
+    padding: 0.5rem 1rem;
+  }
+`;
+
+export const CenteredMessageContent = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.4rem 0.8rem;
+  letter-spacing: 1.5px;
+  font-size: 1.3rem;
+`;
+////////////
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
