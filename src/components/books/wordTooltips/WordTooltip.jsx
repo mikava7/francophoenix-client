@@ -4,11 +4,12 @@ import flashCardIcon from "../../../../public/icons/flash-card.png";
 import Listen from "../../Listen";
 import Favorite from "../../Favorite";
 import AddToFlashcards from "../../Utility/AddToFlashcards";
+import AddToFavorites from "../../Utility/AddToFavorites";
 const WordTooltip = ({ content, children }) => {
   const [isActive, setIsActive] = useState(false);
   const [isStarred, setIsStarred] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
-
+  // console.log("children", children);
   const speakWord = (word) => {
     responsiveVoice.speak(word, "French Female");
   };
@@ -19,16 +20,6 @@ const WordTooltip = ({ content, children }) => {
     setIsAdded(!isAdded);
   };
 
-  const handleFavorite = (event) => {
-    event.stopPropagation();
-    console.log("handleFavorite Clicked");
-
-    setIsStarred(!isStarred);
-  };
-  const addToFlashCards = (event) => {
-    console.log("flashCardIconContainer Clicked");
-    event.stopPropagation();
-  };
   const handleListen = (event) => {
     event.stopPropagation();
 
@@ -42,19 +33,25 @@ const WordTooltip = ({ content, children }) => {
     <TooltipContainer>
       {children}
       <ContentAndIconWrapper>
-        <TooltipContent onClick={() => speakWord(content)}>
-          {content}
-        </TooltipContent>
+        <TooltipContent>{content}</TooltipContent>
         <IconsBox>
-          <ListenContainer onClick={() => speakWord(content)}>
-            <Listen handleListen={handleListen} isActive={isActive} />
+          <ListenContainer onClick={() => speakWord(children)}>
+            <Listen />
           </ListenContainer>
           <AddToFlashcards
-            handleAddToFlashcards={handleAddToFlashcards}
-            isAdded={isAdded}
+            word={children}
+            frenchExamples={"content missing"}
+            secondLanguageExamples={"content missing"}
+            secondLanguage={content}
+          />
+          <AddToFavorites
+            word={children}
+            frenchExamples={"content missing"}
+            secondLanguageExamples={"content missing"}
+            secondLanguage={content}
           />
 
-          <Favorite handleFavorite={handleFavorite} isStarred={isStarred} />
+          {/* <Favorite handleFavorite={handleFavorite} isStarred={isStarred} /> */}
         </IconsBox>
       </ContentAndIconWrapper>
     </TooltipContainer>
@@ -63,31 +60,27 @@ const WordTooltip = ({ content, children }) => {
 
 export default WordTooltip;
 const TooltipContainer = styled.div`
-  position: relative;
   display: inline;
   position: relative;
-  background-color: #80808030;
+  background-color: #c223232f;
   /* padding: 0.2rem 0.3rem; */
   border-radius: 4px;
   outline: 2px solid #808080dc;
+  width: 100%;
 `;
 const ContentAndIconWrapper = styled.div`
-  display: flex; /* Flex container to put the content and icon side by side */
-  position: absolute;
   display: flex;
   position: absolute;
   top: -90%;
   left: 100%;
   transform: translate(-30%, -50%);
-
   align-items: center;
   justify-content: center;
-  max-width: 200px;
 
+  height: 3rem;
   background-color: #fffd70;
   outline: 2px solid #f89411;
 
-  /* padding: 0.2rem 0.3rem; */
   border-radius: 4px;
   font-size: 1.1rem;
 `;
@@ -96,20 +89,24 @@ const TooltipContent = styled.div`
 
   color: black;
 
-  width: 100%;
+  max-width: 100%;
   height: 2rem;
   border-radius: 4px;
-
+  margin-right: 1rem;
   visibility: visible;
   opacity: 1;
   text-indent: 5px;
   transition: opacity 0.3s ease;
+  min-width: 200px;
+  max-width: 350px;
 `;
 
 const IconsBox = styled.span`
   display: flex;
+  align-items: center;
   max-width: 100%;
   padding-right: 4px;
   gap: 4px;
 `;
+
 const ListenContainer = styled.span``;

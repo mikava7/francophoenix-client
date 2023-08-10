@@ -102,7 +102,11 @@ const Flashcards = () => {
               Clear All
             </ClearAllButton>
           </ButtonContainer>
-
+          {selectedFlashcards.length === 0 && (
+            <Message>
+              No words selected. Please select words to chooce the trainer mode.
+            </Message>
+          )}
           <ButtonContainer>
             <Blurry onClick={() => setSelectedTrainer("blurry")}>
               Blurry Trainer
@@ -112,17 +116,18 @@ const Flashcards = () => {
             </Jumble>
           </ButtonContainer>
 
-          {/* Render the selected trainer */}
-          {selectedTrainer === "blurry" && (
+          {/* Render the selected trainer only when flashcards are selected */}
+          {selectedTrainer === "blurry" && selectedFlashcards.length > 0 && (
             <Blury ref={BlurryVocabularyRef}>
               <BlurryVocabularyTrainer
                 selectedFlashcards={selectedFlashcards}
               />
             </Blury>
           )}
-          {selectedTrainer === "wordJumble" && (
-            <WordJumble selectedFlashcards={words} />
-          )}
+          {selectedTrainer === "wordJumble" &&
+            selectedFlashcards.length > 0 && (
+              <WordJumble selectedFlashcards={words} />
+            )}
         </FavoriteWordsUl>
       )}
     </FavoriteWordsContainer>
@@ -261,3 +266,4 @@ const Blurry = styled(TrainingButton)`
     color: #fff2f2;
   }
 `;
+const Message = styled.div``;

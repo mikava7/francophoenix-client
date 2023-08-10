@@ -6,6 +6,7 @@ import AddToFavorites from "../../../Utility/AddToFavorites";
 import AccordionExpendedContent from "./AccordionExpendedContent";
 import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
+import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const VocabularyAccordion = ({
   frenchWords,
   secondLanguage,
@@ -48,6 +49,13 @@ const VocabularyAccordion = ({
                 frenchExamples={frenchExamples[index]}
                 secondLanguageExamples={secondLanguageExamples[index]}
                 secondLanguage={secondLanguage[index]}
+              />
+
+              <AddToFlashcards
+                word={word}
+                frenchExamples={frenchExamples[index]}
+                secondLanguage={secondLanguage[index]}
+                secondLanguageExamples={secondLanguageExamples[index]}
               />
             </IconsWrapper>
             <Example>{t("Example")}</Example>
