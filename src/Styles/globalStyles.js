@@ -142,6 +142,26 @@ export const ContinueButton = styled.button`
     padding: 0.5rem 1rem;
   }
 `;
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  width: 10rem;
+  font-size: 1.2rem;
+
+  background: #001a1a;
+  color: gold;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background: gold;
+    color: #001a1a;
+  }
+`;
 
 export const CenteredMessageContent = styled.p`
   display: flex;

@@ -10,13 +10,15 @@ import FlashcardIcon from "../../../public/icons/flash-card.png";
 import NoWordsMessage from "../Utility/NoWordsMessage";
 import useListenWord from "../../hooks/useListenWord";
 import Listen from "../Listen";
-import WordTrainer from "../wordTrainer/WordTrainer";
+import WordJumble from "./trainers/wordTrainer/WordJumble";
 import BlurryVocabularyTrainer from "./trainers/BlurryVocabularyTrainer";
+
 const Flashcards = () => {
   const dispatch = useDispatch();
   const flashcards = useSelector((state) => state.flashcards.flashcards);
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
   const [showTrainer, setShowTrainer] = useState(false);
+  const [selectedTrainer, setSelectedTrainer] = useState(null); // Use 'null' for no trainer selected
 
   const BlurryVocabularyRef = useRef(null);
   const { handleListen, isActiveStates } = useListenWord();
@@ -53,6 +55,7 @@ const Flashcards = () => {
     setSelectedFlashcards([...flashcards]);
     handleShowTrainer();
   };
+  const words = selectedFlashcards.map((flashcard) => flashcard.word);
   return (
     <FavoriteWordsContainer>
       {flashcards.length === 0 ? ( // Check if there are no flashcards
@@ -92,27 +95,33 @@ const Flashcards = () => {
               </FavoriteInstance>
             );
           })}
-          <ClearAllButton onClick={handleClearFlashcards}>
-            Clear All
-          </ClearAllButton>
-          <TrainingButton
-            onClick={() => {
-              if (selectedFlashcards.length > 0) {
-                handleShowTrainer();
-              }
-            }}
-          >
-            Start Training
-          </TrainingButton>
+          <ButtonContainer>
+            <TrainAllButton onClick={selectAllWords}>Select All</TrainAllButton>
 
-          <TrainAllButton onClick={selectAllWords}>Train All</TrainAllButton>
-          {showTrainer && (
+            <ClearAllButton onClick={handleClearFlashcards}>
+              Clear All
+            </ClearAllButton>
+          </ButtonContainer>
+
+          <ButtonContainer>
+            <Blurry onClick={() => setSelectedTrainer("blurry")}>
+              Blurry Trainer
+            </Blurry>
+            <Jumble onClick={() => setSelectedTrainer("wordJumble")}>
+              Word Jumble Trainer
+            </Jumble>
+          </ButtonContainer>
+
+          {/* Render the selected trainer */}
+          {selectedTrainer === "blurry" && (
             <Blury ref={BlurryVocabularyRef}>
               <BlurryVocabularyTrainer
                 selectedFlashcards={selectedFlashcards}
               />
             </Blury>
-            //     <WordTrainer selectedFlashcards={selectedFlashcards} />
+          )}
+          {selectedTrainer === "wordJumble" && (
+            <WordJumble selectedFlashcards={words} />
           )}
         </FavoriteWordsUl>
       )}
@@ -220,7 +229,6 @@ const CheckboxWrapper = styled.div`
   }
 `;
 const TrainingButton = styled(ClearAllButton)`
-  margin-top: 2rem;
   background: gold;
   color: #001a1a;
   &:hover {
@@ -229,3 +237,27 @@ const TrainingButton = styled(ClearAllButton)`
   }
 `;
 const TrainAllButton = styled(TrainingButton)``;
+const ButtonContainer = styled.div`
+  display: flex;
+  margin: 2rem;
+`;
+
+const Jumble = styled(TrainingButton)`
+  width: 12rem;
+  background: #ffffff;
+  color: #001a1a;
+  &:hover {
+    background: #001a1a;
+    color: #ffffff;
+  }
+`;
+const Blurry = styled(TrainingButton)`
+  width: 12rem;
+  margin-right: 2rem;
+  background: #fff2f2;
+  color: #001a1a;
+  &:hover {
+    background: #001a1a;
+    color: #fff2f2;
+  }
+`;

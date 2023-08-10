@@ -158,7 +158,6 @@ export const DialogueOptionButton = styled.button`
 `;
 export const SubmitDialogue = styled.button`
   background-color: #70ff41;
-
   background-color: #41c3ff;
   color: black;
   width: 20rem;

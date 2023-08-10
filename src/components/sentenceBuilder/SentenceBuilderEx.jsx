@@ -183,7 +183,6 @@ export const TopWord = styled.span`
   text-align: center;
   display: flex;
   background-color: #8ae8ff;
-
   cursor: pointer;
   align-items: center;
   font-size: 2rem;
@@ -194,7 +193,6 @@ export const TopWord = styled.span`
 `;
 export const BottomBox = styled.div`
   background-color: #8ae8ff;
-
   margin: 0 auto;
   width: 100%;
   min-width: 390px;
