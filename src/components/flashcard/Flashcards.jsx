@@ -12,7 +12,7 @@ import useListenWord from "../../hooks/useListenWord";
 import Listen from "../Listen";
 import WordJumble from "./trainers/wordTrainer/WordJumble";
 import BlurryVocabularyTrainer from "./trainers/BlurryVocabularyTrainer";
-
+import FrQuizTrainer from "./trainers/quizTrainer/FrQuizTrainer";
 const Flashcards = () => {
   const dispatch = useDispatch();
   const flashcards = useSelector((state) => state.flashcards.flashcards);
@@ -114,6 +114,9 @@ const Flashcards = () => {
             <Jumble onClick={() => setSelectedTrainer("wordJumble")}>
               Word Jumble Trainer
             </Jumble>
+            <Jumble onClick={() => setSelectedTrainer("FrQuizTrainer")}>
+              FrQuizTrainer Trainer
+            </Jumble>
           </ButtonContainer>
 
           {/* Render the selected trainer only when flashcards are selected */}
@@ -127,6 +130,15 @@ const Flashcards = () => {
           {selectedTrainer === "wordJumble" &&
             selectedFlashcards.length > 0 && (
               <WordJumble selectedFlashcards={words} />
+            )}
+          {selectedTrainer === "FrQuizTrainer" &&
+            selectedFlashcards.length > 0 && (
+              <FrQuizTrainer
+                FrenchWord={selectedFlashcards.map((card) => card.word)}
+                secondLanguageWord={selectedFlashcards.map(
+                  (card) => card.secondLanguage
+                )}
+              />
             )}
         </FavoriteWordsUl>
       )}
