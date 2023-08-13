@@ -89,11 +89,10 @@ const Home = () => {
 
 export default Home;
 const HomeContainer = styled.section`
-  background-color: ${(props) => props.theme.colors.lightBack};
-  color: ${(props) => props.theme.colors.textPrimary};
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
 `;
 const WellcomeSection = styled.div`
-  background: #b4bdcfc7;
   max-height: 100%;
 `;
 const Section = styled.div`
@@ -101,7 +100,6 @@ const Section = styled.div`
   background-image: url("/icons/tex.avif");
   background-repeat: repeat-x;
   margin: 0 2rem;
-  color: white;
 
   border-bottom: 1.6rem solid #c26528;
   margin-bottom: 2rem;

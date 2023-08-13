@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import ListenImg from "../../../public/icons/sound-50.png";
 import useListenWord from "../../hooks/useListenWord";
 import AccordionExpendedContent from "../vocabulary/vocabularyTopics/vocabularyAccordion/AccordionExpendedContent";
+import { Button } from "../../Styles/globalStyles";
 const FavoriteWords = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
@@ -37,50 +38,46 @@ const FavoriteWords = () => {
       {favorites.length === 0 ? (
         <p>{t("Pas de mots favoris")}</p>
       ) : (
-        <div>
-          <FavoriteWordsUl>
-            {favorites
-              .filter((favorite) => Object.keys(favorite).length > 0)
-              .map((favorite, index) => (
-                <FavoriteInstance key={index}>
-                  <AccordionHeader>
-                    <span>{favorite.word}</span>
-                    <span>{favorite.secondLanguage}</span>
-                    <IconsWrapper>
-                      <AccordionListenIcon
-                        onClick={handleListen(favorite.word)}
-                        isActive={isActiveStates[index]}
-                      >
-                        <img src={ListenImg} alt="ListenImg" />
-                      </AccordionListenIcon>
+        <FavoriteWordsUl>
+          {favorites
+            .filter((favorite) => Object.keys(favorite).length > 0)
+            .map((favorite, index) => (
+              <FavoriteInstance key={index}>
+                <AccordionHeader>
+                  <span>{favorite.word}</span>
+                  <span>{favorite.secondLanguage}</span>
+                  <IconsWrapper>
+                    <AccordionListenIcon
+                      onClick={handleListen(favorite.word)}
+                      isActive={isActiveStates[index]}
+                    >
+                      <img src={ListenImg} alt="ListenImg" />
+                    </AccordionListenIcon>
 
-                      <AddToFavoriteImg
-                        src={FavoriteIMG}
-                        alt="Favorite"
-                        onClick={() => handleRemoveFavorite(index)}
-                      />
-                      <ChevronIcon
-                        onClick={() => toggleAccordion(index)}
-                        isExpanded={index === expandedIndex}
-                      >
-                        &#9662;
-                      </ChevronIcon>
-                    </IconsWrapper>
-                  </AccordionHeader>
+                    <AddToFavoriteImg
+                      src={FavoriteIMG}
+                      alt="Favorite"
+                      onClick={() => handleRemoveFavorite(index)}
+                    />
+                    <ChevronIcon
+                      onClick={() => toggleAccordion(index)}
+                      isExpanded={index === expandedIndex}
+                    >
+                      &#9662;
+                    </ChevronIcon>
+                  </IconsWrapper>
+                </AccordionHeader>
 
-                  <AccordionExpendedContent
-                    index={index}
-                    expandedIndex={expandedIndex}
-                    frenchExamples={favorite.frenchExamples}
-                    secondLanguageExamples={favorite.secondLanguageExamples}
-                  />
-                </FavoriteInstance>
-              ))}
-            <ClearAllButton onClick={handleClearAllFavorites}>
-              Clear All
-            </ClearAllButton>
-          </FavoriteWordsUl>
-        </div>
+                <AccordionExpendedContent
+                  index={index}
+                  expandedIndex={expandedIndex}
+                  frenchExamples={favorite.frenchExamples}
+                  secondLanguageExamples={favorite.secondLanguageExamples}
+                />
+              </FavoriteInstance>
+            ))}
+          <Button onClick={handleClearAllFavorites}>Clear All</Button>
+        </FavoriteWordsUl>
       )}
     </FavoriteWordsContainer>
   );
@@ -90,9 +87,12 @@ export default FavoriteWords;
 const FavoriteWordsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  min-width: 365px;
+  width: 100vw;
   height: 100%;
-  margin: 0 auto;
+  margin: 0 0.4rem;
 `;
 
 const FavoriteWordsUl = styled.div`
@@ -101,9 +101,8 @@ const FavoriteWordsUl = styled.div`
   font-size: 1.4rem;
   margin-bottom: 1rem;
   border-radius: 12px;
-  min-width: 420px;
-  max-width: 920px;
-  margin: 0 auto;
+  min-width: 365px;
+  max-width: 100%;
 `;
 
 const FavoriteInstance = styled.div`
@@ -118,16 +117,19 @@ const FavoriteInstance = styled.div`
   padding: 0.5rem;
   border-radius: 0 0 0 12px;
   margin-bottom: 1rem;
+  &:hover {
+    /* background-color: #48b456; */
+  }
 `;
 const AccordionHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   cursor: pointer;
   background-color: ${(props) =>
-    props.isExpanded ? "#e6af68" : props.theme.colors.text2};
-  color: ${(props) => props.theme.colors.text};
+    props.isExpanded ? "#e6af68" : props.theme.background};
+  color: ${(props) => props.theme.text};
   span {
     padding: 1rem;
     min-width: 30%;
@@ -136,9 +138,7 @@ const AccordionHeader = styled.div`
       font-weight: bold;
     }
   }
-  &:hover {
-    background-color: #cd68e6;
-  }
+
   @media (max-width: 920px) {
     font-size: 1.3rem;
     padding: 0.8rem;

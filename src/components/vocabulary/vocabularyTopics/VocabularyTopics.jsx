@@ -7,7 +7,7 @@ const VocabularyTopics = ({ vocabularyTopics }) => {
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language === "en";
   return (
-    <div>
+    <>
       {vocabularyTopics.map((topic) => {
         const { _id, nameFr, nameGeo, nameEng, imageUrl, iconUrl, french } =
           topic;
@@ -30,7 +30,7 @@ const VocabularyTopics = ({ vocabularyTopics }) => {
           </VocabylaryTopicsConatiner>
         );
       })}
-    </div>
+    </>
   );
 };
 
@@ -40,6 +40,8 @@ const VocabylaryTopicsConatiner = styled.div`
   justify-content: space-evenly;
   gap: 2rem;
   border-radius: 1rem;
+  /* min-width: 350px; */
+
   border: 4px solid violet;
   margin: 2rem 3rem;
   position: relative;
@@ -69,6 +71,27 @@ const VocabylaryTopicsConatiner = styled.div`
     background-size: 70%; /* Increase background-size on hover to make it approach */
     transition: background-size 1s ease;
   }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin: 1rem 2rem;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 14rem;
+    font-size: 1.4rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    flex-direction: column;
+    margin: 1.4rem 0.8rem;
+    padding: 0.4rem;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    margin: 0 0.4rem;
+    /* padding: 0.3rem; */
+  }
 `;
 
 const Titles = styled.div`
@@ -85,6 +108,7 @@ const Titles = styled.div`
 const WordCount = styled.div`
   display: flex;
   align-items: center;
+  max-width: 100%;
   p {
     margin-right: 1rem;
     &::after {

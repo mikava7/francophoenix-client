@@ -4,11 +4,11 @@ import styled, { keyframes, css } from "styled-components";
 import moonIcon from "../../assets/moon-50.png";
 import sunIcon from "../../assets/sun-50.png";
 
-const ThemeToggle = ({ toggleTheme, theme }) => {
+const ThemeToggle = ({ toggleTheme, isDarkMode }) => {
   return (
-    <ThemeToggleContainer onClick={toggleTheme} style={{ marginRight: "2rem" }}>
-      <ToggleImageContainer theme={theme}>
-        <img src={theme === "light" ? moonIcon : sunIcon} alt="Toggle Icon" />
+    <ThemeToggleContainer onClick={toggleTheme}>
+      <ToggleImageContainer isDarkMode={isDarkMode}>
+        <img src={isDarkMode ? moonIcon : sunIcon} alt="Toggle Icon" />
       </ToggleImageContainer>
     </ThemeToggleContainer>
   );
@@ -43,8 +43,7 @@ export const ThemeToggleContainer = styled.div`
 export const ToggleImageContainer = styled.div`
   display: flex;
   width: 3rem;
-  background-color: ${(props) =>
-    props.theme === "light" ? "#E0E0E0" : "#e4b315"};
+  background-color: ${(props) => (props.isDarkMode ? "#E0E0E0" : "#e4b315")};
   border-radius: 100px;
   cursor: pointer;
   &:not(input) {
@@ -59,7 +58,7 @@ export const ToggleImageContainer = styled.div`
       width: 1.3rem;
     }
     animation: ${(props) =>
-      props.theme === "light"
+      props.isDarkMode
         ? css`
             ${slideRight} 0.8s forwards
           `

@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 const DialogueTopics = ({ dialogueTopics }) => {
-  const { i18n } = useTranslation();
-  const isGeorgian = i18n.language === "geo"; // Change "geo" to the appropriate language code for Georgian
+  const { t, i18n } = useTranslation();
+  const isGeorgian = i18n.language === "ka";
 
   return (
     <DialogueTopicContainer>
@@ -19,13 +19,11 @@ const DialogueTopics = ({ dialogueTopics }) => {
         return (
           <DialogueTopicCard key={_id}>
             <ChapterInfoContainer>
-              <ChapterIndex>Chapter: {chapter}</ChapterIndex>
+              <ChapterIndex>{chapter}</ChapterIndex>
               <ChapterTitle>{chapterNameFr}</ChapterTitle>
             </ChapterInfoContainer>
 
             <ChapterDialogueContainer>
-              <p>Dialogues in the chapters</p>
-
               {dialogues.map((dialogue) => {
                 const { dialogueName, dialogueImg } = dialogue;
 
@@ -38,13 +36,15 @@ const DialogueTopics = ({ dialogueTopics }) => {
             </ChapterDialogueContainer>
             <ChapterWordsAndPhrases>
               <p>
-                New Words: <b>15</b>
+                {t("Des mots")}
+                <b>15</b>
               </p>
               <p>
-                New Phrase: <b>10</b>
+                {t("Expressions")}
+                <b>10</b>
               </p>
               <p>
-                exercise: <b> 5</b>
+                {t("Des exercices")} <b> 5</b>
               </p>
             </ChapterWordsAndPhrases>
           </DialogueTopicCard>
@@ -58,18 +58,19 @@ const DialogueTopicContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem 4rem;
+  margin: 0 1rem;
   border-radius: 3rem;
-  border: 6px solid #1222ff;
+  border: 6px solid ${(props) => props.theme.correctBack};
 `;
 
 const DialogueTopicCard = styled.div`
-  background: #ddc0ff;
   width: 100%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
 `;
 
 const ChapterInfoContainer = styled.div`
@@ -89,17 +90,24 @@ const ChapterTitle = styled.span`
   font-size: 1.6rem;
   border: 3px solid white;
   padding: 0.4rem 1rem;
-  background: #1222ff;
+  background-color: ${(props) => props.theme.primary};
   border-radius: 12px;
   text-align: center;
   margin: 0 auto;
 `;
 
 const ChapterDialogueContainer = styled.div`
-  padding: 1rem;
+  padding: 0.2rem 1rem;
   width: 80%;
   margin: 1rem;
-  border: 3px dashed #1222ff;
+  border: 3px dashed ${(props) => props.theme.primary};
+  div {
+    border-radius: 0 0 0 12px;
+    border-bottom: 2px solid ${(props) => props.theme.primary};
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+  }
   p {
     font-size: 1.2rem;
     color: #1e072e;
@@ -115,13 +123,45 @@ const ChapterWordsAndPhrases = styled(ChapterDialogueContainer)`
 
   justify-content: space-evenly;
   p {
-    color: #0400ff;
+    display: flex;
+    align-items: center;
+    border-radius: 0 0 1rem;
+
+    border-bottom: 2px solid ${(props) => props.theme.primary};
+
     b {
-      background: green;
-      color: white;
+      background: ${(props) => props.theme.primary};
+      color: ${(props) => props.theme.background};
+
       border: 3px solid white;
       padding: 0.3rem;
       border-radius: 50%;
+      margin-left: auto;
+    }
+  }
+  @media (min-width: 576px) and (max-width: 767px) {
+    flex-direction: column;
+    margin: 1rem 0.5rem;
+    padding: 0.5rem;
+    p {
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
+
+      b {
+        background: green;
+        color: white;
+        border: 3px solid white;
+        padding: 0.3rem;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    p {
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
     }
   }
 `;

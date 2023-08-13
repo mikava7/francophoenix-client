@@ -35,16 +35,18 @@ import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
 
 import Flashcards from "./components/flashcard/Flashcards";
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setIsDarkMode((prevMode) => !prevMode);
   };
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme}>
       <AppContainer>
         <GlobalStyle />
-        <Navbar toggleTheme={toggleTheme} theme={theme} />
+        <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

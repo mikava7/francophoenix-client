@@ -6,6 +6,7 @@ import { fetchSentences } from "../../redux/slices/sentence builder/sentenceBuil
 import useListenWord from "../../hooks/useListenWord";
 
 import { SubmitButton, NextButton } from "../verbs/presentTense/PresentTense";
+import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
 
 const SentenceBuilderEx = () => {
@@ -80,12 +81,12 @@ const SentenceBuilderEx = () => {
   return (
     <BuildBoxContainer>
       <h2>Build the Sentence</h2>
-      <NextButton
+      <Button
         onClick={handleListen(sentence)}
         // disabled={isActiveStates}
       >
         Play the sentence
-      </NextButton>
+      </Button>
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -147,16 +148,25 @@ const BuildBoxContainer = styled.section`
   width: 390px;
 
   margin: 1rem auto;
-  background: #0055a4dd;
+
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  color: white;
+
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
     max-width: 370px;
   }
+`;
+export const BuildBox = styled.div`
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 const TopBox = styled.div`
   margin: 0 auto;
@@ -170,19 +180,17 @@ const TopBox = styled.div`
   display: flex;
 
   background-color: ${(props) =>
-    props.isSubmit ? (props.isCorrect ? "green" : "red") : "#ebf5ffdd"};
+    props.isSubmit
+      ? props.isCorrect
+        ? props.theme.correctBack
+        : props.theme.wrongback
+      : props.theme.primary};
 `;
-export const BuildBox = styled.div`
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+
 export const TopWord = styled.span`
   text-align: center;
   display: flex;
-  background-color: #8ae8ff;
+  background-color: ${(props) => props.theme.secondary};
   cursor: pointer;
   align-items: center;
   font-size: 2rem;
@@ -192,10 +200,10 @@ export const TopWord = styled.span`
   border-radius: 4px;
 `;
 export const BottomBox = styled.div`
-  background-color: #8ae8ff;
+  background-color: ${(props) => props.theme.secondary};
   margin: 0 auto;
   width: 100%;
-  min-width: 390px;
+  min-width: 370px;
   height: 10rem;
   margin-bottom: 2rem;
   margin-top: 2rem;
@@ -203,20 +211,11 @@ export const BottomBox = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-export const Button = styled.div`
-  background-color: #70ff41;
-  color: black;
-  max-width: 100%;
-  font-weight: bold;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  font-size: 2rem;
-  letter-spacing: 2px;
-`;
+
 export const BottomWord = styled.button`
-  background-color: #46d0fa;
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
+
   text-align: center;
   display: flex;
   cursor: pointer;

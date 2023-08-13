@@ -6,7 +6,7 @@ import User from "../../../public/icons/user-50.png";
 import ThemeToggle from "../themeToggle/themeToggle";
 import Localization from "../../localization/Localization";
 import { useTranslation } from "react-i18next";
-const Navbar = ({ toggleTheme, theme }) => {
+const Navbar = ({ toggleTheme, isDarkMode }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const isScrolled = useScrollHandler();
@@ -41,7 +41,7 @@ const Navbar = ({ toggleTheme, theme }) => {
       <Account>
         {/* <LoginLink to="/login">{t("Connexion")}</LoginLink> */}
         <ToggleContainer>
-          <ThemeToggle toggleTheme={toggleTheme} theme={theme} />
+          <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         </ToggleContainer>
         <LocalizationContainer>
           <Localization />
@@ -87,16 +87,7 @@ const StyledUl = styled.ul`
     }
   }
   @media (max-width: 576px) {
-    & > :nth-child(3) {
-      display: none;
-    }
-    & > :nth-child(4) {
-      display: none;
-    }
-    /* & > :nth-child(5) {
-      display: none;
-      gap: 0;
-    } */
+    display: none;
   }
 `;
 

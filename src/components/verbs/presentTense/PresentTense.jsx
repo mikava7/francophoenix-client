@@ -285,7 +285,7 @@ export const SubmitButton = styled.button`
   font-size: 1.2rem;
 
   background: #f8ffff;
-  color: #0f6dd8;
+  color: #0c76f0;
   font-weight: bold;
   margin-bottom: 2rem;
   cursor: pointer;

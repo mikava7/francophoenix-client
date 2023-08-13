@@ -26,7 +26,7 @@ const BasicGrammerLessons = () => {
     return <p>{error.message}</p>;
   }
   return (
-    <div>
+    <BasicGrammerLessonsContainer>
       <h1>BasicGrammerLessons </h1>
       {basicGrammerTopics &&
         basicGrammerTopics.map((topics) => {
@@ -37,8 +37,12 @@ const BasicGrammerLessons = () => {
             </StyledLink>
           );
         })}
-    </div>
+    </BasicGrammerLessonsContainer>
   );
 };
 
 export default BasicGrammerLessons;
+const BasicGrammerLessonsContainer = styled.section`
+  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.text};
+`;

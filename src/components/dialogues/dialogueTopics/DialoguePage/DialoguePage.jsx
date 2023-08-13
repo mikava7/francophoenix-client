@@ -78,7 +78,6 @@ const DialoguePage = () => {
               dialogues.map((dialogueSet, dialogueIndex) => {
                 const { dialogueName, dialogueImg, dialogue, words, phrases } =
                   dialogueSet;
-                console.log(phrases);
                 return (
                   <DialogueContainer key={dialogueIndex}>
                     <h1>{dialogueName}</h1>
@@ -141,6 +140,7 @@ export default DialoguePage;
 const DialogueContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 1rem;
   margin: 1rem;
   margin: 0 auto;
@@ -149,20 +149,30 @@ const DialogueContainer = styled.div`
 const DialogueLine = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-radius: 0 0 0 12px;
+  padding: 0.4rem;
+  border-radius: 0 0 0 1rem;
   border-bottom: 3px solid orange;
   border-right: 2px solid orange;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    p {
+      font-size: 1rem;
+      margin: 1rem 0.5rem;
+      border: 3px solid orange;
+    }
+  }
 `;
 const MessageLine = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem;
-  background: #ffffec;
+  /* background: #ffffec; */
   font-size: 1.3rem;
   min-height: 3.5rem;
   border-radius: 12px;
-  width: 100%;
+  max-width: 100%;
+  border: 3px solid orange;
 
   position: relative;
 `;
@@ -170,9 +180,10 @@ const SpeakerSpan = styled.span`
   font-weight: bold;
   font-size: 1.4rem;
   margin-right: 0.5rem;
-  width: 20%;
+  border-radius: 1rem;
+  max-width: 100%;
   background: #8080808f;
-  padding: 2rem;
+  padding: 1.2rem;
   color: #4b1d02;
 `;
 const MessageParagraph = styled.p`

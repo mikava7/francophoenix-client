@@ -133,8 +133,8 @@ const QuizQuestion = styled.div`
   padding: 1rem;
   margin-top: 1rem;
 
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
   h2 {
     padding: 1rem;
     border-radius: 1rem;
@@ -175,7 +175,7 @@ const QuizOption = styled.li`
 const Score = styled.div`
   font-size: 1rem;
   color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
+  background-color: ${(props) => props.theme.colors.background};
   padding: 0.5rem 1rem;
   border-radius: 6px;
   box-shadow: 0px 2px 4px #0055a4;
