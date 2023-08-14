@@ -69,8 +69,10 @@ const PhraseCard = styled.div`
   min-height: 3.5rem;
   border-radius: 0 0 0 12px;
   max-width: 100%;
-  border-bottom: 3px solid orange;
-  border-right: 2px solid orange;
+  border-bottom: 5px solid ${(props) => props.theme.primary};
+  border-right: 5px solid ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.vocabularyBack};
+  color: black;
 `;
 
 const FrPhrase = styled.p`
@@ -97,7 +99,7 @@ const ChevronImage = styled.img`
 `;
 
 const SecondLanguageContent = styled.div`
-  color: grey;
+  /* color: grey; */
   margin-left: 1rem;
   font-size: 1.2rem;
   font-style: italic;

@@ -19,17 +19,7 @@ export const GlobalStyle = createGlobalStyle`
   color: ${(props) => props.theme.text};
 
   }
-  @media (max-width: 920px) {
-    font-size: 1.3rem;
-  }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
 
-  @media (max-width: 500px) {
-    font-size: 1rem;
-  }
-  /* slick-custom-styles.css */
 .slick-prev,
 .slick-next {
 
@@ -58,14 +48,61 @@ export const GlobalStyle = createGlobalStyle`
   left: -30px; 
 }
  h1{
-  font-size:2rem;
+  font-size:2.5rem;
+  @media screen and (max-width: 576px) {
+  
+    font-size: 1.4rem;
+  }
+  @media screen and (min-width: 768px) {
 
+    font-size: 1.6rem;
+  }
+  @media screen and (min-width: 992px) {
+
+    font-size: 1.8rem;
+  }
+  @media screen and (min-width: 1200px) {
+ 
+    font-size: 2rem;
+  }
  }
  h2{
-  font-size:1.8rem;
+  font-size:2rem;
+  @media screen and (max-width: 576px) {
+
+    font-size: 1.2rem;
+  }
+  @media screen and (min-width: 768px) {
+
+    font-size: 1.4rem;
+  }
+  @media screen and (min-width: 992px) {
+
+    font-size: 1.6rem;
+  }
+  @media screen and (min-width: 1200px) {
+ 
+    font-size: 1.8rem;
+  }
  }
  h3{
-  font-size:1.4rem;
+  font-size:1.8rem;
+  @media screen and (max-width: 576px) {
+
+    font-size: 1.1rem;
+  }
+  @media screen and (min-width: 768px) {
+
+    font-size: 1.2rem;
+  }
+  @media screen and (min-width: 992px) {
+
+    font-size: 1.4rem;
+  }
+  @media screen and (min-width: 1200px) {
+ 
+    font-size: 1.6rem;
+  }
  }
  h1,h2,h3{
   text-align:center;
@@ -74,11 +111,19 @@ export const GlobalStyle = createGlobalStyle`
   p {
     margin: 0;
     padding: 0;
+    font-size:1.2rem;
+@media screen and (max-width: 576px) {
 
+font-size: 1rem;
+}
+@media screen and (min-width: 768px) {
+
+font-size: 1rem;
+}
   }
 
 
-    @media screen and (min-width: 576px) {
+  @media screen and (min-width: 576px) {
     width: 564px;
     font-size: 1.1rem;
   }
@@ -151,8 +196,8 @@ export const Button = styled.button`
   text-align: center;
   padding: 0.5rem 1rem;
   border-radius: 12px;
-  width: 10rem;
-  font-size: 1.2rem;
+  width: 12rem;
+  font-size: 1.6rem;
   background-color: ${(props) => props.theme.buttonBack};
   color: ${(props) => props.theme.background};
   font-weight: bold;
@@ -160,6 +205,21 @@ export const Button = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.background};
     color: ${(props) => props.theme.buttonBack};
+  }
+  @media screen and (min-width: 576px) {
+    font-size: 1.1rem;
+  }
+  @media screen and (min-width: 768px) {
+    width: 8rem;
+
+    font-size: 1.2rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 1.4rem;
+    width: 10rem;
+  }
+  @media screen and (min-width: 1200px) {
+    font-size: 1.6rem;
   }
 `;
 

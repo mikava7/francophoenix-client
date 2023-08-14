@@ -18,7 +18,7 @@ const VocabularyPage = ({ words }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   // Set initial state for button colors
-  const initialFrButtonColors = french.map(() => "#ffb923");
+  const initialFrButtonColors = french.map(() => "#FD5602");
   const initialSecondLangButtonColors = french.map(() => "#ffffec");
   const [frButtonColors, setFrButtonColors] = useState(initialFrButtonColors);
   const [secondLangButtonColors, setSecondLangButtonColors] = useState(
@@ -31,13 +31,13 @@ const VocabularyPage = ({ words }) => {
     // Toggle the button color for the clicked word
     setFrButtonColors((prevColors) => {
       const newColors = [...prevColors];
-      newColors[index] = newColors[index] === "#ffffec" ? "#ffb923" : "#ffffec";
+      newColors[index] = newColors[index] === "#ffffec" ? "#FD5602" : "#ffffec";
       return newColors;
     });
 
     setSecondLangButtonColors((prevColors) => {
       const newColors = [...prevColors];
-      newColors[index] = newColors[index] === "#ffffec" ? "#ffb923" : "#ffffec";
+      newColors[index] = newColors[index] === "#ffffec" ? "#FD5602" : "#ffffec";
       return newColors;
     });
   };
@@ -47,7 +47,7 @@ const VocabularyPage = ({ words }) => {
 
   return (
     <VocabularyPageContainer>
-      <h2>Vocabulary</h2>
+      <VocabularyTitle>Vocabulary</VocabularyTitle>
       <div>
         {french.map((frWord, index) => (
           <WordCard key={index}>
@@ -106,16 +106,23 @@ const VocabularyPageContainer = styled.div`
     margin-bottom: 3rem;
   }
 `;
+const VocabularyTitle = styled.h1`
+  &:before {
+    content: "💥 ";
+  }
+`;
 const WordCard = styled.div`
-  background: #ffffec;
+  background: ${(props) => props.theme.vocabularyBack};
+  color: black;
+
   padding: 1rem;
   margin: 1rem 0.5rem;
   position: relative;
   min-height: 3.5rem;
   border-radius: 0 0 0 12px;
   max-width: 100%;
-  border-bottom: 3px solid orange;
-  border-right: 2px solid orange;
+  border-bottom: 5px solid ${(props) => props.theme.primary};
+  border-right: 5px solid ${(props) => props.theme.primary};
 `;
 const FrenchWord = styled.div`
   font-weight: bold;

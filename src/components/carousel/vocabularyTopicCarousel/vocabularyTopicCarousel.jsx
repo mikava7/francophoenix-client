@@ -69,14 +69,12 @@ const VocabularyTopicCarousel = ({
     return <Loading />;
   }
 
-  console.log(vocabularyTopic);
-
   return (
     <Slider {...settings}>
       {vocabularyTopic.map((vocabulary) => (
         <TopicCard key={vocabulary._id} imageUrl={vocabulary.imageUrl}>
           <TopicTitle>
-            <h2>{vocabulary.nameFr} </h2>
+            <h1>{vocabulary.nameFr} </h1>
             <p>{isGeorgian ? vocabulary.nameGeo : vocabulary.nameEng}</p>
           </TopicTitle>
           <WordCount>
@@ -98,8 +96,8 @@ const ReadExtract = styled.span`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0055a4;
-  color: white;
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
   font-weight: bold;
   padding: 8px;
   text-align: center;
@@ -116,7 +114,8 @@ const TopicCard = styled.div`
   margin: 0 2rem;
   margin-bottom: 1rem;
   border-radius: 12px;
-  color: black;
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
   position: relative;
   background-image: url(${(props) => props.imageUrl});
   background-repeat: repeat;
@@ -134,7 +133,8 @@ const TopicCard = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #3767ebc7;
+    background-color: ${(props) => props.theme.tertiaryTone};
+
     filter: blur(18px);
     z-index: -1;
   }
@@ -162,8 +162,9 @@ const TopicTitle = styled.div`
 `;
 
 const WordCount = styled.div`
+  display: flex;
   width: 200px;
-  border: 2px solid #0055a4;
+  border: 4px dashed ${(props) => props.theme.secondary};
   padding: 1rem;
   font-size: 1.2rem;
   position: absolute;
@@ -171,7 +172,12 @@ const WordCount = styled.div`
   left: 50%;
   transform: translateX(-50%);
   span {
+    text-align: center;
+    display: flex;
+    align-items: center;
     margin-right: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
     &::after {
       content: ":";
     }
@@ -180,7 +186,10 @@ const WordCount = styled.div`
     font-size: 1.4rem;
     width: 2rem;
     height: 2rem;
-    background: blue;
+    background: ${(props) => props.theme.primary};
+    border: 1px dashed black;
+    margin-left: auto;
+    text-align: center;
     color: white;
     padding: 0.5rem;
     border-radius: 50%;

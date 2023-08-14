@@ -14,7 +14,7 @@ import QuizPictures from "../../components/quizPictures/QuizPictures";
 import FindTranslationForFrenchWord from "../SearchComponent/frenchWords/FindTranslationForFrenchWord";
 import PresentTense from "../../components/verbs/presentTense/PresentTense";
 import SentenceBuilderEx from "../../components/sentenceBuilder/SentenceBuilderEx";
-
+import { StyledLink } from "../../Styles/globalStyles";
 import Footer from "../footer/Footer";
 const Home = () => {
   const { t } = useTranslation();
@@ -54,7 +54,7 @@ const Home = () => {
       </PickAndQuiz>
       <Section>
         <TopOfCarousel>
-          <p>{t("Tous les livres")} </p>
+          <CarouselTitle>{t("Tous les livres")} </CarouselTitle>
           <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
         </TopOfCarousel>
 
@@ -63,7 +63,7 @@ const Home = () => {
 
       <Section>
         <TopOfCarousel>
-          <p>{t("Vocabulaire thématique")} </p>
+          <CarouselTitle>{t("Vocabulaire thématique")} </CarouselTitle>
           <SeeAllLink to="/vocabulary-topics">{t("Tout afficher")}</SeeAllLink>
         </TopOfCarousel>
 
@@ -75,7 +75,7 @@ const Home = () => {
 
       <Section>
         <TopOfCarousel>
-          <p>{t("Niveau A1")} </p>
+          <CarouselTitle>{t("Niveau A1")} </CarouselTitle>
           <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
         </TopOfCarousel>
 
@@ -89,14 +89,32 @@ const Home = () => {
 
 export default Home;
 const HomeContainer = styled.section`
+  margin: 0 1rem;
+
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
+  max-width: 100%;
+  font-size: 1.8rem;
+  @media screen and (max-width: 576px) {
+    margin: 0 0.2rem;
+    font-size: 1.1rem;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 0 0.3rem;
+    font-size: 1.3rem;
+  }
+  @media screen and (min-width: 992px) {
+    margin: 0 0.6rem;
+    font-size: 1.4rem;
+  }
+  @media screen and (min-width: 1200px) {
+    font-size: 1.6rem;
+  }
 `;
 const WellcomeSection = styled.div`
   max-height: 100%;
 `;
 const Section = styled.div`
-  border: 2px solid grey;
   background-image: url("/icons/tex.avif");
   background-repeat: repeat-x;
   margin: 0 2rem;
@@ -104,27 +122,12 @@ const Section = styled.div`
   border-bottom: 1.6rem solid #c26528;
   margin-bottom: 2rem;
   position: relative;
-  h2 {
-    text-align: center;
-  }
 `;
-const SeeAllLink = styled(Link)`
-  margin-right: 2rem;
-  color: #955cff;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  background-color: white;
 
-  border-radius: 6px;
-  &:hover {
-    color: white;
-    background-color: #955cff;
-  }
-`;
 const TiTleMessage = styled.h2`
   background: white;
   width: 100%;
-  padding: 2rem;
+
   margin: 0;
 `;
 const TopOfCarousel = styled.div`
@@ -132,10 +135,6 @@ const TopOfCarousel = styled.div`
   justify-content: space-between;
   padding: 1rem;
   font-size: 1.4rem;
-
-  p {
-    font-size: 2rem;
-  }
 `;
 const LineBrake = styled.div`
   height: 2.5rem;
@@ -158,5 +157,44 @@ const PickAndQuiz = styled.div`
 
   @media (max-width: 576px) {
     flex-direction: column;
+  }
+`;
+const CarouselTitle = styled.p`
+  font-size: 2rem;
+  background: ${(props) => props.theme.vocabularyBack};
+  color: #955cff;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: #955cff;
+  }
+  @media screen and (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    margin: 0 0.3rem;
+    font-size: 1.3rem;
+  }
+`;
+
+const SeeAllLink = styled(StyledLink)`
+  font-weight: bold;
+  font-size: 1.6rem;
+
+  color: ${(props) => props.theme.background};
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: ${(props) => props.theme.text};
+    text-decoration-thickness: 4px;
+    text-underline-offset: 6px; /* Adjust the spacing */
+  }
+  @media screen and (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    margin: 0 0.3rem;
+    font-size: 1.3rem;
   }
 `;

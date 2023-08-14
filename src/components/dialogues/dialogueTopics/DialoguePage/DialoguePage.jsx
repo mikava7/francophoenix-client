@@ -61,167 +61,170 @@ const DialoguePage = () => {
   const secondLanguage = isGeorgian ? chapterNameGeo : chapterNameEng;
 
   return (
-    <div>
+    <DialoguePageContainer key={_id}>
+      <Header>
+        <h1>{chapterNameFr}</h1>
+
+        <ToggleTranslation
+          isActive={showAllTranslations}
+          onClick={() => setShowAllTranslations(!showAllTranslations)}
+        />
+      </Header>
       <div>
-        <div key={_id}>
-          <Header>
-            <h2>{chapterNameFr}:</h2>
-            <h3>{secondLanguage}</h3>
+        {dialogues &&
+          dialogues.map((dialogueSet, dialogueIndex) => {
+            const { dialogueName, dialogueImg, dialogue, words, phrases } =
+              dialogueSet;
+            return (
+              <DialogueContainer key={dialogueIndex}>
+                <DialogueTitle>{dialogueName}</DialogueTitle>
+                {dialogue.map((dialogue, lineIndex) => {
+                  const { speaker, messageFr, messageEng, messageGeo } =
+                    dialogue;
+                  const secondLanguageMessage = isGeorgian
+                    ? messageGeo
+                    : messageEng;
 
-            <ToggleTranslation
-              isActive={showAllTranslations}
-              onClick={() => setShowAllTranslations(!showAllTranslations)}
-            />
-          </Header>
-          <div>
-            {dialogues &&
-              dialogues.map((dialogueSet, dialogueIndex) => {
-                const { dialogueName, dialogueImg, dialogue, words, phrases } =
-                  dialogueSet;
-                return (
-                  <DialogueContainer key={dialogueIndex}>
-                    <h1>{dialogueName}</h1>
-                    {dialogue.map((dialogue, lineIndex) => {
-                      const { speaker, messageFr, messageEng, messageGeo } =
-                        dialogue;
-                      const secondLanguageMessage = isGeorgian
-                        ? messageGeo
-                        : messageEng;
+                  const isTranslationVisible =
+                    showAllTranslations || activeIndex === lineIndex;
 
-                      const isTranslationVisible =
-                        showAllTranslations || activeIndex === lineIndex;
-
-                      return (
-                        <DialogueLine key={lineIndex}>
-                          <SpeakerSpan>{speaker}:</SpeakerSpan>
-                          <MessageLine>
-                            <MessageParagraph>{messageFr}</MessageParagraph>
-                            <ListenIconContainer
-                              onClick={handleListen(messageFr)}
-                            >
-                              <Listen />
-                            </ListenIconContainer>
-                            <ChevronContainer
-                              onClick={() => {
-                                handleChevronToggle(lineIndex);
-                              }}
-                            >
-                              <ChevronImage
-                                src={ChevronDown}
-                                alt="ChevronDown"
-                                rotation={rotationChevron[lineIndex] || 0}
-                              />
-                            </ChevronContainer>
-                            {isTranslationVisible && (
-                              <SecondMessageParagraph>
-                                {secondLanguageMessage}
-                              </SecondMessageParagraph>
-                            )}
-                          </MessageLine>
-                        </DialogueLine>
-                      );
-                    })}
-                    <div>
-                      <VocabularyPage words={words} />
-                    </div>
-                    <DialoguePhrase phrases={phrases} />
-                  </DialogueContainer>
-                );
-              })}
-          </div>
-        </div>
+                  return (
+                    <DialogueLine key={lineIndex}>
+                      <Speaker>{speaker}:</Speaker>
+                      <MessageLine>
+                        <MessageParagraph>{messageFr}</MessageParagraph>
+                        <IconcsWrapper>
+                          <ListenIconContainer
+                            onClick={handleListen(messageFr)}
+                          >
+                            <Listen />
+                          </ListenIconContainer>
+                          <ChevronContainer
+                            onClick={() => {
+                              handleChevronToggle(lineIndex);
+                            }}
+                          >
+                            <ChevronImage
+                              src={ChevronDown}
+                              alt="ChevronDown"
+                              rotation={rotationChevron[lineIndex] || 0}
+                            />
+                          </ChevronContainer>
+                        </IconcsWrapper>
+                        {isTranslationVisible && (
+                          <SecondMessageParagraph>
+                            {secondLanguageMessage}
+                          </SecondMessageParagraph>
+                        )}
+                      </MessageLine>
+                    </DialogueLine>
+                  );
+                })}
+                <div>
+                  <VocabularyPage words={words} />
+                </div>
+                <DialoguePhrase phrases={phrases} />
+              </DialogueContainer>
+            );
+          })}
       </div>
-    </div>
+    </DialoguePageContainer>
   );
 };
 
 export default DialoguePage;
-
-const DialogueContainer = styled.div`
+const DialoguePageContainer = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1rem;
-  margin: 1rem;
+  /* justify-content: center; */
+`;
+const DialogueContainer = styled.div`
+  padding: 0.5rem;
+  margin: 0.5rem;
   margin: 0 auto;
   max-width: 920px;
 `;
+
+const DialogueTitle = styled.h1`
+  &::before {
+    content: "⚜️  ";
+  }
+`;
+
 const DialogueLine = styled.div`
   display: flex;
   align-items: center;
   padding: 0.4rem;
   border-radius: 0 0 0 1rem;
-  border-bottom: 3px solid orange;
-  border-right: 2px solid orange;
+  border-bottom: 5px solid ${(props) => props.theme.primary};
+  border-right: 5px solid ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.vocabularyBack};
+  color: black;
+  margin-bottom: 1rem;
 
   @media (max-width: 576px) {
     flex-direction: column;
     p {
       font-size: 1rem;
       margin: 1rem 0.5rem;
-      border: 3px solid orange;
     }
   }
 `;
 const MessageLine = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 1rem;
-  /* background: #ffffec; */
-  font-size: 1.3rem;
-  min-height: 3.5rem;
-  border-radius: 12px;
-  max-width: 100%;
-  border: 3px solid orange;
-
-  position: relative;
-`;
-const SpeakerSpan = styled.span`
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin-right: 0.5rem;
-  border-radius: 1rem;
-  max-width: 100%;
-  background: #8080808f;
-  padding: 1.2rem;
-  color: #4b1d02;
-`;
-const MessageParagraph = styled.p`
   padding: 0.5rem;
+  height: 6rem;
+  border-radius: 12px;
+  width: 100%;
+  position: relative;
+  overflow-y: scroll;
+`;
+const Speaker = styled.p`
+  font-weight: bold;
+  width: 100%;
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
+  padding: 0.5rem 0;
+  text-align: center;
+`;
+const MessageParagraph = styled.span`
   border-radius: 0.5rem;
+  margin-bottom: 1rem;
   width: 80%;
   font-weight: bold;
+
+  &:before {
+    content: "🔹";
+  }
 `;
-const SecondMessageParagraph = styled.p`
-  color: grey;
-  margin-left: 1rem;
+const SecondMessageParagraph = styled.span`
+  background-color: gainsboro;
+  margin-left: 1.2rem;
+  padding: 0.4rem;
+  border: 1px solid gainsboro;
+
+  &:before {
+    content: "🔸";
+  }
 `;
 const ChevronContainer = styled.div`
-  margin-left: auto;
-
+  /* margin-left: auto; */
   img {
-    position: absolute;
+    /* position: absolute;
     top: 15%;
-    right: 3%;
+    right: 3%; */
   }
 `;
 const ChevronImage = styled.img`
   width: 24px;
   height: 24px;
   transition: transform 0.5s ease;
-  margin-left: 1rem;
+  margin-left: 0.4rem;
   transform: ${({ rotation }) => `rotate(${rotation}deg)`};
   cursor: pointer;
 `;
 const ListenIconContainer = styled.span`
-  display: flex;
-  align-items: center;
-  margin-right: 0.3rem;
-  font-weight: bold;
-  width: 2rem;
-  position: absolute;
-  top: 15%;
-  right: 12%;
   cursor: pointer;
 `;
 const Header = styled.div`
@@ -232,4 +235,15 @@ const Header = styled.div`
   button {
     margin: 0 auto;
   }
+`;
+const IconcsWrapper = styled.div`
+  border-bottom: 2px solid grey;
+  border-left: 2px solid grey;
+  border-radius: 0 0 0 12px;
+  padding: 0 0 0.2rem 0.4rem;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0%;
+  right: 2%;
 `;

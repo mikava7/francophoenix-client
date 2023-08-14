@@ -10,6 +10,7 @@ import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
 const FindTranslationForFrenchWord = () => {
   const { handleListen, isActiveStates } = useListenWord();
+  const [isActive, setIsActive] = useState(false);
 
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -53,7 +54,7 @@ const FindTranslationForFrenchWord = () => {
   // Display the search results in your component
   return (
     <DictionaryContainer>
-      <DictionaryInputContainer>
+      <DictionaryInputContainer className={isActive ? "active" : ""}>
         <ClearSearch
           onClick={handleClearSearch}
           src={ClearIcon}
@@ -62,8 +63,10 @@ const FindTranslationForFrenchWord = () => {
         <DictionaryInput
           type="text"
           value={searchQuery}
+          onFocus={() => setIsActive(true)}
+          onBlur={() => setIsActive(false)}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleKeyPress} // Add the Enter key listener
+          onKeyPress={handleKeyPress}
           placeholder={isGeorgian ? "შეიყვანე სიტყვა..." : "Enter word..."}
         />
 
@@ -83,13 +86,14 @@ const FindTranslationForFrenchWord = () => {
             {" "}
             {isGeorgian ? result.georgian : result.english}
           </SecondLangWord>
-          <AddToFavorites
-            word={result.french}
-            secondLanguage={isGeorgian ? result.georgian : result.english}
-            frenchExamples={result.frenchExamples} // You need to make sure these properties exist in your data
-            secondLanguageExamples={result.secondLanguageExamples} // You need to make sure these properties exist in your data
-          />
-          <hr />
+          <AddToFavoritesBox>
+            <AddToFavorites
+              word={result.french}
+              secondLanguage={isGeorgian ? result.georgian : result.english}
+              frenchExamples={result.frenchExamples} // You need to make sure these properties exist in your data
+              secondLanguageExamples={result.secondLanguageExamples} // You need to make sure these properties exist in your data
+            />
+          </AddToFavoritesBox>
         </SearchResultsContainer>
       ))}
       {searchResults.length > 4 && !showAllResults && (
@@ -107,7 +111,7 @@ const DictionaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
 `;
 
 const DictionaryInputContainer = styled.div`
@@ -118,13 +122,23 @@ const DictionaryInputContainer = styled.div`
   margin-bottom: 2rem;
   padding: 4px;
   height: 3rem;
-  min-width: 375px;
-  width: 70%;
+
+  max-width: 100%;
+
   box-shadow: 0 2px 4px rgba(155, 161, 119, 0.637);
   border-radius: 50px;
   border: 1px solid #ccc;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
+  background-color: ${(props) => props.theme.text};
+
+  &:hover,
+  &.active {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+
+    border-bottom: 2px solid #0a0909;
+    border-right: 2px solid #0a0909;
+  }
 `;
 
 const DictionaryInput = styled.input`
@@ -135,6 +149,7 @@ const DictionaryInput = styled.input`
   width: 100%;
   font-size: 1.2rem;
   outline: none;
+  border-radius: 1rem;
 `;
 
 const SearchImg = styled.img`
@@ -147,8 +162,9 @@ const SearchResultsContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
-  min-width: 375px;
-  width: 70%;
+  width: 300px;
+  border: 2px solid grey;
+  position: relative;
 `;
 const FrenchWord = styled.p`
   font-size: 1.4rem;
@@ -201,6 +217,7 @@ const ListenIcon = styled.div`
   align-items: center;
   margin-right: 0.3rem;
   font-weight: bold;
+
   & > img {
     width: ${(props) => props.width || "1.2rem"};
     height: ${(props) => props.height || "1.2rem"};
@@ -210,4 +227,9 @@ const ListenIcon = styled.div`
     transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
   }
+`;
+const AddToFavoritesBox = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;

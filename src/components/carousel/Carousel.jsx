@@ -22,7 +22,7 @@ const Carousel = ({ books }) => {
     if (containerWidth >= 1200) return 5;
     if (containerWidth >= 992) return 4;
     if (containerWidth >= 768) return 3;
-    return 2;
+    return 1;
   };
 
   const settings = {
@@ -30,7 +30,7 @@ const Carousel = ({ books }) => {
     infinite: true,
     speed: 500,
     slidesToShow: slidesToShow(),
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1200,
@@ -79,8 +79,8 @@ const ReadExtract = styled.span`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: orange;
-  color: white;
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.background};
   font-weight: bold;
   padding: 8px;
   text-align: center;
