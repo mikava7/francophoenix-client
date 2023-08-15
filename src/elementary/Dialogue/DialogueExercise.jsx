@@ -220,12 +220,14 @@ const DialogueExerciseBox = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 0.3rem;
+
     margin-bottom: 1rem;
     min-width: 300px;
 
     div {
       p {
         min-width: 300px;
+
         width: 100%;
       }
     }

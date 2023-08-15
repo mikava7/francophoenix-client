@@ -63,6 +63,13 @@ const FooterContainer = styled.div`
   justify-content: center;
   gap: 5rem;
   background-color: grey;
+
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    gap: 1rem;
+  }
+  @media screen and (max-width: 576px) {
+    gap: 0.5rem;
+  }
 `;
 const Links = styled.div`
   display: flex;
@@ -101,8 +108,20 @@ const StyledLink = styled(Link)`
 
     z-index: -1;
   }
-
+  
+  
   &:hover::before {
     animation: ${ani} 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+ 
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    width: 8rem;
+    font-size: 1.3rem;
+    padding: 0.3rem;
+  }
+  @media screen and (max-width: 576px) {
+    width: 6rem;
+    font-size: 1.1rem;
+    padding: 0.2rem;
   }
 `;
