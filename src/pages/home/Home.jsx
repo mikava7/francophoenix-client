@@ -16,6 +16,7 @@ import PresentTense from "../../components/verbs/presentTense/PresentTense";
 import SentenceBuilderEx from "../../components/sentenceBuilder/SentenceBuilderEx";
 import { StyledLink } from "../../Styles/globalStyles";
 import Footer from "../footer/Footer";
+import ExploreOptions from "../../components/exploreOptions/ExploreOptions";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const Home = () => {
   return (
     <HomeContainer>
       <FindTranslationForFrenchWord />
-
+      <ExploreOptions />
       <WellcomeSection>
         <TiTleMessage>{t("Bienvenue à Francophoenix")}</TiTleMessage>
         <WellcomeCarousel wellcomeData={wellcomeData} />

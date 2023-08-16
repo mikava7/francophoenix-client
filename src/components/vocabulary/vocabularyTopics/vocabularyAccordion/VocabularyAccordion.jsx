@@ -104,8 +104,8 @@ const AccordionHeader = styled.div`
 
   cursor: pointer;
   background-color: ${(props) =>
-    props.isExpanded ? "#e6af68" : props.theme.colors.text2};
-  color: ${(props) => props.theme.colors.text};
+    props.isExpanded ? "#e6af68" : props.theme.background};
+  color: ${(props) => props.theme.text};
   &:hover {
     background-color: #68e2e6;
   }

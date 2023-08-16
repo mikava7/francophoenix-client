@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 const ExerciseArticle = ({ frenchWords }) => {
+  console.log("frenchWords in ExerciseArticle", frenchWords);
   const { t } = useTranslation();
   const [score, setScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -170,8 +171,8 @@ const WordPair = styled.div`
   height: 4rem;
   padding: 0 1rem;
   margin: 1rem;
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
   gap: 1rem;
   border-radius: 6px;
   font-size: 1.4rem;
@@ -207,7 +208,7 @@ const Option = styled.div`
       !props.isSelected &&
       `
       background-color: #0055A4;
-      color: ${props.theme.colors.text2};
+      color: ${props.theme.background};
     `}
   }
 `;
@@ -222,8 +223,8 @@ const Score = styled.div`
   margin-left: auto;
   font-size: 1.2rem;
 
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.text2};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
   padding: 0.5rem 1rem;
   border-radius: 6px;
   box-shadow: 0px 2px 4px #0055a4;

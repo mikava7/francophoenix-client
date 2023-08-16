@@ -5,7 +5,7 @@ import { fetchSentences } from "../../redux/slices/sentence builder/sentenceBuil
 
 import useListenWord from "../../hooks/useListenWord";
 
-import { SubmitButton, NextButton } from "../verbs/presentTense/PresentTense";
+import { NextButton } from "../verbs/presentTense/PresentTense";
 import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
 
@@ -81,12 +81,12 @@ const SentenceBuilderEx = () => {
   return (
     <BuildBoxContainer>
       <h2>Build the Sentence</h2>
-      <Button
+      <Play
         onClick={handleListen(sentence)}
         // disabled={isActiveStates}
       >
-        Play the sentence
-      </Button>
+        Play ▶️
+      </Play>
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -119,17 +119,17 @@ const SentenceBuilderEx = () => {
               </div>
             ) : (
               <div onClick={handleNext}>
-                <NextButton>Next</NextButton>
+                <ExerciseButton>Next</ExerciseButton>
               </div>
             )
           ) : (
             <div onClick={handleRetry}>
-              <SubmitButton>Retry</SubmitButton>
+              <ExerciseButton>Retry</ExerciseButton>
             </div>
           )
         ) : (
           <div onClick={handleCheckAnswer}>
-            <SubmitButton>Submit</SubmitButton>
+            <ExerciseButton>Submit</ExerciseButton>
           </div>
         )}
       </div>
@@ -153,8 +153,8 @@ const BuildBoxContainer = styled.section`
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
 
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.flagFirst};
+  color: ${(props) => props.theme.flagSecond};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
@@ -178,19 +178,22 @@ const TopBox = styled.div`
   position: relative;
   flex-wrap: wrap;
   display: flex;
-
+  border: 2px solid ${(props) => props.theme.flagAddon};
   background-color: ${(props) =>
     props.isSubmit
       ? props.isCorrect
         ? props.theme.correctBack
         : props.theme.wrongback
-      : props.theme.primary};
+      : props.theme.flagAddon};
 `;
 
 export const TopWord = styled.span`
   text-align: center;
   display: flex;
-  background-color: ${(props) => props.theme.secondary};
+  background-color: ${(props) => props.theme.flagSecond};
+  color: ${(props) => props.theme.flagFirst};
+  border-bottom: 2px solid ${(props) => props.theme.flagFirst};
+
   cursor: pointer;
   align-items: center;
   font-size: 2rem;
@@ -200,7 +203,9 @@ export const TopWord = styled.span`
   border-radius: 4px;
 `;
 export const BottomBox = styled.div`
-  background-color: ${(props) => props.theme.secondary};
+  background-color: ${(props) => props.theme.flagAddon};
+  color: ${(props) => props.theme.flagFirst};
+
   margin: 0 auto;
   width: 100%;
   min-width: 370px;
@@ -213,8 +218,9 @@ export const BottomBox = styled.div`
 `;
 
 export const BottomWord = styled.button`
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.background};
+  color: black;
+  background-color: ${(props) => props.theme.flagSecond};
+  color: ${(props) => props.theme.flagFirst};
 
   text-align: center;
   display: flex;
@@ -231,4 +237,16 @@ export const BottomWord = styled.button`
 `;
 const Sentence = styled.p`
   display: none;
+`;
+const ExerciseButton = styled(Button)`
+  margin-bottom: 2rem;
+  &:hover {
+    background-color: ${(props) => props.theme.primary};
+    /* color: ${(props) => props.theme.text}; */
+  }
+`;
+const Play = styled(Button)`
+  &:hover {
+    background-color: ${(props) => props.theme.primary};
+  }
 `;

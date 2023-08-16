@@ -34,6 +34,7 @@ import BasicGrammerTopic from "./components/grammer/BasicGrammerTopic";
 import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
 
 import Flashcards from "./components/flashcard/Flashcards";
+import Games from "./pages/games/Games";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -89,11 +90,12 @@ function App() {
             path="/dialogue-topics/:dialogueTopicId"
             element={<DialoguePage />}
           />
-          <Route path="/QuizPictures" element={<QuizPictures />} />
+          <Route path="/quiz-pictures" element={<QuizPictures />} />
           <Route path="/PresentTense" element={<PresentTense />} />
           <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
-          <Route path="/SentenceBuilderEx" element={<SentenceBuilderEx />} />
+          <Route path="/sentence-builder-Ex" element={<SentenceBuilderEx />} />
           <Route path="/Flashcards" element={<Flashcards />} />
+          <Route path="/games" element={<Games />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

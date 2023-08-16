@@ -111,15 +111,19 @@ export const GlobalStyle = createGlobalStyle`
   p {
     margin: 0;
     padding: 0;
-    font-size:1.2rem;
-@media screen and (max-width: 576px) {
+    font-size:1.25rem;
+    @media (min-width: 576px) and (max-width: 767px) {
+    font-size: 1.2rem;
+  }
 
-font-size: 1rem;
-}
-@media screen and (min-width: 768px) {
+  @media (min-width: 390px) and (max-width: 576px) {
 
-font-size: 1rem;
-}
+    font-size: 1.1rem;
+  }
+  @media (max-width: 393px) {
+
+    font-size: 1rem;
+  }
   }
 
 
@@ -192,7 +196,7 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: 1rem auto;
   text-align: center;
   padding: 0.5rem 1rem;
   border-radius: 12px;
@@ -240,7 +244,6 @@ export const StyledLink = styled(Link)`
   position: relative;
   transition: 0.8s all linear;
   padding: 0.5rem;
-  color: black;
 `;
 export const ChevronIcon = styled.span`
   transform: ${(props) =>
@@ -267,7 +270,11 @@ export const AccordionContent = styled.div`
 export const StyledButton = styled.button`
   padding: 1rem;
   text-align: center;
-  width: 8rem;
+  width: 12rem;
+  margin: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
   background-color: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
   cursor: pointer;

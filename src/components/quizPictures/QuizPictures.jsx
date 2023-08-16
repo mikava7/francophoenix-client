@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuizData } from "../../redux/slices/quizPictures/quizPictures";
-
+import RotatingChevron from "../Utility/RotatingChevron";
+import CategoryDropdown from "./CategoryDropdown";
 const QuizPictures = () => {
   const dispatch = useDispatch();
   const quizData = useSelector((state) => state.quizData.quizData) || [];
@@ -12,6 +13,7 @@ const QuizPictures = () => {
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [score, setScore] = useState(0);
   const [quizStarted, setQuizStarted] = useState(true); // State to track if the quiz has started
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   // console.log("quizData", quizData);
   useEffect(() => {
@@ -95,6 +97,7 @@ const QuizPictures = () => {
     setTopicIndex(0); // Reset the topic index to 0 to start the quiz from the beginning
     setQuizStarted(true); // Start the quiz
   };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -113,7 +116,8 @@ const QuizPictures = () => {
   return (
     <QuizContainer>
       <QuizBox>
-        <h2>Topic Title</h2>
+        <CategoryDropdown />
+
         <ImageContainer>
           {currentQuestion.image && (
             <QuestionImage src={currentQuestion.image} alt="Quiz Question" />
@@ -153,8 +157,8 @@ const QuizContainer = styled.div`
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  background: #0055a4dd;
-  color: white;
+  background-color: ${(props) => props.theme.flagFirst};
+  color: ${(props) => props.theme.flagSecond};
   @media (max-width: 576px) {
     max-width: 370px;
 
@@ -169,11 +173,25 @@ const QuizBox = styled.div`
   justify-content: center;
   width: 100%;
   margin-bottom: 2rem;
+
+  select {
+    width: 100%;
+    background-color: ${(props) => props.theme.flagAddon};
+    color: ${(props) => props.theme.flagFirst};
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: ${(props) => props.theme.flagFirst};
+      color: ${(props) => props.theme.flagAddon};
+    }
+  }
 `;
 const QuestionImage = styled.img`
   width: 100%;
   height: 100%;
-  margin-bottom: 1rem;
 `;
 
 const Options = styled.div`
@@ -182,17 +200,28 @@ const Options = styled.div`
   padding: 0.3rem 1rem;
   margin: 0.3rem 1rem;
   font-size: 1.2rem;
-
+  font-weight: bold;
   cursor: pointer;
   border-radius: 0.5rem;
   max-width: 100%;
   width: 330px;
   align-self: center;
 
-  background-color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "green" : "red") : "#0f6dd8"};
+  background-color: ${(props) => {
+    // console.log("props.isCorrect", props.isCorrect);
+    return props.isSelected
+      ? props.isCorrect
+        ? "green"
+        : "red"
+      : props.theme.flagAddon;
+  }};
+
   color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "white" : "black") : ""};
+    props.isSelected
+      ? props.isCorrect
+        ? "white"
+        : "black"
+      : props.theme.flagFirst};
 
   @media (max-width: 576px) {
     width: 300px;
@@ -242,6 +271,7 @@ const ImageContainer = styled.div`
   width: 350px;
   height: 250px;
   background: white;
+  margin-bottom: 1rem;
 `;
 const EndMessage = styled.div`
   display: flex;
@@ -250,3 +280,4 @@ const EndMessage = styled.div`
   width: 350px;
   height: 250px;
 `;
+const CategoryItem = styled.li``;

@@ -81,9 +81,9 @@ const ReadExtract = styled.span`
   right: 0;
   background: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.background};
-  font-weight: bold;
   padding: 8px;
   text-align: center;
+  font-weight: bold;
   animation: ${slideOut} 0.3s ease-in-out;
 `;
 

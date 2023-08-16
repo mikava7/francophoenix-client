@@ -71,7 +71,7 @@ const VocabularyQuiz = ({ vocabularyData }) => {
           <QuizQuestion key={questionIndex}>
             <Score>
               {" "}
-              Score: {score}/{vocabularyQuizQuestions.length}
+              Scofre: {score}/{vocabularyQuizQuestions.length}
             </Score>
             <h2>{quizItem.question}</h2>
 
