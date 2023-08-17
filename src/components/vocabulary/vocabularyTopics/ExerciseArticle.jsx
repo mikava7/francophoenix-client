@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 const ExerciseArticle = ({ frenchWords }) => {
-  console.log("frenchWords in ExerciseArticle", frenchWords);
+  // console.log("frenchWords in ExerciseArticle", frenchWords);
   const { t } = useTranslation();
   const [score, setScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});

@@ -1,129 +1,162 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuizData } from "../../redux/slices/quizPictures/quizPictures";
+import {
+  fetchTopicNames,
+  fetchQuizData,
+} from "../../redux/slices/quizPictures/quizPictures";
 import RotatingChevron from "../Utility/RotatingChevron";
 import CategoryDropdown from "./CategoryDropdown";
+import Loading from "../loading/Loading";
+import { setTimeout } from "timers";
 const QuizPictures = () => {
   const dispatch = useDispatch();
-  const quizData = useSelector((state) => state.quizData.quizData) || [];
+  const quizData = useSelector((state) => state.quizData.currentTopic) || [];
+  const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const isLoading = useSelector((state) => state.quizData.isLoading);
+  console.log("quizData", quizData);
+  console.log("topicNames", topicNames);
+
   const [topicIndex, setTopicIndex] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState({});
+  const [currentQuestion, setCurrentQuestion] = useState("");
   const [score, setScore] = useState(0);
-  const [quizStarted, setQuizStarted] = useState(true); // State to track if the quiz has started
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [quizStarted, setQuizStarted] = useState(false);
 
-  // console.log("quizData", quizData);
+  const topic = topicNames.map((topic) => topic.topic);
+  const [selectedCategory, setSelectedCategory] = useState(topic[0]);
+
   useEffect(() => {
-    dispatch(fetchQuizData());
-  }, []);
+    dispatch(fetchTopicNames());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const id = topicNames[topicIndex]?._id;
+    console.log("id", id);
+    dispatch(fetchQuizData(id));
+    generateQuizQuestion();
+  }, [selectedCategory, dispatch, topicIndex, topicNames]);
 
   useEffect(() => {
     if (quizData.length > 0 && quizStarted) {
       generateQuizQuestion();
     }
-  }, [currentWordIndex, quizData, quizStarted]);
+  }, [quizData, quizStarted]);
 
   const generateQuizQuestion = () => {
-    if (!quizStarted) return; // Stop generating questions if the quiz has not started
-
-    if (quizData.length === 0 || quizData.length <= topicIndex) return null;
-
-    const topicData = quizData[topicIndex];
-    if (!topicData || !topicData.words || topicData.words.length === 0)
-      return null;
-
-    const topicfrench = topicData.words.map((data) => data.french);
+    const topicData = quizData;
+    if (!topicData || !topicData.words || topicData.words.length === 0) return;
 
     const currentWord = topicData.words[currentWordIndex];
-
-    // Create an array to hold the options for the quiz question
-    const options = [];
-
-    // Add the correct answer to the options array
-    options.push(currentWord.french);
-
-    // Generate three random wrong answers (excluding the correct answer)
-    while (options.length < 4) {
-      const randomIndex = Math.floor(Math.random() * topicfrench.length);
-      if (
-        topicfrench[randomIndex] !== currentWord.french &&
-        !options.includes(topicfrench[randomIndex])
-      ) {
-        options.push(topicfrench[randomIndex]);
+    console.log("currentWord", currentWord);
+    if (currentWord.imageUrl.length > 0) {
+      const topicfrench = topicData.words.map((data) => data.french);
+      const options = [currentWord.french];
+      while (options.length < 4) {
+        const randomIndex = Math.floor(Math.random() * topicfrench.length);
+        if (
+          topicfrench[randomIndex] !== currentWord.french &&
+          !options.includes(topicfrench[randomIndex])
+        ) {
+          options.push(topicfrench[randomIndex]);
+        }
       }
+      options.sort(() => Math.random() - 0.5);
+
+      setCurrentQuestion({
+        image: currentWord.imageUrl,
+        options: options,
+        correctOption: currentWord.french,
+        selectedOption: "",
+      });
+    } else {
+      setCurrentQuestion({
+        image: null,
+        options: [], // Reset the options when there's no image
+        correctOption: currentWord.french,
+        selectedOption: "",
+      });
+      setTimeout(() => {
+        if (currentWordIndex + 1 < topicData.words.length) {
+          setCurrentWordIndex((prevIndex) => prevIndex + 1);
+        } else {
+          setCurrentWordIndex(0);
+          setTopicIndex((prevIndex) => prevIndex + 1);
+        }
+      });
     }
-
-    // Shuffle the options array to randomize the order
-    options.sort(() => Math.random() - 0.5);
-
-    setCurrentQuestion({
-      image: currentWord.imageUrl,
-      options: options,
-      correctOption: currentWord.french,
-    });
   };
 
   const handleOptionClick = (option) => {
-    if (!quizStarted) setQuizStarted(true); // Start the quiz when the first option is clicked
+    if (!quizStarted) setQuizStarted(true);
 
     if (option === currentQuestion.correctOption) {
       setScore((prevScore) => prevScore + 1);
     }
 
-    // Store the selected option in the current question for styling purposes
     setCurrentQuestion((prevQuestion) => ({
       ...prevQuestion,
       selectedOption: option,
     }));
 
-    // Delay resetting the selected option to provide some time to see the background color
     setTimeout(() => {
-      if (currentWordIndex + 1 < quizData[topicIndex].words.length) {
-        // Proceed to the next question within the same topic
-        setCurrentWordIndex((prevIndex) => prevIndex + 1);
-      } else {
-        // All questions for the current topic are answered, move to the next topic
+      setCurrentWordIndex((prevIndex) => prevIndex + 1);
+
+      // If we've reached the end of the current topic's words, move to the next topic
+      if (currentWordIndex + 1 >= quizData.words.length) {
         setCurrentWordIndex(0);
         setTopicIndex((prevIndex) => prevIndex + 1);
       }
-    }, 800); // Adjust the delay (in milliseconds) as needed
+    }, 800);
   };
+
   const handleRestart = () => {
     setScore(0);
-    setCurrentWordIndex(0); // Reset the word index to 0 to start the quiz from the beginning
-    setTopicIndex(0); // Reset the topic index to 0 to start the quiz from the beginning
-    setQuizStarted(true); // Start the quiz
+    setCurrentWordIndex(0);
+    setTopicIndex(0);
+    setQuizStarted(true);
+  };
+
+  const handleCategoryChange = (selectedCategory) => {
+    setSelectedCategory(selectedCategory);
+    const selectedCategoryIndex = topic.indexOf(selectedCategory);
+    // console.log("selectedCategory", selectedCategory);
+    // console.log("selectedCategoryIndex", selectedCategoryIndex);
+
+    setTopicIndex(selectedCategoryIndex);
+    setScore(0);
+    setCurrentWordIndex(0);
+    setQuizStarted(true);
+    generateQuizQuestion(); // Call generateQuizQuestion directly after setting the state
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />; // Adjust the loading component
   }
-
-  if (quizData.length === 0 || quizData.length <= topicIndex) {
-    return (
-      <QuizContainer>
-        <EndMessage>
-          <h2>No data available for the quiz.</h2>
-          <StartButton onClick={handleRestart}>Restart Quiz</StartButton>
-        </EndMessage>
-      </QuizContainer>
-    );
+  if (!quizData) {
+    return <Loading />; // Adjust the loading component
   }
+  // console.log("currentQuestion", currentQuestion);
 
   return (
     <QuizContainer>
       <QuizBox>
-        <CategoryDropdown />
+        <CategoryDropdown
+          topic={topic}
+          onCategoryChange={handleCategoryChange}
+        />
 
-        <ImageContainer>
-          {currentQuestion.image && (
-            <QuestionImage src={currentQuestion.image} alt="Quiz Question" />
-          )}
-        </ImageContainer>
-        {Array.isArray(currentQuestion.options) &&
+        {currentQuestion.image !== null && (
+          <ImageContainer>
+            <QuestionImage
+              src={currentQuestion.image}
+              alt={currentQuestion._id}
+            />
+          </ImageContainer>
+        )}
+
+        {currentQuestion.image !== null &&
+          Array.isArray(currentQuestion.options) &&
           currentQuestion.options.map((option, index) => (
             <Options
               key={index}
@@ -136,16 +169,11 @@ const QuizPictures = () => {
           ))}
       </QuizBox>
       <Score>Score: {score}</Score>
-      {/* <NextTopicButton
-        onClick={() => setTopicIndex((prevIndex) => prevIndex + 1)}
-      >
-        Next Topic
-      </NextTopicButton> */}
     </QuizContainer>
   );
 };
-export default QuizPictures;
 
+export default QuizPictures;
 const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
