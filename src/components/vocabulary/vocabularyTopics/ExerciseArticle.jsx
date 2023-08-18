@@ -1,8 +1,51 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTopicNames,
+  fetchQuizData,
+} from "../../../redux/slices/quizPictures/quizPictures";
 import { useTranslation } from "react-i18next";
+import CategoryDropdown from "../../quizPictures/CategoryDropdown";
+import Loading from "../../loading/Loading";
+
 const ExerciseArticle = ({ frenchWords }) => {
-  // console.log("frenchWords in ExerciseArticle", frenchWords);
+  const dispatch = useDispatch();
+  const topicNames = useSelector((state) => state.quizData.topicNames) || [];
+  const quizData = useSelector((state) => state.quizData.currentTopic) || [];
+  // console.log("quizData", quizData);
+  const isLoading = useSelector((state) => state.quizData.isLoading);
+  const topic = topicNames.map((topic) => topic.topic);
+  const ownFrenchWords = quizData.map((topic) => topic.french);
+
+  const [topicIndex, setTopicIndex] = useState(0);
+  // const [bothGenderWords, setBothGenderWords] = useState([]);
+
+  const [selectedCategory, setSelectedCategory] = useState(topic[0]);
+  const [currentQuestionSet, setCurrentQuestionSet] = useState([]);
+  const handleCategoryChange = (selectedCategory) => {
+    setSelectedCategory(selectedCategory);
+    const selectedCategoryIndex = topic.indexOf(selectedCategory);
+    setTopicIndex(selectedCategoryIndex);
+    setScore(0);
+  };
+
+  useEffect(() => {
+    dispatch(fetchTopicNames());
+  }, []);
+
+  useEffect(() => {
+    if (topicNames.length > 0) {
+      const selectedCategoryIndex = topicNames.findIndex(
+        (topic) => topic.topic === selectedCategory
+      );
+      setTopicIndex(selectedCategoryIndex);
+
+      const id = topicNames[selectedCategoryIndex]._id;
+      dispatch(fetchQuizData(id));
+    }
+  }, [topicNames, selectedCategory]);
+
   const { t } = useTranslation();
   const [score, setScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -49,10 +92,8 @@ const ExerciseArticle = ({ frenchWords }) => {
       setScore((prevScore) => prevScore + 1);
     }
   };
-
   const displayWord = (word) => {
-    if (word.startsWith("l’")) {
-      // Remove gender information enclosed in parentheses
+    if (word.startsWith("l'")) {
       return word
         .slice(2)
         .replace(/\([^()]*\)/, "")
@@ -60,6 +101,8 @@ const ExerciseArticle = ({ frenchWords }) => {
     } else if (word.startsWith("les ")) {
       // For plural words starting with "les ", slice the first four characters ("les ")
       return word.slice(4);
+    } else if (word.startsWith("le/la ")) {
+      return null; // Return null to exclude this word from rendering
     } else {
       // For regular words starting with "le " or "la ", slice the first three characters
       return word.slice(3);
@@ -77,75 +120,110 @@ const ExerciseArticle = ({ frenchWords }) => {
     setScore(0);
   };
 
+  const wordsToRender = frenchWords ? frenchWords : ownFrenchWords;
+  const bothGenderWords = wordsToRender.filter((word) =>
+    word.startsWith("le/la ")
+  );
+  // console.log("bothGenderWords", bothGenderWords);
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <ExerciseArticleContainer>
-      <div>
-        {frenchWords.map((word, index) => (
-          <WordPair key={index}>
-            <WordText>{displayWord(word)}</WordText>
-            <OptionsContainer>
-              {word.startsWith("la ") && (
-                <>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "le")}
-                    isSelected={selectedOptions[word] === "le"}
-                    isCorrect={isWordCorrect("le", word)}
-                  >
-                    le
-                  </Option>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "la")}
-                    isSelected={selectedOptions[word] === "la"}
-                    isCorrect={isWordCorrect("la", word)}
-                  >
-                    la
-                  </Option>
-                </>
-              )}
-              {word.startsWith("l’") && (
-                <>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "le")}
-                    isSelected={selectedOptions[word] === "le"}
-                    isCorrect={isWordCorrect("le", word)}
-                  >
-                    le
-                  </Option>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "la")}
-                    isSelected={selectedOptions[word] === "la"}
-                    isCorrect={isWordCorrect("la", word)}
-                  >
-                    la
-                  </Option>
-                </>
-              )}
-              {word.startsWith("le") && (
-                <>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "le")}
-                    isSelected={selectedOptions[word] === "le"}
-                    isCorrect={isWordCorrect("le", word)}
-                  >
-                    le
-                  </Option>
-                  <Option
-                    onClick={() => handleOptionSelect(word, "la")}
-                    isSelected={selectedOptions[word] === "la"}
-                    isCorrect={isWordCorrect("la", word)}
-                  >
-                    la
-                  </Option>
-                </>
-              )}
-            </OptionsContainer>
-          </WordPair>
-        ))}
-      </div>
+      {!frenchWords && (
+        <ExerciseArticleTopPart>
+          <CategoryDropdown
+            topic={topic}
+            onCategoryChange={handleCategoryChange}
+          />
+
+          <div>
+            <h2>Words with Both Gender</h2>
+            {bothGenderWords.map((word, index) => (
+              <ul key={index}>
+                <li>{word}</li>
+              </ul>
+            ))}
+          </div>
+        </ExerciseArticleTopPart>
+      )}
+
+      <ExerciseArticleBottomPart>
+        {/* {console.log("wordsToRender", wordsToRender)} */}
+        {wordsToRender.map((word, index) => {
+          const displayedWord = displayWord(word);
+
+          if (displayedWord !== null) {
+            return (
+              <WordPair key={index}>
+                <WordText>{displayedWord}</WordText>
+                <OptionsContainer>
+                  {word.startsWith("la ") && (
+                    <>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "le")}
+                        isSelected={selectedOptions[word] === "le"}
+                        isCorrect={isWordCorrect("le", word)}
+                      >
+                        le
+                      </Option>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "la")}
+                        isSelected={selectedOptions[word] === "la"}
+                        isCorrect={isWordCorrect("la", word)}
+                      >
+                        la
+                      </Option>
+                    </>
+                  )}
+                  {word.startsWith("l'") && (
+                    <>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "le")}
+                        isSelected={selectedOptions[word] === "le"}
+                        isCorrect={isWordCorrect("le", word)}
+                      >
+                        le
+                      </Option>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "la")}
+                        isSelected={selectedOptions[word] === "la"}
+                        isCorrect={isWordCorrect("la", word)}
+                      >
+                        la
+                      </Option>
+                    </>
+                  )}
+                  {word.startsWith("le") && (
+                    <>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "le")}
+                        isSelected={selectedOptions[word] === "le"}
+                        isCorrect={isWordCorrect("le", word)}
+                      >
+                        le
+                      </Option>
+                      <Option
+                        onClick={() => handleOptionSelect(word, "la")}
+                        isSelected={selectedOptions[word] === "la"}
+                        isCorrect={isWordCorrect("la", word)}
+                      >
+                        la
+                      </Option>
+                    </>
+                  )}
+                </OptionsContainer>
+              </WordPair>
+            );
+          } else {
+            return null; // Exclude the entire WordPair structure
+          }
+        })}
+      </ExerciseArticleBottomPart>
 
       <ExerciseArticleContainerApendix>
         <Score>
-          {t("Score")}: {score}/{frenchWords.length}
+          {t("Score")}: {score}
         </Score>
 
         <RestartButton onClick={restartExercise}>
@@ -162,7 +240,22 @@ export default ExerciseArticle;
 const ExerciseArticleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  align-items: center;
+`;
+const ExerciseArticleTopPart = styled.div`
+  background: #ecf8ff;
+  padding: 1rem;
+  /* width: 100%; */
+
+  ul {
+    list-style: none;
+    li {
+      font-size: 1.2rem;
+    }
+  }
+`;
+const ExerciseArticleBottomPart = styled.div`
+  /* border: 2px solid black; */
 `;
 const WordPair = styled.div`
   display: flex;
@@ -173,6 +266,8 @@ const WordPair = styled.div`
   margin: 1rem;
   color: ${(props) => props.theme.text};
   background-color: ${(props) => props.theme.background};
+  border: 2px solid gainsboro;
+
   gap: 1rem;
   border-radius: 6px;
   font-size: 1.4rem;
@@ -214,7 +309,7 @@ const Option = styled.div`
 `;
 const ExerciseArticleContainerApendix = styled.div`
   display: flex;
-  flex-direction: column;
+
   align-items: center;
 `;
 const Score = styled.div`

@@ -129,12 +129,12 @@ const QuizItem = styled.div`
 `;
 
 const QuizQuestion = styled.div`
-  border: 2px solid wheat;
+  /* border: 2px solid wheat; */
   padding: 1rem;
   margin-top: 1rem;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.flagFirst};
+  background-color: ${(props) => props.theme.flagAddon};
   h2 {
     padding: 1rem;
     border-radius: 1rem;
@@ -142,7 +142,7 @@ const QuizQuestion = styled.div`
 
   ul {
     list-style: none;
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     text-align: center;
     align-self: center;
   }
@@ -152,9 +152,9 @@ const QuizOption = styled.li`
   border: 1px solid blue;
   padding: 1rem;
   margin: 1rem;
-  margin-right: 2rem;
   border-radius: 1rem;
   max-width: 100%;
+  font-size: 1.3rem;
   align-self: center;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   background-color: ${(props) =>
@@ -164,7 +164,7 @@ const QuizOption = styled.li`
         : "red"
       : "transparent"};
   color: ${(props) =>
-    props.selectedAnswers ? "white" : props.theme.colors.text};
+    props.selectedAnswers ? "white" : props.theme.flagFirst};
 
   &:hover {
     background-color: ${(props) => (props.disabled ? "" : "#007bff")};
@@ -174,8 +174,8 @@ const QuizOption = styled.li`
 
 const Score = styled.div`
   font-size: 1rem;
-  color: ${(props) => props.theme.colors.text};
-  background-color: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.background};
   padding: 0.5rem 1rem;
   border-radius: 6px;
   box-shadow: 0px 2px 4px #0055a4;

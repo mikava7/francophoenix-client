@@ -17,7 +17,7 @@ const Vocabularies = () => {
   const isLoading = useSelector((state) => state.vocabularyTopics.isLoading);
   useEffect(() => {
     dispatch(fetchVocabularyTopics());
-  }, [dispatch]);
+  }, []);
 
   if (isLoading) {
     return <Loading />;

@@ -102,7 +102,10 @@ const Vocabulary = () => {
         </h2>
         <ChoiseArticle>
           {showArticle && (
-            <ExerciseArticle frenchWords={selectedTopic.french} />
+            <ExerciseArticle
+              frenchWords={selectedTopic.french}
+              parentsData={true}
+            />
           )}
         </ChoiseArticle>
         <h2 onClick={handleQuizToggle}>

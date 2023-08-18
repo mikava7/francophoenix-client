@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const CategoryDropdown = ({ topic, onCategoryChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(topic[0] || "");
   // console.log("selectedCategory in dropdown", selectedCategory);
   const handleCategoryChange = (event) => {
     const newSelectedCategory = event.target.value;
@@ -13,13 +13,13 @@ const CategoryDropdown = ({ topic, onCategoryChange }) => {
   return (
     <CategoryDropdownContainer>
       <SelectWrapper>
-        <select value={selectedCategory} onChange={handleCategoryChange}>
+        <StyledSelect value={selectedCategory} onChange={handleCategoryChange}>
           {topic.map((topicName, index) => (
             <option key={index} value={topicName}>
               {topicName}
             </option>
           ))}
-        </select>
+        </StyledSelect>
       </SelectWrapper>
     </CategoryDropdownContainer>
   );
@@ -38,27 +38,34 @@ const CategoryDropdownContainer = styled.div`
 
 const SelectWrapper = styled.div`
   position: relative;
-  select {
-    width: 100%;
-    padding: 1rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-bottom: 3px solid ${(props) => props.theme.flagAddon};
-    appearance: none; /* Remove default arrow icon */
-
-    background-color: ${(props) => props.theme.flagFirst};
-    color: ${(props) => props.theme.flagAddon};
-  }
-
-  select::after {
+`;
+const StyledSelect = styled.select`
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 3px solid ${(props) => props.theme.flagAddon};
+  appearance: none;
+  background-color: ${(props) => props.theme.flagFirst};
+  color: ${(props) => props.theme.flagAddon};
+  &::after {
     content: "\u25BC"; /* Unicode character for a downward-pointing arrow */
     position: absolute;
-    top: 50%;
+    top: 45%;
     right: 1rem;
     transform: translateY(-50%);
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: ${(props) => props.theme.flagAddon};
     color: ${(props) => props.theme.flagFirst};
+    cursor: pointer;
+  }
+  option {
+    cursor: pointer;
+    font-size: 1.3rem;
+
+    border-bottom: 2px solid red;
+    font-weight: bold;
   }
 `;

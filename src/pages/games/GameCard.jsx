@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { slideOut } from "../../Styles/frames";
 import { Button, StyledLink } from "../../Styles/globalStyles";
+
 const GameCard = ({ description, highlight, link }) => {
   return (
     <Card>
@@ -34,17 +35,6 @@ const Description = styled.div`
   font-weight: bold;
   animation: ${slideOut} 0.3s ease-in-out;
 `;
-
-const Card = styled.div`
-  display: flex;
-  position: relative;
-  &:hover {
-    ${Description} {
-      display: block;
-    }
-  }
-`;
-
 const Highlight = styled.div`
   cursor: pointer;
   width: 360px;
@@ -52,6 +42,15 @@ const Highlight = styled.div`
   img {
     width: 100%;
     height: 100%;
+  }
+`;
+const Card = styled.div`
+  display: flex;
+  position: relative;
+  transition: filter 0.3s, opacity 0.3s; /* Add transitions for smooth animations */
+
+  &:hover ${Description} {
+    display: block;
   }
 `;
 

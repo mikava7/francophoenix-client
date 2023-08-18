@@ -15,6 +15,12 @@ const gameCardData = [
     highlight: "/images/screenShots/games/sentenceBuilder.png",
     link: "/sentence-builder-Ex",
   },
+  {
+    description:
+      "exercise-article is a game that helps you practice french articles.",
+    highlight: "/images/screenShots/games/sentenceBuilder.png",
+    link: "/vocabulary-topics/exercise-article",
+  },
 ];
 
 const Games = () => {
