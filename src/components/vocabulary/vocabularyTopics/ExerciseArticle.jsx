@@ -8,15 +8,19 @@ import {
 import { useTranslation } from "react-i18next";
 import CategoryDropdown from "../../quizPictures/CategoryDropdown";
 import Loading from "../../loading/Loading";
-
 const ExerciseArticle = ({ frenchWords }) => {
   const dispatch = useDispatch();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
-  const quizData = useSelector((state) => state.quizData.currentTopic) || [];
+  const quizData =
+    useSelector((state) => state.quizData.currentTopic.words) || [];
   // console.log("quizData", quizData);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const topic = topicNames.map((topic) => topic.topic);
-  const ownFrenchWords = quizData.map((topic) => topic.french);
+  // console.log("topicNames", topicNames);
+  // console.log("topic", topic);
+
+  const ownFrenchWords = quizData.map((words) => words.french);
+  // console.log("ownFrenchWords", ownFrenchWords);
 
   const [topicIndex, setTopicIndex] = useState(0);
   // const [bothGenderWords, setBothGenderWords] = useState([]);
@@ -24,10 +28,14 @@ const ExerciseArticle = ({ frenchWords }) => {
   const [selectedCategory, setSelectedCategory] = useState(topic[0]);
   const [currentQuestionSet, setCurrentQuestionSet] = useState([]);
   const handleCategoryChange = (selectedCategory) => {
-    setSelectedCategory(selectedCategory);
-    const selectedCategoryIndex = topic.indexOf(selectedCategory);
+    const newSelectedCategory = event.target.value;
+    setSelectedCategory(newSelectedCategory);
+    const selectedCategoryIndex = topic.indexOf(newSelectedCategory);
     setTopicIndex(selectedCategoryIndex);
+
     setScore(0);
+    setCurrentWordIndex(0);
+    setQuizStarted(true);
   };
 
   useEffect(() => {
@@ -35,14 +43,15 @@ const ExerciseArticle = ({ frenchWords }) => {
   }, []);
 
   useEffect(() => {
-    if (topicNames.length > 0) {
+    if (topicNames.length > 0 && selectedCategory) {
       const selectedCategoryIndex = topicNames.findIndex(
         (topic) => topic.topic === selectedCategory
       );
-      setTopicIndex(selectedCategoryIndex);
-
-      const id = topicNames[selectedCategoryIndex]._id;
-      dispatch(fetchQuizData(id));
+      if (selectedCategoryIndex !== -1) {
+        setTopicIndex(selectedCategoryIndex);
+        const id = topicNames[selectedCategoryIndex]._id;
+        dispatch(fetchQuizData(id));
+      }
     }
   }, [topicNames, selectedCategory]);
 
@@ -132,9 +141,11 @@ const ExerciseArticle = ({ frenchWords }) => {
     <ExerciseArticleContainer>
       {!frenchWords && (
         <ExerciseArticleTopPart>
+          {console.log("selectedCategory", selectedCategory)}
           <CategoryDropdown
             topic={topic}
             onCategoryChange={handleCategoryChange}
+            selectedCategory={selectedCategory}
           />
 
           <div>
@@ -157,7 +168,7 @@ const ExerciseArticle = ({ frenchWords }) => {
             return (
               <WordPair key={index}>
                 <WordText>{displayedWord}</WordText>
-                <OptionsContainer>
+                <OptionsContainer key={index}>
                   {word.startsWith("la ") && (
                     <>
                       <Option
@@ -243,14 +254,15 @@ const ExerciseArticleContainer = styled.div`
   align-items: center;
 `;
 const ExerciseArticleTopPart = styled.div`
-  background: #ecf8ff;
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.backTone};
   padding: 1rem;
-  /* width: 100%; */
+  max-width: 100%;
 
   ul {
     list-style: none;
     li {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
   }
 `;
@@ -265,7 +277,7 @@ const WordPair = styled.div`
   padding: 0 1rem;
   margin: 1rem;
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.backTone};
   border: 2px solid gainsboro;
 
   gap: 1rem;

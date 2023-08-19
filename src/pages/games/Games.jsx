@@ -18,7 +18,7 @@ const gameCardData = [
   {
     description:
       "exercise-article is a game that helps you practice french articles.",
-    highlight: "/images/screenShots/games/sentenceBuilder.png",
+    highlight: "/images/screenShots/games/LeLa.png",
     link: "/vocabulary-topics/exercise-article",
   },
 ];

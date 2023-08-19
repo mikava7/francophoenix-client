@@ -13,6 +13,7 @@ export const darkTheme = {
   flagSecond: "#fdda24",
   flagThird: "#EF4135",
   flagAddon: "#fdda24",
+  backTone: "#555555",
 };
 
 export const lightTheme = {
@@ -35,4 +36,5 @@ export const lightTheme = {
   flagSecond: "#FFFFFF",
   flagThird: "#EF4135",
   flagAddon: "#f5f5f5",
+  backTone: "#F5F5F5",
 };

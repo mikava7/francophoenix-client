@@ -7,16 +7,16 @@ const VocabularyTopics = ({ vocabularyTopics }) => {
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language === "en";
   return (
-    <>
+    <VocabylaryTopicsConatiner>
       {vocabularyTopics.map((topic) => {
         const { _id, nameFr, nameGeo, nameEng, imageUrl, iconUrl, french } =
           topic;
         const secondLanguage = isEnglish ? nameEng : nameGeo;
         const wordCount = french.length;
         return (
-          <VocabylaryTopicsConatiner key={_id} imageUrl={imageUrl}>
+          <VocabylaryTopicCard key={_id} imageUrl={imageUrl}>
             <ImgContainer>
-              <img src={iconUrl} alt={nameFr} />
+              <img src={imageUrl} alt={nameFr} />
             </ImgContainer>
             <Titles>
               <h1>{nameFr}</h1>
@@ -27,50 +27,33 @@ const VocabularyTopics = ({ vocabularyTopics }) => {
               <p>{t("Les mots")}</p>
               <b>{wordCount}</b>
             </WordCount>
-          </VocabylaryTopicsConatiner>
+          </VocabylaryTopicCard>
         );
       })}
-    </>
+    </VocabylaryTopicsConatiner>
   );
 };
-
 const VocabylaryTopicsConatiner = styled.div`
+  display: flex;
+  flex-wrap: wrap; /* Add this line to make the cards wrap */
+  width: 100%;
+  height: 100vh;
+  background: green;
+`;
+const VocabylaryTopicCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-direction: column;
   gap: 2rem;
   border-radius: 1rem;
-  /* min-width: 350px; */
 
+  width: 400px;
+  height: 550px;
   border: 4px solid violet;
   margin: 2rem 3rem;
   position: relative;
-  background-image: url(${(props) => props.imageUrl});
-  background-repeat: repeat;
-  background-position: center;
-  background-size: 100%;
-  transition: background-size 1s ease;
-  z-index: 1;
-  font-family: "Arial", "Helvetica", sans-serif, "Times New Roman", "Times",
-    serif, "Courier New", "Courier", monospace;
 
-  /* Add the blur and color overlay */
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ab65fcc8;
-    filter: blur(8px);
-    z-index: -1;
-  }
-
-  &:hover {
-    background-size: 70%; /* Increase background-size on hover to make it approach */
-    transition: background-size 1s ease;
-  }
   @media (min-width: 992px) and (max-width: 1199px) {
     margin: 1rem 2rem;
   }
@@ -121,14 +104,34 @@ const WordCount = styled.div`
   }
 `;
 const ImgContainer = styled.div`
-  width: 80px;
-  height: 80px;
-  background: #e4aaff;
-  border-radius: 50%;
-  /* margin-left: 2rem; */
-  img {
+  background-image: url(${(props) => props.imageUrl});
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 100%;
+  transition: background-size 1s ease;
+  z-index: 1;
+  font-family: "Arial", "Helvetica", sans-serif, "Times New Roman", "Times",
+    serif, "Courier New", "Courier", monospace;
+
+  /* Add the blur and color overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    /* background-color: #ab65fcc8; */
+    filter: blur(8px);
+    z-index: -1;
+  }
+
+  &:hover {
+    background-size: 70%; /* Increase background-size on hover to make it approach */
+    transition: background-size 1s ease;
+  }
+  img {
+    width: 100%;
   }
 `;
 export default VocabularyTopics;

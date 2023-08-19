@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const CategoryDropdown = ({ topic, onCategoryChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState(topic[0] || "");
-  // console.log("selectedCategory in dropdown", selectedCategory);
-  const handleCategoryChange = (event) => {
-    const newSelectedCategory = event.target.value;
-    setSelectedCategory(newSelectedCategory);
-    onCategoryChange(newSelectedCategory);
-  };
-
+const CategoryDropdown = ({ topic, selectedCategory, onCategoryChange }) => {
+  {
+    console.log("selectedCategory in CategoryDropdown", selectedCategory);
+  }
   return (
     <CategoryDropdownContainer>
       <SelectWrapper>
-        <StyledSelect value={selectedCategory} onChange={handleCategoryChange}>
+        <StyledSelect value={selectedCategory} onChange={onCategoryChange}>
           {topic.map((topicName, index) => (
             <option key={index} value={topicName}>
               {topicName}

@@ -9,13 +9,17 @@ import RotatingChevron from "../Utility/RotatingChevron";
 import CategoryDropdown from "./CategoryDropdown";
 import Loading from "../loading/Loading";
 import { Button } from "../../Styles/globalStyles";
+import DefinitionToggle from "../dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
+import { useTranslation } from "react-i18next";
+
 const QuizPictures = () => {
   const dispatch = useDispatch();
-  const quizData = useSelector((state) => state.quizData.currentTopic) || [];
+  const quizData =
+    useSelector((state) => state.quizData.currentTopic.words) || [];
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const isLoading = useSelector((state) => state.quizData.isLoading);
 
-  // console.log({ quizData, topicNames, isLoading });
+  // console.log("quizData", quizData);
   const [topicIndex, setTopicIndex] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentTopicQuestions, setCurrentTopicQuestions] = useState([]);
@@ -49,11 +53,15 @@ const QuizPictures = () => {
   const generateQuizQuestions = () => {
     const questions = quizData.map((item) => {
       const options = generateOptions(item.french);
-      console.log(options);
+      // console.log("options", options);
+
       return {
         image: item.imageUrl,
         options: options,
         correctOption: item.french,
+        definition: [item.definition],
+        english: [item.english],
+        georgian: [item.georgian],
         selectedOption: "",
       };
     });
@@ -63,6 +71,7 @@ const QuizPictures = () => {
 
   const generateOptions = (correctOption) => {
     const allFrench = quizData.map((item) => item.french);
+    // console.log("allFrench", allFrench);
     const incorrectOptions = [];
 
     while (incorrectOptions.length < 3) {
@@ -85,16 +94,17 @@ const QuizPictures = () => {
 
   // Rest of the component code...
 
-  const handleCategoryChange = (selectedCategory) => {
-    setSelectedCategory(selectedCategory);
-    const selectedCategoryIndex = topic.indexOf(selectedCategory);
+  const handleCategoryChange = (event) => {
+    const newSelectedCategory = event.target.value;
+    setSelectedCategory(newSelectedCategory);
+    const selectedCategoryIndex = topic.indexOf(newSelectedCategory);
     setTopicIndex(selectedCategoryIndex);
+
     setScore(0);
     setCurrentWordIndex(0);
     setQuizStarted(true);
     generateQuizQuestions();
   };
-
   const handleOptionClick = (option) => {
     if (!quizStarted) setQuizStarted(true);
 
@@ -138,6 +148,9 @@ const QuizPictures = () => {
     );
   };
 
+  const { t, i18n } = useTranslation();
+  const isGeorgian = i18n.language === "ka";
+  const secondLangButtonName = isGeorgian ? "Geo" : "Eng";
   if (isLoading) {
     return <Loading />;
   }
@@ -151,6 +164,7 @@ const QuizPictures = () => {
       <QuizBox>
         <CategoryDropdown
           topic={topic}
+          selectedCategory={selectedCategory}
           onCategoryChange={handleCategoryChange}
         />
         {quizCompleted ? (
@@ -170,13 +184,38 @@ const QuizPictures = () => {
         ) : (
           currentTopicQuestions.map((currentQuestion, index) => {
             if (index === currentQuestionIndex) {
-              const { image, correctOption, options, selectedOption } =
-                currentQuestion;
+              const {
+                image,
+                correctOption,
+                options,
+                selectedOption,
+                georgian,
+                english,
+                definition,
+              } = currentQuestion;
+              // console.log("currentQuestion", currentQuestion);
               return (
                 <QuizBox key={index}>
-                  <ImageContainer>
-                    <QuestionImage src={image} alt={correctOption} />
-                  </ImageContainer>
+                  {image ? (
+                    <ImageContainer>
+                      <QuestionImage
+                        src={image}
+                        alt="Word Image"
+                        loading="lazy"
+                      />
+                    </ImageContainer>
+                  ) : (
+                    <DefinitionToggleContainer>
+                      <DefinitionToggle
+                        index={index}
+                        secondLangButtonName={secondLangButtonName}
+                        french={currentQuestion.options}
+                        definition={definition}
+                        secondLanguage={isGeorgian ? georgian : english}
+                        isMultipleDefinitions={false}
+                      />
+                    </DefinitionToggleContainer>
+                  )}
                   {options.map((option) => (
                     <Options
                       key={option}
@@ -187,7 +226,9 @@ const QuizPictures = () => {
                       {option}
                     </Options>
                   ))}
-                  <Score>Score: {score}</Score>
+                  <Score>
+                    Score: {score} / {currentTopicQuestions.length}
+                  </Score>
                 </QuizBox>
               );
             }
@@ -299,6 +340,17 @@ const ImageContainer = styled.div`
   background: white;
   margin-bottom: 1rem;
 `;
+const DefinitionToggleContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 350px;
+  height: 250px;
+  font-size: 1.4rem;
+  background-color: ${(props) => props.theme.flagAddon};
+  color: ${(props) => props.theme.flagFirst};
+`;
+
 const EndMessage = styled.div`
   background-color: ${(props) => props.theme.flagAddon};
   color: ${(props) => props.theme.flagFirst};
@@ -332,12 +384,8 @@ const ScoreMessage = styled.p`
   }
 `;
 const RestartButton = styled(Button)`
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.buttonBack};
   height: 3rem;
   font-size: 1.4rem;
   &:hover {
-    background-color: ${(props) => props.theme.buttonBack};
-    color: ${(props) => props.theme.background};
   }
 `;
