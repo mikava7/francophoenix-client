@@ -1,16 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-const AccordionExpendedContent = ({
-  frenchExamples,
-  index,
-  expandedIndex,
-  secondLanguageExamples,
-}) => {
+const AccordionExpendedContent = ({ index, expandedIndex, definition }) => {
   return (
     <AccordionContent isExpanded={index === expandedIndex}>
-      <FrenchExamples>{frenchExamples[index]}</FrenchExamples>
+      <FrenchExamples>{definition[index]}</FrenchExamples>
       <SecondLanguageExamples>
-        {secondLanguageExamples[index]}
+        {/* {secondLanguageExamples[index]} */}
       </SecondLanguageExamples>
     </AccordionContent>
   );

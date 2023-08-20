@@ -73,10 +73,7 @@ function App() {
             element={<GrammerTopicPage />}
           />
           <Route path="/vocabulary-topics" element={<Vocabularies />} />
-          <Route
-            path="/vocabulary-topics/:vocabularyTopicId"
-            element={<Vocabulary />}
-          />
+          <Route path="/vocabulary-topics/:topicId" element={<Vocabulary />} />
           <Route
             path="/vocabulary-topics/exercise-article"
             element={<ExerciseArticle />}

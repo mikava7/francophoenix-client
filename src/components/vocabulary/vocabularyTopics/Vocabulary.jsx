@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchVocabularyTopics } from "../../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
@@ -9,7 +8,22 @@ import ExerciseArticle from "./ExerciseArticle";
 import VocabularyAccordion from "./vocabularyAccordion/VocabularyAccordion";
 import ChevronDown from "../../../../public/icons/chevron-down-24.png";
 import RotatingChevron from "../../Utility/RotatingChevron";
+import { useParams } from "react-router-dom";
+import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";
+
+import Loading from "../../loading/Loading";
 const Vocabulary = () => {
+  const { topicId } = useParams();
+  // console.log("topicId", topicId);
+  const dispatch = useDispatch();
+  const vocabularyData = useSelector((state) => state.quizData.currentTopic);
+  const isLoading = useSelector((state) => state.quizData.isLoading);
+  useEffect(() => {
+    if (topicId) {
+      dispatch(fetchQuizData(topicId));
+    }
+  }, []);
+
   const [showArticle, setShowArticle] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -29,12 +43,7 @@ const Vocabulary = () => {
     setShowQuiz(!showQuiz);
   };
   const { vocabularyTopicId } = useParams();
-  const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.vocabularyTopics.isLoading);
-  const topics =
-    useSelector((state) => state.vocabularyTopics.vocabularyTopics) || [];
-
-  const selectedTopic = topics.find((topic) => topic._id === vocabularyTopicId);
+  // console.log("vocabularyTopicId", vocabularyTopicId);
 
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -44,51 +53,30 @@ const Vocabulary = () => {
   }, [dispatch, vocabularyTopicId]);
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return <Loading />;
   }
 
-  // Check if selectedTopic is defined before proceeding
-  if (!selectedTopic) {
-    return <p>No data found.</p>;
-  }
-
-  // Destructure the selected topic data with optional chaining
-  const {
-    french,
-    english,
-    georgian,
-    nameFr,
-    nameGeo,
-    nameEng,
-    frenchExamples,
-    englishExamples,
-    georgianExamples,
-  } = selectedTopic;
+  const french = vocabularyData?.words?.map((word) => word?.french);
+  const english = vocabularyData?.words?.map((word) => word?.english);
+  const georgian = vocabularyData?.words?.map((word) => word?.georgian);
+  const definition = vocabularyData?.words?.map((word) => word?.definition);
 
   // Determine the second language based on the 'isEnglish' flag
   const secondLanguage = isGeorgian ? georgian : english;
-  const secondName = isGeorgian ? nameGeo : nameEng;
-  const secondLanguageExamples = isGeorgian
-    ? georgianExamples
-    : englishExamples;
 
   // Determine the maximum length of both language arrays to ensure pairs are correctly displayed
-  const maxLength = Math.max(french.length, secondLanguage.length);
 
   return (
     <VocabularyContainer>
-      <h2>
-        {nameFr} - {secondName}
-      </h2>
+      <h2>{/* {nameFr} - {secondName} */}</h2>
       <WordCount>
-        {t("Les mots")} <b>{maxLength}</b>
+        {t("Les mots")} <b>{}</b>
       </WordCount>
       <WordPairContainer>
         <VocabularyAccordion
           frenchWords={french}
           secondLanguage={secondLanguage}
-          frenchExamples={frenchExamples}
-          secondLanguageExamples={secondLanguageExamples}
+          definition={definition}
         />
       </WordPairContainer>
       <NextStepChoise>
@@ -102,10 +90,7 @@ const Vocabulary = () => {
         </h2>
         <ChoiseArticle>
           {showArticle && (
-            <ExerciseArticle
-              frenchWords={selectedTopic.french}
-              parentsData={true}
-            />
+            <ExerciseArticle frenchWords={french} parentsData={true} />
           )}
         </ChoiseArticle>
         <h2 onClick={handleQuizToggle}>
@@ -121,7 +106,13 @@ const Vocabulary = () => {
           /> */}
         </h2>
         <ChoiseArticle>
-          {showQuiz && <VocabularyQuiz vocabularyData={selectedTopic} />}
+          {showQuiz && (
+            <VocabularyQuiz
+              french={french}
+              english={english}
+              georgian={georgian}
+            />
+          )}
         </ChoiseArticle>
       </NextStepChoise>
     </VocabularyContainer>

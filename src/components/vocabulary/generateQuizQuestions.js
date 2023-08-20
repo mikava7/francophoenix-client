@@ -1,5 +1,5 @@
-export const generateQuizQuestions = (vocabularyData, secondLanguage) => {
-  const { french } = vocabularyData;
+export const generateQuizQuestions = (french, secondLanguage) => {
+  console.log("french in generateQuizQuestions", french);
   const quizQuestions = [];
   const usedWords = new Set();
 

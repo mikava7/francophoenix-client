@@ -7,18 +7,14 @@ import AccordionExpendedContent from "./AccordionExpendedContent";
 import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
-const VocabularyAccordion = ({
-  frenchWords,
-  secondLanguage,
-  frenchExamples,
-  secondLanguageExamples,
-}) => {
+const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
   useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const [expandedIndex, setExpandedIndex] = useState(null);
+  console.log("frenchWords", frenchWords);
 
   const [isActiveState, setIsActiveState] = useState(
-    frenchWords.map(() => false)
+    frenchWords?.map(() => false)
   );
 
   const { handleListen, isActiveStates } = useListenWord();
@@ -29,7 +25,7 @@ const VocabularyAccordion = ({
 
   return (
     <AccordionContaner>
-      {frenchWords.map((word, index) => (
+      {frenchWords?.map((word, index) => (
         <AccordionItem key={index}>
           <AccordionHeader>
             <FrenchWord>{word}</FrenchWord>
@@ -46,16 +42,14 @@ const VocabularyAccordion = ({
               </AccordionListenIcon>
               <AddToFavorites
                 word={word}
-                frenchExamples={frenchExamples[index]}
-                secondLanguageExamples={secondLanguageExamples[index]}
+                definition={definition[index]}
                 secondLanguage={secondLanguage[index]}
               />
 
               <AddToFlashcards
                 word={word}
-                frenchExamples={frenchExamples[index]}
+                definition={definition[index]}
                 secondLanguage={secondLanguage[index]}
-                secondLanguageExamples={secondLanguageExamples[index]}
               />
             </IconsWrapper>
             <Example>{t("Example")}</Example>
@@ -69,8 +63,7 @@ const VocabularyAccordion = ({
           <AccordionExpendedContent
             index={index}
             expandedIndex={expandedIndex}
-            frenchExamples={frenchExamples}
-            secondLanguageExamples={secondLanguageExamples}
+            definition={definition}
           />
         </AccordionItem>
       ))}

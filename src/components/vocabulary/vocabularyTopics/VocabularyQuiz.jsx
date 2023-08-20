@@ -4,17 +4,16 @@ import { StyledButton } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../generateQuizQuestions";
 import QuizModal from "./modal/QuizModal";
-const VocabularyQuiz = ({ vocabularyData }) => {
+const VocabularyQuiz = ({ french, english, georgian }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  const { french, english, georgian } = vocabularyData;
   const [showModal, setShowModal] = useState(false);
   const secondLanguage = isGeorgian ? georgian : english;
   const vocabularyQuizQuestions = useMemo(
-    () => generateQuizQuestions(vocabularyData, secondLanguage),
-    [vocabularyData, secondLanguage]
+    () => generateQuizQuestions(french, secondLanguage),
+    [french, secondLanguage]
   );
-
+  console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
   ///////////////////////////////////////////////////////////
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(0);

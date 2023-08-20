@@ -8,12 +8,7 @@ import {
 import FavoriteIMG from "../../../public/icons/starFilled.png";
 import styled from "styled-components";
 
-const AddToFavorites = ({
-  word,
-  secondLanguage,
-  frenchExamples,
-  secondLanguageExamples,
-}) => {
+const AddToFavorites = ({ word, secondLanguage, definition }) => {
   const favorites = useSelector((state) => state.isFavorite.favorites);
   const dispatch = useDispatch();
 
@@ -27,8 +22,7 @@ const AddToFavorites = ({
       dispatch(
         addToFavorites({
           word,
-          frenchExamples,
-          secondLanguageExamples,
+          definition,
           secondLanguage,
         })
       );

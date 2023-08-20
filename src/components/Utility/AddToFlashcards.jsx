@@ -7,12 +7,7 @@ import {
 } from "../../redux/slices/fleshCards/fleshCardSlice";
 import FlashCardIcon from "../../../public/icons/flash-card.png";
 
-const AddToFlashcards = ({
-  word,
-  secondLanguage,
-  frenchExamples,
-  secondLanguageExamples,
-}) => {
+const AddToFlashcards = ({ word, secondLanguage, definition }) => {
   const flashcards = useSelector((state) => state.flashcards.flashcards);
   const dispatch = useDispatch();
   const isWordInFlashcards = flashcards.some(
@@ -25,8 +20,7 @@ const AddToFlashcards = ({
       dispatch(
         addToFlashcard({
           word,
-          frenchExamples,
-          secondLanguageExamples,
+          definition,
           secondLanguage,
         })
       );

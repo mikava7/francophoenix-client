@@ -1,14 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
-const VocabularyTopics = ({ vocabularyTopics }) => {
-  // Get the current language and translation function (t)
-  const { t, i18n } = useTranslation();
-  const isEnglish = i18n.language === "en";
+import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";
+const VocabularyTopics = ({ topicId }) => {
   return (
     <VocabylaryTopicsConatiner>
-      {vocabularyTopics.map((topic) => {
+      top
+      {/* {vocabularyTopics.map((topic) => {
         const { _id, nameFr, nameGeo, nameEng, imageUrl, iconUrl, french } =
           topic;
         const secondLanguage = isEnglish ? nameEng : nameGeo;
@@ -29,7 +29,7 @@ const VocabularyTopics = ({ vocabularyTopics }) => {
             </WordCount>
           </VocabylaryTopicCard>
         );
-      })}
+      })} */}
     </VocabylaryTopicsConatiner>
   );
 };

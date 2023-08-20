@@ -13,7 +13,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const quizData =
     useSelector((state) => state.quizData.currentTopic.words) || [];
-  // console.log("quizData", quizData);
+  console.log("frenchWords in ExerciseArticle", frenchWords);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const topic = topicNames.map((topic) => topic.topic);
   // console.log("topicNames", topicNames);
@@ -39,11 +39,13 @@ const ExerciseArticle = ({ frenchWords }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchTopicNames());
-  }, []);
+    if (!frenchWords) {
+      dispatch(fetchTopicNames());
+    }
+  }, [frenchWords]); // Only fetch topic names if not used as part of a parent component
 
   useEffect(() => {
-    if (topicNames.length > 0 && selectedCategory) {
+    if (!frenchWords && topicNames.length > 0 && selectedCategory) {
       const selectedCategoryIndex = topicNames.findIndex(
         (topic) => topic.topic === selectedCategory
       );
@@ -53,7 +55,7 @@ const ExerciseArticle = ({ frenchWords }) => {
         dispatch(fetchQuizData(id));
       }
     }
-  }, [topicNames, selectedCategory]);
+  }, [frenchWords, topicNames, selectedCategory]); // Only fetch quiz data if not used as part of a parent component
 
   const { t } = useTranslation();
   const [score, setScore] = useState(0);
@@ -141,7 +143,7 @@ const ExerciseArticle = ({ frenchWords }) => {
     <ExerciseArticleContainer>
       {!frenchWords && (
         <ExerciseArticleTopPart>
-          {console.log("selectedCategory", selectedCategory)}
+          {/* {console.log("selectedCategory", selectedCategory)} */}
           <CategoryDropdown
             topic={topic}
             onCategoryChange={handleCategoryChange}
