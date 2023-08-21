@@ -117,7 +117,7 @@ const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  background-color: ${(props) => props.theme.secondaryBackground};
   @media (max-width: 920px) {
     min-width: 550px;
   }
@@ -132,6 +132,7 @@ const GrammerTopicPageContainer = styled.div`
   }
 `;
 const TitleContainer = styled.div``;
+
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;

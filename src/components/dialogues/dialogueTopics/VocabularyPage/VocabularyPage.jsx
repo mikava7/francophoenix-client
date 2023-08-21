@@ -13,7 +13,7 @@ const VocabularyPage = ({ words }) => {
   const georgian = words.map((word) => word.georgian);
   const definition = words.map((word) => word.definition);
   const { handleListen, isActiveStates } = useListenWord();
-
+  console.log("definition in VocabularyPage", definition);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
 
@@ -43,7 +43,7 @@ const VocabularyPage = ({ words }) => {
                 </ListenIconContainer>
                 <AddToFavorites
                   word={frWord}
-                  frenchExamples={definition[index]}
+                  definition={definition[index]}
                   secondLanguage={secondLanguage[index]}
                   secondLanguageExamples={"No examples"}
                 />
@@ -76,17 +76,16 @@ const VocabularyTitle = styled.h1`
   }
 `;
 const WordCard = styled.div`
-  background: ${(props) => props.theme.vocabularyBack};
-  color: black;
-
+  border-bottom: 5px solid ${(props) => props.theme.primaryText};
+  border-right: 5px solid ${(props) => props.theme.primaryText};
+  background: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   padding: 1rem;
   margin: 1rem 0.5rem;
   position: relative;
   min-height: 3.5rem;
   border-radius: 0 0 0 12px;
   max-width: 100%;
-  border-bottom: 5px solid ${(props) => props.theme.primary};
-  border-right: 5px solid ${(props) => props.theme.primary};
 `;
 const FrenchWord = styled.div`
   font-weight: bold;

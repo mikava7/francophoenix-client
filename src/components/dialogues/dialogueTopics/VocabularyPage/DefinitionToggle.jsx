@@ -58,6 +58,9 @@ const ButtonContainer = styled.div`
     width: 3rem;
     height: 2rem;
     transition: background-color 0.5s ease;
+
+    background: ${(props) => props.theme.secondaryBackground};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 const SecondLangOrDef = styled.div`

@@ -13,7 +13,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
     () => generateQuizQuestions(french, secondLanguage),
     [french, secondLanguage]
   );
-  console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
+  // console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
   ///////////////////////////////////////////////////////////
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(0);

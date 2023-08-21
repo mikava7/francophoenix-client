@@ -46,7 +46,7 @@ const BooksPageContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: #fdf3f2;
+  /* background-color: #fdf3f2; */
 `;
 const Title = styled.h2`
   font-size: 24px;

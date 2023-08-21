@@ -48,7 +48,6 @@ const Vocabularies = () => {
                   Words Count:
                   <strong>{topic.wordsCount}</strong>
                 </WordsCount>
-                <p>id{topic._id}</p>
               </TopicCardContainer>
             </LocalStyledLink>
           ))}
@@ -81,14 +80,14 @@ const FavoriteLinkBox = styled(Button)`
 `;
 const LocalStyledLink = styled(Link)`
   text-decoration: none;
-  color: #333;
+  /* color: #333; */
 
   &:hover {
     color: #007bff;
   }
 `;
 const TopicCardContainer = styled.div`
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 0.5rem;
 
   margin: 1.1rem;
@@ -96,8 +95,15 @@ const TopicCardContainer = styled.div`
   width: 250px;
   flex-direction: column;
   align-items: center;
-  background-color: #fffafa;
+  border: 2px solid ${(props) => props.theme.secondaryText};
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  &:hover {
+    outline: 2px solid ${(props) => props.theme.secondaryText};
+    box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
+    transform: scale(1.02);
+  }
 `;
 
 const TopicImage = styled.img`
@@ -106,7 +112,7 @@ const TopicImage = styled.img`
   object-fit: cover;
   /* border-radius: 50%; */
   margin-bottom: 8px;
-  border: 2px solid grey;
+  /* border: 2px solid grey; */
 `;
 
 const TopicTitle = styled.h2`
@@ -118,7 +124,7 @@ const TopicTitle = styled.h2`
 const WordsCount = styled.h3`
   font-size: 16px;
   margin: 0;
-  color: #666;
+  color: ${(props) => props.theme.secondaryText};
   margin-bottom: 1.1rem;
 
   strong {

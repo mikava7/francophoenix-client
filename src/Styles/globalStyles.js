@@ -14,9 +14,9 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
     overflow-x: hidden;
     width: 100vw;
-    border:2px solid orange;
-    background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
+    /* border:2px solid orange; */
+    background-color: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
 
   }
 
@@ -202,13 +202,14 @@ export const Button = styled.button`
   border-radius: 12px;
   width: 12rem;
   font-size: 1.6rem;
-  background-color: ${(props) => props.theme.buttonBack};
-  color: ${(props) => props.theme.background};
+
   font-weight: bold;
   cursor: pointer;
+  background: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
   &:hover {
-    background-color: ${(props) => props.theme.background};
-    color: ${(props) => props.theme.buttonBack};
+    background: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
   }
   @media screen and (min-width: 576px) {
     font-size: 1.1rem;
@@ -226,7 +227,14 @@ export const Button = styled.button`
     font-size: 1.6rem;
   }
 `;
-
+export const LightButton = styled(Button)`
+  background: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
+  &:hover {
+    background: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.primaryBackground};
+  }
+`;
 export const CenteredMessageContent = styled.p`
   display: flex;
   align-items: center;

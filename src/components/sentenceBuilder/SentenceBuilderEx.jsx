@@ -81,12 +81,12 @@ const SentenceBuilderEx = () => {
   return (
     <BuildBoxContainer>
       <h2>Build the Sentence</h2>
-      <Play
+      {/* <Play
         onClick={handleListen(sentence)}
         // disabled={isActiveStates}
       >
         Play ▶️
-      </Play>
+      </Play> */}
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -129,7 +129,7 @@ const SentenceBuilderEx = () => {
           )
         ) : (
           <div onClick={handleCheckAnswer}>
-            <ExerciseButton>Submit</ExerciseButton>
+            <Button>Submit</Button>
           </div>
         )}
       </div>
@@ -144,7 +144,7 @@ const BuildBoxContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 390px;
 
   margin: 1rem auto;
@@ -153,8 +153,8 @@ const BuildBoxContainer = styled.section`
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
 
-  background-color: ${(props) => props.theme.flagFirst};
-  color: ${(props) => props.theme.flagSecond};
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
@@ -178,13 +178,14 @@ const TopBox = styled.div`
   position: relative;
   flex-wrap: wrap;
   display: flex;
-  border: 2px solid ${(props) => props.theme.flagAddon};
+  /* border: 2px solid ${(props) =>
+    props.theme.primaryTetertiaryBackgroundxt}; */
   background-color: ${(props) =>
     props.isSubmit
       ? props.isCorrect
         ? props.theme.correctBack
         : props.theme.wrongback
-      : props.theme.flagAddon};
+      : props.theme.tertiaryBackground};
 `;
 
 export const TopWord = styled.span`
@@ -203,8 +204,8 @@ export const TopWord = styled.span`
   border-radius: 4px;
 `;
 export const BottomBox = styled.div`
-  background-color: ${(props) => props.theme.flagAddon};
-  color: ${(props) => props.theme.flagFirst};
+  background-color: ${(props) => props.theme.tertiaryBackground};
+  /* color: ${(props) => props.theme.flagFirst}; */
 
   margin: 0 auto;
   width: 100%;
@@ -218,10 +219,6 @@ export const BottomBox = styled.div`
 `;
 
 export const BottomWord = styled.button`
-  color: black;
-  background-color: ${(props) => props.theme.flagSecond};
-  color: ${(props) => props.theme.flagFirst};
-
   text-align: center;
   display: flex;
   cursor: pointer;
@@ -237,16 +234,4 @@ export const BottomWord = styled.button`
 `;
 const Sentence = styled.p`
   display: none;
-`;
-const ExerciseButton = styled(Button)`
-  margin-bottom: 2rem;
-  &:hover {
-    background-color: ${(props) => props.theme.primary};
-    /* color: ${(props) => props.theme.text}; */
-  }
-`;
-const Play = styled(Button)`
-  &:hover {
-    background-color: ${(props) => props.theme.primary};
-  }
 `;

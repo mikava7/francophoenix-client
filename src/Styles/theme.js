@@ -14,6 +14,17 @@ export const darkTheme = {
   flagThird: "#EF4135",
   flagAddon: "#fdda24",
   backTone: "#555555",
+  textTone: "#e6e6e6",
+  textTone2: "#cccccc",
+
+  /////////////////////
+
+  primaryBackground: "#191919",
+  secondaryBackground: "#333333",
+  tertiaryBackground: "#4c4c4c",
+  primaryText: "#ffffff",
+  secondaryText: "#b3b3b3",
+  tertiaryText: "#808080",
 };
 
 export const lightTheme = {
@@ -36,5 +47,18 @@ export const lightTheme = {
   flagSecond: "#FFFFFF",
   flagThird: "#EF4135",
   flagAddon: "#f5f5f5",
-  backTone: "#F5F5F5",
+  backTone: "#e6e6e6",
+  textTone: "#191919",
+  textTone2: "#333333",
+
+  /////////////////////
+  /////////////////////
+  /////////////////////
+
+  primaryBackground: "#ffffff",
+  secondaryBackground: "#e6e6e6",
+  tertiaryBackground: "#cccccc",
+  primaryText: "#333333",
+  secondaryText: "#666666",
+  tertiaryText: "#999999",
 };

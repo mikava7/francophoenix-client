@@ -108,11 +108,11 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h2 onClick={() => speakWord(selectedBook.title)}>
+      <h1 onClick={() => speakWord(selectedBook.title)}>
         {selectedBook.title}
-      </h2>
+      </h1>
 
-      <h4>{selectedBook.author}</h4>
+      <BookAuthor>{selectedBook.author}</BookAuthor>
       <ChapterBoxesContainer>
         {selectedBook.chapters.map((chapter, index) => (
           <ChapterBox key={index}>
@@ -159,20 +159,38 @@ const ChapterBox = styled.div`
 
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 3rem;
+  margin: 0 auto;
 `;
 const BookContainer = styled.div`
-  background: #f5dcdc;
+  background-color: ${(props) => props.theme.secondaryBackground};
   display: flex;
 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 3rem;
-  padding: 5rem;
-  border: 2px solid red;
-  max-width: 920px;
+  margin: 0 0.1rem;
+  padding: 2rem;
+  /* max-width: 920px; */
+`;
+
+const BookAuthor = styled.span`
+  font-style: italic;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background-color: ${(props) => props.theme.primaryText};
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: calc(100% - 2px); /* Expand width to 100% on hover */
+  }
 `;
 
 const ChapterText = styled.span`
@@ -188,7 +206,7 @@ const ChapterText = styled.span`
 const ChapterBoxesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the ChapterBox horizontally */
-  gap: 1rem; /* Add some gap between the ChapterBoxes */
-  width: 100%; /* Set the width to 100% to ensure the boxes are in a single row */
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
 `;

@@ -92,8 +92,8 @@ export default Home;
 const HomeContainer = styled.section`
   margin: 0 1rem;
 
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
   max-width: 100%;
   font-size: 1.8rem;
   @media screen and (max-width: 576px) {

@@ -8,10 +8,11 @@ import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
+  // console.log("definition in VocabularyAccordion", definition);
   useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const [expandedIndex, setExpandedIndex] = useState(null);
-  console.log("frenchWords", frenchWords);
+  // console.log("frenchWords", frenchWords);
 
   const [isActiveState, setIsActiveState] = useState(
     frenchWords?.map(() => false)
@@ -52,7 +53,7 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
                 secondLanguage={secondLanguage[index]}
               />
             </IconsWrapper>
-            <Example>{t("Example")}</Example>
+            <Example>{t("Définition")}</Example>
             <ChevronIcon
               onClick={() => toggleAccordion(index)}
               isExpanded={index === expandedIndex}
@@ -79,6 +80,8 @@ const AccordionContaner = styled.div`
   margin: 0 auto;
   width: 100%;
   font-size: 1.4rem;
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
 `;
 const AccordionItem = styled.div`
   display: flex;
@@ -97,10 +100,10 @@ const AccordionHeader = styled.div`
 
   cursor: pointer;
   background-color: ${(props) =>
-    props.isExpanded ? "#e6af68" : props.theme.background};
-  color: ${(props) => props.theme.text};
+    props.isExpanded ? "#e6af68" : props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   &:hover {
-    background-color: #68e2e6;
+    background-color: ${(props) => props.theme.primaryBackground};
   }
   @media (max-width: 920px) {
     font-size: 1.3rem;
@@ -158,6 +161,7 @@ const IconsWrapper = styled.div`
   width: 60px;
   max-width: 120px;
   text-align: center;
+  margin-right: 0.5rem;
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
 `;
 

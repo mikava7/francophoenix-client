@@ -13,7 +13,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const quizData =
     useSelector((state) => state.quizData.currentTopic.words) || [];
-  console.log("frenchWords in ExerciseArticle", frenchWords);
+  // console.log("frenchWords in ExerciseArticle", frenchWords);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const topic = topicNames.map((topic) => topic.topic);
   // console.log("topicNames", topicNames);

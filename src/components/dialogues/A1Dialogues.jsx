@@ -34,5 +34,5 @@ const A1Dialogues = () => {
 export default A1Dialogues;
 const StyledLink = styled(Link)`
   text-decoration: none;
-  background-color: red;
+  /* background-color: red; */
 `;

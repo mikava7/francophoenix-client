@@ -81,8 +81,8 @@ const StyledLink = styled(Link)`
   margin: 0 auto;
   position: relative;
   padding: 0.5rem;
-  color: black;
-  background-color: #9ccfff;
+  background: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
   outline: 1px solid grey;
   border-bottom: 3px solid black;
   border-right: 3px solid black;
@@ -108,12 +108,11 @@ const StyledLink = styled(Link)`
 
     z-index: -1;
   }
-  
-  
+
   &:hover::before {
     animation: ${ani} 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
- 
+
   @media screen and (min-width: 576px) and (max-width: 768px) {
     width: 8rem;
     font-size: 1.3rem;

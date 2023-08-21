@@ -253,8 +253,8 @@ const QuizContainer = styled.div`
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  background-color: ${(props) => props.theme.flagFirst};
-  color: ${(props) => props.theme.flagSecond};
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
   height: 700px;
   @media (max-width: 576px) {
     max-width: 370px;
@@ -279,11 +279,6 @@ const QuizBox = styled.div`
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-
-    &:hover {
-      background-color: ${(props) => props.theme.flagFirst};
-      color: ${(props) => props.theme.flagAddon};
-    }
   }
 `;
 const QuestionImage = styled.img`
@@ -292,8 +287,8 @@ const QuestionImage = styled.img`
 `;
 
 const Options = styled.div`
-  border-bottom: 2px solid blue;
-  border-right: 2px solid blue;
+  border-bottom: 2px solid ${(props) => props.theme.primaryText};
+  border-right: 2px solid ${(props) => props.theme.primaryText};
   padding: 0.6rem 1rem;
   margin: 0.6rem 1rem;
   font-size: 1.5rem;
@@ -308,14 +303,14 @@ const Options = styled.div`
       ? props.isCorrect
         ? "green"
         : "red"
-      : props.theme.flagAddon};
+      : props.theme.secondaryBackground};
 
   color: ${(props) =>
     props.isSelected
       ? props.isCorrect
         ? "white"
         : "black"
-      : props.theme.flagFirst};
+      : props.theme.primaryText};
 
   @media (max-width: 576px) {
     width: 300px;

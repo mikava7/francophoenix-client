@@ -46,9 +46,9 @@ const CardContainer = styled.div`
   /* flex-direction: row; */
   margin: 1rem;
   padding: 2rem;
-  background-color: ${(props) => props.theme.flagAddon};
+  background-color: ${(props) => props.theme.primaryBackground};
 
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   flex-wrap: wrap;
   width: 100vw;
   height: 100%;

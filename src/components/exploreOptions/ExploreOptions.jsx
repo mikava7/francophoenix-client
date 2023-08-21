@@ -100,7 +100,7 @@ const ExploreOptionsContainer = styled.div`
   margin: 0;
   padding: 0;
   h1 {
-    color: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
@@ -132,8 +132,8 @@ const CardBox = styled.div`
   align-items: flex-start;
   margin: 0 auto;
   margin-bottom: 2rem;
-  background-color: ${(props) => props.theme.secondary};
-  color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.secondaryText};
   padding: 0 1rem;
   width: 335px;
   p {
@@ -194,7 +194,8 @@ const ExploreButton = styled.button`
 `;
 const List = styled.ul`
   list-style: none;
-  padding-left: 1.5em;
+  padding-left: 1rem;
+  color: ${(props) => props.theme.secondaryText};
 
   li {
     &:before {
@@ -203,4 +204,6 @@ const List = styled.ul`
     }
   }
 `;
-const CardTilte = styled.h3``;
+const CardTilte = styled.h3`
+  color: ${(props) => props.theme.primaryText};
+`;

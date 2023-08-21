@@ -60,7 +60,7 @@ const DialogueTopicContainer = styled.div`
   justify-content: center;
   margin: 0 1rem;
   border-radius: 3rem;
-  border: 6px solid ${(props) => props.theme.correctBack};
+  border: 6px solid ${(props) => props.theme.primaryText};
 `;
 
 const DialogueTopicCard = styled.div`
@@ -69,8 +69,8 @@ const DialogueTopicCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${(props) => props.theme.secondary};
-  color: ${(props) => props.theme.text};
+  background: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
 `;
 
 const ChapterInfoContainer = styled.div`
@@ -86,11 +86,9 @@ const ChapterIndex = styled.span`
 `;
 
 const ChapterTitle = styled.span`
-  color: white;
   font-size: 1.6rem;
-  border: 3px solid white;
+  border-bottom: 3px solid white;
   padding: 0.4rem 1rem;
-  background-color: ${(props) => props.theme.primary};
   border-radius: 12px;
   text-align: center;
   margin: 0 auto;
@@ -100,22 +98,23 @@ const ChapterDialogueContainer = styled.div`
   padding: 0.2rem 1rem;
   width: 80%;
   margin: 1rem;
-  border: 3px dashed ${(props) => props.theme.primary};
+  border: 3px dashed ${(props) => props.theme.primaryText};
   div {
-    border-radius: 0 0 0 12px;
-    border-bottom: 2px solid ${(props) => props.theme.primary};
+    border-radius: 0 0 0 8px;
+    border-bottom: 2px solid ${(props) => props.theme.primaryText};
     &:last-child {
       margin-bottom: 1rem;
     }
   }
   p {
     font-size: 1.2rem;
-    color: #1e072e;
+    color: ${(props) => props.theme.primaryText};
   }
   h4 {
     font-size: 1.4rem;
 
-    color: #1222ff;
+    color: ${(props) => props.theme.primaryText};
+    font-weight: bold;
   }
 `;
 const ChapterWordsAndPhrases = styled(ChapterDialogueContainer)`
@@ -127,10 +126,8 @@ const ChapterWordsAndPhrases = styled(ChapterDialogueContainer)`
     align-items: center;
     border-radius: 0 0 1rem;
 
-    border-bottom: 2px solid ${(props) => props.theme.primary};
-
     b {
-      background: ${(props) => props.theme.primary};
+      background: ${(props) => props.theme.primaryText};
       color: ${(props) => props.theme.background};
 
       border: 3px solid white;

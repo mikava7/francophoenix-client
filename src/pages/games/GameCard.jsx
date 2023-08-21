@@ -24,9 +24,9 @@ const Description = styled.div`
   font-size: 1.4rem;
   width: 330px;
   padding: 0.5rem 1rem;
-  outline: 2px solid ${(props) => props.theme.flagAddon};
-  background-color: ${(props) => props.theme.flagFirst};
-  color: ${(props) => props.theme.flagAddon};
+  outline: 2px solid ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   display: none;
   position: absolute;
   bottom: 0;
@@ -48,6 +48,7 @@ const Card = styled.div`
   display: flex;
   position: relative;
   transition: filter 0.3s, opacity 0.3s; /* Add transitions for smooth animations */
+  background-color: ${(props) => props.theme.secondaryBackground};
 
   &:hover ${Description} {
     display: block;

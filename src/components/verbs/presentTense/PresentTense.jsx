@@ -163,27 +163,28 @@ const PresentTense = () => {
           </QuestionBox>
         );
       })}
-
-      {/* Render different buttons based on the state */}
-      {showSubmitButton && (
-        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-      )}
-      {showAnswers && !allAnswersCorrect && hasNextSet && (
-        <>
-          {showRetryButton ? (
-            <SubmitButton onClick={handleRetry}>Retry</SubmitButton>
-          ) : (
-            <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-          )}
-        </>
-      )}
-      <NextButton onClick={handleNext}>Next</NextButton>
-      {showAnswers && !allAnswersCorrect && !hasNextSet && (
-        <FinalScore>
-          Your final score is: {currentScore}
-          <RestartButton onClick={handleRestart}>Restart</RestartButton>
-        </FinalScore>
-      )}
+      <ButtonContainer>
+        {/* Render different buttons based on the state */}
+        {showSubmitButton && (
+          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+        )}
+        {showAnswers && !allAnswersCorrect && hasNextSet && (
+          <>
+            {showRetryButton ? (
+              <SubmitButton onClick={handleRetry}>Retry</SubmitButton>
+            ) : (
+              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+            )}
+          </>
+        )}
+        <NextButton onClick={handleNext}>Next</NextButton>
+        {showAnswers && !allAnswersCorrect && !hasNextSet && (
+          <FinalScore>
+            Your final score is: {currentScore}
+            <RestartButton onClick={handleRestart}>Restart</RestartButton>
+          </FinalScore>
+        )}
+      </ButtonContainer>
     </QuestionContainer>
   );
 };
@@ -198,7 +199,7 @@ const QuestionContainer = styled.div`
   margin: 0 auto;
   max-width: 390px;
   margin: 1rem auto;
-  background: #0055a4dd;
+  background: ${(props) => props.theme.secondaryBackground};
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
@@ -210,15 +211,17 @@ const QuestionContainer = styled.div`
   }
 `;
 const QuestionBox = styled.div`
-  background-color: #0f6dd8;
-  border-bottom: 2px solid blue;
-  border-right: 2px solid blue;
-  padding: 0.3rem;
-  color: white;
+  background: ${(props) => props.theme.tertiaryBackground};
+  color: ${(props) => props.theme.primaryText};
+
+  border-bottom: 2px solid ${(props) => props.theme.primaryBackground};
+  border-right: 2px solid ${(props) => props.theme.primaryBackground};
+  padding: 0.5rem 0.3rem;
   font-size: 1.2rem;
   border-radius: 0.5rem;
   letter-spacing: 0.2px;
   margin: 0.3rem 1rem;
+  margin-top: 1rem;
 
   width: 360px;
   @media (min-width: 576px) and (max-width: 766px) {
@@ -255,7 +258,7 @@ const WordOption = styled.button`
   padding: 0.2rem 0.5rem;
   cursor: pointer;
   gap: 1rem;
-  color: black;
+  color: ${(props) => props.theme.primaryText};
   background-color: ${(props) => {
     return getOptionBackgroundColor(props);
   }};
@@ -284,14 +287,14 @@ export const SubmitButton = styled.button`
   width: 10rem;
   font-size: 1.2rem;
 
-  background: #f8ffff;
-  color: #0c76f0;
+  background: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
   font-weight: bold;
   margin-bottom: 2rem;
   cursor: pointer;
   &:hover {
-    background: #0f6dd8;
-    color: #f8ffff;
+    background: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.primaryBackground};
   }
 `;
 const Score = styled.span`
@@ -306,6 +309,11 @@ const FinalScore = styled.div`
   background: #7bb5f8;
   font-size: 1.2rem;
   border-radius: 8px 8px 0 0;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  margin-top: 3rem;
+  gap: 1rem;
 `;
 const RestartButton = styled.button`
   padding: 0.5rem 1rem;
@@ -325,6 +333,10 @@ const RestartButton = styled.button`
   }
 `;
 export const NextButton = styled(SubmitButton)`
-  background-color: #0055a4dd;
-  color: #fff;
+  background: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
+  &:hover {
+    background: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
+  }
 `;

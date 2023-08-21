@@ -156,10 +156,10 @@ const DialogueLine = styled.div`
   align-items: center;
   padding: 0.4rem;
   border-radius: 0 0 0 1rem;
-  border-bottom: 5px solid ${(props) => props.theme.primary};
-  border-right: 5px solid ${(props) => props.theme.primary};
-  background: ${(props) => props.theme.vocabularyBack};
-  color: black;
+  border-bottom: 5px solid ${(props) => props.theme.primaryText};
+  border-right: 5px solid ${(props) => props.theme.primaryText};
+  background: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   margin-bottom: 1rem;
 
   @media (max-width: 576px) {
@@ -182,10 +182,11 @@ const MessageLine = styled.div`
 `;
 const Speaker = styled.p`
   font-weight: bold;
-  width: 100%;
-  background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.background};
-  padding: 0.5rem 0;
+  width: 50%;
+
+  background: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
+  padding: 1rem 0;
   text-align: center;
 `;
 const MessageParagraph = styled.span`
@@ -199,10 +200,11 @@ const MessageParagraph = styled.span`
   }
 `;
 const SecondMessageParagraph = styled.span`
-  background-color: gainsboro;
+  background: ${(props) => props.theme.tertiaryBackground};
+  color: ${(props) => props.theme.secondaryText};
+
   margin-left: 1.2rem;
   padding: 0.4rem;
-  border: 1px solid gainsboro;
 
   &:before {
     content: "🔸";

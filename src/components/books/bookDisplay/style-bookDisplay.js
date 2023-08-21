@@ -7,9 +7,11 @@ export const BookCardLayout = styled.div`
   border-radius: 1.6rem;
   perspective: 31.3rem;
   overflow: hidden;
-  color: var(--font-color);
-  background-color: #fdeae6;
-  box-shadow: 2.3rem 2.3rem 3.1rem 0.9rem #eed7d1d1;
+  color: ${(props) => props.theme.primaryText};
+
+  background-color: ${(props) => props.theme.tertiaryBackground};
+  box-shadow: 2.3rem 2.3rem 3.1rem 0.9rem
+    ${(props) => props.theme.tertiaryBackground};
 `;
 export const Actions = styled.div`
   position: fixed;
@@ -29,7 +31,7 @@ export const Preface = styled.div`
   height: 41.9rem;
   padding: 3rem;
   transition: transform 0.7s ease-in-out;
-  background: white;
+  background: ${(props) => props.theme.primaryBackground};
 `;
 export const BookCover = styled.div`
   position: relative;
@@ -38,7 +40,7 @@ export const BookCover = styled.div`
   left: -52.5%;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
-  background-color: #eed7d1;
+  background-color: ${(props) => props.theme.secondaryBackground};
   transform-style: preserve-3d;
   transform-origin: 50% 40%;
   transition: transform 0.7s ease-in-out;

@@ -10,7 +10,7 @@ import ChevronDown from "../../../../public/icons/chevron-down-24.png";
 import RotatingChevron from "../../Utility/RotatingChevron";
 import { useParams } from "react-router-dom";
 import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";
-
+import TopicText from "./Text/TopicText";
 import Loading from "../../loading/Loading";
 const Vocabulary = () => {
   const { topicId } = useParams();
@@ -79,6 +79,9 @@ const Vocabulary = () => {
           definition={definition}
         />
       </WordPairContainer>
+      <div>
+        <TopicText text={vocabularyData?.text} vocabulary={french} />
+      </div>
       <NextStepChoise>
         <h2 onClick={handleArticleToggle}>
           {t("Masculin ou Féminin")}
