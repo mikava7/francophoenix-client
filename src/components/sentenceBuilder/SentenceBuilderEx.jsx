@@ -9,29 +9,30 @@ import { NextButton } from "../verbs/presentTense/PresentTense";
 import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
 
-const SentenceBuilderEx = () => {
+const SentenceBuilderEx = ({ sentenceData }) => {
   const { handleListen, isActiveStates } = useListenWord();
-
+  // console.log("sentenceData in SentenceBuilderEx", sentenceData);
   const dispatch = useDispatch();
   const sentenceBuilders =
     useSelector((state) => state.sentences.sentences) || [];
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const [newPair, setNewPair] = useState(0);
-
-  useEffect(() => {
-    dispatch(fetchSentences());
-  }, [dispatch]);
-
   const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [sentenceIndex, setSentenceIndex] = useState(0);
+  const dataToRender = sentenceData || sentenceBuilders;
+
+  useEffect(() => {
+    if (!sentenceData) {
+      dispatch(fetchSentences());
+    }
+  }, [dispatch, sentenceData]);
 
   // Get the sentence for the currently active sentence
-  const sentence = sentenceBuilders[sentenceIndex]?.sentence || "";
+  const sentence = dataToRender[sentenceIndex]?.sentence || "";
   // Get the words array for the currently active sentence
-  const words = sentenceBuilders[sentenceIndex]?.words || [];
+  const words = dataToRender[sentenceIndex]?.words || [];
 
   const handleWordSelect = (index) => {
     setSelectedWords((prevSelectedWords) => {
@@ -71,13 +72,12 @@ const SentenceBuilderEx = () => {
   const handleNext = () => {
     setSelectedWords([]);
     setShowAnswers(false);
-    if (sentenceIndex + 1 < sentenceBuilders.length) {
+    if (sentenceIndex + 1 < dataToRender.length) {
       setSentenceIndex((prevIndex) => prevIndex + 1);
     }
   };
 
-  const nextComponent = sentenceIndex === sentenceBuilders.length - 1;
-
+  const nextComponent = sentenceIndex === dataToRender.length - 1;
   return (
     <BuildBoxContainer>
       <h2>Build the Sentence</h2>
@@ -119,12 +119,12 @@ const SentenceBuilderEx = () => {
               </div>
             ) : (
               <div onClick={handleNext}>
-                <ExerciseButton>Next</ExerciseButton>
+                <Button>Next</Button>
               </div>
             )
           ) : (
             <div onClick={handleRetry}>
-              <ExerciseButton>Retry</ExerciseButton>
+              <Button>Retry</Button>
             </div>
           )
         ) : (
@@ -171,7 +171,7 @@ export const BuildBox = styled.div`
 const TopBox = styled.div`
   margin: 0 auto;
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   margin-bottom: 2rem;
   margin-top: 2rem;
   color: black;
@@ -196,10 +196,10 @@ export const TopWord = styled.span`
   border-bottom: 2px solid ${(props) => props.theme.flagFirst};
 
   cursor: pointer;
-  align-items: center;
-  font-size: 2rem;
+  text-align: center;
+  font-size: 1.6rem;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.2rem;
   height: 3rem;
   border-radius: 4px;
 `;
@@ -210,7 +210,7 @@ export const BottomBox = styled.div`
   margin: 0 auto;
   width: 100%;
   min-width: 370px;
-  height: 10rem;
+  height: 12rem;
   margin-bottom: 2rem;
   margin-top: 2rem;
   position: relative;
@@ -223,9 +223,9 @@ export const BottomWord = styled.button`
   display: flex;
   cursor: pointer;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.2rem;
   height: 3rem;
   border-radius: 4px;
   max-width: 100%;

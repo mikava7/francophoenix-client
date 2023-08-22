@@ -1,36 +1,63 @@
 import React from "react";
 import styled from "styled-components";
-
-const displayWord = (word) => {
-  if (word.startsWith("les ")) {
-    return word.slice(4);
-  } else if (word.startsWith("le/la ")) {
-    return null;
+import SentenceBuilderEx from "../../../sentenceBuilder/SentenceBuilderEx";
+import { displayWord } from "../../../Utility/utils";
+const displayCleanWord = (word) => {
+  if (word?.startsWith("l'") || word.startsWith("L'")) {
+    return word?.slice(2);
   } else {
-    return word.slice(3);
+    return word;
   }
 };
 
 const TopicText = ({ text, vocabulary }) => {
-  const words = text?.split(" ");
-  console.log("words", words);
-  const cleanedVocabulary = vocabulary?.map((word) =>
-    displayWord(word)
-      .toLowerCase()
-      .replace(/[^a-z]/g, "")
-  );
+  const words = displayWord(text)?.split(" ");
+  // console.log("words", words);
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const generateSentenceBuilderData = (text) => {
+    const sentences = text?.split(".");
+    const sentenceObjects = sentences?.map((sentence) => {
+      const trimmedSentence = sentence?.trim(); // Trim leading and trailing whitespace
+      const words = trimmedSentence
+        .split(/\s|,/)
+        .filter((word) => word.length > 0);
+      const shuffledWords = shuffleArray(words);
+
+      return { sentence: trimmedSentence, words: shuffledWords };
+    });
+    return sentenceObjects; // Return the generated data
+  };
+  const sentenceData = generateSentenceBuilderData(text);
+  // console.log("sentenceData in TopicText", sentenceData);
+
+  const cleanedVocabulary = vocabulary?.map(
+    (word) =>
+      displayWord(word)
+        ?.toLowerCase()
+        ?.replace(" (f.)", "") // Remove "(f.)" if present
+        ?.replace(" (m.)", "") // Remove "(f.)" if present
+  );
   console.log("Cleaned Vocabulary:", cleanedVocabulary);
 
   return (
     <TopicTextContainer>
       {words?.map((word, index) => {
-        const cleanWord = word.toLowerCase().replace(/[^a-z]/g, "");
-        // console.log("cleanWord", cleanWord);
+        const cleanWord = displayCleanWord(word)
+          .toLowerCase()
+          .replace(/[^a-z]/g, "");
+        console.log("cleanWord", cleanWord);
 
-        const isVocabularyWord = cleanedVocabulary.includes(cleanWord);
+        const isVocabularyWord = cleanedVocabulary?.includes(cleanWord);
 
-        console.log(word, cleanWord, isVocabularyWord);
+        // console.log(word, cleanWord, isVocabularyWord);
 
         return isVocabularyWord ? (
           <Highlighted key={index}>{word} </Highlighted>
@@ -38,6 +65,8 @@ const TopicText = ({ text, vocabulary }) => {
           <span key={index}>{word} </span>
         );
       })}
+
+      <SentenceBuilderEx sentenceData={sentenceData} />
     </TopicTextContainer>
   );
 };
@@ -46,8 +75,10 @@ export default TopicText;
 
 const TopicTextContainer = styled.div`
   padding: 1rem 2rem;
-  line-height: 1.4;
+  line-height: 1.6;
+  font-size: 1.2rem;
   text-indent: 20px;
+  letter-spacing: 1.1px;
 `;
 
 const Highlighted = styled.span`

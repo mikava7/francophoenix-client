@@ -8,6 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 import CategoryDropdown from "../../quizPictures/CategoryDropdown";
 import Loading from "../../loading/Loading";
+import { displayWord } from "../../Utility/utils";
 const ExerciseArticle = ({ frenchWords }) => {
   const dispatch = useDispatch();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
@@ -103,22 +104,22 @@ const ExerciseArticle = ({ frenchWords }) => {
       setScore((prevScore) => prevScore + 1);
     }
   };
-  const displayWord = (word) => {
-    if (word.startsWith("l'")) {
-      return word
-        .slice(2)
-        .replace(/\([^()]*\)/, "")
-        .trim("(");
-    } else if (word.startsWith("les ")) {
-      // For plural words starting with "les ", slice the first four characters ("les ")
-      return word.slice(4);
-    } else if (word.startsWith("le/la ")) {
-      return null; // Return null to exclude this word from rendering
-    } else {
-      // For regular words starting with "le " or "la ", slice the first three characters
-      return word.slice(3);
-    }
-  };
+  // const displayWord = (word) => {
+  //   if (word.startsWith("l'")) {
+  //     return word
+  //       .slice(2)
+  //       .replace(/\([^()]*\)/, "")
+  //       .trim("(");
+  //   } else if (word.startsWith("les ")) {
+  //     // For plural words starting with "les ", slice the first four characters ("les ")
+  //     return word.slice(4);
+  //   } else if (word.startsWith("le/la ")) {
+  //     return null; // Return null to exclude this word from rendering
+  //   } else {
+  //     // For regular words starting with "le " or "la ", slice the first three characters
+  //     return word.slice(3);
+  //   }
+  // };
 
   const areAllCorrect = () => {
     return frenchWords.every((word) =>
