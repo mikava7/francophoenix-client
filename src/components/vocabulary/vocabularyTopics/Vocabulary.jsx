@@ -80,7 +80,12 @@ const Vocabulary = () => {
         />
       </WordPairContainer>
       <div>
-        <TopicText text={vocabularyData?.text} vocabulary={french} />
+        <TopicText
+          text={vocabularyData?.text}
+          vocabulary={french}
+          verbFormMapping={vocabularyData?.verbFormMapping}
+          isTextVerbs={vocabularyData?.textVerbs}
+        />
       </div>
       <NextStepChoise>
         <h2 onClick={handleArticleToggle}>

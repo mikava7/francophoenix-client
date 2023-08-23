@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 const AccordionExpendedContent = ({ index, expandedIndex, definition }) => {
-  console.log("definition in AccordionExpendedContent", definition);
+  // console.log("definition in AccordionExpendedContent", definition);
   return (
     <AccordionContent isExpanded={index === expandedIndex}>
       <FrenchExamples>{definition[index]}</FrenchExamples>
