@@ -19,12 +19,15 @@ export const darkTheme = {
 
   /////////////////////
 
-  primaryBackground: "#191919",
-  secondaryBackground: "#333333",
-  tertiaryBackground: "#4c4c4c",
-  primaryText: "#ffffff",
-  secondaryText: "#b3b3b3",
-  tertiaryText: "#808080",
+  primaryBackground: "#191919", // Dark background
+  secondaryBackground: "#333333", // Slightly lighter background
+  tertiaryBackground: "#4c4c4c", // Even lighter background
+  primaryText: "#ffffff", // White text on dark background
+  secondaryText: "#b3b3b3", // Light gray text on dark background
+  tertiaryText: "#808080", // Dark gray text on dark background
+  highlight1: "#FF00FF", // Magenta highlight
+  highlight2: "#FFA500", // Orange highlight
+  highlight3: "#0000FF", // Bright blue highlight
 };
 
 export const lightTheme = {
@@ -55,10 +58,13 @@ export const lightTheme = {
   /////////////////////
   /////////////////////
 
-  primaryBackground: "#ffffff",
-  secondaryBackground: "#e6e6e6",
-  tertiaryBackground: "#cccccc",
-  primaryText: "#333333",
-  secondaryText: "#666666",
-  tertiaryText: "#999999",
+  primaryBackground: "#ffffff", // White background
+  secondaryBackground: "#e6e6e6", // Slightly darker background
+  tertiaryBackground: "#cccccc", // Even darker background
+  primaryText: "#333333", // Dark text on light background
+  secondaryText: "#666666", // Medium gray text on light background
+  tertiaryText: "#999999", // Light gray text on light background
+  highlight1: "#f5f3e0", // Beige highlight
+  highlight2: "#e0eaf1", // Light blue highlight
+  highlight3: "#acc8e5", // Lighter blue highlight
 };

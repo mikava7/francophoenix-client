@@ -26,7 +26,21 @@ export const fetchTopicNames = createAsyncThunk(
     }
   }
 );
+export const fetchVerbDetails = createAsyncThunk(
+  "selectedVerbDetails/fetchVerbDetails",
+  async (verb) => {
+    console.log("tooltipContent in slice", verb);
+    try {
+      const response = await axiosInstance.get(`/get-verb-details/${verb}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw Error("Failed to fetch verb details");
+    }
+  }
+);
 const initialState = {
+  selectedVerbDetails: [],
   currentTopic: [],
   topicNames: [],
   isLoading: false,
@@ -57,6 +71,19 @@ const quizDataSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchTopicNames.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(fetchVerbDetails.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchVerbDetails.fulfilled, (state, action) => {
+        state.selectedVerbDetails = action.payload;
+        state.isLoading = false;
+        {
+          console.log("in slice", action.payload);
+        }
+      })
+      .addCase(fetchVerbDetails.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 const BasicGrammerTopic = ({ topics }) => {
   const { i18n } = useTranslation();
-  const isGeorgian = i18n.language === "geo";
+  const isGeorgian = i18n.language === "ka";
 
   if (!topics) {
     return null;

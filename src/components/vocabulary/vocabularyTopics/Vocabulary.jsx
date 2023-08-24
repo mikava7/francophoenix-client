@@ -14,7 +14,6 @@ import TopicText from "./Text/TopicText";
 import Loading from "../../loading/Loading";
 const Vocabulary = () => {
   const { topicId } = useParams();
-  // console.log("topicId", topicId);
   const dispatch = useDispatch();
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
   const isLoading = useSelector((state) => state.quizData.isLoading);
@@ -26,6 +25,8 @@ const Vocabulary = () => {
 
   const [showArticle, setShowArticle] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showText, setShowText] = useState(false);
+
   const [expandedIndex, setExpandedIndex] = useState(-1);
   const [rotationArticle, setRotationArticle] = useState(0);
   const [rotationQuiz, setRotationQuiz] = useState(0);
@@ -41,6 +42,10 @@ const Vocabulary = () => {
   const handleQuizToggle = () => {
     setRotationQuiz((prevRotation) => prevRotation + 180);
     setShowQuiz(!showQuiz);
+  };
+  const handleTopicText = () => {
+    setRotationQuiz((prevRotation) => prevRotation + 180);
+    setShowText(!showText);
   };
   const { vocabularyTopicId } = useParams();
   // console.log("vocabularyTopicId", vocabularyTopicId);
@@ -79,14 +84,19 @@ const Vocabulary = () => {
           definition={definition}
         />
       </WordPairContainer>
-      <div>
+      <TopicTextBox>
+        <h2 onClick={handleTopicText}>
+          {t("read the text")}
+          <RotatingChevron isActive={showText} onClick={handleTopicText} />
+        </h2>
         <TopicText
           text={vocabularyData?.text}
           vocabulary={french}
           verbFormMapping={vocabularyData?.verbFormMapping}
           isTextVerbs={vocabularyData?.textVerbs}
+          vocabularyData={vocabularyData}
         />
-      </div>
+      </TopicTextBox>
       <NextStepChoise>
         <h2 onClick={handleArticleToggle}>
           {t("Masculin ou Féminin")}
@@ -172,6 +182,7 @@ const NextStepChoise = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const TopicTextBox = styled(NextStepChoise)``;
 const ChoiseArticle = styled.div`
   display: flex;
   flex-direction: column;

@@ -35,6 +35,7 @@ import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
 
 import Flashcards from "./components/flashcard/Flashcards";
 import Games from "./pages/games/Games";
+import VerbConjugation from "./components/verbs/VerbConjugation/VerbConjugation";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -93,6 +94,7 @@ function App() {
           <Route path="/sentence-builder-Ex" element={<SentenceBuilderEx />} />
           <Route path="/Flashcards" element={<Flashcards />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/verbs/:verb" element={<VerbConjugation />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

@@ -1,7 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import SentenceBuilderEx from "../../../sentenceBuilder/SentenceBuilderEx";
 import { displayWord, shuffleArray } from "../../../Utility/utils";
+import TooltipComponent from "./TooltipComponent";
+import VerbConjugation from "../../../verbs/VerbConjugation/VerbConjugation";
+
+import { Link } from "react-router-dom";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
     return word?.slice(2);
@@ -10,10 +14,18 @@ const displayCleanWord = (word) => {
   }
 };
 
-const TopicText = ({ text, vocabulary, isTextVerbs, verbFormMapping }) => {
+const TopicText = ({
+  text,
+  vocabulary,
+  isTextVerbs,
+  verbFormMapping,
+  vocabularyData,
+}) => {
   const words = displayWord(text)?.split(" ");
-  // console.log("words", words);
-  console.log({ isTextVerbs, verbFormMapping });
+  const [hoveredVerb, setHoveredVerb] = useState(null); // State to track hovered verb
+  // console.log("verbFormMapping", verbFormMapping);
+  const verbs = Object.values(verbFormMapping);
+  const uniqueVerbs = [...new Set(verbs)];
 
   const generateSentenceBuilderData = (text) => {
     const sentences = text?.split(".");
@@ -29,7 +41,6 @@ const TopicText = ({ text, vocabulary, isTextVerbs, verbFormMapping }) => {
     return sentenceObjects; // Return the generated data
   };
   const sentenceData = generateSentenceBuilderData(text);
-  // console.log("sentenceData in TopicText", sentenceData);
 
   const cleanedVocabulary = vocabulary?.map(
     (word) =>
@@ -38,27 +49,70 @@ const TopicText = ({ text, vocabulary, isTextVerbs, verbFormMapping }) => {
         ?.replace(" (f.)", "") // Remove "(f.)" if present
         ?.replace(" (m.)", "") // Remove "(f.)" if present
   );
-  // console.log("Cleaned Vocabulary:", cleanedVocabulary);
 
   return (
     <TopicTextContainer>
+      <div>
+        <ul>
+          {uniqueVerbs.map((verb, index) => (
+            <Link to={`/verbs/${verb}`}>
+              <li key={index}>{verb}</li>
+            </Link>
+          ))}
+        </ul>
+      </div>
       {words?.map((word, index) => {
         const cleanWord = displayCleanWord(word)
           .toLowerCase()
           .replace(/[^a-z]/g, "");
-        // console.log("cleanWord", cleanWord);
-
         const isVocabularyWord = cleanedVocabulary?.includes(cleanWord);
+        const isTextVerbsWord = isTextVerbs && verbFormMapping[cleanWord];
 
-        // console.log(word, cleanWord, isVocabularyWord);
+        const tooltipContent = isTextVerbsWord
+          ? verbFormMapping[cleanWord]
+          : "";
 
-        return isVocabularyWord ? (
-          <Highlighted key={index}>{word} </Highlighted>
-        ) : (
-          <span key={index}>{word} </span>
-        );
+        const handleMouseEnter = () => {
+          if (isTextVerbsWord) {
+            setHoveredVerb(cleanWord);
+          }
+        };
+
+        const handleMouseLeave = () => {
+          if (isTextVerbsWord) {
+            setHoveredVerb(null);
+          }
+        };
+
+        if (isTextVerbsWord) {
+          return (
+            <HighlightedVerb
+              key={index}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              {word}{" "}
+              <TooltipComponentBox>
+                {hoveredVerb === cleanWord && (
+                  <TooltipComponent
+                    id={`verb-tooltip-${index}`}
+                    tooltipContent={tooltipContent}
+                    word={word}
+                    index={index}
+                    // place="top"
+                    // effect="solid"
+                    offset={{ top: -100 }}
+                  />
+                )}
+              </TooltipComponentBox>
+            </HighlightedVerb>
+          );
+        } else if (isVocabularyWord) {
+          return <Highlighted key={index}>{word} </Highlighted>;
+        } else {
+          return <span key={index}>{word} </span>;
+        }
       })}
-
       <SentenceBuilderEx sentenceData={sentenceData} />
     </TopicTextContainer>
   );
@@ -75,7 +129,20 @@ const TopicTextContainer = styled.div`
 `;
 
 const Highlighted = styled.span`
-  background-color: yellow;
+  background-color: ${(props) => props.theme.highlight1};
   padding: 0.2rem;
   font-weight: bold;
+
+  position: relative;
+`;
+const HighlightedVerb = styled(Highlighted)`
+  background-color: ${(props) => props.theme.highlight2};
+`;
+const TooltipComponentBox = styled.span`
+  position: absolute;
+  background-color: ${(props) => props.theme.highlight3};
+  top: -100%;
+  left: 40%;
+  text-align: center;
+  cursor: pointer;
 `;
