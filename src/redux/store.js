@@ -17,6 +17,7 @@ import presentTenseReducer from "./slices/verbeTenses/presentTenseSlice";
 import sentencesReducer from "./slices/sentence builder/sentenceBuild";
 import grammerReducer from "./slices/grammer/grammerSlice";
 import flashcardsReducer from "./slices/fleshCards/fleshCardSlice";
+import verbTensesReducer from "./slices/verbeTenses/verbeTenses";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -38,7 +39,8 @@ const store = configureStore({
     sentences: sentencesReducer,
     grammer: grammerReducer,
     flashcards: flashcardsReducer,
+    verbTenses: verbTensesReducer,
   },
 });
-//
+
 export default store;

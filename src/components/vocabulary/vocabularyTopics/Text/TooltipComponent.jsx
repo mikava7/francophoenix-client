@@ -22,17 +22,16 @@ const TooltipComponent = ({ tooltipContent, index, id }) => {
       data-tip={tooltipContent}
       onClick={handleShowWord}
     >
-      {tooltipContent}
+      <Link to={`/verbs/${tooltipContent}`}>{tooltipContent}</Link>
+
       <Tooltip place="top" effect="solid" />
       <Icon onClick={handleListen(tooltipContent)}>
         <Listen isActive={isActiveStates[index]} />
       </Icon>
       {showWord && (
-        <Link to={`/verbs/${index}`}>
-          <VerbComponentBox>
-            <VerbComponent />
-          </VerbComponentBox>
-        </Link>
+        <VerbComponentBox>
+          <VerbComponent />
+        </VerbComponentBox>
       )}
     </TooltipComponentContainer>
   );

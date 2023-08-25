@@ -11,7 +11,7 @@ const A1Dialogues = () => {
   const dialogues =
     useSelector((state) => state.dialogueTopics.dialogueTopics) || [];
   const isLoading = useSelector((state) => state.dialogueTopics.isLoading);
-  console.log(dialogues, isLoading);
+  // console.log(dialogues, isLoading);
   useEffect(() => {
     dispatch(fetchDialogueTopics());
   }, []);

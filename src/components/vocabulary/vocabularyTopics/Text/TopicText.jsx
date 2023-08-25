@@ -24,7 +24,7 @@ const TopicText = ({
   const words = displayWord(text)?.split(" ");
   const [hoveredVerb, setHoveredVerb] = useState(null); // State to track hovered verb
   // console.log("verbFormMapping", verbFormMapping);
-  const verbs = Object.values(verbFormMapping);
+  const verbs = (verbFormMapping && Object.values(verbFormMapping)) || [];
   const uniqueVerbs = [...new Set(verbs)];
 
   const generateSentenceBuilderData = (text) => {

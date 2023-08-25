@@ -6,14 +6,20 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BasicGrammerTopic from "./BasicGrammerTopic";
 import { StyledLink } from "../../Styles/globalStyles";
+import VerbTenseList from "./verbe Tenses/VerbTenseList";
+import SelectedTenseDetails from "./verbe Tenses/SelectedTenseDetails";
 const BasicGrammerLessons = () => {
+  const [selectedTenseId, setSelectedTenseId] = useState(null);
+
   const dispatch = useDispatch();
   const basicGrammerTopics =
     useSelector((state) => state.grammer.grammer) || [];
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 
-  console.log(basicGrammerTopics);
+  const handleTenseClick = (tenseId) => {
+    setSelectedTenseId(tenseId);
+  };
 
   useEffect(() => {
     dispatch(fetchGrammer());
@@ -37,12 +43,18 @@ const BasicGrammerLessons = () => {
             </StyledLink>
           );
         })}
+      <div>
+        <VerbTenseList onTenseClick={handleTenseClick} />
+        {selectedTenseId && (
+          <SelectedTenseDetails selectedTenseId={selectedTenseId} />
+        )}
+      </div>{" "}
     </BasicGrammerLessonsContainer>
   );
 };
 
 export default BasicGrammerLessons;
 const BasicGrammerLessonsContainer = styled.section`
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
 `;

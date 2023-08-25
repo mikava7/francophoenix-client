@@ -29,7 +29,7 @@ export const fetchTopicNames = createAsyncThunk(
 export const fetchVerbDetails = createAsyncThunk(
   "selectedVerbDetails/fetchVerbDetails",
   async (verb) => {
-    console.log("tooltipContent in slice", verb);
+    // console.log("tooltipContent in slice", verb);
     try {
       const response = await axiosInstance.get(`/get-verb-details/${verb}`);
       return response.data;
@@ -79,9 +79,9 @@ const quizDataSlice = createSlice({
       .addCase(fetchVerbDetails.fulfilled, (state, action) => {
         state.selectedVerbDetails = action.payload;
         state.isLoading = false;
-        {
-          console.log("in slice", action.payload);
-        }
+        // {
+        //   console.log("in slice", action.payload);
+        // }
       })
       .addCase(fetchVerbDetails.rejected, (state, action) => {
         state.error = action.error.message;

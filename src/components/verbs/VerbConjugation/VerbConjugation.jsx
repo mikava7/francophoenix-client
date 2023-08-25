@@ -7,7 +7,9 @@ import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPicture
 import Loading from "../../loading/Loading";
 const VerbConjugation = () => {
   const { verb } = useParams();
-  console.log("tooltipContent in VerbConjugation", verb);
+  const { tooltipContent } = useParams();
+
+  // console.log("tooltipContent in VerbConjugation", verb);
   const dispatch = useDispatch();
   const conjugationData =
     useSelector((state) => state.quizData.selectedVerbDetails) || [];
