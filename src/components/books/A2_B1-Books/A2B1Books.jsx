@@ -28,7 +28,7 @@ const A2B1Books = () => {
       <BookList>
         {books.map((book) => (
           <BookItem key={book._id}>
-            <StyledLink to={`/books/${book._id}`}>
+            <StyledLink to={`/reading-zone/french-easy-reading/${book._id}`}>
               <BookDetails books={book} />
             </StyledLink>
           </BookItem>

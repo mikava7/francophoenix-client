@@ -36,6 +36,10 @@ import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
 import Flashcards from "./components/flashcard/Flashcards";
 import Games from "./pages/games/Games";
 import VerbConjugation from "./components/verbs/VerbConjugation/VerbConjugation";
+import ContentComingSoon from "./components/ContentComingSoon/ContentComingSoon";
+import GrammarLanding from "./components/grammer/GrammarLanding";
+import VocabularyLanding from "./components/vocabulary/VocabularyLanding";
+import Layout from "./layout/Layout";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -51,49 +55,88 @@ function App() {
         <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/dictionary"
-            element={<FindTranslationForFrenchWord />}
-          />
+
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />
           <Route path="/intermediate" element={<IntermediatePage />} />
           <Route path="/advanced" element={<AdvancedPage />} />
-          <Route path="/books" element={<A2B1Books />} />
-          <Route path="/books/:bookId" element={<BookPage />} />
+
           <Route path="/book-display" element={<BookDetails />} />
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
-          <Route
-            path="/grammer/basic-grammer"
-            element={<BasicGrammerLessons />}
-          />
-          <Route
-            path="/grammer/:BasicGrammerTopicId"
-            element={<GrammerTopicPage />}
-          />
-          <Route path="/vocabulary-topics" element={<Vocabularies />} />
-          <Route path="/vocabulary-topics/:topicId" element={<Vocabulary />} />
-          <Route
-            path="/vocabulary-topics/exercise-article"
-            element={<ExerciseArticle />}
-          />
-          <Route
-            path="/vocabulary-topics/exercise-quiz"
-            element={<VocabularyQuiz />}
-          />
+
+          {/**8//////////////////////////////////////// */}
+          <Route element={<Layout />}>
+            <Route
+              path="/dictionary"
+              element={<FindTranslationForFrenchWord />}
+            />
+            <Route
+              path="/reading-zone/french-easy-reading"
+              element={<A2B1Books />}
+            />
+            <Route
+              path="/reading-zone/french-easy-reading/:bookId"
+              element={<BookPage />}
+            />
+            <Route path="/grammar" element={<GrammarLanding />} />
+            <Route
+              path="/grammar/basic-grammar-lessons"
+              element={<BasicGrammerLessons />}
+            />
+            <Route
+              path="/grammar/:BasicGrammerTopicId"
+              element={<GrammerTopicPage />}
+            />
+            <Route path="/vocabulary" element={<VocabularyLanding />} />
+            <Route
+              path="/vocabulary/vocabulary-topics"
+              element={<Vocabularies />}
+            />
+            <Route
+              path="/vocabulary-topics/:topicId"
+              element={<Vocabulary />}
+            />
+
+            <Route
+              path="/vocabulary/exercise-article"
+              element={<ExerciseArticle />}
+            />
+            <Route
+              path="/vocabulary/verb-tense-exercise"
+              element={<PresentTense />}
+            />
+            <Route path="/vocabulary/Flashcards" element={<Flashcards />} />
+
+            <Route
+              path="/vocabulary-topics/exercise-quiz"
+              element={<VocabularyQuiz />}
+            />
+            <Route
+              path="/vocabulary/favorite-words"
+              element={<FavoriteWords />}
+            />
+            <Route
+              path="/vocabulary/sentence-builder"
+              element={<SentenceBuilderEx />}
+            />
+
+            <Route path="/games" element={<Games />} />
+
+            <Route
+              path="/Content-Coming-Soon"
+              element={<ContentComingSoon />}
+            />
+          </Route>
+          {/**8//////////////////////////////////////// */}
+
           <Route path="/dialogue-topics" element={<A1Dialogues />} />
           <Route
             path="/dialogue-topics/:dialogueTopicId"
             element={<DialoguePage />}
           />
           <Route path="/quiz-pictures" element={<QuizPictures />} />
-          <Route path="/PresentTense" element={<PresentTense />} />
-          <Route path="/vocabulary/favoritewords" element={<FavoriteWords />} />
-          <Route path="/sentence-builder-Ex" element={<SentenceBuilderEx />} />
-          <Route path="/Flashcards" element={<Flashcards />} />
-          <Route path="/games" element={<Games />} />
           <Route path="/verbs/:verb" element={<VerbConjugation />} />
         </Routes>
       </AppContainer>

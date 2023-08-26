@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import VerbComponent from "../../../verbs/VerbConjugation/VerbConjugation";
 import { fetchVerbDetails } from "../../../../redux/slices/quizPictures/quizPictures";
 import Loading from "../../../loading/Loading";
+import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 const TooltipComponent = ({ tooltipContent, index, id }) => {
   console.log(id);
@@ -22,7 +23,7 @@ const TooltipComponent = ({ tooltipContent, index, id }) => {
       data-tip={tooltipContent}
       onClick={handleShowWord}
     >
-      <Link to={`/verbs/${tooltipContent}`}>{tooltipContent}</Link>
+      <StyledLink to={`/verbs/${tooltipContent}`}>{tooltipContent}</StyledLink>
 
       <Tooltip place="top" effect="solid" />
       <Icon onClick={handleListen(tooltipContent)}>

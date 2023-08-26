@@ -244,14 +244,104 @@ export const CenteredMessageContent = styled.p`
   letter-spacing: 1.5px;
   font-size: 1.3rem;
 `;
-////////////
+/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// ///////////////// Section Landing Cards ////////////////////////////////////
 
+export const LandingCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    color: ${(props) => props.theme.primaryText};
+  }
+  p {
+    margin-bottom: 2rem;
+  }
+`;
+export const CardContainer = styled.div`
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: ${(props) => props.theme.background};
+  gap: 1rem;
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    flex-direction: column;
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    margin: 0 auto;
+    font-size: 1.2rem;
+  }
+`;
+export const TopicCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.secondaryText};
+  padding: 0 1rem;
+  width: 335px;
+  h3 {
+    text-align: center;
+    color: ${(props) => props.theme.primaryText};
+
+    &:before {
+      content: ${(props) =>
+        props.theme.background === "#000000" ? '"🔷"' : '"🔶"'};
+    }
+    &:after {
+      content: ${(props) =>
+        props.theme.background === "#000000" ? '" 🔷"' : '" 🔶"'};
+    }
+  }
+  h4 {
+    &:before {
+      content: ${(props) =>
+        props.theme.background === "#000000" ? '"❔"' : '"❓"'};
+    }
+  }
+  p {
+    &:before {
+      content: ${(props) =>
+        props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
+    }
+  }
+`;
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 export const StyledLink = styled(Link)`
+  display: inline-block; /* or inline-flex */
+  color: ${(props) => props.theme.primaryText};
   text-decoration: none;
-  font-size: 1.5rem;
+
+  font-size: ${(props) =>
+    props.fontSize ||
+    "1.5rem"}; /* Use props.fontSize if provided, otherwise use theme default */
+  margin-top: ${(props) => props.marginTop || "0"};
+  margin-bottom: ${(props) => props.marginBottom || "0"};
+
   position: relative;
   transition: 0.8s all linear;
   padding: 0.5rem;
+  &:hover {
+    color: ${(props) => props.theme.tertiaryText};
+  }
+  &:active {
+    color: ${(props) => props.theme.secondaryText};
+  }
+  &:visited {
+    color: ${(props) => props.theme.secondaryText};
+  }
 `;
 export const ChevronIcon = styled.span`
   transform: ${(props) =>
@@ -299,6 +389,26 @@ export const NavBarContainer = styled.nav`
   justify-content: space-between;
   height: 70px;
   align-items: center;
+`;
+export const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+
+  max-width: 100%;
+
+  &:not(input) {
+    user-select: none;
+  }
+`;
+export const StyledListItem = styled.li`
+  cursor: pointer;
+  text-decoration: none;
+  margin: 0.2rem;
+  padding: 0.2rem;
 `;
 
 export const ChapterListContainer = styled.ul`

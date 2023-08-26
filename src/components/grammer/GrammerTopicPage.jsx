@@ -37,6 +37,9 @@ const GrammerTopicPage = () => {
   if (error) {
     return <p>{error.message}</p>;
   }
+  if (!selectedGrammerTopic) {
+    return;
+  }
   const {
     title: { titleFr, titleEn, titleGeo },
     description: { descriptionFr, descriptionEng, descriptionGeo },

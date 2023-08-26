@@ -17,12 +17,15 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
         <StyledLogo to="/">Francophoenix</StyledLogo>
       </Logo>
       <StyledUl>
-        <StyledList to="/books" isGeorgian={isGeorgian}>
+        <StyledList
+          to="/reading-zone/french-easy-reading"
+          isGeorgian={isGeorgian}
+        >
           {t("Livres")}
         </StyledList>
 
-        <StyledList to="/grammer/basic-grammer" isGeorgian={isGeorgian}>
-          {t("Grammer")}
+        <StyledList to="/grammar" isGeorgian={isGeorgian}>
+          {t("Grammaire")}
         </StyledList>
         <StyledList to="/courses" isGeorgian={isGeorgian}>
           {t("Courses")}
@@ -30,7 +33,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
         <StyledList to="/dialogue-topics" isGeorgian={isGeorgian}>
           {t("Dialogues")}
         </StyledList>
-        <StyledList to="/vocabulary-topics" isGeorgian={isGeorgian}>
+        <StyledList to="/vocabulary" isGeorgian={isGeorgian}>
           {t("Vocabulaire")}
         </StyledList>
         <StyledList to="/dictionary" isGeorgian={isGeorgian}>

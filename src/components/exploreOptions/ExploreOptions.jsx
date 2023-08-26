@@ -126,7 +126,7 @@ const CardContainer = styled.div`
   }
 `;
 
-const CardBox = styled.div`
+export const CardBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

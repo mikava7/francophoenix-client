@@ -51,7 +51,7 @@ const Book = () => {
       setEnglishTr(updatedEnglishTr);
       setGeorgianTr(updatedGeorgianTr);
     });
-  }, [dispatch, dictionary]); // Make sure to include dictionary as a dependency to update the extracted dictionaries when dictionary data changes
+  }, []); // Make sure to include dictionary as a dependency to update the extracted dictionaries when dictionary data changes
 
   const secondLanguage = isGeorgian ? georgianTr : englishTr;
 

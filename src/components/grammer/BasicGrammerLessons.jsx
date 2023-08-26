@@ -38,16 +38,16 @@ const BasicGrammerLessons = () => {
         basicGrammerTopics.map((topics) => {
           const { _id } = topics;
           return (
-            <StyledLink key={_id} to={`/grammer/${_id}`}>
+            <StyledLink key={_id} to={`/grammar/${_id}`}>
               <BasicGrammerTopic topics={topics} />
             </StyledLink>
           );
         })}
       <div>
-        <VerbTenseList onTenseClick={handleTenseClick} />
+        {/* <VerbTenseList onTenseClick={handleTenseClick} />
         {selectedTenseId && (
           <SelectedTenseDetails selectedTenseId={selectedTenseId} />
-        )}
+        )} */}
       </div>{" "}
     </BasicGrammerLessonsContainer>
   );

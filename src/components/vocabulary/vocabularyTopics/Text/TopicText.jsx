@@ -4,7 +4,7 @@ import SentenceBuilderEx from "../../../sentenceBuilder/SentenceBuilderEx";
 import { displayWord, shuffleArray } from "../../../Utility/utils";
 import TooltipComponent from "./TooltipComponent";
 import VerbConjugation from "../../../verbs/VerbConjugation/VerbConjugation";
-
+import { Button, StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
@@ -53,13 +53,15 @@ const TopicText = ({
   return (
     <TopicTextContainer>
       <div>
-        <ul>
+        <VerbsInText>
           {uniqueVerbs.map((verb, index) => (
-            <Link to={`/verbs/${verb}`}>
-              <li key={index}>{verb}</li>
-            </Link>
+            <StyledLink to={`/verbs/${verb}`}>
+              <li key={index}>
+                <Button>{verb}</Button>
+              </li>
+            </StyledLink>
           ))}
-        </ul>
+        </VerbsInText>
       </div>
       {words?.map((word, index) => {
         const cleanWord = displayCleanWord(word)
@@ -124,7 +126,6 @@ const TopicTextContainer = styled.div`
   padding: 1rem 2rem;
   line-height: 1.6;
   font-size: 1.2rem;
-  text-indent: 20px;
   letter-spacing: 1.1px;
 `;
 
@@ -145,4 +146,25 @@ const TooltipComponentBox = styled.span`
   left: 40%;
   text-align: center;
   cursor: pointer;
+`;
+const VerbsInText = styled.ul`
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+  li {
+    display: flex;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    button {
+      text-decoration: none;
+      margin: 0;
+      width: auto;
+      font-size: 1.2rem;
+    }
+  }
 `;
