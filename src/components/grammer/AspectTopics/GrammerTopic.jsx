@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-const BasicGrammerTopic = ({ topics }) => {
+const GrammerTopic = ({ topics }) => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  console.log("topics in BasicGrammerTopic", topics);
+  // console.log("topics in BasicGrammerTopic", topics);
   if (!topics) {
     return null;
   }
@@ -23,7 +23,7 @@ const BasicGrammerTopic = ({ topics }) => {
   );
 };
 
-export default BasicGrammerTopic;
+export default GrammerTopic;
 
 const BasicGrammerContainer = styled.div`
   display: flex;

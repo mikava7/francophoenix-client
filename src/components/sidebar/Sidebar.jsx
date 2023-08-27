@@ -1,66 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { fetchByAspect } from "../../redux/slices/grammer/grammerSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  StyledLink,
-  StyledUl,
-  StyledListItem,
-} from "../../Styles/globalStyles";
-import FindTranslationForFrenchWord from "../../pages/SearchComponent/frenchWords/FindTranslationForFrenchWord";
-import { grammarTopicsDescriptions } from "../../data/components/grammarTopicsDescriptions";
-import { vocabularySectionData } from "../../data/components/vocabularySectionData";
-import { readingZoneSectionData } from "../../data/components/readingZoneData";
 const Sidebar = () => {
-  const { t, i18n } = useTranslation(); // Initialize the translation function
-  const lang = i18n.language; // Get the current language
+  const dispatch = useDispatch();
+  const [selectedSubSection, setSelectedSubSection] = useState(null);
+  const [selectedSubSectionTopics, setSelectedSubSectionTopics] = useState([]);
+  const [isSubSectionExpanded, setIsSubSectionExpanded] = useState({});
 
-  // Get the grammar topics array for the current language
-  const topicsForLangGram = grammarTopicsDescriptions[lang] || [];
-  const topicsForLangVocab = vocabularySectionData[lang] || [];
-  const topicsForLangRead = readingZoneSectionData[lang] || [];
+  const aspectsArray = [
+    "verb",
+    "article",
+    "pronoun",
+    "adjective",
+    "conjugation",
+    "preposition",
+    "conjunction",
+  ];
+
+  const subTopicsByAspect =
+    useSelector((state) => state.grammer.topicsByAspect) || {};
+
+  const fetchSubTopicsByAspect = (aspect) => {
+    dispatch(fetchByAspect(aspect)); // Dispatch the fetchByAspect action
+  };
+
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
+
+  const toggleSubSection = (subSectionTitle) => {
+    if (!subTopicsByAspect[subSectionTitle]) {
+      dispatch(fetchSubTopicsByAspect(subSectionTitle));
+    }
+    setIsSubSectionExpanded((prevState) => ({
+      ...prevState,
+      [subSectionTitle]: !prevState[subSectionTitle],
+    }));
+  };
+
+  const isSubSectionOpen = (subSectionTitle) => {
+    return isSubSectionExpanded[subSectionTitle];
+  };
 
   return (
     <SidebarContainer>
-      <Section>
-        <StyledLink to="/dictionary">
-          <h2>Dictionary</h2>
-          <FindTranslationForFrenchWord />
-        </StyledLink>
-      </Section>
-      <Section>
-        <StyledLink to="/grammar">
-          <SidbarTitle>{t("Grammar")}</SidbarTitle>
-        </StyledLink>
-        <StyledUl>
-          {topicsForLangGram.map((topic, index) => (
-            <SideBarLink to={`${topic.link}`} key={index}>
-              {t(topic.title)}
-            </SideBarLink>
-          ))}
-        </StyledUl>
-      </Section>
-      <Section>
-        <SidbarTitle>{t("Vocabulaire")}</SidbarTitle>
-        <StyledUl>
-          {topicsForLangVocab.map((topic, index) => (
-            <SideBarLink to={`${topic.link}`} key={index}>
-              {t(topic.title)}
-            </SideBarLink>
-          ))}
-        </StyledUl>
-      </Section>
-      <Section>
-        <SidbarTitle>{t("Lecture")}</SidbarTitle>
-        <StyledUl>
-          {topicsForLangRead.map((topic, index) => (
-            <SideBarLink to={`${topic.link}`} key={index}>
-              {t(topic.title)}
-            </SideBarLink>
-          ))}
-        </StyledUl>
-      </Section>
+      {aspectsArray.map((aspect, index) => (
+        <Section key={index}>
+          <TopicLink onClick={() => toggleSubSection(aspect)}>
+            <span>{t(aspect)}</span>{" "}
+            <DropdownArrow>
+              {isSubSectionOpen(aspect) ? "▲" : "▼"}
+            </DropdownArrow>
+          </TopicLink>
+          <SidebarStyledUl show={isSubSectionOpen(aspect)}>
+            {subTopicsByAspect[aspect]?.map((subTopic, subIndex) => (
+              <li key={subIndex}>
+                <SideBarLink to={`/grammar-topics/${subTopic._id}`}>
+                  {" "}
+                  {/* Modify the link structure */}
+                  {subTopic.title.titleFr}
+                </SideBarLink>
+              </li>
+            ))}
+          </SidebarStyledUl>
+        </Section>
+      ))}
+      {/* Other sections */}
     </SidebarContainer>
   );
 };
@@ -69,7 +77,7 @@ export default Sidebar;
 
 const SidebarContainer = styled.div`
   background-color: ${(props) => props.theme.primaryBackground};
-  max-width: 250px;
+  width: 250px;
   padding: 0.2rem 0.4rem;
   margin-right: 0.2rem;
 `;
@@ -79,16 +87,26 @@ const Section = styled.div`
   border-bottom: 2px solid ${(props) => props.theme.primaryText};
   padding-bottom: 1rem;
 `;
-const SidbarTitle = styled.h1`
-  text-align: left;
-`;
+
 const SideBarLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => props.theme.primaryText};
   margin: 0.2rem;
   padding: 0.2rem;
-  &:before {
-    content: ${(props) =>
-      props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
-  }
+`;
+
+const DropdownArrow = styled.span`
+  margin-left: auto;
+`;
+
+const SidebarStyledUl = styled.ul`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  flex-direction: column;
+`;
+
+const TopicLink = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
+  padding: 0.3rem;
 `;

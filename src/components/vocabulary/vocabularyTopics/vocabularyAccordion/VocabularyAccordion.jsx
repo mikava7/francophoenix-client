@@ -176,7 +176,7 @@ const ChevronIcon = styled.div`
   margin: 0 0.5rem;
 `;
 
-const AccordionListenIcon = styled.div`
+export const AccordionListenIcon = styled.div`
   display: flex;
   align-items: center;
   & > img {

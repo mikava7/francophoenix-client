@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { fetchGrammer } from "../../redux/slices/grammer/grammerSlice";
+import { fetchByAspect } from "../../../redux/slices/grammer/grammerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../loading/Loading";
+import Loading from "../../loading/Loading";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import ListenImg from "../../../public/icons/sound-50.png";
-import useListenWord from "../../hooks/useListenWord";
-const GrammerTopicPage = () => {
-  const { BasicGrammerTopicId } = useParams();
+import ListenImg from "../../../../public/icons/sound-50.png";
+import useListenWord from "../../../hooks/useListenWord";
+const AspectTopicPage = () => {
+  const { TopicId } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
 
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  const dispatch = useDispatch();
-  const selectedGrammerTopic =
-    useSelector((state) =>
-      state.grammer.grammer.find((topic) => topic._id === BasicGrammerTopicId)
-    ) || [];
+  const findTopicById = (arrays, topicId) => {
+    for (const key in arrays) {
+      if (arrays.hasOwnProperty(key) && Array.isArray(arrays[key])) {
+        const foundTopic = arrays[key].find((topic) => topic._id === topicId);
+        if (foundTopic) {
+          return foundTopic;
+        }
+      }
+    }
+    return null; // Return null if not found in any array
+  };
+  const selectedGrammerTopic = useSelector((state) =>
+    findTopicById(state.grammer.topicsByAspect, TopicId)
+  );
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
-
-  useEffect(() => {
-    dispatch(fetchGrammer());
-  }, [dispatch]);
 
   if (isLoading) {
     return <Loading />;
@@ -39,6 +44,8 @@ const GrammerTopicPage = () => {
     description: { descriptionFr, descriptionEng, descriptionGeo },
     example: { exampleFr, exampleEng, exampleGeo },
   } = selectedGrammerTopic;
+  // console.log("descriptionFr", selectedGrammerTopic);
+
   const secondLanguageTitle = isGeorgian ? titleGeo : titleEng;
   const secondLanguageDescription = isGeorgian
     ? descriptionGeo
@@ -66,13 +73,16 @@ const GrammerTopicPage = () => {
         {exampleFr.map((example, index) => (
           <ExampleBox key={index}>
             <div>
-              <p>{example}</p>{" "}
-              <ListenIcon
-                onClick={handleListen(example)}
-                isActive={isActiveStates[index]}
-              >
-                <img src={ListenImg} alt="ListenImg" />
-              </ListenIcon>
+              <p>{example}</p>
+
+              {example.length !== 0 && ( // Check if example is not empty before rendering the icon
+                <ListenIcon
+                  onClick={handleListen(example)}
+                  isActive={isActiveStates[index]}
+                >
+                  <img src={ListenImg} alt="ListenImg" />
+                </ListenIcon>
+              )}
             </div>
             <span>{secondLanguageExample[index]}</span>
           </ExampleBox>
@@ -82,7 +92,7 @@ const GrammerTopicPage = () => {
   );
 };
 
-export default GrammerTopicPage;
+export default AspectTopicPage;
 const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;

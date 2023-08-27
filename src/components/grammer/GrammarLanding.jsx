@@ -28,7 +28,7 @@ const GrammarLanding = () => {
       </p>
       <CardContainer>
         {topicsForLang.map((topic, index) => (
-          <TopicCard>
+          <TopicCard index={index}>
             <div>
               <h3 aria-label="Topic Title">{t(topic.title)}</h3>
               <h4 aria-label="Topic Question">{t(topic.question)}</h4>

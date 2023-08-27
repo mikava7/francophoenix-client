@@ -39,6 +39,8 @@ import VerbConjugation from "./components/verbs/VerbConjugation/VerbConjugation"
 import ContentComingSoon from "./components/ContentComingSoon/ContentComingSoon";
 import GrammarLanding from "./components/grammer/GrammarLanding";
 import VocabularyLanding from "./components/vocabulary/VocabularyLanding";
+import Articles from "./components/grammer/articles/Articles";
+import AspectTopicPage from "./components/grammer/AspectTopics/AspectTopicPage";
 import Layout from "./layout/Layout";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -85,9 +87,15 @@ function App() {
               path="/grammar/basic-grammar-lessons"
               element={<BasicGrammerLessons />}
             />
+            <Route path="/grammar/articles" element={<Articles />} />
+
             <Route
               path="/grammar/:BasicGrammerTopicId"
               element={<GrammerTopicPage />}
+            />
+            <Route
+              path="/grammar-topics/:TopicId"
+              element={<AspectTopicPage />}
             />
             <Route path="/vocabulary" element={<VocabularyLanding />} />
             <Route

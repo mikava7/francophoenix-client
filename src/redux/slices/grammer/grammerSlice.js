@@ -13,8 +13,21 @@ export const fetchGrammer = createAsyncThunk(
   }
 );
 
+export const fetchByAspect = createAsyncThunk(
+  "grammer/fetchByAspect",
+  async (aspect, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`/grammar/${aspect}`);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState = {
   quizData: [],
+  topicsByAspect: {},
+
   isLoading: false,
   error: null,
 };
@@ -33,6 +46,19 @@ const grammerSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchGrammer.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(fetchByAspect.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchByAspect.fulfilled, (state, action) => {
+        {
+          console.log(action.payload);
+        }
+        state.topicsByAspect[action.meta.arg] = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchByAspect.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
