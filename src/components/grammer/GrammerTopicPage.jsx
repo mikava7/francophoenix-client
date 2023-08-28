@@ -20,10 +20,10 @@ const GrammerTopicPage = () => {
     ) || [];
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
-
-  useEffect(() => {
-    dispatch(fetchGrammer());
-  }, [dispatch]);
+  console.log("selectedGrammerTopic", selectedGrammerTopic);
+  // useEffect(() => {
+  //   dispatch(fetchGrammer());
+  // }, [dispatch]);
 
   if (isLoading) {
     return <Loading />;

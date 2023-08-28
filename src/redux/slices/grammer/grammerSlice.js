@@ -15,18 +15,33 @@ export const fetchGrammer = createAsyncThunk(
 
 export const fetchByAspect = createAsyncThunk(
   "grammer/fetchByAspect",
-  async (aspect, thunkAPI) => {
+  async (aspect) => {
     try {
       const response = await axiosInstance.get(`/grammar/${aspect}`);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      // return thunkAPI.rejectWithValue(error.response.data);
+      throw Error("Failed to fetch grammer lessons");
+    }
+  }
+);
+
+export const fetchAspectList = createAsyncThunk(
+  "grammer/fetchAspectList",
+  async () => {
+    try {
+      const response = await axiosInstance.get("/grammar/all-aspect");
+      return response.data;
+    } catch (error) {
+      // return thunkAPI.rejectWithValue(error.response.data);
+      throw Error("Failed to fetch grammer lessons");
     }
   }
 );
 const initialState = {
   quizData: [],
   topicsByAspect: {},
+  aspectList: [],
 
   isLoading: false,
   error: null,
@@ -52,13 +67,23 @@ const grammerSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchByAspect.fulfilled, (state, action) => {
-        {
-          console.log(action.payload);
-        }
+        // {
+        //   console.log(action.payload);
+        // }
         state.topicsByAspect[action.meta.arg] = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchByAspect.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(fetchAspectList.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAspectList.fulfilled, (state, action) => {
+        state.aspectList = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchAspectList.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import CategoryDropdown from "../../quizPictures/CategoryDropdown";
 import Loading from "../../loading/Loading";
 import { displayWord } from "../../Utility/utils";
+import { Button, FlexContainer } from "../../../Styles/globalStyles";
 const ExerciseArticle = ({ frenchWords }) => {
   const dispatch = useDispatch();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
@@ -17,14 +18,10 @@ const ExerciseArticle = ({ frenchWords }) => {
   // console.log("frenchWords in ExerciseArticle", frenchWords);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const topic = topicNames.map((topic) => topic.topic);
-  // console.log("topicNames", topicNames);
-  // console.log("topic", topic);
 
   const ownFrenchWords = quizData.map((words) => words.french);
-  // console.log("ownFrenchWords", ownFrenchWords);
 
   const [topicIndex, setTopicIndex] = useState(0);
-  // const [bothGenderWords, setBothGenderWords] = useState([]);
 
   const [selectedCategory, setSelectedCategory] = useState(topic[0]);
   const [currentQuestionSet, setCurrentQuestionSet] = useState([]);
@@ -136,12 +133,20 @@ const ExerciseArticle = ({ frenchWords }) => {
   const bothGenderWords = wordsToRender.filter((word) =>
     word.startsWith("le/la ")
   );
-  // console.log("bothGenderWords", bothGenderWords);
+  console.log("bothGenderWords", bothGenderWords);
   if (isLoading) {
     return <Loading />;
   }
   return (
     <ExerciseArticleContainer>
+      <BothGenderWordsContainer>
+        <h2>{t("Les noms à double genre")}</h2>
+        {bothGenderWords.map((word, index) => (
+          <ul key={index}>
+            <li>{word}</li>
+          </ul>
+        ))}
+      </BothGenderWordsContainer>
       {!frenchWords && (
         <ExerciseArticleTopPart>
           {/* {console.log("selectedCategory", selectedCategory)} */}
@@ -150,15 +155,6 @@ const ExerciseArticle = ({ frenchWords }) => {
             onCategoryChange={handleCategoryChange}
             selectedCategory={selectedCategory}
           />
-
-          <div>
-            <h2>Words with Both Gender</h2>
-            {bothGenderWords.map((word, index) => (
-              <ul key={index}>
-                <li>{word}</li>
-              </ul>
-            ))}
-          </div>
         </ExerciseArticleTopPart>
       )}
 
@@ -292,7 +288,7 @@ const WordText = styled.div`
   margin-right: 1rem;
   padding: 0.5rem 1rem;
 
-  width: 70%;
+  /* width: 70%; */
   max-width: 100%;
 `;
 const OptionsContainer = styled.div`
@@ -339,19 +335,17 @@ const Score = styled.div`
   border-radius: 6px;
   box-shadow: 0px 2px 4px #0055a4;
 `;
-const RestartButton = styled.button`
-  padding: 1rem;
-  text-align: center;
-  width: 12rem;
-  font-size: 1.2rem;
-  background-color: #0055a4;
-  color: #ffffff;
-  cursor: pointer;
-  border: 2px solid #0055a4;
-  border-radius: 6px;
+const RestartButton = styled(Button)`
+  width: auto;
+`;
+const BothGenderWordsContainer = styled(FlexContainer)`
+  background-color: ${(props) => props.theme.secondaryBackground};
+  width: 100%;
 
-  &:hover {
-    background-color: #ffffff;
-    color: #0055a4;
+  ul {
+    li {
+      list-style: none;
+      font-size: 1.2rem;
+    }
   }
 `;

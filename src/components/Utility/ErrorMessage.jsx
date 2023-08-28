@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ErrorMessage = ({ error }) => {
+  console.log("error in errorMessage", error);
   return (
     <ErrorContainer>
       <ErrorText>{error.message}</ErrorText>

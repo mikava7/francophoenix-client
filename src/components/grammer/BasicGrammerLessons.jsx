@@ -5,7 +5,7 @@ import Loading from "../loading/Loading";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BasicGrammerTopic from "./BasicGrammerTopic";
-import { StyledLink } from "../../Styles/globalStyles";
+import { FlexContainer, StyledLink } from "../../Styles/globalStyles";
 import VerbTenseList from "./verbe Tenses/VerbTenseList";
 import SelectedTenseDetails from "./verbe Tenses/SelectedTenseDetails";
 const BasicGrammerLessons = () => {
@@ -38,7 +38,7 @@ const BasicGrammerLessons = () => {
         basicGrammerTopics.map((topics) => {
           const { _id } = topics;
           return (
-            <StyledLink key={_id} to={`/grammar/${_id}`}>
+            <StyledLink key={_id} to={`/grammar-basic/${_id}`}>
               <BasicGrammerTopic topics={topics} />
             </StyledLink>
           );
@@ -54,7 +54,10 @@ const BasicGrammerLessons = () => {
 };
 
 export default BasicGrammerLessons;
-const BasicGrammerLessonsContainer = styled.section`
+const BasicGrammerLessonsContainer = styled.div`
+  border: 2px solid red;
+  margin: 0 2rem;
+  flex-wrap: wrap;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
 `;

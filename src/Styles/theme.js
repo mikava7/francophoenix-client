@@ -67,4 +67,31 @@ export const lightTheme = {
   highlight1: "#f5f3e0", // Beige highlight
   highlight2: "#e0eaf1", // Light blue highlight
   highlight3: "#acc8e5", // Lighter blue highlight
+
+  //////////////////////////////////
+  extraSmall: "0.8rem",
+  small: "1rem",
+  mediumSmall: "1.2rem",
+  medium: "1.4rem",
+  large: "1.6rem",
+  extraLarge: "2rem",
+  mega: "2.4rem",
+  extraMega: "3rem",
+
+  ////////////////////////////////
+  smallLineHeight: "1.2",
+  mediumLineHeight: "1.3",
+  mediumSmallLineHeight: "1.4",
+  extraMediumLineHeight: "1.5",
+  largeLineHeight: "1.6",
+  extraLargeLineHeight: "1.8",
+
+  //////////////////////////
+
+  smallLetterSpacing: "0.01em",
+  mediumLetterSpacing: "0.02em",
+  largeLetterSpacing: "0.03em",
+  extraLargeLetterSpacing: "0.04em",
+  megaLetterSpacing: "0.05em",
+  extraMegaLetterSpacing: "0.06em",
 };

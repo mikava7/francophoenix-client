@@ -13,8 +13,9 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     list-style: none;
     overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+
     width: 100vw;
-    /* border:2px solid orange; */
     background-color: ${(props) => props.theme.primaryBackground};
     color: ${(props) => props.theme.primaryText};
 
@@ -48,101 +49,123 @@ export const GlobalStyle = createGlobalStyle`
   left: -30px; 
 }
  h1{
-  font-size:2.5rem;
-  @media screen and (max-width: 576px) {
+  font-size: ${({ theme }) => theme.extraMega};
+  letter-spacing: ${({ theme }) => theme.megaLetterSpacing};
+
   
-    font-size: 1.4rem;
-  }
-  @media screen and (min-width: 768px) {
-
-    font-size: 1.6rem;
-  }
-  @media screen and (min-width: 992px) {
-
-    font-size: 1.8rem;
-  }
-  @media screen and (min-width: 1200px) {
+  @media (min-width: 768px) and (max-width: 920px) {
  
-    font-size: 2rem;
-  }
+ font-size: ${({ theme }) => theme.mega};
+  letter-spacing: ${({ theme }) => theme.extraLargeLetterSpacing};
+ 
+}
+@media (min-width: 577px) and (max-width: 767px) {
+ font-size: ${({ theme }) => theme.extraLarge};
+
+}
+
+@media (min-width: 393px) and (max-width: 576px) {
+ font-size: ${({ theme }) => theme.large};
+
+}
+@media (max-width: 392px) {
+ font-size: ${({ theme }) => theme.medium};
+
+}
  }
  h2{
-  font-size:2rem;
-  @media screen and (max-width: 576px) {
+  font-size: ${({ theme }) => theme.extraLarge};
+  letter-spacing: ${({ theme }) => theme.extraLargeLetterSpacing};
 
-    font-size: 1.2rem;
-  }
-  @media screen and (min-width: 768px) {
-
-    font-size: 1.4rem;
-  }
-  @media screen and (min-width: 992px) {
-
-    font-size: 1.6rem;
-  }
-  @media screen and (min-width: 1200px) {
+  @media (min-width: 768px) and (max-width: 920px) {
  
-    font-size: 1.8rem;
-  }
- }
- h3{
-  font-size:1.8rem;
-  @media screen and (max-width: 576px) {
-
-    font-size: 1.1rem;
-  }
-  @media screen and (min-width: 768px) {
-
-    font-size: 1.2rem;
-  }
-  @media screen and (min-width: 992px) {
-
-    font-size: 1.4rem;
-  }
-  @media screen and (min-width: 1200px) {
+ font-size: ${({ theme }) => theme.large};
  
-    font-size: 1.6rem;
-  }
+}
+@media (min-width: 577px) and (max-width: 767px) {
+ font-size: ${({ theme }) => theme.large};
+
+}
+
+@media (min-width: 393px) and (max-width: 576px) {
+ font-size: ${({ theme }) => theme.medium};
+
+}
+@media (max-width: 392px) {
+ font-size: ${({ theme }) => theme.medium};
+
+}
  }
+
+
+h3{
+  font-size: ${({ theme }) => theme.large};
+  letter-spacing: ${({ theme }) => theme.largeLetterSpacing};
+
+@media (min-width: 768px) and (max-width: 920px) {
+  letter-spacing: ${({ theme }) => theme.largeLetterSpacing};
+ 
+ font-size: ${({ theme }) => theme.large};
+ 
+}
+@media (min-width: 577px) and (max-width: 767px) {
+ font-size: ${({ theme }) => theme.medium};
+
+}
+
+@media (min-width: 393px) and (max-width: 576px) {
+ font-size: ${({ theme }) => theme.small};
+
+}
+@media (max-width: 392px) {
+ font-size: ${({ theme }) => theme.small};
+
+}
+
+ }
+
  h1,h2,h3{
   text-align:center;
 
  }
-  p {
+
+ p {
     margin: 0;
     padding: 0;
-    font-size:1.25rem;
-    @media (min-width: 576px) and (max-width: 767px) {
-    font-size: 1.2rem;
-  }
-
-  @media (min-width: 390px) and (max-width: 576px) {
-
-    font-size: 1.1rem;
-  }
-  @media (max-width: 393px) {
-
-    font-size: 1rem;
-  }
-  }
+    font-size: ${({ theme }) => theme.large};
+    line-height: ${({ theme }) => theme.extraLargeLineHeight};
+    letter-spacing: ${({ theme }) => theme.extraLargeLetterSpacing};
 
 
-  @media screen and (min-width: 576px) {
-    width: 564px;
-    font-size: 1.1rem;
+ @media (min-width: 768px) and (max-width: 920px) {
+ 
+    font-size: ${({ theme }) => theme.medium};
+    line-height: ${({ theme }) => theme.largeLineHeight};
+    letter-spacing: ${({ theme }) => theme.extraLargeLetterSpacing};
+    
   }
-  @media screen and (min-width: 768px) {
-    width: 756px;
-    font-size: 1.2rem;
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: ${({ theme }) => theme.medium};
+    line-height: ${({ theme }) => theme.mediumLineHeigth};
+    letter-spacing: ${({ theme }) => theme.largeLetterSpacing};
+
   }
-  @media screen and (min-width: 992px) {
-    width: 980px;
-    font-size: 1.3rem;
+
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: ${({ theme }) => theme.small};
+    line-height: ${({ theme }) => theme.smallLineHeight};
+    letter-spacing: ${({ theme }) => theme.largeLetterSpacing};
+
   }
-  @media screen and (min-width: 1200px) {
-    width: 1188px;
-    font-size: 1.4rem;
+  @media (max-width: 392px) {
+    font-size: ${({ theme }) => theme.small};
+   line-height: ${({ theme }) => theme.smallLineHeight};
+    letter-spacing: ${({ theme }) => theme.mediumLetterSpacing};
+
   }
+  }
+
+
 `;
 /////////////////
 export const FlexContainer = styled.div`

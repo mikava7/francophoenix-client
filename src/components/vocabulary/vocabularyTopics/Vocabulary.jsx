@@ -75,7 +75,7 @@ const Vocabulary = () => {
     <VocabularyContainer>
       <h2>{/* {nameFr} - {secondName} */}</h2>
       <WordCount>
-        {t("Les mots")} <b>{}</b>
+        {t("Les mots")} <b>{french && french?.length}</b>
       </WordCount>
       <WordPairContainer>
         <VocabularyAccordion
@@ -86,18 +86,23 @@ const Vocabulary = () => {
       </WordPairContainer>
       <TopicTextBox>
         <h2 onClick={handleTopicText}>
-          {t("read the text")}
+          {t("Lisez le texte")}
           <RotatingChevron isActive={showText} onClick={handleTopicText} />
         </h2>
-        <TopicText
-          text={vocabularyData?.text}
-          vocabulary={french}
-          verbFormMapping={vocabularyData?.verbFormMapping}
-          isTextVerbs={vocabularyData?.textVerbs}
-          vocabularyData={vocabularyData}
-        />
+        <ChoiseArticle>
+          {showText && (
+            <TopicText
+              text={vocabularyData?.text}
+              vocabulary={french}
+              verbFormMapping={vocabularyData?.verbFormMapping}
+              isTextVerbs={vocabularyData?.textVerbs}
+              vocabularyData={vocabularyData}
+            />
+          )}
+        </ChoiseArticle>
       </TopicTextBox>
-      <NextStepChoise>
+
+      <TopicTextBox>
         <h2 onClick={handleArticleToggle}>
           {t("Masculin ou Féminin")}
 
@@ -111,17 +116,12 @@ const Vocabulary = () => {
             <ExerciseArticle frenchWords={french} parentsData={true} />
           )}
         </ChoiseArticle>
+      </TopicTextBox>
+      <TopicTextBox>
         <h2 onClick={handleQuizToggle}>
           {t("Testez votre vocabulaire")}
 
           <RotatingChevron isActive={showQuiz} onClick={handleQuizToggle} />
-
-          {/* <ChevronImage
-            src={ChevronDown}
-            alt="ChevronDown"
-            expanded={showQuiz}
-            rotation={rotationQuiz}
-          /> */}
         </h2>
         <ChoiseArticle>
           {showQuiz && (
@@ -132,7 +132,7 @@ const Vocabulary = () => {
             />
           )}
         </ChoiseArticle>
-      </NextStepChoise>
+      </TopicTextBox>
     </VocabularyContainer>
   );
 };
@@ -143,6 +143,7 @@ const VocabularyContainer = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* border: 2px solid red; */
 `;
 const WordPairContainer = styled.li`
   display: flex;
@@ -150,18 +151,17 @@ const WordPairContainer = styled.li`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  width: 920px;
   border-bottom: 2px solid orange;
 
   @media (max-width: 920px) {
-    width: 768px;
+    /* width: 768px; */
   }
   @media (max-width: 768px) {
-    width: 630px;
+    /* width: 630px; */
   }
 
   @media (max-width: 500px) {
-    width: 374px;
+    /* width: 374px; */
   }
 `;
 const WordCount = styled.div`
@@ -174,6 +174,7 @@ const WordCount = styled.div`
 
   b {
     font-size: 1.4rem;
+    border-bottom: 2px solid ${(props) => props.theme.primaryText};
   }
 `;
 const NextStepChoise = styled.div`
@@ -182,25 +183,28 @@ const NextStepChoise = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const TopicTextBox = styled(NextStepChoise)``;
+const TopicTextBox = styled(NextStepChoise)`
+  border: 2px solid gold;
+  width: 100%;
+`;
 const ChoiseArticle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  width: 920px;
+  /* width: 920px; */
   border-bottom: 2px solid orange;
 
   @media (max-width: 920px) {
     width: 768px;
   }
   @media (max-width: 768px) {
-    width: 630px;
+    /* width: 630px; */
   }
 
   @media (max-width: 500px) {
-    width: 374px;
+    /* width: 374px; */
   }
 `;
 const ChevronImage = styled.img`

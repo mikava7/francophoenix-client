@@ -108,9 +108,7 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h1 onClick={() => speakWord(selectedBook.title)}>
-        {selectedBook.title}
-      </h1>
+      <h1>{selectedBook.title}</h1>
 
       <BookAuthor>{selectedBook.author}</BookAuthor>
       <ChapterBoxesContainer>

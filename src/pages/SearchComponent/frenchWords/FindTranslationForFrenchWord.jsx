@@ -112,14 +112,15 @@ const DictionaryContainer = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 100%;
+  border: 2px solid red;
 `;
 
 const DictionaryInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   padding: 4px;
   height: 3rem;
 

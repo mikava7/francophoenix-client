@@ -6,6 +6,9 @@ import TooltipComponent from "./TooltipComponent";
 import VerbConjugation from "../../../verbs/VerbConjugation/VerbConjugation";
 import { Button, StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import RotatingChevron from "../../../Utility/RotatingChevron";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
     return word?.slice(2);
@@ -21,7 +24,19 @@ const TopicText = ({
   verbFormMapping,
   vocabularyData,
 }) => {
-  const words = displayWord(text)?.split(" ");
+  const { t, i18n } = useTranslation();
+
+  const [showArticle, setShowArticle] = useState(false);
+  const [rotationArticle, setRotationArticle] = useState(0);
+
+  const handleArticleToggle = () => {
+    setShowArticle(!showArticle);
+    setRotationArticle((prevRotation) => prevRotation + 180);
+  };
+
+  const words = text?.split(" ");
+  console.log(words);
+
   const [hoveredVerb, setHoveredVerb] = useState(null); // State to track hovered verb
   // console.log("verbFormMapping", verbFormMapping);
   const verbs = (verbFormMapping && Object.values(verbFormMapping)) || [];
@@ -34,14 +49,15 @@ const TopicText = ({
       const words = trimmedSentence
         .split(/\s|,/)
         .filter((word) => word.length > 0);
+
       const shuffledWords = shuffleArray(words);
 
       return { sentence: trimmedSentence, words: shuffledWords };
     });
     return sentenceObjects; // Return the generated data
   };
-  const sentenceData = generateSentenceBuilderData(text);
 
+  const sentenceData = generateSentenceBuilderData(text);
   const cleanedVocabulary = vocabulary?.map(
     (word) =>
       displayWord(word)
@@ -49,7 +65,10 @@ const TopicText = ({
         ?.replace(" (f.)", "") // Remove "(f.)" if present
         ?.replace(" (m.)", "") // Remove "(f.)" if present
   );
-
+  const filteredSentenceData = sentenceData.filter(
+    (item) => item.words.length <= 7
+  );
+  // console.log(filteredSentenceData);
   return (
     <TopicTextContainer>
       <div>
@@ -93,7 +112,7 @@ const TopicText = ({
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              {word}{" "}
+              {word}
               <TooltipComponentBox>
                 {hoveredVerb === cleanWord && (
                   <TooltipComponent
@@ -115,7 +134,13 @@ const TopicText = ({
           return <span key={index}>{word} </span>;
         }
       })}
-      <SentenceBuilderEx sentenceData={sentenceData} />
+
+      <h2 onClick={handleArticleToggle}>
+        {t("Construire la phrase")}
+
+        <RotatingChevron isActive={showArticle} onClick={handleArticleToggle} />
+      </h2>
+      {showArticle && <SentenceBuilderEx sentenceData={filteredSentenceData} />}
     </TopicTextContainer>
   );
 };
@@ -124,8 +149,8 @@ export default TopicText;
 
 const TopicTextContainer = styled.div`
   padding: 1rem 2rem;
-  line-height: 1.6;
-  font-size: 1.2rem;
+  line-height: 1.8;
+  font-size: 1.4rem;
   letter-spacing: 1.1px;
 `;
 

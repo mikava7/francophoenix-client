@@ -8,10 +8,12 @@ import useListenWord from "../../hooks/useListenWord";
 import { NextButton } from "../verbs/presentTense/PresentTense";
 import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const SentenceBuilderEx = ({ sentenceData }) => {
+  console.log("sentenceData", sentenceData);
   const { handleListen, isActiveStates } = useListenWord();
-  // console.log("sentenceData in SentenceBuilderEx", sentenceData);
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const sentenceBuilders =
     useSelector((state) => state.sentences.sentences) || [];
@@ -50,12 +52,23 @@ const SentenceBuilderEx = ({ sentenceData }) => {
     });
   };
 
+  // console.log("selectedSentence", selectedSentence);
+  // console.log("sentence", sentence);
   const handleCheckAnswer = () => {
     const selectedSentence = selectedWords
       .map((index) => words[index])
       .join(" ")
       .trim();
-    const isEqual = selectedSentence === sentence;
+
+    // Normalize the sentence and selectedSentence by removing non-alphanumeric characters and converting to lowercase
+    const normalizedSentence = sentence
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toLowerCase();
+    const normalizedSelectedSentence = selectedSentence
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toLowerCase();
+
+    const isEqual = normalizedSelectedSentence === normalizedSentence;
 
     setIsCorrect(isEqual);
     setIsSubmit(true);
@@ -80,13 +93,8 @@ const SentenceBuilderEx = ({ sentenceData }) => {
   const nextComponent = sentenceIndex === dataToRender.length - 1;
   return (
     <BuildBoxContainer>
-      <h2>Build the Sentence</h2>
-      {/* <Play
-        onClick={handleListen(sentence)}
-        // disabled={isActiveStates}
-      >
-        Play ▶️
-      </Play> */}
+      <h2>{t("Construire la phrase")}</h2>
+
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -181,10 +189,10 @@ const TopBox = styled.div`
   /* border: 2px solid ${(props) =>
     props.theme.primaryTetertiaryBackgroundxt}; */
   background-color: ${(props) =>
-    props.isSubmit
-      ? props.isCorrect
-        ? props.theme.correctBack
-        : props.theme.wrongback
+    props.isSubmit && props.isCorrect
+      ? props.theme.correctBack
+      : props.isSubmit && !props.isCorrect
+      ? props.theme.wrongback
       : props.theme.tertiaryBackground};
 `;
 

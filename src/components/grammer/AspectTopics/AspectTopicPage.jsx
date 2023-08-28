@@ -55,12 +55,13 @@ const AspectTopicPage = () => {
   return (
     <GrammerTopicPageContainer>
       <TitleContainer>
-        <h2>{titleFr}</h2>
+        <h1>{titleFr}</h1>
 
         <span>{secondLanguageTitle}</span>
       </TitleContainer>
+
       <DescriptionContainer>
-        <h2>Description</h2>
+        {/* <h2>Description</h2> */}
         {descriptionFr.map((description, index) => (
           <DescriptionBox key={index}>
             <p>{description}</p>
@@ -68,12 +69,13 @@ const AspectTopicPage = () => {
           </DescriptionBox>
         ))}
       </DescriptionContainer>
+
       <ExampleContainer>
         <h2>Example</h2>
         {exampleFr.map((example, index) => (
           <ExampleBox key={index}>
             <div>
-              <p>{example}</p>
+              <Example>{example}</Example>
 
               {example.length !== 0 && ( // Check if example is not empty before rendering the icon
                 <ListenIcon
@@ -97,45 +99,28 @@ const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 920px) {
-    min-width: 550px;
-  }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    min-width: 500px;
-  }
-
-  @media (max-width: 500px) {
-    font-size: 1rem;
-    min-width: 400px;
-  }
+  width: 80%;
 `;
 const TitleContainer = styled.div``;
 
 const DescriptionContainer = styled.div`
+  border-bottom: 3px solid ${(props) => props.theme.secondaryText};
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  max-width: 100%;
-  font-size: 1.3rem;
-  border-bottom: 3px solid black;
-
-  cursor: pointer;
-  margin-bottom: 2rem;
+  align-items: center;
 `;
 const DescriptionBox = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.secondaryBackground};
   margin-bottom: 1rem;
-  padding: 1rem;
-  line-height: 1.5rem;
-  letter-spacing: 1.2px;
+  padding: 1rem 0.2rem;
+  width: 80%;
+  background-color: ${(props) => props.theme.secondaryBackground};
+
   p {
-    text-indent: 1rem;
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    padding: 0 1rem;
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
@@ -143,33 +128,28 @@ const DescriptionBox = styled.div`
   }
   span {
     text-indent: 1rem;
-
     margin-left: 2rem;
-    font-size: 1rem;
     color: ${(props) => props.theme.secondaryText};
   }
-  @media (max-width: 920px) {
-    min-width: 500px;
+  @media (min-width: 768px) and (max-width: 920px) {
+    span {
+      font-size: ${({ theme }) => theme.small};
+    }
   }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    min-width: 480px;
+  @media (min-width: 412px) and (max-width: 768px) {
+    span {
+      font-size: ${({ theme }) => theme.extraSmall};
+    }
   }
-
-  @media (max-width: 500px) {
-    font-size: 1rem;
-    min-width: 370px;
-  }
-`;
-const ExampleContainer = styled(DescriptionContainer)`
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 0;
+  @media (min-width: 392px) and (max-width: 412px) {
+    span {
+      font-size: ${({ theme }) => theme.extraSmall};
+    }
   }
 `;
+const ExampleContainer = styled(DescriptionContainer)``;
 const ExampleBox = styled(DescriptionBox)`
-  max-width: 100%;
-
+  /* min-width: 370px; */
   div {
     display: flex;
   }
@@ -177,13 +157,11 @@ const ExampleBox = styled(DescriptionBox)`
     padding: 0.5rem 1rem;
   }
 `;
+const Example = styled.p``;
 
 export const ListenIcon = styled.div`
-  max-width: 100%;
-
   display: flex;
-  align-items: center;
-  margin-right: 3rem;
+  margin-right: 1rem;
   margin-left: auto;
   & > img {
     color: black;

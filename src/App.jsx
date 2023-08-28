@@ -87,10 +87,10 @@ function App() {
               path="/grammar/basic-grammar-lessons"
               element={<BasicGrammerLessons />}
             />
-            <Route path="/grammar/articles" element={<Articles />} />
+            <Route path="/grammar/:aspect" element={<Articles />} />
 
             <Route
-              path="/grammar/:BasicGrammerTopicId"
+              path="/grammar-basic/:BasicGrammerTopicId"
               element={<GrammerTopicPage />}
             />
             <Route

@@ -29,6 +29,10 @@ const SidebarContainer = styled.div`
 
   background-color: ${(props) => props.theme.secondaryBackground};
   padding: 0.1rem;
+  @media screen and (max-width: 768px) {
+    display: none;
+    font-size: 1.6rem;
+  }
 `;
 const Content = styled.div`
   flex: 1;

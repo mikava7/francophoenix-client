@@ -43,16 +43,13 @@ const Home = () => {
     <HomeContainer>
       <FindTranslationForFrenchWord />
       <ExploreOptions />
-      <WellcomeSection>
+      {/* <WellcomeSection>
         <TiTleMessage>{t("Bienvenue à Francophoenix")}</TiTleMessage>
         <WellcomeCarousel wellcomeData={wellcomeData} />
-      </WellcomeSection>
+      </WellcomeSection> */}
 
-      <PickAndQuiz>
-        <QuizPictures />
-        <PresentTense />
-        <SentenceBuilderEx />
-      </PickAndQuiz>
+      <QuizPictures />
+
       <Section>
         <TopOfCarousel>
           <CarouselTitle>{t("Tous les livres")} </CarouselTitle>
@@ -61,7 +58,9 @@ const Home = () => {
 
         <Carousel books={books} />
       </Section>
-
+      <PickAndQuiz>
+        <PresentTense />
+      </PickAndQuiz>
       <Section>
         <TopOfCarousel>
           <CarouselTitle>{t("Vocabulaire thématique")} </CarouselTitle>
@@ -73,6 +72,7 @@ const Home = () => {
           isLoadingvocabularyTopit={isLoadingvocabularyTopic}
         />
       </Section>
+      <SentenceBuilderEx />
 
       <Section>
         <TopOfCarousel>
