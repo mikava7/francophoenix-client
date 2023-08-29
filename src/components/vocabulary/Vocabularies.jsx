@@ -9,10 +9,10 @@ import Loading from "../loading/Loading";
 import FavoriteWords from "../favoriteList/FavoriteWords";
 import styled from "styled-components";
 import { fetchTopicNames } from "../../redux/slices/quizPictures/quizPictures";
-
+import { useTranslation } from "react-i18next";
 const Vocabularies = () => {
   const dispatch = useDispatch();
-
+  const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
 
   // console.log("topicNames", topicNames);
@@ -31,47 +31,33 @@ const Vocabularies = () => {
   }
   return (
     <VocabularyContainer>
-      <StyledLink to={"/vocabulary/favoritewords"}>
-        <FavoriteLinkBox>Favorite Words</FavoriteLinkBox>
-      </StyledLink>
-      <div>
-        <ul>
-          {topicNames.map((topic) => (
-            <LocalStyledLink
-              to={`/vocabulary-topics/${topic._id}`}
-              key={topic._id}
-            >
-              <TopicCardContainer>
-                <TopicImage src={topic.imageUrl} alt="Topic" />
-                <TopicTitle>{topic.topic}</TopicTitle>
-                <WordsCount>
-                  Words Count:
-                  <strong>{topic.wordsCount}</strong>
-                </WordsCount>
-              </TopicCardContainer>
-            </LocalStyledLink>
-          ))}
-        </ul>
-      </div>
+      {topicNames.map((topic) => (
+        <LocalStyledLink to={`/vocabulary-topics/${topic._id}`} key={topic._id}>
+          <TopicCardContainer>
+            <TopicImage src={topic.imageUrl} alt="Topic" />
+            <WordsCount>
+              <TopicTitle>{topic.topic}</TopicTitle>
+            </WordsCount>{" "}
+            <TopicDesription>
+              <span>{t("Nombre de Mots")}</span>
+              <strong>{topic.wordsCount}</strong>
+            </TopicDesription>
+          </TopicCardContainer>
+        </LocalStyledLink>
+      ))}
     </VocabularyContainer>
   );
 };
 
 export default Vocabularies;
 
-const VocabularyContainer = styled.div`
+const VocabularyContainer = styled.ul`
   display: flex;
-  flex-direction: column;
-  padding: 1.1rem;
-  margin: 1.1rem;
-  height: 400px;
+  margin: 0 auto;
+  align-items: center;
+  width: 90%;
 
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-
-    /* flex-direction: row; */
-  }
+  flex-wrap: wrap;
 `;
 
 const FavoriteLinkBox = styled(Button)`
@@ -87,52 +73,79 @@ const LocalStyledLink = styled(Link)`
   }
 `;
 const TopicCardContainer = styled.div`
-  /* border: 1px solid #ccc; */
   border-radius: 0.5rem;
-
-  margin: 1.1rem;
+  margin: 1rem;
   display: flex;
-  width: 250px;
+  height: 320px;
+  width: 300px;
   flex-direction: column;
   align-items: center;
-  border: 2px solid ${(props) => props.theme.secondaryText};
+  outline: 2px solid ${(props) => props.theme.secondaryText};
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
   &:hover {
     outline: 2px solid ${(props) => props.theme.secondaryText};
     box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
     transform: scale(1.02);
   }
+
+  @media (min-width: 768px) and (max-width: 920px) {
+    margin: 0.8rem;
+  }
+
+  @media (min-width: 577px) and (max-width: 767px) {
+    margin: 0.4rem;
+  }
+
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 360px;
+  }
+
+  @media (max-width: 392px) {
+    width: 330px;
+  }
 `;
 
 const TopicImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 50%; /* Adjust this value to set the desired image height */
+  overflow: hidden;
   object-fit: cover;
-  /* border-radius: 50%; */
   margin-bottom: 8px;
-  /* border: 2px solid grey; */
+  border-radius: 8px 8px 0 0;
 `;
 
-const TopicTitle = styled.h2`
-  font-size: 20px;
+const TopicTitle = styled.h3`
+  /* font-size: 20px; */
   margin: 0;
+  line-height: ${(props) => props.theme.smallLineHeight};
   margin-bottom: 8px;
 `;
 
-const WordsCount = styled.h3`
+const WordsCount = styled.p`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
   font-size: 16px;
   margin: 0;
+  color: ${(props) => props.theme.primaryText};
+  margin-bottom: 8px; /* Adjust this value for spacing */
+`;
+
+const TopicDesription = styled.h4`
+  margin: 0 auto;
+  margin-top: auto;
+  margin-bottom: 1rem;
   color: ${(props) => props.theme.secondaryText};
-  margin-bottom: 1.1rem;
 
   strong {
-    margin-left: 0.2rem;
+    margin-left: 0.5rem;
     font-size: 1.2rem;
-
     font-weight: bold;
-    color: #000;
-    border-bottom: 2px solid black;
+    color: ${(props) => props.theme.secondaryText};
+    border-bottom: 2px solid ${(props) => props.theme.secondaryText};
   }
 `;

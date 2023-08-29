@@ -27,9 +27,9 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
         <StyledList to="/grammar" isGeorgian={isGeorgian}>
           {t("Grammaire")}
         </StyledList>
-        <StyledList to="/courses" isGeorgian={isGeorgian}>
+        {/* <StyledList to="/courses" isGeorgian={isGeorgian}>
           {t("Courses")}
-        </StyledList>
+        </StyledList> */}
         <StyledList to="/dialogue-topics" isGeorgian={isGeorgian}>
           {t("Dialogues")}
         </StyledList>

@@ -73,7 +73,6 @@ const Vocabulary = () => {
 
   return (
     <VocabularyContainer>
-      <h2>{/* {nameFr} - {secondName} */}</h2>
       <WordCount>
         {t("Les mots")} <b>{french && french?.length}</b>
       </WordCount>
@@ -142,8 +141,20 @@ const VocabularyContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
   align-items: center;
-  /* border: 2px solid red; */
+
+  width: 90%;
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 570px;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 390px;
+  }
+  /* width: 100%; */
+  @media (max-width: 392px) {
+    width: 370px;
+  }
 `;
 const WordPairContainer = styled.li`
   display: flex;
@@ -151,7 +162,7 @@ const WordPairContainer = styled.li`
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  border-bottom: 2px solid orange;
+  border-bottom: 2px solid blue;
 
   @media (max-width: 920px) {
     /* width: 768px; */

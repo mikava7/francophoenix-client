@@ -20,12 +20,12 @@ const VocabularyLanding = () => {
 
   return (
     <LandingCardContainer>
-      <h1>{t("Welcome to the Vocabulary Section")}</h1>
-      <p>
+      <h1>{t("Bienvenue dans la section Vocabulaire")}</h1>
+      <h3>
         {t(
-          "Explore different vocabulary topics to enhance your language skills"
+          "Explorez différents sujets de vocabulaire pour améliorer vos compétences linguistiques"
         )}
-      </p>
+      </h3>
       <CardContainer>
         {topicsForLang.map((topic, index) => (
           <TopicCard>

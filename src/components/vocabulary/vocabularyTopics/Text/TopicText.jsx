@@ -35,7 +35,7 @@ const TopicText = ({
   };
 
   const words = text?.split(" ");
-  console.log(words);
+  // console.log(words);
 
   const [hoveredVerb, setHoveredVerb] = useState(null); // State to track hovered verb
   // console.log("verbFormMapping", verbFormMapping);
@@ -118,7 +118,7 @@ const TopicText = ({
                   <TooltipComponent
                     id={`verb-tooltip-${index}`}
                     tooltipContent={tooltipContent}
-                    word={word}
+                    conjugated={word}
                     index={index}
                     // place="top"
                     // effect="solid"

@@ -53,7 +53,7 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
                 secondLanguage={secondLanguage[index]}
               />
             </IconsWrapper>
-            <Example>{t("Définition")}</Example>
+            {/* <Example>{t("Définition")}</Example> */}
             <ChevronIcon
               onClick={() => toggleAccordion(index)}
               isExpanded={index === expandedIndex}
@@ -77,11 +77,20 @@ export default VocabularyAccordion;
 const AccordionContaner = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  overflow: hidden;
   width: 100%;
   font-size: 1.4rem;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 570px;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 390px;
+  }
+  @media (max-width: 392px) {
+    width: 100%;
+  }
 `;
 const AccordionItem = styled.div`
   display: flex;
@@ -93,10 +102,10 @@ const AccordionItem = styled.div`
 
 const AccordionHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  max-width: 100%;
+  padding: 1rem 0.5rem;
+
+  overflow: hidden;
 
   cursor: pointer;
   background-color: ${(props) =>
@@ -105,63 +114,46 @@ const AccordionHeader = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.primaryBackground};
   }
-  @media (max-width: 920px) {
-    font-size: 1.3rem;
-    padding: 0.8rem;
-  }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    padding: 0.6rem;
+  @media (min-width: 577px) and (max-width: 767px) {
+    /* font-size: ${({ theme }) => theme.medium}; */
   }
 
-  @media (max-width: 500px) {
-    font-size: 1rem;
-    padding: 0.6rem;
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 370px;
+  }
+  @media (max-width: 392px) {
+    width: 320px;
+    /* font-size: ${({ theme }) => theme.small}; */
   }
 `;
-const FrenchWord = styled.div`
+const FrenchWord = styled.p`
   font-weight: bold;
   width: 35%;
   margin-left: 1rem;
-  @media (max-width: 920px) {
-    width: 30%;
-    margin-left: 0.8rem;
-  }
-  @media (max-width: 768px) {
-    width: 30%;
-    margin-left: 0.6rem;
-  }
-
-  @media (max-width: 500px) {
-    width: 30%;
-    margin-left: 0.4rem;
+  font-size: ${({ theme }) => theme.medium};
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: ${({ theme }) => theme.mediumSmall};
   }
 `;
-const SecondLanguageWord = styled.div`
+const SecondLanguageWord = styled.span`
+  font-size: ${({ theme }) => theme.mediumSmall};
   width: 35%;
-  @media (max-width: 920px) {
-    width: 30%;
-    margin-left: 0.8rem;
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: ${({ theme }) => theme.small};
   }
-  @media (max-width: 768px) {
-    width: 30%;
-    margin-left: 0.6rem;
-  }
-
-  @media (max-width: 500px) {
-    width: 25%;
-    margin-left: 0.4rem;
+  @media (max-width: 392px) {
+    font-size: ${({ theme }) => theme.small};
   }
 `;
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  width: 60px;
-  max-width: 120px;
+  gap: 0.1rem;
+
+  max-width: 100px;
   text-align: center;
-  margin-right: 0.5rem;
+
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
 `;
 

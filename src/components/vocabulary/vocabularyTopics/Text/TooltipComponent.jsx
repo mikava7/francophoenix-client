@@ -9,21 +9,24 @@ import { fetchVerbDetails } from "../../../../redux/slices/quizPictures/quizPict
 import Loading from "../../../loading/Loading";
 import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
-const TooltipComponent = ({ tooltipContent, index, id }) => {
-  console.log(id);
+const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
+  // console.log("tooltipContent", tooltipContent);
+  console.log("conjugated in TooltipComponent", conjugated);
+
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
   const handleShowWord = () => {
     setShowWord(!showWord);
   };
-  // console.log("tooltipContent in TooltipComponent", tooltipContent);
 
   return (
     <TooltipComponentContainer
       data-tip={tooltipContent}
       onClick={handleShowWord}
     >
-      <StyledLink to={`/verbs/${tooltipContent}`}>{tooltipContent}</StyledLink>
+      <StyledLink to={`/verbs/${tooltipContent}?conjugated=${conjugated}`}>
+        {tooltipContent}
+      </StyledLink>
 
       <Tooltip place="top" effect="solid" />
       <Icon onClick={handleListen(tooltipContent)}>

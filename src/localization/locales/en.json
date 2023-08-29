@@ -41,6 +41,8 @@
   "Total": "Total",
   "Masculin ou Féminin": "Masculine or feminine",
   "Example": "Example",
+  "Examples": "Examples",
+
   "Testez votre vocabulaire": "Test your vocabulary",
   "Score": "Score",
   "Toutes nos félicitations! Vous avez répondu correctement à tous.": "Congratulations! You have answered all correctly.",
@@ -71,5 +73,7 @@
   "Explorez différents sujets de vocabulaire pour améliorer vos compétences linguistiques": "Explore different vocabulary topics to enhance your language skills",
   "Lisez le texte": "Read the text",
   "Les noms à double genre": "Double gender nouns",
-  "Construire la phrase": "Build the Sentence"
+  "Construire la phrase": "Build the Sentence",
+  "Qu'est-ce que c'est ?": "What it is?",
+  "Nombre de Mots": "Word Count"
 }

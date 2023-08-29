@@ -3,7 +3,6 @@ import Sidebar from "../components/sidebar/Sidebar";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 const Layout = ({ children }) => {
-  console.log("children", children);
   return (
     <LayoutContainer>
       <SidebarContainer>
@@ -25,13 +24,21 @@ const LayoutContainer = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  width: 250px;
-
   background-color: ${(props) => props.theme.secondaryBackground};
+
   padding: 0.1rem;
-  @media screen and (max-width: 768px) {
+  width: 300px;
+  padding: 0.2rem 0.4rem;
+  margin-right: 0.2rem;
+  @media (min-width: 751px) and (max-width: 920px) {
+    letter-spacing: ${({ theme }) => theme.largeLetterSpacing};
+
+    width: 280px;
+    font-size: ${({ theme }) => theme.large};
+  }
+
+  @media screen and (max-width: 750px) {
     display: none;
-    font-size: 1.6rem;
   }
 `;
 const Content = styled.div`

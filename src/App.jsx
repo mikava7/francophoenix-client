@@ -136,6 +136,7 @@ function App() {
               path="/Content-Coming-Soon"
               element={<ContentComingSoon />}
             />
+            <Route path="/verbs/:verb" element={<VerbConjugation />} />
           </Route>
           {/**8//////////////////////////////////////// */}
 
@@ -145,7 +146,6 @@ function App() {
             element={<DialoguePage />}
           />
           <Route path="/quiz-pictures" element={<QuizPictures />} />
-          <Route path="/verbs/:verb" element={<VerbConjugation />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

@@ -77,7 +77,7 @@ export default Sidebar;
 
 export const SidebarContainer = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
-  width: 250px;
+  max-width: 100%;
   padding: 0.2rem 0.4rem;
   margin-right: 0.2rem;
 `;

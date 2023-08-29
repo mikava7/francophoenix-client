@@ -24,6 +24,8 @@
   "E-mail": "ელ.ფოსტა",
   "Avez-vous déjà un compte?": "უკვე გაქვთ ანგარიში?",
   "Example": "მაგალითი",
+  "Examples": "მაგალითები",
+
   "Film&Musique": "ფილმები&მუსიკა",
   "Contacter": "კონტაქტი",
   "Articles": "სტატიები",
@@ -71,5 +73,7 @@
   "Explorez différents sujets de vocabulaire pour améliorer vos compétences linguistiques": "ნახეთ ლექსიკის სხვადასხვა თემები თქვენი ენის ცოდნის გასაუმჯობესებლად",
   "Lisez le texte": "Წაიკითხეთ ტექსტი",
   "Les noms à double genre": "არსებითი სახელები ორმაგი სქესით",
-  "Construire la phrase": "შეადგინე წინადადება"
+  "Construire la phrase": "შეადგინე წინადადება",
+  "Qu'est-ce que c'est ?": "რა არის ეს?",
+  "Nombre de Mots": "სიტყვების რაოდენობა"
 }

@@ -40,12 +40,14 @@ const A2B1Books = () => {
 
 export default A2B1Books;
 const BooksPageContainer = styled.div`
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+
+  flex-wrap: wrap;
+
   /* background-color: #fdf3f2; */
 `;
 const Title = styled.h2`
@@ -55,9 +57,9 @@ const Title = styled.h2`
 `;
 
 const BookList = styled.ul`
-  display: grid;
-  max-width: 100%;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  width: 100%;
+
   gap: 2rem;
   list-style: none;
   padding: 0;
@@ -66,7 +68,7 @@ const BookList = styled.ul`
 const BookItem = styled.li`
   font-size: 18px;
   margin-bottom: 5px;
-  max-width: 100%;
+  width: 100%;
   margin: 0 2rem;
 `;
 const StyledLink = styled(Link)`

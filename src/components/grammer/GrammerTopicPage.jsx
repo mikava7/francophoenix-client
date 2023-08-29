@@ -7,11 +7,12 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ListenImg from "../../../public/icons/sound-50.png";
 import useListenWord from "../../hooks/useListenWord";
+
 const GrammerTopicPage = () => {
   const { BasicGrammerTopicId } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
+  const { t, i18n } = useTranslation();
 
-  const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const dispatch = useDispatch();
   const selectedGrammerTopic =
@@ -20,7 +21,7 @@ const GrammerTopicPage = () => {
     ) || [];
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
-  console.log("selectedGrammerTopic", selectedGrammerTopic);
+  // console.log("selectedGrammerTopic", selectedGrammerTopic);
   // useEffect(() => {
   //   dispatch(fetchGrammer());
   // }, [dispatch]);
@@ -49,11 +50,9 @@ const GrammerTopicPage = () => {
     <GrammerTopicPageContainer>
       <TitleContainer>
         <h2>{titleFr}</h2>
-
-        <span>{secondLanguageTitle}</span>
       </TitleContainer>
       <DescriptionContainer>
-        <h2>Description</h2>
+        <h2>{t("Qu'est-ce que c'est ?")}</h2>
         {descriptionFr.map((description, index) => (
           <DescriptionBox key={index}>
             <p>{description}</p>
@@ -62,7 +61,7 @@ const GrammerTopicPage = () => {
         ))}
       </DescriptionContainer>
       <ExampleContainer>
-        <h2>Example</h2>
+        <h2>{t("Examples")}</h2>
         {exampleFr.map((example, index) => (
           <ExampleBox key={index}>
             <div>
@@ -86,18 +85,21 @@ export default GrammerTopicPage;
 const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  @media (max-width: 920px) {
-    min-width: 550px;
+  justify-content: center;
+
+  margin: 0 1.8rem;
+  max-width: 100%;
+
+  @media (min-width: 768px) and (max-width: 920px) {
+    margin: 0 0.2rem;
+    max-width: 90%;
   }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    min-width: 500px;
+  @media (min-width: 577px) and (max-width: 767px) {
   }
 
-  @media (max-width: 500px) {
-    font-size: 1rem;
-    min-width: 400px;
+  @media (min-width: 393px) and (max-width: 576px) {
+  }
+  @media (max-width: 392px) {
   }
 `;
 const TitleContainer = styled.div``;
@@ -105,12 +107,18 @@ const TitleContainer = styled.div``;
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  max-width: 100%;
-  font-size: 1.3rem;
-  border-bottom: 3px solid black;
+  justify-content: center;
+  align-items: center;
 
+  margin: 0 auto;
+
+  width: 100%;
+
+  border-bottom: 3px solid black;
+  @media (min-width: 768px) and (max-width: 920px) {
+    margin: 0 0.2rem;
+    width: 100%;
+  }
   cursor: pointer;
   margin-bottom: 2rem;
 `;
@@ -119,13 +127,13 @@ const DescriptionBox = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.secondaryBackground};
   margin-bottom: 1rem;
-  padding: 1rem;
-  line-height: 1.5rem;
-  letter-spacing: 1.2px;
+  width: 94%;
+  padding: 0.5rem;
   p {
     text-indent: 1rem;
     margin-bottom: 1rem;
-    font-size: 1.2rem;
+    padding: 0.5rem;
+
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
@@ -133,33 +141,40 @@ const DescriptionBox = styled.div`
   }
   span {
     text-indent: 1rem;
-
     margin-left: 2rem;
-    font-size: 1rem;
+
     color: ${(props) => props.theme.secondaryText};
   }
-  @media (max-width: 920px) {
-    min-width: 500px;
-  }
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    min-width: 480px;
+  @media (min-width: 768px) and (max-width: 920px) {
+    max-width: 88%;
   }
 
-  @media (max-width: 500px) {
-    font-size: 1rem;
-    min-width: 370px;
+  @media (max-width: 392px) {
+    width: 300px;
   }
 `;
 const ExampleContainer = styled(DescriptionContainer)`
+  width: 94%;
+  padding: 0 1rem;
+
   p {
     font-size: 1.2rem;
     margin-bottom: 0;
   }
+
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 90%;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 90%;
+  }
 `;
 const ExampleBox = styled(DescriptionBox)`
-  max-width: 100%;
+  width: 100%;
 
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 90%;
+  }
   div {
     display: flex;
   }
