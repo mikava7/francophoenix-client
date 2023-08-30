@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooksByLevel } from "../../redux/slices/books/booksSlice";
+import { fetchBooksPreview } from "../../redux/slices/books/booksSlice";
 import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Carousel from "../../components/carousel/Carousel";
 import WellcomeCarousel from "../../components/wellcome/WellcomeCarousel";
@@ -29,7 +29,7 @@ const Home = () => {
     (state) => state.vocabularyTopics.isLoading
   );
   useEffect(() => {
-    dispatch(fetchBooksByLevel("A2"));
+    dispatch(fetchBooksPreview());
   }, []);
   useEffect(() => {
     dispatch(fetchVocabularyTopics());

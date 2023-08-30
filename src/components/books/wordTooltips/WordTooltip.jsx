@@ -5,28 +5,22 @@ import Listen from "../../Listen";
 import Favorite from "../../Favorite";
 import AddToFlashcards from "../../Utility/AddToFlashcards";
 import AddToFavorites from "../../Utility/AddToFavorites";
+import useListenWord from "../../../hooks/useListenWord";
 const WordTooltip = ({ content, children }) => {
+  const { handleListen } = useListenWord();
+
   const [isActive, setIsActive] = useState(false);
   const [isStarred, setIsStarred] = useState(true);
   const [isAdded, setIsAdded] = useState(false);
   // console.log("children", children);
-  const speakWord = (word) => {
-    responsiveVoice.speak(word, "French Female");
-  };
+  // const speakWord = (word) => {
+  //   responsiveVoice.speak(word, "French Female");
+  // };
 
   const handleAddToFlashcards = (event) => {
     event.stopPropagation();
     console.log("handleAddToFlashcards Clicked");
     setIsAdded(!isAdded);
-  };
-
-  const handleListen = (event) => {
-    event.stopPropagation();
-
-    setIsActive(true);
-    setTimeout(() => {
-      setIsActive(false);
-    }, 2000);
   };
 
   return (
@@ -35,7 +29,7 @@ const WordTooltip = ({ content, children }) => {
       <ContentAndIconWrapper>
         <TooltipContent>{content}</TooltipContent>
         <IconsBox>
-          <ListenContainer onClick={() => speakWord(children)}>
+          <ListenContainer onClick={handleListen(children.props.children)}>
             <Listen />
           </ListenContainer>
           <AddToFlashcards
