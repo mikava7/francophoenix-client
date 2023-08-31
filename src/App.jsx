@@ -32,7 +32,6 @@ import SentenceBuilderEx from "./components/sentenceBuilder/SentenceBuilderEx";
 import BasicGrammerLessons from "./components/grammer/BasicGrammerLessons";
 import BasicGrammerTopic from "./components/grammer/BasicGrammerTopic";
 import GrammerTopicPage from "./components/grammer/GrammerTopicPage";
-
 import Flashcards from "./components/flashcard/Flashcards";
 import Games from "./pages/games/Games";
 import VerbConjugation from "./components/verbs/VerbConjugation/VerbConjugation";
@@ -42,6 +41,7 @@ import VocabularyLanding from "./components/vocabulary/VocabularyLanding";
 import Articles from "./components/grammer/articles/Articles";
 import AspectTopicPage from "./components/grammer/AspectTopics/AspectTopicPage";
 import Layout from "./layout/Layout";
+
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -57,12 +57,10 @@ function App() {
         <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />
           <Route path="/intermediate" element={<IntermediatePage />} />
           <Route path="/advanced" element={<AdvancedPage />} />
-
           <Route path="/book-display" element={<BookDetails />} />
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
