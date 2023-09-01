@@ -1,12 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
-
+const loadFromLocalStorage = () => {
+  const data = localStorage.getItem("grammerData");
+  return data ? JSON.parse(data) : null;
+};
 export const fetchGrammer = createAsyncThunk(
   "grammer/fetchGrammer",
   async () => {
     try {
       const response = await axiosInstance.get("/grammer/basic-grammer");
-      return response.data;
+      const data = response.data;
+
+      // Save data to local storage
+      localStorage.setItem("grammerData", JSON.stringify(data));
+
+      return data;
     } catch (error) {
       throw Error("Failed to fetch grammer lessons");
     }
@@ -38,6 +46,15 @@ export const fetchAspectList = createAsyncThunk(
     }
   }
 );
+// export const fetchGrammarLessonById = createAsyncThunk(
+//   "grammer/fetchGrammarLessonById",
+//   async (id) => {
+//     try {
+//       const response = await axiosInstance.get(`/grammar/all-aspect/$`);
+//       return response.data;
+//     } catch (error) {}
+//   }
+// );
 const initialState = {
   quizData: [],
   topicsByAspect: {},
@@ -45,6 +62,7 @@ const initialState = {
 
   isLoading: false,
   error: null,
+  grammer: loadFromLocalStorage() || [], // Load data from local storage
 };
 
 const grammerSlice = createSlice({

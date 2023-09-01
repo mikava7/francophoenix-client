@@ -13,7 +13,31 @@ export const fetchWordsByFrench = createAsyncThunk(
     }
   }
 );
+export const fetchWordsByEnglish = createAsyncThunk(
+  "dictionary/fetchWordsByEnglish",
+  async (english) => {
+    try {
+      const response = await axiosInstance.get(`/words/english/${english}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to fetch English words");
+    }
+  }
+);
 
+export const fetchWordsByGeorgian = createAsyncThunk(
+  "dictionary/fetchWordsByGeorgian",
+  async (georgian) => {
+    try {
+      const response = await axiosInstance.get(`/words/georgian/${georgian}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to fetch Georgian words");
+    }
+  }
+);
 const initialState = {
   searchResults: [],
   isLoading: false,
@@ -35,6 +59,23 @@ const dictionarySlice = createSlice({
       })
       .addCase(fetchWordsByFrench.rejected, (state, action) => {
         state.error = action.error.message;
+        state.isLoading = false;
+      })
+      .addCase(fetchWordsByEnglish.fulfilled, (state, action) => {
+        state.searchResults = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchWordsByEnglish.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      })
+      .addCase(fetchWordsByGeorgian.fulfilled, (state, action) => {
+        state.searchResults = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchWordsByGeorgian.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
       });
   },
 });

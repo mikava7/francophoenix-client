@@ -33,7 +33,6 @@ const BasicGrammerLessons = () => {
   }
   return (
     <BasicGrammerLessonsContainer>
-      <h1>BasicGrammerLessons </h1>
       {basicGrammerTopics &&
         basicGrammerTopics.map((topics) => {
           const { _id } = topics;
@@ -56,7 +55,7 @@ const BasicGrammerLessons = () => {
 export default BasicGrammerLessons;
 const BasicGrammerLessonsContainer = styled.div`
   display: flex;
-  border: 2px solid red;
+
   align-items: center;
   justify-content: center;
   margin: 0 1rem;
@@ -65,6 +64,5 @@ const BasicGrammerLessonsContainer = styled.div`
   color: ${(props) => props.theme.primaryText};
   h1 {
     text-align: center;
-    border: 2px solid red;
   }
 `;

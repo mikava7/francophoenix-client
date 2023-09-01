@@ -9,43 +9,44 @@ const DefinitionToggle = ({
   isMultipleDefinitions,
 }) => {
   const [showDefinition, setShowDefinition] = useState(true);
-  // console.log("definition in toggle", definition);
-  // console.log("secondLanguage in toggle", secondLanguage);
 
   const toggleDefinition = () => {
     setShowDefinition(!showDefinition);
   };
 
   return (
-    <div>
+    <DefinitionToggleContainer>
       <ButtonContainer>
         <button
           style={{ background: showDefinition ? "#FD5602" : "#ffffec" }}
           onClick={toggleDefinition}
         >
-          Fr
+          {secondLangButtonName}
         </button>
         <button
           style={{ background: showDefinition ? "#ffffec" : "#FD5602" }}
           onClick={toggleDefinition}
         >
-          {secondLangButtonName}
+          Fr
         </button>
       </ButtonContainer>
       <SecondLangOrDef>
         {isMultipleDefinitions
           ? showDefinition
-            ? definition[index]
-            : secondLanguage[index]
+            ? secondLanguage[index]
+            : definition[index]
           : showDefinition
-          ? definition
-          : secondLanguage}
+          ? secondLanguage
+          : definition}
       </SecondLangOrDef>
-    </div>
+    </DefinitionToggleContainer>
   );
 };
 
 export default DefinitionToggle;
+const DefinitionToggleContainer = styled.div`
+  width: 100%;
+`;
 const ButtonContainer = styled.div`
   position: absolute;
   top: 10%;
@@ -58,15 +59,15 @@ const ButtonContainer = styled.div`
     width: 3rem;
     height: 2rem;
     transition: background-color 0.5s ease;
-
-    background: ${(props) => props.theme.secondaryBackground};
-    color: ${(props) => props.theme.primaryText};
+    outline: 1px solid ${(props) => props.theme.secondaryText};
+    /* background:  */
+    color: ${(props) => props.theme.highlight};
   }
 `;
 const SecondLangOrDef = styled.div`
   margin-left: 1rem;
   min-height: 3rem;
   padding: 0.5rem;
-  font-size: 1.4rem;
+  color: ${(props) => props.theme.secondaryText};
   font-style: italic;
 `;

@@ -13,7 +13,7 @@ const VocabularyPage = ({ words }) => {
   const georgian = words.map((word) => word.georgian);
   const definition = words.map((word) => word.definition);
   const { handleListen, isActiveStates } = useListenWord();
-  console.log("definition in VocabularyPage", definition);
+  // console.log("definition in VocabularyPage", definition);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
 
@@ -87,7 +87,7 @@ const WordCard = styled.div`
   border-radius: 0 0 0 12px;
   max-width: 100%;
 `;
-const FrenchWord = styled.div`
+const FrenchWord = styled.p`
   font-weight: bold;
   font-size: 1.4rem;
 `;

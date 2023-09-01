@@ -8,15 +8,37 @@ import ClearIcon from "../../../../public/icons/cross-24.png";
 import ListenImg from "../../../../public/icons/sound-50.png";
 import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
+import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
+import AddToFlashcards from "../../../components/Utility/AddToFlashcards";
+const mapSearchResults = (searchResults, field) =>
+  searchResults.map((result) => result[field]);
+
 const FindTranslationForFrenchWord = () => {
   const { handleListen, isActiveStates } = useListenWord();
   const [isActive, setIsActive] = useState(false);
+  const [showDefinition, setShowDefinition] = useState(true);
 
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
+
   const dispatch = useDispatch();
   const searchResults =
     useSelector((state) => state.dictionary.searchResults) || [];
+  console.log("searchResults", searchResults);
+  // const french = searchResults.map((result) => result.french);
+  // const georgian = searchResults.map((result) => result.georgian);
+  // const english = searchResults.map((result) => result.english);
+  // const description = searchResults.map((result) => result.description);
+
+  const french = mapSearchResults(searchResults, "french");
+  const georgian = mapSearchResults(searchResults, "georgian");
+  const english = mapSearchResults(searchResults, "english");
+  const definition = mapSearchResults(searchResults, "definition");
+
+  console.log({ french, georgian, english, definition });
+
+  const secondLanguage = isGeorgian ? georgian : english;
+  const secondLangButtonName = isGeorgian ? "Geo" : "Eng";
   const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query input
   const [showAllResults, setShowAllResults] = useState(false);
   // Function to handle the search query and call the action to fetch the search results
@@ -45,7 +67,9 @@ const FindTranslationForFrenchWord = () => {
       handleSearch();
     }
   };
-
+  const toggleDefinition = () => {
+    setShowDefinition(!showDefinition);
+  };
   // Filter the search results based on showAllResults flag
   const filteredResults = showAllResults
     ? searchResults
@@ -73,28 +97,33 @@ const FindTranslationForFrenchWord = () => {
         <SearchImg onClick={handleSearch} src={SearchIcon} alt="SearchIcon" />
       </DictionaryInputContainer>
       {filteredResults.map((result, index) => (
-        <SearchResultsContainer key={result._id}>
-          <ListenIcon onClick={handleListen(result.french)}>
-            <img
-              src={ListenImg}
-              alt="ListenImg"
-              isActive={isActiveStates[index]}
+        <WordCard key={result._id}>
+          <FrenchWord>
+            <ListenIcon onClick={handleListen(result.french)}>
+              <img
+                src={ListenImg}
+                alt="ListenImg"
+                isActive={isActiveStates[index]}
+              />
+            </ListenIcon>
+            {result.french}
+          </FrenchWord>
+          <DefinitionToggle
+            definition={definition}
+            secondLanguage={secondLanguage}
+            secondLangButtonName={secondLangButtonName}
+            french={french}
+            index={index}
+            isMultipleDefinitions={true}
+          />
+          <FlasCardBox>
+            <AddToFlashcards
+              word={french}
+              secondLanguage={secondLanguage}
+              definition={definition}
             />
-          </ListenIcon>
-          <FrenchWord>{result.french}</FrenchWord>
-          <SecondLangWord isGeorgian={isGeorgian}>
-            {" "}
-            {isGeorgian ? result.georgian : result.english}
-          </SecondLangWord>
-          <AddToFavoritesBox>
-            <AddToFavorites
-              word={result.french}
-              secondLanguage={isGeorgian ? result.georgian : result.english}
-              frenchExamples={result.frenchExamples} // You need to make sure these properties exist in your data
-              secondLanguageExamples={result.secondLanguageExamples} // You need to make sure these properties exist in your data
-            />
-          </AddToFavoritesBox>
-        </SearchResultsContainer>
+          </FlasCardBox>
+        </WordCard>
       ))}
       {searchResults.length > 4 && !showAllResults && (
         <ShowAllButton onClick={handleShowAllResults}>Show All</ShowAllButton>
@@ -112,7 +141,7 @@ const DictionaryContainer = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
 `;
 
 const DictionaryInputContainer = styled.div`
@@ -159,20 +188,14 @@ const SearchImg = styled.img`
   margin-right: 0.6rem;
   cursor: pointer;
 `;
-const SearchResultsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  width: 300px;
-  border: 2px solid grey;
-  position: relative;
-`;
+
 const FrenchWord = styled.p`
-  font-size: 1.4rem;
+  display: flex;
+  /* font-size: 1.4rem; */
   font-weight: bold;
   margin-right: 0.3rem;
   &:after {
-    content: " -";
+    content: " ";
   }
 `;
 const SecondLangWord = styled.p`
@@ -233,4 +256,27 @@ const AddToFavoritesBox = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+`;
+///////////////
+const WordCard = styled.div`
+  width: 90%;
+  border-bottom: 5px solid ${(props) => props.theme.primaryText};
+  border-right: 5px solid ${(props) => props.theme.primaryText};
+  background: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+  position: relative;
+  min-height: 3.5rem;
+  border-radius: 0 0 0 12px;
+  max-width: 100%;
+  position: relative;
+`;
+
+const FlasCardBox = styled.div`
+  display: inline-block;
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  /* border: 1px solid red; */
 `;

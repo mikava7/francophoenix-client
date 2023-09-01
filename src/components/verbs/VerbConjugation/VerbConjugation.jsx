@@ -7,7 +7,7 @@ import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPicture
 import Loading from "../../loading/Loading";
 import useListenWord from "../../../hooks/useListenWord";
 import ListenImg from "../../../../public/icons/sound-50.png";
-import { ListenIcon } from "../../grammer/GrammerTopicPage";
+import { ListenIcon } from "../../../Styles/globalStyles";
 const VerbConjugation = () => {
   const { verb: verbFromParams } = useParams();
   const { handleListen, isActiveStates } = useListenWord();

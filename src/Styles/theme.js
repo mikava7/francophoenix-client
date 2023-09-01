@@ -59,7 +59,7 @@ export const lightTheme = {
   /////////////////////
 
   primaryBackground: "#ffffff", // White background
-  secondaryBackground: "#e6e6e6", // Slightly darker background
+  secondaryBackground: "#f6f6f6", // Slightly darker background
   tertiaryBackground: "#cccccc", // Even darker background
   primaryText: "#333333", // Dark text on light background
   secondaryText: "#666666", // Medium gray text on light background
