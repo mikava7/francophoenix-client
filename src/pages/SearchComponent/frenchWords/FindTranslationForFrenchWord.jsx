@@ -121,10 +121,10 @@ const FindTranslationForFrenchWord = () => {
           onKeyPress={handleKeyPress}
           placeholder={
             inputLanguage === "french"
-              ? isGeorgian
-                ? "შეიყვანე სიტყვა..."
-                : "Enter word..."
-              : "Rechercher dans le dictionnaire..."
+              ? "Rechercher dans le dictionnaire..."
+              : isGeorgian
+              ? "შეიყვანე სიტყვა..."
+              : "Enter word..."
           }
         />
 
@@ -189,8 +189,8 @@ const DictionaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100%;
-  /* border: 2px solid red; */
+  margin: 0 auto;
+  max-width: 800px;
 `;
 
 const DictionaryInputContainer = styled.div`
@@ -202,8 +202,8 @@ const DictionaryInputContainer = styled.div`
   padding: 4px;
   height: 3rem;
 
-  max-width: 100%;
-
+  width: 80%;
+  max-width: 800px;
   box-shadow: 0 2px 4px rgba(155, 161, 119, 0.637);
   border-radius: 50px;
   border: 1px solid #ccc;

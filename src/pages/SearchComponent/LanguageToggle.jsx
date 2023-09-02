@@ -16,7 +16,9 @@ const LanguageToggle = ({
   const { t } = useTranslation();
   return (
     <LanguageToggleContainer>
-      <French onClick={toggleInputLanguage}>{t("Français")}</French>
+      <French inputLanguage={inputLanguage} onClick={toggleInputLanguage}>
+        {t("Français")}
+      </French>
       <ToggleContainer onClick={toggleInputLanguage}>
         <ToggleIcon inputLanguage={inputLanguage}>
           <img
@@ -31,7 +33,10 @@ const LanguageToggle = ({
           />
         </ToggleIcon>
       </ToggleContainer>
-      <SecondLanguage onClick={toggleInputLanguage}>
+      <SecondLanguage
+        onClick={toggleInputLanguage}
+        inputLanguage={inputLanguage}
+      >
         {isGeorgian ? "ქართული" : "English"}
       </SecondLanguage>
     </LanguageToggleContainer>
@@ -90,9 +95,23 @@ const ToggleIcon = styled.div`
 `;
 const French = styled.div`
   margin: 0.5rem auto;
-  outline: 2px solid ${(props) => props.theme.tertiaryText};
+  outline: 2px solid ${(props) => props.theme.primarText};
+  background-color: ${(props) =>
+    props.inputLanguage === "french" ? "#007bff" : props.theme.primaryText};
+  color: ${(props) =>
+    props.inputLanguage === "french"
+      ? props.theme.primaryText
+      : props.theme.primaryBackground};
+
   padding: 0.5rem 2rem;
   border-radius: 12px;
   /* width: 6rem; */
 `;
-const SecondLanguage = styled(French)``;
+const SecondLanguage = styled(French)`
+  background-color: ${(props) =>
+    props.inputLanguage === "french" ? props.theme.primaryText : "#007bff"};
+  color: ${(props) =>
+    props.inputLanguage === "french"
+      ? props.theme.primaryBackground
+      : props.theme.primaryText};
+`;

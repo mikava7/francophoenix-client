@@ -149,7 +149,27 @@ const MenuLink = styled(Link)`
   font-size: 1.5em;
   font-weight: 400;
   transition: 200ms;
-  &:hover {
+  font-style: italic;
+  position: relative;
+  padding: 0.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    padding-bottom: 2.5rem;
+    height: 6px;
+    background-color: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.primaryBackground};
+
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
     opacity: 0.5;
+
+    width: calc(100% + 2px); /* Expand width to 100% on hover */
   }
 `;

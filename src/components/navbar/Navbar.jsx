@@ -6,7 +6,7 @@ import User from "../../../public/icons/user-50.png";
 import ThemeToggle from "../themeToggle/themeToggle";
 import Localization from "../../localization/Localization";
 import { useTranslation } from "react-i18next";
-
+import { ani, changeColor } from "../../Styles/frames";
 import MobileMenu from "./MobileMenu";
 
 const Navbar = ({ toggleTheme, isDarkMode }) => {
@@ -57,7 +57,7 @@ const NavbarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) => props.theme.secondaryBackground};
-  border-bottom: 3px solid ${(props) => props.theme.highliggt1};
+  border-bottom: 3px solid ${(props) => props.theme.highligt1};
   width: 100%;
 `;
 
@@ -87,25 +87,6 @@ const StyledUl = styled.ul`
   }
 `;
 
-export const ani = keyframes`
-  0% {
-    width: 0%;
-    height: 1px;
-    left: 50%;
-  }
-
-  50% {
-    width: 100%;
-    height: 1px;
-    left: 0;
-  }
-
-  100% {
-    width: 100%;
-    height: 100%;
-    left: 0;
-  }
-`;
 const StyledList = styled(Link)`
   text-decoration: none;
   margin: 0 auto;
@@ -153,19 +134,7 @@ const StyledList = styled(Link)`
     font-size: ${(props) => (props.isGeorgian ? "1rem" : "1.2rem")};
   }
 `;
-const changeColor = keyframes`
-  0% {
-    background-position: 0 0;
-  }
 
-  50% {
-    background-position: 400% 0;
-  }
-
-  100% {
-    background-position: 0 0;
-  }
-`;
 const Logo = styled.div`
   display: flex;
   justify-content: center;

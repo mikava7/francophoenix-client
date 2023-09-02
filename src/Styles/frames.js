@@ -36,7 +36,19 @@ export const ani = keyframes`
     left: 0;
   }
 `;
+export const changeColor = keyframes`
+  0% {
+    background-position: 0 0;
+  }
 
+  50% {
+    background-position: 400% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+`;
 export const slideOut = keyframes`
 0% {
   transform: translateY(100%);
