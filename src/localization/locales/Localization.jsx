@@ -13,13 +13,16 @@ const Localization = () => {
   return (
     <LenguageButtons>
       {" "}
-      <button onClick={() => handleLanguageChange("en")}>🇺🇸</button>
+      <button onClick={() => handleLanguageChange("en")}> ddd🇺🇸</button>
       <button onClick={() => handleLanguageChange("ka")}>🇬🇪 </button>
       <button onClick={handleDefaultLanguage}>🇫🇷</button>
     </LenguageButtons>
   );
 };
 const LenguageButtons = styled.div`
+  background-color: red;
+  border: 2px solid red;
+  display: flex;
   button {
     font-size: 1.3rem;
     border: none;

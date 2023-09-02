@@ -23,7 +23,7 @@ const FindTranslationForFrenchWord = () => {
   const [isActive, setIsActive] = useState(false);
   const [showDefinition, setShowDefinition] = useState(true);
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
 
   const dispatch = useDispatch();
@@ -52,7 +52,6 @@ const FindTranslationForFrenchWord = () => {
     );
   };
 
-  // Function to handle the search query and call the action to fetch the search results
   // Function to handle the search query and call the action to fetch the search results
   const handleSearch = () => {
     if (!searchQuery.trim()) {
@@ -159,20 +158,28 @@ const FindTranslationForFrenchWord = () => {
           />
           <FlasCardBox>
             <AddToFlashcards
-              word={inputLanguage === "french" ? french : secondLanguage}
-              secondLanguage={
-                inputLanguage === "french" ? secondLanguage : french
+              word={
+                inputLanguage === "french"
+                  ? french[index]
+                  : secondLanguage[index]
               }
-              definition={definition}
+              secondLanguage={
+                inputLanguage === "french"
+                  ? secondLanguage[index]
+                  : french[index]
+              }
+              definition={definition[index]}
             />
           </FlasCardBox>
         </WordCard>
       ))}
       {searchResults.length > 4 && !showAllResults && (
-        <ShowAllButton onClick={handleShowAllResults}>Show All</ShowAllButton>
+        <ShowAllButton onClick={handleShowAllResults}>
+          {t("Afficher tout")}
+        </ShowAllButton>
       )}{" "}
-      {searchQuery.trim() && searchResults.length === 0 && (
-        <NoResultsMessage>No word found</NoResultsMessage>
+      {searchQuery.trim() && !showAllResults && searchResults.length === 0 && (
+        <NoResultsMessage>{t("Aucun mot trouvé")}</NoResultsMessage>
       )}
     </DictionaryContainer>
   );

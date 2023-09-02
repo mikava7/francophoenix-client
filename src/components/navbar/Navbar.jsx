@@ -245,19 +245,13 @@ const Account = styled.div`
     display: flex;
   }
 `;
-const LoginLink = styled(Link)`
-  text-decoration: none;
-  align-self: center;
-  font-weight: bold;
-  color: #a4009c;
-  max-width: 100%;
-  font-size: 1.3rem;
-`;
 
 const ToggleContainer = styled.div`
   flex: 1;
 `;
 const LocalizationContainer = styled.div`
   max-width: 100%;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
+  outline: 1px solid ${(props) => props.theme.tertiaryText};
+  display: flex;
 `;

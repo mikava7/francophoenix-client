@@ -8,6 +8,7 @@ import {
 import FlashCardIcon from "../../../public/icons/flash-card.png";
 
 const AddToFlashcards = ({ word, secondLanguage, definition }) => {
+  console.log({ word, secondLanguage, definition });
   const flashcards = useSelector((state) => state.flashcards.flashcards);
   const dispatch = useDispatch();
   const isWordInFlashcards = flashcards.some(

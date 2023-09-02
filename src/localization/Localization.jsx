@@ -10,18 +10,23 @@ const Localization = () => {
     const defaultLanguage = "fr"; // Replace with your default language code
     i18n.changeLanguage(defaultLanguage);
   };
+  const isGeorgian = i18n.language === "ka";
   return (
     <LenguageButtons>
       {" "}
-      <button onClick={() => handleLanguageChange("en")}>🇺🇸</button>
-      <button onClick={() => handleLanguageChange("ka")}>🇬🇪 </button>
       <button onClick={handleDefaultLanguage}>🇫🇷</button>
+      {isGeorgian ? (
+        <button onClick={() => handleLanguageChange("en")}>🇺🇸</button>
+      ) : (
+        <button onClick={() => handleLanguageChange("ka")}>🇬🇪</button>
+      )}
     </LenguageButtons>
   );
 };
 const LenguageButtons = styled.div`
   display: flex;
-  flex-direction: column;
+
+  /* flex-direction: column; */
 
   button {
     font-size: 1.3rem;
