@@ -1,5 +1,10 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+// import FrenchFlag from '../../public'
+import FrenchFlag from "../../public/icons/french-flag-48.png";
+
+import GeorgianFlag from "../../public/icons/georgia-48.png";
+import EnglishFlag from "../../public/icons/usa-flag-48.png";
 const Localization = () => {
   const { i18n } = useTranslation();
 
@@ -14,11 +19,19 @@ const Localization = () => {
   return (
     <LenguageButtons>
       {" "}
-      <button onClick={handleDefaultLanguage}>🇫🇷</button>
+      <button onClick={handleDefaultLanguage}>
+        {" "}
+        <img src={FrenchFlag} alt="FrenchFlag" />{" "}
+      </button>
       {isGeorgian ? (
-        <button onClick={() => handleLanguageChange("en")}>🇺🇸</button>
+        <button onClick={() => handleLanguageChange("en")}>
+          {" "}
+          <img src={EnglishFlag} alt="EnglishFlag" />{" "}
+        </button>
       ) : (
-        <button onClick={() => handleLanguageChange("ka")}>🇬🇪</button>
+        <button onClick={() => handleLanguageChange("ka")}>
+          <img src={GeorgianFlag} alt="GeorgianFlag" />
+        </button>
       )}
     </LenguageButtons>
   );
@@ -35,6 +48,9 @@ const LenguageButtons = styled.div`
     cursor: pointer;
     &:hover {
       transform: scale(1.2);
+    }
+    img {
+      width: 2.2rem;
     }
   }
 `;

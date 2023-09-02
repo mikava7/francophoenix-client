@@ -43,6 +43,8 @@ export const ThemeToggleContainer = styled.div`
 export const ToggleImageContainer = styled.div`
   display: flex;
   width: 3rem;
+  height: 1.8rem;
+  padding: 0.1rem;
   background-color: ${(props) => (props.isDarkMode ? "#E0E0E0" : "#e4b315")};
   border-radius: 100px;
   cursor: pointer;
@@ -55,7 +57,7 @@ export const ToggleImageContainer = styled.div`
       width: 1.4rem;
     }
     @media (max-width: 576px) {
-      width: 1.3rem;
+      width: 1.5rem;
     }
     animation: ${(props) =>
       props.isDarkMode

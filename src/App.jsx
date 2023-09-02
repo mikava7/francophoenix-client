@@ -153,7 +153,10 @@ function App() {
 export default App;
 const AppContainer = styled.section`
   display: flex;
+  align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  margin-left: 0;
+  margin: 0 auto;
+  width: 100%;
+  outline: 1px solid blue;
 `;

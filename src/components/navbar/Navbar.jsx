@@ -6,6 +6,9 @@ import User from "../../../public/icons/user-50.png";
 import ThemeToggle from "../themeToggle/themeToggle";
 import Localization from "../../localization/Localization";
 import { useTranslation } from "react-i18next";
+
+import MobileMenu from "./MobileMenu";
+
 const Navbar = ({ toggleTheme, isDarkMode }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -13,10 +16,17 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
 
   return (
     <NavbarContainer>
+      <MobileMenu isDarkMode={isDarkMode} t={t} />
       <Logo>
         <StyledLogo to="/">Francophoenix</StyledLogo>
       </Logo>
       <StyledUl>
+        <StyledList to="/grammar" isGeorgian={isGeorgian}>
+          {t("Grammaire")}
+        </StyledList>
+        <StyledList to="/vocabulary" isGeorgian={isGeorgian}>
+          {t("Vocabulaire")}
+        </StyledList>
         <StyledList
           to="/reading-zone/french-easy-reading"
           isGeorgian={isGeorgian}
@@ -24,32 +34,15 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
           {t("Livres")}
         </StyledList>
 
-        <StyledList to="/grammar" isGeorgian={isGeorgian}>
-          {t("Grammaire")}
-        </StyledList>
-        {/* <StyledList to="/courses" isGeorgian={isGeorgian}>
-          {t("Courses")}
-        </StyledList> */}
-        <StyledList to="/dialogue-topics" isGeorgian={isGeorgian}>
-          {t("Dialogues")}
-        </StyledList>
-        <StyledList to="/vocabulary" isGeorgian={isGeorgian}>
-          {t("Vocabulaire")}
-        </StyledList>
         <StyledList to="/dictionary" isGeorgian={isGeorgian}>
           {t("Dictionnaire")}
         </StyledList>
       </StyledUl>
 
-      <Account>
-        {/* <LoginLink to="/login">{t("Connexion")}</LoginLink> */}
-        <ToggleContainer>
-          <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-        </ToggleContainer>
-        <LocalizationContainer>
-          <Localization />
-        </LocalizationContainer>
-      </Account>
+      <LocalizationContainer>
+        <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+        <Localization />
+      </LocalizationContainer>
     </NavbarContainer>
   );
 };
@@ -62,9 +55,9 @@ const NavbarContainer = styled.div`
   z-index: 999;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  background-color: #f1f1f1;
-  gap: 1rem;
+  justify-content: space-between;
+  background-color: ${(props) => props.theme.secondaryBackground};
+  border-bottom: 3px solid ${(props) => props.theme.highliggt1};
   width: 100%;
 `;
 
@@ -76,16 +69,16 @@ const StyledUl = styled.ul`
   flex: 1;
 
   @media (min-width: 768px) and (max-width: 991px) {
-    & > :nth-child(5) {
+    & > :nth-child(4) {
       display: none;
     }
   }
 
   @media (min-width: 576px) and (max-width: 767px) {
-    & > :nth-child(2) {
+    & > :nth-child(3) {
       display: none;
     }
-    & > :nth-child(5) {
+    & > :nth-child(4) {
       display: none;
     }
   }
@@ -120,11 +113,12 @@ const StyledList = styled(Link)`
   transition: 0.8s all linear;
   padding: 0.5rem;
   gap: 0;
-  color: #0055a4;
+  color: ${(props) => props.theme.primaryText};
   font-size: ${(props) => (props.isGeorgian ? "1.45rem" : "1.8rem")};
   &:hover {
-    color: white;
-    outline: 2px solid red;
+    color: ${(props) => props.theme.primaryBackground};
+
+    outline: 2px solid ${(props) => props.theme.primaryText};
   }
 
   &::before {
@@ -134,7 +128,7 @@ const StyledList = styled(Link)`
     left: 50%;
     width: 0;
     height: 0;
-    background-color: #0055a4;
+    background-color: ${(props) => props.theme.primaryText};
 
     z-index: -1;
   }
@@ -177,7 +171,7 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  max-width: 20%;
+
   margin-left: 1rem;
 
   @media (min-width: 576px) and (max-width: 767px) {
@@ -188,6 +182,8 @@ const Logo = styled.div`
   @media (max-width: 576px) {
     font-size: 1.3rem;
     background-size: 100%;
+    width: 200px;
+    margin-left: 0.21rem;
   }
 `;
 
@@ -200,7 +196,7 @@ const StyledLogo = styled(Link)`
   color: transparent;
   background-size: 150%;
   max-width: 100%;
-
+  font-weight: bold;
   &:hover {
     animation: ${changeColor} 5s linear infinite;
   }
@@ -226,32 +222,17 @@ const StyledLogo = styled(Link)`
     font-size: 1.6rem;
 
     background-size: 100%;
-    margin-left: 2rem;
-  }
-`;
-
-const Account = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #0055a4;
-  width: 30%;
-  margin: 0 auto;
-  @media (min-width: 576px) and (max-width: 767px) {
-    display: flex;
-  }
-
-  @media (max-width: 576px) {
-    display: flex;
   }
 `;
 
 const ToggleContainer = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  border: 2px solid red;
 `;
 const LocalizationContainer = styled.div`
   max-width: 100%;
-  /* margin-right: 1rem; */
-  outline: 1px solid ${(props) => props.theme.tertiaryText};
+  margin-right: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
   display: flex;
 `;

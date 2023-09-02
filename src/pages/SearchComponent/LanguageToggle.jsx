@@ -15,7 +15,7 @@ const LanguageToggle = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <ToggleContainer>
+    <LanguageToggleContainer>
       <French onClick={toggleInputLanguage}>{t("Français")}</French>
       <ToggleContainer onClick={toggleInputLanguage}>
         <ToggleIcon inputLanguage={inputLanguage}>
@@ -34,25 +34,36 @@ const LanguageToggle = ({
       <SecondLanguage onClick={toggleInputLanguage}>
         {isGeorgian ? "ქართული" : "English"}
       </SecondLanguage>
-    </ToggleContainer>
+    </LanguageToggleContainer>
   );
 };
 
 export default LanguageToggle;
-
+const LanguageToggleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+`;
 const ToggleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 50%;
+  /* width: 50%; */
+  @media (max-width: 576px) {
+    /* width: 2rem; */
+  }
 `;
 
 const ToggleIcon = styled.div`
   display: flex;
   width: 4rem;
-  height: 2rem;
+  height: 2.2rem;
   padding: 0.4rem;
+  padding-left: 0.6rem;
+
+  margin: auto 1rem;
   background-color: ${(props) => (props.isGeorgian ? "#E0E0E0" : "#007bff")};
   border-radius: 100px;
   cursor: pointer;
@@ -60,12 +71,12 @@ const ToggleIcon = styled.div`
     user-select: none;
   }
   img {
-    width: 1.6rem;
+    width: 2rem;
     @media (min-width: 576px) and (max-width: 767px) {
-      width: 1.4rem;
+      width: 2rem;
     }
     @media (max-width: 576px) {
-      width: 1.3rem;
+      width: 2rem;
     }
     animation: ${(props) =>
       props.inputLanguage === "french"
@@ -82,6 +93,6 @@ const French = styled.div`
   outline: 2px solid ${(props) => props.theme.tertiaryText};
   padding: 0.5rem 2rem;
   border-radius: 12px;
-  width: 8rem;
+  /* width: 6rem; */
 `;
 const SecondLanguage = styled(French)``;
