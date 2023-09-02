@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWordsByFrench } from "../../../redux/slices/dictionarySlice/dictionarySlice";
+import {
+  fetchWordsByLanguage,
+  clearSearchResults,
+} from "../../../redux/slices/dictionarySlice/dictionarySlice";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import SearchIcon from "../../../../public/icons/search-50.png";
@@ -10,6 +13,8 @@ import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
 import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
 import AddToFlashcards from "../../../components/Utility/AddToFlashcards";
+import LanguageToggle from "../LanguageToggle";
+
 const mapSearchResults = (searchResults, field) =>
   searchResults.map((result) => result[field]);
 
@@ -24,32 +29,49 @@ const FindTranslationForFrenchWord = () => {
   const dispatch = useDispatch();
   const searchResults =
     useSelector((state) => state.dictionary.searchResults) || [];
-  console.log("searchResults", searchResults);
-  // const french = searchResults.map((result) => result.french);
-  // const georgian = searchResults.map((result) => result.georgian);
-  // const english = searchResults.map((result) => result.english);
-  // const description = searchResults.map((result) => result.description);
+  // console.log("searchResults", searchResults);
 
   const french = mapSearchResults(searchResults, "french");
   const georgian = mapSearchResults(searchResults, "georgian");
   const english = mapSearchResults(searchResults, "english");
   const definition = mapSearchResults(searchResults, "definition");
 
-  console.log({ french, georgian, english, definition });
-
   const secondLanguage = isGeorgian ? georgian : english;
   const secondLangButtonName = isGeorgian ? "Geo" : "Eng";
   const [searchQuery, setSearchQuery] = useState(""); // State to hold the search query input
   const [showAllResults, setShowAllResults] = useState(false);
+
+  const [inputLanguage, setInputLanguage] = useState("french"); // Add inputLanguage state
+  const toggleInputLanguage = () => {
+    setInputLanguage((prevLanguage) =>
+      prevLanguage === "french"
+        ? isGeorgian
+          ? "georgian"
+          : "english"
+        : "french"
+    );
+  };
+
+  // Function to handle the search query and call the action to fetch the search results
   // Function to handle the search query and call the action to fetch the search results
   const handleSearch = () => {
     if (!searchQuery.trim()) {
       // If the search query is empty, reset the search results
-      dispatch(fetchWordsByFrench(""));
+      dispatch(fetchWordsByLanguage({ language: "", query: "" }));
     } else {
-      dispatch(fetchWordsByFrench(searchQuery));
+      // Conditionally set the language parameter based on inputLanguage
+      const languageParam =
+        inputLanguage === "french"
+          ? "french"
+          : isGeorgian
+          ? "georgian"
+          : "english";
+      dispatch(
+        fetchWordsByLanguage({ language: languageParam, query: searchQuery })
+      );
     }
   };
+
   // Function to toggle showing all results or the first four results
   const handleShowAllResults = () => {
     setShowAllResults(!showAllResults);
@@ -58,7 +80,8 @@ const FindTranslationForFrenchWord = () => {
   // Function to handle clearing the search query and results
   const handleClearSearch = () => {
     setSearchQuery("");
-    dispatch(fetchWordsByFrench("")); // Clear the search results
+    dispatch(fetchWordsByLanguage({ language: "", query: "" }));
+    dispatch(clearSearchResults()); // Correct way to clear the search results using the action
   };
 
   // Function to handle Enter key press
@@ -78,6 +101,12 @@ const FindTranslationForFrenchWord = () => {
   // Display the search results in your component
   return (
     <DictionaryContainer>
+      <LanguageToggle
+        inputLanguage={inputLanguage}
+        toggleInputLanguage={toggleInputLanguage}
+        isGeorgian={isGeorgian}
+        secondLanguage={secondLanguage}
+      />
       <DictionaryInputContainer className={isActive ? "active" : ""}>
         <ClearSearch
           onClick={handleClearSearch}
@@ -91,7 +120,13 @@ const FindTranslationForFrenchWord = () => {
           onBlur={() => setIsActive(false)}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder={isGeorgian ? "შეიყვანე სიტყვა..." : "Enter word..."}
+          placeholder={
+            inputLanguage === "french"
+              ? isGeorgian
+                ? "შეიყვანე სიტყვა..."
+                : "Enter word..."
+              : "Rechercher dans le dictionnaire..."
+          }
         />
 
         <SearchImg onClick={handleSearch} src={SearchIcon} alt="SearchIcon" />
@@ -106,20 +141,28 @@ const FindTranslationForFrenchWord = () => {
                 isActive={isActiveStates[index]}
               />
             </ListenIcon>
-            {result.french}
+            {inputLanguage === "french"
+              ? result.french
+              : isGeorgian
+              ? result.georgian
+              : result.english}
           </FrenchWord>
           <DefinitionToggle
             definition={definition}
-            secondLanguage={secondLanguage}
+            secondLanguage={
+              inputLanguage === "french" ? secondLanguage : french
+            }
             secondLangButtonName={secondLangButtonName}
-            french={french}
+            french={inputLanguage === "french" ? french : secondLanguage}
             index={index}
             isMultipleDefinitions={true}
           />
           <FlasCardBox>
             <AddToFlashcards
-              word={french}
-              secondLanguage={secondLanguage}
+              word={inputLanguage === "french" ? french : secondLanguage}
+              secondLanguage={
+                inputLanguage === "french" ? secondLanguage : french
+              }
               definition={definition}
             />
           </FlasCardBox>
@@ -130,11 +173,10 @@ const FindTranslationForFrenchWord = () => {
       )}{" "}
       {searchQuery.trim() && searchResults.length === 0 && (
         <NoResultsMessage>No word found</NoResultsMessage>
-      )}{" "}
+      )}
     </DictionaryContainer>
   );
 };
-
 export default FindTranslationForFrenchWord;
 const DictionaryContainer = styled.div`
   display: flex;

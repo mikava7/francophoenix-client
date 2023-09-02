@@ -1,43 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
-export const fetchWordsByFrench = createAsyncThunk(
-  "dictionary/fetchWordsByFrench",
-  async (french) => {
+export const fetchWordsByLanguage = createAsyncThunk(
+  "dictionary/fetchWordsByLanguage",
+  async ({ language, query }) => {
     try {
-      const response = await axiosInstance.get(`/words/french/${french}`);
+      const response = await axiosInstance.get(`/words/${language}/${query}`);
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw Error("Failed to fetch words");
     }
   }
 );
-export const fetchWordsByEnglish = createAsyncThunk(
-  "dictionary/fetchWordsByEnglish",
-  async (english) => {
-    try {
-      const response = await axiosInstance.get(`/words/english/${english}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw new Error("Failed to fetch English words");
-    }
-  }
-);
 
-export const fetchWordsByGeorgian = createAsyncThunk(
-  "dictionary/fetchWordsByGeorgian",
-  async (georgian) => {
-    try {
-      const response = await axiosInstance.get(`/words/georgian/${georgian}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw new Error("Failed to fetch Georgian words");
-    }
-  }
-);
 const initialState = {
   searchResults: [],
   isLoading: false,
@@ -47,37 +23,27 @@ const initialState = {
 const dictionarySlice = createSlice({
   name: "dictionary",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSearchResults: (state) => {
+      state.searchResults = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchWordsByFrench.pending, (state) => {
+      .addCase(fetchWordsByLanguage.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchWordsByFrench.fulfilled, (state, action) => {
+      .addCase(fetchWordsByLanguage.fulfilled, (state, action) => {
         state.searchResults = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchWordsByFrench.rejected, (state, action) => {
-        state.error = action.error.message;
-        state.isLoading = false;
-      })
-      .addCase(fetchWordsByEnglish.fulfilled, (state, action) => {
-        state.searchResults = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(fetchWordsByEnglish.rejected, (state, action) => {
-        state.error = action.error.message;
-        state.isLoading = false;
-      })
-      .addCase(fetchWordsByGeorgian.fulfilled, (state, action) => {
-        state.searchResults = action.payload;
-        state.isLoading = false;
-      })
-      .addCase(fetchWordsByGeorgian.rejected, (state, action) => {
+      .addCase(fetchWordsByLanguage.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
       });
   },
 });
-
+export const clearSearchResults = () => ({
+  type: "dictionary/clearSearchResults",
+});
 export default dictionarySlice.reducer;
