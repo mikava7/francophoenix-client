@@ -11,7 +11,7 @@ import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const SentenceBuilderEx = ({ sentenceData }) => {
-  console.log("sentenceData", sentenceData);
+  // console.log("sentenceData", sentenceData);
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -93,8 +93,6 @@ const SentenceBuilderEx = ({ sentenceData }) => {
   const nextComponent = sentenceIndex === dataToRender.length - 1;
   return (
     <BuildBoxContainer>
-      <h2>{t("Construire la phrase")}</h2>
-
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -127,17 +125,17 @@ const SentenceBuilderEx = ({ sentenceData }) => {
               </div>
             ) : (
               <div onClick={handleNext}>
-                <Button>Next</Button>
+                <Button>{t("Suivant")}</Button>
               </div>
             )
           ) : (
             <div onClick={handleRetry}>
-              <Button>Retry</Button>
+              <Button>{t("Réessayer")}</Button>
             </div>
           )
         ) : (
           <div onClick={handleCheckAnswer}>
-            <Button>Submit</Button>
+            <Button>{t("Soumettre")}</Button>
           </div>
         )}
       </div>
@@ -153,9 +151,9 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   /* margin: 0 auto; */
-  width: 390px;
+  width: 100%;
 
-  margin: 1rem auto;
+  margin: 0 0.3rem;
 
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
@@ -163,31 +161,46 @@ const BuildBoxContainer = styled.section`
 
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
-  @media (max-width: 576px) {
-    display: flex;
-    flex-direction: column;
-    max-width: 370px;
+  @media (min-width: 393px) and (max-width: 576px) {
+  }
+  /* width: 100%; */
+  @media (max-width: 392px) {
+  }
+  @media (max-width: 281px) {
+    max-width: 100%;
   }
 `;
 export const BuildBox = styled.div`
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
+  margin: 0 auto;
+  outline: 1px solid ${(props) => props.theme.highlight2};
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 360px;
+  }
+  /* width: 100%; */
+  @media (max-width: 392px) {
+    width: 340px;
+  }
+  @media (max-width: 281px) {
+    overflow-x: scroll;
+    width: 200px;
+  }
 `;
 const TopBox = styled.div`
   margin: 0 auto;
-  width: 100%;
-  height: 12rem;
+  width: 96%;
+  height: 14rem;
   margin-bottom: 2rem;
   margin-top: 2rem;
-  color: black;
+
   position: relative;
   flex-wrap: wrap;
   display: flex;
-  /* border: 2px solid ${(props) =>
-    props.theme.primaryTetertiaryBackgroundxt}; */
+  outline: 1px solid ${(props) => props.theme.primaryText};
   background-color: ${(props) =>
     props.isSubmit && props.isCorrect
       ? props.theme.correctBack
@@ -199,31 +212,31 @@ const TopBox = styled.div`
 export const TopWord = styled.span`
   text-align: center;
   display: flex;
-  background-color: ${(props) => props.theme.flagSecond};
-  color: ${(props) => props.theme.flagFirst};
+  align-items: center;
+  background-color: ${(props) => props.theme.highlight3};
+  color: ${(props) => props.theme.primaryText};
   border-bottom: 2px solid ${(props) => props.theme.flagFirst};
 
   cursor: pointer;
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin: 0.5rem;
   padding: 0.2rem;
-  height: 3rem;
+  height: 2.8rem;
   border-radius: 4px;
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: 1.3rem;
+  }
+  @media (max-width: 392px) {
+    font-size: 1.2rem;
+    /* margin: 0.5rem; */
+    /* padding: 0.2rem; */
+  }
 `;
-export const BottomBox = styled.div`
+export const BottomBox = styled(TopBox)`
   background-color: ${(props) => props.theme.tertiaryBackground};
   /* color: ${(props) => props.theme.flagFirst}; */
-
-  margin: 0 auto;
-  width: 100%;
-  min-width: 370px;
-  height: 12rem;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
+  outline: 1px solid ${(props) => props.theme.primaryText};
 `;
 
 export const BottomWord = styled.button`

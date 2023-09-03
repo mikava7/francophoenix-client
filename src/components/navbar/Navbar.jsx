@@ -188,7 +188,7 @@ const StyledLogo = styled(Link)`
   }
 
   @media (max-width: 576px) {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
 
     background-size: 100%;
   }

@@ -79,5 +79,9 @@
   "Choisir le niveau": "აირჩიეთ დონე",
   "Tous": "ყველა",
   "Afficher tout": "ყველას ნახვა",
-  "Aucun mot trouvé": "სიტყვა ვერ მოიძებნა"
+  "Aucun mot trouvé": "სიტყვა ვერ მოიძებნა",
+  "Verbes utilisés dans le texte": "ტექსტში გამოყენებული ზმნები",
+  "Suivant": "შემდეგი",
+  "Réessayer": "თავიდან სცადე",
+  "Soumettre": "Submit"
 }

@@ -73,10 +73,11 @@ const TopicText = ({
     <TopicTextContainer>
       <div>
         <VerbsInText>
+          <h3>{t("Verbes utilisés dans le texte")}</h3>
           {uniqueVerbs.map((verb, index) => (
             <StyledLink to={`/verbs/${verb}`}>
               <li key={index}>
-                <Button>{verb}</Button>
+                <button>{verb}</button>
               </li>
             </StyledLink>
           ))}
@@ -131,7 +132,11 @@ const TopicText = ({
         } else if (isVocabularyWord) {
           return <Highlighted key={index}>{word} </Highlighted>;
         } else {
-          return <span key={index}>{word} </span>;
+          return (
+            <WordConatiner className={index === 0 ? "first" : ""} key={index}>
+              {word}{" "}
+            </WordConatiner>
+          );
         }
       })}
 
@@ -148,27 +153,52 @@ const TopicText = ({
 export default TopicText;
 
 const TopicTextContainer = styled.div`
-  padding: 1rem 2rem;
-  line-height: 1.8;
-  font-size: 1.4rem;
-  letter-spacing: 1.1px;
+  font-family: "Poppins", sans-serif;
+  font-size: ${(props) => props.theme.medium};
+  line-height: ${(props) => props.theme.largeLineHeight};
+  letter-spacing: ${(props) => props.theme.extraMegaLetterSpacing};
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: ${(props) => props.theme.mediumSmall};
+    line-height: ${(props) => props.theme.mediumLineHeight};
+    letter-spacing: ${(props) => props.theme.megaLetterSpacing};
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: ${(props) => props.theme.mediumSmall};
+    line-height: ${(props) => props.theme.mediumLineHeight};
+    letter-spacing: ${(props) => props.theme.megaLetterSpacing};
+  }
+  @media (max-width: 392px) {
+    font-size: ${(props) => props.theme.small};
+    line-height: ${(props) => props.theme.mediumLineHeight};
+    letter-spacing: ${(props) => props.theme.extraLargeLetterSpacing};
+  }
 `;
 
 const Highlighted = styled.span`
-  background-color: ${(props) => props.theme.highlight1};
-  padding: 0.2rem;
+  /* background-color: ${(props) => props.theme.highlight1}; */
   font-weight: bold;
 
   position: relative;
+  @media (max-width: 392px) {
+  }
 `;
 const HighlightedVerb = styled(Highlighted)`
   background-color: ${(props) => props.theme.highlight2};
+  margin: 0 0.3rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 500;
+
+  @media (max-width: 392px) {
+    padding: 0.1rem;
+  }
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;
   background-color: ${(props) => props.theme.highlight3};
   top: -100%;
   left: 40%;
+  /* padding: 0.2rem 0.4rem; */
   text-align: center;
   cursor: pointer;
 `;
@@ -176,9 +206,16 @@ const VerbsInText = styled.ul`
   display: flex;
   list-style: none;
   flex-wrap: wrap;
+  height: 170px;
+  overflow-y: scroll;
   margin: 0;
-  padding: 0;
   margin-bottom: 1rem;
+  padding: 0;
+  border-bottom: 2px solid ${(props) => props.theme.highlight3};
+  h3 {
+    margin: 0 auto;
+    width: 100%;
+  }
   li {
     display: flex;
     text-decoration: none;
@@ -187,9 +224,19 @@ const VerbsInText = styled.ul`
     flex-wrap: wrap;
     button {
       text-decoration: none;
+      padding: 0.2rem;
       margin: 0;
       width: auto;
-      font-size: 1.2rem;
+      background-color: ${(props) => props.theme.secondaryText};
+      color: ${(props) => props.theme.secondaryBackground};
+
+      font-size: ${(props) => props.theme.small};
     }
+  }
+`;
+const WordConatiner = styled.span`
+  &.first {
+    margin-left: 1rem;
+    font-size: ${(props) => props.theme.medium};
   }
 `;

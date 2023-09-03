@@ -5,9 +5,6 @@ const AccordionExpendedContent = ({ index, expandedIndex, definition }) => {
   return (
     <AccordionContent isExpanded={index === expandedIndex}>
       <FrenchExamples>{definition[index]}</FrenchExamples>
-      <SecondLanguageExamples>
-        {/* {secondLanguageExamples[index]} */}
-      </SecondLanguageExamples>
     </AccordionContent>
   );
 };
@@ -20,7 +17,9 @@ const AccordionContent = styled.div`
   opacity: ${(props) => (props.isExpanded ? "1" : "0")};
   overflow: hidden;
   transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  background-color: ${(props) => props.theme.tertiaryBackground};
+  background-color: ${(props) => props.theme.tertiaryText};
+  color: ${(props) => props.theme.primaryBackground};
+
   position: relative;
   clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
 `;
@@ -30,9 +29,10 @@ const FrenchExamples = styled.div`
   font-weight: 700;
   padding: 1rem 2rem;
   margin-top: 0.5rem;
+  font-size: ${(props) => props.theme.small};
 `;
-const SecondLanguageExamples = styled.div`
-  text-align: center;
-  font-size: 1rem;
-  padding: 0.5rem 2rem;
-`;
+// const SecondLanguageExamples = styled.div`
+//   text-align: center;
+//   font-size: 1rem;
+//   padding: 0.5rem 2rem;
+// `;

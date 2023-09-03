@@ -16,6 +16,7 @@ const ChevronImage = styled.img`
   height: 24px;
   transition: transform 0.5s ease;
   margin-left: 1rem;
+
   transform: ${({ rotation }) => `rotate(${rotation}deg)`};
   cursor: pointer;
 `;

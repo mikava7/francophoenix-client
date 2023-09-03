@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { StyledButton } from "../../../Styles/globalStyles";
+import { StyledButton, Button } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../generateQuizQuestions";
 import QuizModal from "./modal/QuizModal";
@@ -70,7 +70,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
           <QuizQuestion key={questionIndex}>
             <Score>
               {" "}
-              Scofre: {score}/{vocabularyQuizQuestions.length}
+              Score: {score}/{vocabularyQuizQuestions.length}
             </Score>
             <h2>{quizItem.question}</h2>
 
@@ -131,9 +131,9 @@ const QuizQuestion = styled.div`
   /* border: 2px solid wheat; */
   padding: 1rem;
   margin-top: 1rem;
-
-  color: ${(props) => props.theme.flagFirst};
-  background-color: ${(props) => props.theme.flagAddon};
+  border-radius: 12px;
+  color: ${(props) => props.theme.highlihgt1};
+  background-color: ${(props) => props.theme.secondaryBackground};
   h2 {
     padding: 1rem;
     border-radius: 1rem;
@@ -148,38 +148,38 @@ const QuizQuestion = styled.div`
 `;
 
 const QuizOption = styled.li`
-  border: 1px solid blue;
-  padding: 1rem;
+  border: 1px solid ${(props) => props.theme.tertiaryText};
+  padding: 0.5rem 1rem;
   margin: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   max-width: 100%;
-  font-size: 1.3rem;
+  margin-left: -1rem;
   align-self: center;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   background-color: ${(props) =>
     props.selectedAnswers
       ? props.correctAnswer
-        ? "green"
-        : "red"
+        ? props.theme.correctBack
+        : props.theme.wrongback
       : "transparent"};
   color: ${(props) =>
-    props.selectedAnswers ? "white" : props.theme.flagFirst};
+    props.selectedAnswers ? "black" : props.theme.primaryText};
 
   &:hover {
-    background-color: ${(props) => (props.disabled ? "" : "#007bff")};
-    color: ${(props) => (props.disabled ? "" : "white")};
+    background-color: ${(props) =>
+      props.disabled ? "" : props.theme.primaryBackground};
+    color: ${(props) => (props.disabled ? "" : props.theme.primaryText)};
   }
 `;
 
-const Score = styled.div`
-  font-size: 1rem;
+const Score = styled.p`
   color: ${(props) => props.theme.text};
   background-color: ${(props) => props.theme.background};
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  box-shadow: 0px 2px 4px #0055a4;
+  box-shadow: 0px 2px 4px ${(props) => props.theme.highlight2};
   margin-left: auto;
-  width: 80px;
+  width: 100px;
 `;
 const RestartButton = styled.button`
   padding: 1rem;
@@ -188,14 +188,16 @@ const RestartButton = styled.button`
   width: 12rem;
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  background-color: #0055a4;
-  color: #ffffff;
+  margin-top: 1rem;
+
+  background-color: ${(props) => props.theme.highlight2};
+  color: ${(props) => props.theme.primaryText};
   cursor: pointer;
 
   border-radius: 6px;
 
   &:hover {
-    background-color: #ffffff;
-    color: #0055a4;
+    background-color: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.highlight2};
   }
 `;

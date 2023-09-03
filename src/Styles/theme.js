@@ -28,6 +28,34 @@ export const darkTheme = {
   highlight1: "#FF00FF", // Magenta highlight
   highlight2: "#FFA500", // Orange highlight
   highlight3: "#0000FF", // Bright blue highlight
+  correctBack: "#70ff41",
+  wrongback: "#DC143C",
+  //////////////////////////////////
+  extraSmall: "0.9rem",
+  small: "1rem",
+  mediumSmall: "1.2rem",
+  medium: "1.4rem",
+  large: "1.6rem",
+  extraLarge: "2rem",
+  mega: "2.4rem",
+  extraMega: "3rem",
+
+  ////////////////////////////////
+  smallLineHeight: "1.2",
+  mediumLineHeight: "1.3",
+  mediumSmallLineHeight: "1.4",
+  extraMediumLineHeight: "1.5",
+  largeLineHeight: "1.6",
+  extraLargeLineHeight: "1.8",
+
+  //////////////////////////
+
+  smallLetterSpacing: "0.03rem",
+  mediumLetterSpacing: "0.04rem",
+  largeLetterSpacing: "0.05rem",
+  extraLargeLetterSpacing: "0.06rem",
+  megaLetterSpacing: "0.07rem",
+  extraMegaLetterSpacing: "0.08rem",
 };
 
 export const lightTheme = {
@@ -40,8 +68,6 @@ export const lightTheme = {
   tertiary: "#809fff",
   tertiaryTone: "#80a0ffb5",
 
-  correctBack: "#70ff41",
-  wrongback: "#DC143C",
   formBoxShadow: "-3px -3px 7px #e8e8e8, 2px 2px 5px rgba(200, 200, 200, 0.5)",
   inputBoxShadow: "inset 2px 2px 5px #FCFCFC, inset -5px -5px 10px #737373",
   vocabularyBack: "#ffffdd",
@@ -67,9 +93,10 @@ export const lightTheme = {
   highlight1: "#f5f3e0", // Beige highlight
   highlight2: "#e0eaf1", // Light blue highlight
   highlight3: "#acc8e5", // Lighter blue highlight
-
+  correctBack: "#70ff41",
+  wrongback: "#DC143C",
   //////////////////////////////////
-  extraSmall: "0.8rem",
+  extraSmall: "0.9rem",
   small: "1rem",
   mediumSmall: "1.2rem",
   medium: "1.4rem",
@@ -88,10 +115,10 @@ export const lightTheme = {
 
   //////////////////////////
 
-  smallLetterSpacing: "0.01em",
-  mediumLetterSpacing: "0.02em",
-  largeLetterSpacing: "0.03em",
-  extraLargeLetterSpacing: "0.04em",
-  megaLetterSpacing: "0.05em",
-  extraMegaLetterSpacing: "0.06em",
+  smallLetterSpacing: "0.03rem",
+  mediumLetterSpacing: "0.04rem",
+  largeLetterSpacing: "0.05rem",
+  extraLargeLetterSpacing: "0.06rem",
+  megaLetterSpacing: "0.07rem",
+  extraMegaLetterSpacing: "0.08rem",
 };

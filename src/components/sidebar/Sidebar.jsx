@@ -80,6 +80,12 @@ export const SidebarContainer = styled.div`
   max-width: 100%;
   padding: 0.2rem 0.4rem;
   margin-right: 0.2rem;
+  @media (min-width: 751px) and (max-width: 920px) {
+    /* letter-spacing: ${({ theme }) => theme.largeLetterSpacing}; */
+    /* border: 2px solid red; */
+    width: 280px;
+    font-size: ${({ theme }) => theme.small};
+  }
 `;
 
 export const Section = styled.div`

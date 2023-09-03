@@ -133,7 +133,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   const bothGenderWords = wordsToRender.filter((word) =>
     word.startsWith("le/la ")
   );
-  console.log("bothGenderWords", bothGenderWords);
+  // console.log("bothGenderWords", bothGenderWords);
   if (isLoading) {
     return <Loading />;
   }
@@ -251,10 +251,22 @@ const ExerciseArticleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
+  /* outline: 2px solid red; */
+  background-color: ${(props) => props.theme.primaryBackground};
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 95%;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    max-width: 94%;
+  }
+  /* width: 100%; */
+  @media (max-width: 392px) {
+    max-width: 96%;
+    /* margin-right: auto; */
+  }
 `;
 const ExerciseArticleTopPart = styled.div`
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.backTone};
   padding: 1rem;
   max-width: 100%;
 
@@ -268,21 +280,34 @@ const ExerciseArticleTopPart = styled.div`
 const ExerciseArticleBottomPart = styled.div`
   /* border: 2px solid black; */
 `;
-const WordPair = styled.div`
+const WordPair = styled.p`
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-  padding: 0 1rem;
+  padding: 0 0.4rem;
   margin: 1rem;
   color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.backTone};
-  border: 2px solid gainsboro;
+  background-color: ${(props) => props.theme.secondaryBackground};
+  outline: 2px solid ${(props) => props.theme.secondaryText};
 
   gap: 1rem;
   border-radius: 6px;
-  font-size: 1.4rem;
+
   max-width: 100%;
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 95%;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 90%;
+  }
+  /* width: 100%; */
+  @media (max-width: 392px) {
+    padding: 0;
+
+    width: 93%;
+    /* margin-right: auto; */
+  }
 `;
 const WordText = styled.div`
   margin-right: 1rem;
@@ -294,17 +319,35 @@ const WordText = styled.div`
 const OptionsContainer = styled.div`
   display: flex;
   justify-content: center;
+
   gap: 1rem;
+  @media (min-width: 577px) and (max-width: 767px) {
+    gap: 0.8rem;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    gap: 0.3rem;
+  }
+  @media (max-width: 392px) {
+    gap: 0.3rem;
+  }
 `;
 const Option = styled.div`
   padding: 0.5rem 1rem;
   background-color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "green" : "#EF3340") : "transparent"};
+    props.isSelected
+      ? props.isCorrect
+        ? props.theme.correctBack
+        : props.theme.wrongback
+      : "transparent"};
   color: ${(props) =>
-    props.isSelected ? (props.isCorrect ? "white" : "black") : ""};
+    props.isSelected
+      ? props.isCorrect
+        ? props.theme.wrongback
+        : "black"
+      : ""};
   margin: 0 0.5rem;
-  border-radius: 6px;
-  border: 2px solid #0055a4;
+  border-radius: 4px;
+  outline: 2px solid ${(props) => props.theme.secondaryText};
   cursor: ${(props) => (props.isSelected ? "default" : "pointer")};
   pointer-events: ${(props) => (props.isSelected ? "none" : "auto")};
   max-width: 100%;
@@ -317,6 +360,9 @@ const Option = styled.div`
       color: ${props.theme.background};
     `}
   }
+  @media (max-width: 392px) {
+    padding: 0.2rem 0.6rem;
+  }
 `;
 const ExerciseArticleContainerApendix = styled.div`
   display: flex;
@@ -324,19 +370,25 @@ const ExerciseArticleContainerApendix = styled.div`
   align-items: center;
 `;
 const Score = styled.div`
-  margin: 1rem;
+  margin: 0.4rem;
   /* margin-right: 2rem; */
   margin-left: auto;
-  font-size: 1.2rem;
+  font-size: 1rem;
 
-  color: ${(props) => props.theme.text};
-  background-color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.secondaryBackground};
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  box-shadow: 0px 2px 4px #0055a4;
+  /* box-shadow: 0px 2px 4px #0055a4; */
 `;
 const RestartButton = styled(Button)`
   width: auto;
+
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0.1 0.2rem;
+  }
 `;
 const BothGenderWordsContainer = styled(FlexContainer)`
   background-color: ${(props) => props.theme.secondaryBackground};

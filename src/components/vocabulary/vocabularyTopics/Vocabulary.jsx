@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";
 import TopicText from "./Text/TopicText";
 import Loading from "../../loading/Loading";
+import AccordionSection from "./AccordionSection";
 const Vocabulary = () => {
   const { topicId } = useParams();
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Vocabulary = () => {
       dispatch(fetchQuizData(topicId));
     }
   }, []);
+  const [openComponent, setOpenComponent] = useState(null);
 
   const [showArticle, setShowArticle] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
@@ -84,53 +86,34 @@ const Vocabulary = () => {
         />
       </WordPairContainer>
       <TopicTextBox>
-        <h2 onClick={handleTopicText}>
-          {t("Lisez le texte")}
-          <RotatingChevron isActive={showText} onClick={handleTopicText} />
-        </h2>
-        <ChoiseArticle>
-          {showText && (
-            <TopicText
-              text={vocabularyData?.text}
-              vocabulary={french}
-              verbFormMapping={vocabularyData?.verbFormMapping}
-              isTextVerbs={vocabularyData?.textVerbs}
-              vocabularyData={vocabularyData}
-            />
-          )}
-        </ChoiseArticle>
-      </TopicTextBox>
+        <AccordionSection
+          type="text"
+          isOpen={openComponent === "text"}
+          onToggle={() =>
+            setOpenComponent(openComponent === "text" ? null : "text")
+          }
+          vocabularyData={vocabularyData}
+          french={french}
+        />
+        <AccordionSection
+          type="article"
+          isOpen={openComponent === "article"}
+          onToggle={() =>
+            setOpenComponent(openComponent === "article" ? null : "article")
+          }
+          french={french}
+        />
 
-      <TopicTextBox>
-        <h2 onClick={handleArticleToggle}>
-          {t("Masculin ou Féminin")}
-
-          <RotatingChevron
-            isActive={showArticle}
-            onClick={handleArticleToggle}
-          />
-        </h2>
-        <ChoiseArticle>
-          {showArticle && (
-            <ExerciseArticle frenchWords={french} parentsData={true} />
-          )}
-        </ChoiseArticle>
-      </TopicTextBox>
-      <TopicTextBox>
-        <h2 onClick={handleQuizToggle}>
-          {t("Testez votre vocabulaire")}
-
-          <RotatingChevron isActive={showQuiz} onClick={handleQuizToggle} />
-        </h2>
-        <ChoiseArticle>
-          {showQuiz && (
-            <VocabularyQuiz
-              french={french}
-              english={english}
-              georgian={georgian}
-            />
-          )}
-        </ChoiseArticle>
+        <AccordionSection
+          type="quiz"
+          isOpen={openComponent === "quiz"}
+          onToggle={() =>
+            setOpenComponent(openComponent === "quiz" ? null : "quiz")
+          }
+          english={english}
+          georgian={georgian}
+          french={french}
+        />
       </TopicTextBox>
     </VocabularyContainer>
   );
@@ -140,20 +123,31 @@ export default Vocabulary;
 const VocabularyContainer = styled.article`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
-  align-items: center;
-
-  width: 90%;
+  align-items: flex-start;
+  margin: 0;
+  /* border: 2px solid red; */
+  margin: 0 auto;
+  /* width:100%; */
   @media (min-width: 577px) and (max-width: 767px) {
-    width: 570px;
+    width: 95%;
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 390px;
+    /* max-width: 95%; */
+    /* outline: 1px solid red; */
+    padding: 0;
+    margin: 0;
+    width: 90%;
+    margin-right: auto;
   }
   /* width: 100%; */
   @media (max-width: 392px) {
-    width: 370px;
+    /* outline: 1px solid red; */
+    padding: 0;
+    margin: 0;
+    width: 90%;
+    margin-right: auto;
   }
 `;
 const WordPairContainer = styled.li`
@@ -161,8 +155,9 @@ const WordPairContainer = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  border-bottom: 2px solid blue;
+  /* padding: 2rem; */
+  margin: 0 auto;
+  border-bottom: 4px solid ${(props) => props.theme.tertiaryText};
 
   @media (max-width: 920px) {
     /* width: 768px; */
@@ -172,7 +167,8 @@ const WordPairContainer = styled.li`
   }
 
   @media (max-width: 500px) {
-    /* width: 374px; */
+    width: 374px;
+    /* outline: 1px solid red; */
   }
 `;
 const WordCount = styled.div`
@@ -196,33 +192,7 @@ const NextStepChoise = styled.div`
 `;
 const TopicTextBox = styled(NextStepChoise)`
   border: 2px solid gold;
-  width: 100%;
-`;
-const ChoiseArticle = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  /* width: 920px; */
-  border-bottom: 2px solid orange;
-
-  @media (max-width: 920px) {
-    width: 768px;
-  }
-  @media (max-width: 768px) {
-    /* width: 630px; */
-  }
-
-  @media (max-width: 500px) {
-    /* width: 374px; */
-  }
-`;
-const ChevronImage = styled.img`
-  width: 24px;
-  height: 24px;
-  transition: transform 0.5s ease;
-  margin-left: 1rem;
-  transform: ${({ rotation }) => `rotate(${rotation}deg)`};
-  cursor: pointer;
+  margin: 0 auto;
+  width: 98%;
+  padding-left: 0.8rem;
 `;

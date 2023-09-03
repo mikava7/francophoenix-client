@@ -105,7 +105,10 @@ const French = styled.div`
 
   padding: 0.5rem 2rem;
   border-radius: 12px;
-  /* width: 6rem; */
+  @media (max-width: 576px) {
+    font-size: 1rem;
+    width: 4rem;
+  }
 `;
 const SecondLanguage = styled(French)`
   background-color: ${(props) =>

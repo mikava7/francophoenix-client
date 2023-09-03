@@ -41,25 +41,25 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
               >
                 <img src={ListenImg} alt="ListenImg" />
               </AccordionListenIcon>
-              <AddToFavorites
+              {/* <AddToFavorites
                 word={word}
                 definition={definition[index]}
                 secondLanguage={secondLanguage[index]}
-              />
+              /> */}
 
               <AddToFlashcards
                 word={word}
                 definition={definition[index]}
                 secondLanguage={secondLanguage[index]}
               />
+              <ChevronIcon
+                onClick={() => toggleAccordion(index)}
+                isExpanded={index === expandedIndex}
+              >
+                &#9662;
+              </ChevronIcon>
             </IconsWrapper>
             {/* <Example>{t("Définition")}</Example> */}
-            <ChevronIcon
-              onClick={() => toggleAccordion(index)}
-              isExpanded={index === expandedIndex}
-            >
-              &#9662;
-            </ChevronIcon>
           </AccordionHeader>
           <AccordionExpendedContent
             index={index}
@@ -78,33 +78,53 @@ const AccordionContaner = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  width: 100%;
-  font-size: 1.4rem;
+  max-width: 90%;
+  /* margin: 0 auto; */
+  /* outline: 1px solid blue; */
+  /* border: 2px solid black; */
+  margin-right: auto;
+
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
+  @media (min-width: 767px) and (max-width: 920px) {
+    /* margin-right: auto;
+    border: 2px solid black; */
+    align-items: center;
+    max-width: 100%;
+  }
   @media (min-width: 577px) and (max-width: 767px) {
-    width: 570px;
+    /* max-width: 60%; */
+    /* border: 2px solid blue; */
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 390px;
+    width: 95%;
   }
   @media (max-width: 392px) {
-    width: 100%;
+    /* margin: 0 auto; */
+    width: 95%;
+
+    /* border: 2px solid grey; */
   }
 `;
 const AccordionItem = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
+  align-items: center;
+  max-width: 90%;
   margin-bottom: 1rem;
-  border-radius: 12px;
+  border-radius: 12px 12px 0 0;
+  @media (min-width: 767px) and (max-width: 920px) {
+    width: 100%;
+  }
 `;
 
 const AccordionHeader = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem 0.5rem;
-
+  padding: 1rem;
+  margin: 0 auto;
+  /* margin-right: auto; */
+  width: 70%;
   overflow: hidden;
 
   cursor: pointer;
@@ -114,46 +134,61 @@ const AccordionHeader = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.primaryBackground};
   }
+  @media (min-width: 767px) and (max-width: 920px) {
+    padding: 0.5rem;
+    width: 98%;
+  }
   @media (min-width: 577px) and (max-width: 767px) {
     /* font-size: ${({ theme }) => theme.medium}; */
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 370px;
+    /* margin: 0 auto; */
+    /* border: 2px solid green; */
+
+    width: 100%;
   }
   @media (max-width: 392px) {
-    width: 320px;
+    width: 100%;
+
     /* font-size: ${({ theme }) => theme.small}; */
   }
 `;
 const FrenchWord = styled.p`
   font-weight: bold;
-  width: 35%;
-  margin-left: 1rem;
+  /* border: 1px solid grey; */
+
+  width: 40%;
+  margin-left: 0.4rem;
   font-size: ${({ theme }) => theme.medium};
   @media (min-width: 577px) and (max-width: 767px) {
     font-size: ${({ theme }) => theme.mediumSmall};
+  }
+  @media (max-width: 577px) {
+    font-size: ${({ theme }) => theme.small};
   }
 `;
 const SecondLanguageWord = styled.span`
   font-size: ${({ theme }) => theme.mediumSmall};
   width: 35%;
-  @media (min-width: 393px) and (max-width: 576px) {
-    font-size: ${({ theme }) => theme.small};
-  }
-  @media (max-width: 392px) {
-    font-size: ${({ theme }) => theme.small};
+  /* border: 1px solid grey; */
+
+  @media (max-width: 577px) {
+    overflow-x: scroll;
+    font-size: ${({ theme }) => theme.extraSmall};
+    margin-left: 0.5rem;
   }
 `;
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.1rem;
-
+  /* gap: 0.1rem; */
+  margin-left: auto;
+  margin-right: 0.5rem;
   max-width: 100px;
   text-align: center;
-
+  /* border: 1px solid grey; */
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
 `;
 
@@ -165,7 +200,8 @@ const ChevronIcon = styled.div`
     props.isExpanded ? "rotate(180deg)" : "rotate(0deg)"};
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  margin: 0 0.5rem;
+
+  /* border: 1px solid grey; */
 `;
 
 export const AccordionListenIcon = styled.div`

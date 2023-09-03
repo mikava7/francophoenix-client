@@ -56,7 +56,7 @@ const VocabularyContainer = styled.ul`
   margin: 0 auto;
   align-items: center;
   width: 90%;
-
+  /* outline: 2px solid red; */
   flex-wrap: wrap;
 `;
 
@@ -74,7 +74,6 @@ const LocalStyledLink = styled(Link)`
 `;
 const TopicCardContainer = styled.div`
   border-radius: 0.5rem;
-  margin: 1rem;
   display: flex;
   height: 320px;
   width: 300px;
@@ -84,7 +83,8 @@ const TopicCardContainer = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-
+  margin: 1rem auto;
+  margin: 1rem;
   &:hover {
     outline: 2px solid ${(props) => props.theme.secondaryText};
     box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
@@ -100,11 +100,16 @@ const TopicCardContainer = styled.div`
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 360px;
+    margin: 1rem auto;
+    max-width: 370px;
   }
 
   @media (max-width: 392px) {
-    width: 330px;
+    margin: 1rem auto;
+  }
+  @media (max-width: 302px) {
+    margin: 1rem auto;
+    max-width: 210px;
   }
 `;
 
