@@ -203,7 +203,7 @@ const QuestionContainer = styled.div`
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  color: white;
+  color: ${(props) => props.theme.primaryText};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
@@ -248,7 +248,7 @@ const getOptionBackgroundColor = (props) => {
   } else if (isShowAnswers && props["data-allanswerscorrect"] === "true") {
     return "green"; // all answers correct
   } else {
-    return "white";
+    return props.theme.secondaryBackground;
   }
 };
 

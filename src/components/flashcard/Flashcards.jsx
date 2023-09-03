@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromFlashcards,
@@ -13,7 +13,11 @@ import Listen from "../Listen";
 import WordJumble from "./trainers/wordTrainer/WordJumble";
 import BlurryVocabularyTrainer from "./trainers/BlurryVocabularyTrainer";
 import FrQuizTrainer from "./trainers/quizTrainer/FrQuizTrainer";
+
+import { useTranslation } from "react-i18next";
+
 const Flashcards = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const flashcards = useSelector((state) => state.flashcards.flashcards);
   const [selectedFlashcards, setSelectedFlashcards] = useState([]);
@@ -47,10 +51,18 @@ const Flashcards = () => {
   };
   const handleShowTrainer = () => {
     setShowTrainer(true);
-    // Scroll to the BlurryVocabularyTrainer component when it's shown
-    BlurryVocabularyRef.current.scrollIntoView({ behavior: "smooth" });
+    // Calculate the scroll position to account for the fixed navbar
+    const navbarHeight = 30 * 16; // 3rem (adjust as needed)
+    BlurryVocabularyRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start", // Scroll to the top of the component
+      inline: "nearest", // Keep the component at the nearest edge of the viewport
+    });
   };
 
+  // useEffect(()=>{
+  //   if()
+  // },[])
   const selectAllWords = () => {
     setSelectedFlashcards([...flashcards]);
     handleShowTrainer();
@@ -62,6 +74,11 @@ const Flashcards = () => {
         <NoWordsMessage />
       ) : (
         <FavoriteWordsUl>
+          <SelectAll>
+            {t("Tout sélectionner")}
+            <Input type="checkbox" onClick={selectAllWords} />
+          </SelectAll>
+
           {flashcards.map((card, index) => {
             const {
               word,
@@ -76,8 +93,14 @@ const Flashcards = () => {
                   <SeconLangWord>{secondLanguage}</SeconLangWord>
                 </p>
                 <IconsWrapper onClick={handleListen(word)}>
+                  <Listen />
+                  <RemoveFromFlashcards
+                    onClick={() => handleRemoveFlashcard(index)}
+                    src={FlashcardIcon}
+                    alt="FlashcardIcon"
+                  />
                   <CheckboxWrapper>
-                    <input
+                    <Input
                       type="checkbox"
                       id={`flashcard-${index}`}
                       checked={selectedFlashcards.includes(card)} // Use the card object itself for comparison
@@ -85,29 +108,28 @@ const Flashcards = () => {
                     />
                     <label htmlFor={`flashcard-${index}`} />
                   </CheckboxWrapper>
-                  <Listen />
-                  <RemoveFromFlashcards
-                    onClick={() => handleRemoveFlashcard(index)}
-                    src={FlashcardIcon}
-                    alt="FlashcardIcon"
-                  />
                 </IconsWrapper>
               </FavoriteInstance>
             );
           })}
           <ButtonContainer>
-            <TrainAllButton onClick={selectAllWords}>Select All</TrainAllButton>
+            <TrainAllButton onClick={selectAllWords}>
+              {" "}
+              {t("Tout sélectionner")}
+            </TrainAllButton>
 
             <ClearAllButton onClick={handleClearFlashcards}>
-              Clear All
+              {t("Supprimer tout")}
             </ClearAllButton>
           </ButtonContainer>
           {selectedFlashcards.length === 0 && (
             <Message>
-              No words selected. Please select words to chooce the trainer mode.
+              {t(
+                "Aucun mot sélectionné. Veuillez sélectionner des mots pour choisir le mode entraîneur."
+              )}{" "}
             </Message>
           )}
-          <ButtonContainer>
+          <TrainerButtons onClick={handleShowTrainer}>
             <Blurry onClick={() => setSelectedTrainer("blurry")}>
               Blurry Trainer
             </Blurry>
@@ -117,7 +139,7 @@ const Flashcards = () => {
             <Jumble onClick={() => setSelectedTrainer("FrQuizTrainer")}>
               FrQuizTrainer Trainer
             </Jumble>
-          </ButtonContainer>
+          </TrainerButtons>
 
           {/* Render the selected trainer only when flashcards are selected */}
           {selectedTrainer === "blurry" && selectedFlashcards.length > 0 && (
@@ -156,18 +178,17 @@ const FavoriteWordsContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 100vh;
+
   margin: 0 auto;
-  border-bottom: 2px solid green;
+  /* border-bottom: 2px solid green; */
 `;
 const FavoriteWordsUl = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
 
   border-radius: 12px;
-  min-width: 420px;
-  max-width: 920px;
+  /* min-width: 420px; */
+  /* max-width: 920px; */
   margin: 0 auto;
   margin-top: 4rem;
   margin-bottom: 1rem;
@@ -180,21 +201,23 @@ const FavoriteInstance = styled.div`
   align-items: flex-start;
   min-height: 4rem;
   max-width: 100%;
-  border-bottom: 3px solid gold;
-  padding: 0.5rem;
+  border-bottom: 3px solid ${(props) => props.theme.primaryText};
+  padding: 0.4rem 0.8rem;
   border-radius: 0 0 0 12px;
   margin-bottom: 1rem;
+  background-color: ${(props) => props.theme.secondaryBackground};
 `;
 const FrenchWord = styled.span`
-  font-size: 1.4rem;
+  font-size: ${(props) => props.theme.large};
   font-style: bold;
-  color: #001a1a;
+  color: ${(props) => props.theme.primaryText};
+
   &:after {
     content: " - ";
   }
 `;
 const SeconLangWord = styled.span`
-  font-size: 1.2rem;
+  font-size: ${(props) => props.theme.small};
   font-style: italic;
 `;
 
@@ -227,23 +250,22 @@ const RemoveFromFlashcards = styled.img`
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* border: 2px solid red; */
+  /* justify-content: space-between; */
   gap: 1rem;
-  width: 60px;
-  /* border: 1px solid grey; */
-  max-width: 120px;
+
   text-align: center;
   margin-left: auto;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   /* pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")}; */
 `;
 const CheckboxWrapper = styled.div`
-  width: 5rem;
-  input {
-    cursor: pointer;
-    width: 1.5rem; /* Make the input element wider */
-    height: 1.5rem; /* Make the input element taller */
-  }
+  /* width: 5rem; */
+`;
+const Input = styled.input`
+  cursor: pointer;
+  width: 1.5rem; /* Make the input element wider */
+  height: 1.5rem; /* Make the input element taller */
 `;
 const TrainingButton = styled(ClearAllButton)`
   background: gold;
@@ -256,11 +278,12 @@ const TrainingButton = styled(ClearAllButton)`
 const TrainAllButton = styled(TrainingButton)``;
 const ButtonContainer = styled.div`
   display: flex;
+  justify-content: space-around;
   margin: 2rem;
 `;
 
 const Jumble = styled(TrainingButton)`
-  width: 12rem;
+  width: 10rem;
   background: #ffffff;
   color: #001a1a;
   &:hover {
@@ -269,7 +292,7 @@ const Jumble = styled(TrainingButton)`
   }
 `;
 const Blurry = styled(TrainingButton)`
-  width: 12rem;
+  width: auto;
   margin-right: 2rem;
   background: #fff2f2;
   color: #001a1a;
@@ -279,3 +302,17 @@ const Blurry = styled(TrainingButton)`
   }
 `;
 const Message = styled.div``;
+const TrainerButtons = styled.div`
+  display: flex;
+  border: 2px solid red;
+  align-items: space-between;
+  justify-content: space-between;
+  width: 100%;
+  height: 10vh;
+`;
+const SelectAll = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: 0.9rem;
+  /* border-bottom: red; */
+`;

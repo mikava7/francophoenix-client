@@ -83,5 +83,11 @@
   "Verbes utilisés dans le texte": "Verbes used in the text",
   "Suivant": "Next",
   "Réessayer": "Retry",
-  "Soumettre": "Submit"
+  "Soumettre": "Submit",
+  "Genre des noms": "Gender of nouns",
+  "Questionnaire": "Quiz",
+  "Texte": "Text",
+  "Tout sélectionner": "Select All",
+  "Supprimer tout": "Clear All",
+  "Aucun mot sélectionné. Veuillez sélectionner des mots pour choisir le mode entraîneur.": "No words selected. Please select words to chooce the trainer mode."
 }

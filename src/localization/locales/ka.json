@@ -83,5 +83,11 @@
   "Verbes utilisés dans le texte": "ტექსტში გამოყენებული ზმნები",
   "Suivant": "შემდეგი",
   "Réessayer": "თავიდან სცადე",
-  "Soumettre": "Submit"
+  "Soumettre": "Submit",
+  "Genre des noms": "არსებითი სახელების სქესი",
+  "Questionnaire": "ტესტი",
+  "Texte": "ტექსტი",
+  "Tout sélectionner": "Მონიშნე ყველა",
+  "Supprimer tout": "წაშალე ყველა",
+  "Aucun mot sélectionné. Veuillez sélectionner des mots pour choisir le mode entraîneur.": "არც ერთი სიტყვა არ არის მონიშნული. გთხოვთ, მონიშნოთ სიტყვები სავარჯიშოს ასარჩევად."
 }

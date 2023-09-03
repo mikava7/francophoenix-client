@@ -1,11 +1,14 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import ChevronDown from "../../../public/icons/chevron-down-24.png";
+import ChevronDownGold from "../../../public/icons/chevron-down-gold.png";
+import { darkTheme } from "../../Styles/theme";
 const RotatingChevron = ({ isActive, onClick }) => {
-  // console.log({ isActive, onClick });
+  const theme = useTheme();
+  const chevron = theme === darkTheme ? ChevronDownGold : ChevronDown;
   return (
     <ChevronImage
-      src={ChevronDown}
-      alt="ChevronDown"
+      src={chevron}
+      alt="chevron"
       rotation={isActive ? 180 : 0}
       onClick={onClick}
     />

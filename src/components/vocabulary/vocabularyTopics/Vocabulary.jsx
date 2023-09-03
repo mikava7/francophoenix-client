@@ -25,30 +25,6 @@ const Vocabulary = () => {
   }, []);
   const [openComponent, setOpenComponent] = useState(null);
 
-  const [showArticle, setShowArticle] = useState(false);
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [showText, setShowText] = useState(false);
-
-  const [expandedIndex, setExpandedIndex] = useState(-1);
-  const [rotationArticle, setRotationArticle] = useState(0);
-  const [rotationQuiz, setRotationQuiz] = useState(0);
-
-  const toggle = (index) => {
-    setExpandedIndex((prevIndex) => (prevIndex === index ? -1 : index));
-  };
-  const handleArticleToggle = () => {
-    setShowArticle(!showArticle);
-    setRotationArticle((prevRotation) => prevRotation + 180);
-  };
-
-  const handleQuizToggle = () => {
-    setRotationQuiz((prevRotation) => prevRotation + 180);
-    setShowQuiz(!showQuiz);
-  };
-  const handleTopicText = () => {
-    setRotationQuiz((prevRotation) => prevRotation + 180);
-    setShowText(!showText);
-  };
   const { vocabularyTopicId } = useParams();
   // console.log("vocabularyTopicId", vocabularyTopicId);
 
@@ -87,28 +63,32 @@ const Vocabulary = () => {
       </WordPairContainer>
       <TopicTextBox>
         <AccordionSection
-          type="text"
-          isOpen={openComponent === "text"}
+          type={t("Texte")}
+          isOpen={openComponent === "Texte"}
           onToggle={() =>
-            setOpenComponent(openComponent === "text" ? null : "text")
+            setOpenComponent(openComponent === "Texte" ? null : "Texte")
           }
           vocabularyData={vocabularyData}
           french={french}
         />
         <AccordionSection
-          type="article"
-          isOpen={openComponent === "article"}
+          type={t("Genre des noms")}
+          isOpen={openComponent === "Genre des noms"}
           onToggle={() =>
-            setOpenComponent(openComponent === "article" ? null : "article")
+            setOpenComponent(
+              openComponent === "Genre des noms" ? null : "Genre des noms"
+            )
           }
           french={french}
         />
 
         <AccordionSection
-          type="quiz"
-          isOpen={openComponent === "quiz"}
+          type={t("Questionnaire")}
+          isOpen={openComponent === "Questionnaire"}
           onToggle={() =>
-            setOpenComponent(openComponent === "quiz" ? null : "quiz")
+            setOpenComponent(
+              openComponent === "Questionnaire" ? null : "Questionnaire"
+            )
           }
           english={english}
           georgian={georgian}
@@ -191,7 +171,7 @@ const NextStepChoise = styled.div`
   align-items: center;
 `;
 const TopicTextBox = styled(NextStepChoise)`
-  border: 2px solid gold;
+  /* border: 2px solid gold; */
   margin: 0 auto;
   width: 98%;
   padding-left: 0.8rem;

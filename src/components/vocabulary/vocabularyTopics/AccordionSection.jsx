@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ExerciseArticle from "./ExerciseArticle";
 import TopicText from "./Text/TopicText";
 import VocabularyQuiz from "./VocabularyQuiz";
 import RotatingChevron from "../../Utility/RotatingChevron";
 import styled from "styled-components";
+
 const AccordionSection = ({
   type,
   isOpen,
@@ -14,25 +15,31 @@ const AccordionSection = ({
   georgian,
 }) => {
   const [rotation, setRotation] = useState(0);
+  const sectionRef = useRef(null);
 
-  const handleToggle = () => {
-    setRotation(rotation === 0 ? 180 : 0); // Toggle the rotation angle
-    onToggle(); // Call the provided onToggle function to handle opening/closing the section
-  };
+  useEffect(() => {
+    if (isOpen) {
+      // Calculate the scroll position to account for the fixed navbar
+      const navbarHeight = 10 * 16; // 3rem (adjust as needed)
+      const scrollPosition = sectionRef.current.offsetTop - navbarHeight;
+
+      // Scroll to the adjusted position
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    }
+  }, [isOpen]);
 
   return (
     <AccordionSectionContainer>
-      <h2 onClick={handleToggle}>
-        Topic {type}
-        <RotatingChevron
-          rotation={rotation}
-          style={{ marginRight: "auto", margin: 0, border: "2px solid red" }}
-        />
+      <h2 onClick={onToggle}>
+        {type}
+        <RotatingChevron />
       </h2>
       {isOpen && (
-        <div>
-          {/* Render the content of the section based on 'type' */}
-          {type === "text" && (
+        <SectionBox ref={sectionRef}>
+          {type === "Texte" && (
             <TopicText
               text={vocabularyData?.text}
               vocabulary={french}
@@ -41,28 +48,32 @@ const AccordionSection = ({
               vocabularyData={vocabularyData}
             />
           )}
-          {type === "article" && (
+          {type === "Genre des noms" && (
             <ExerciseArticle frenchWords={french} parentsData={true} />
           )}
-          {type === "quiz" && (
+          {type === "Questionnaire" && (
             <VocabularyQuiz
               french={french}
               english={english}
               georgian={georgian}
             />
           )}
-        </div>
+        </SectionBox>
       )}
     </AccordionSectionContainer>
   );
 };
 
 export default AccordionSection;
+
 const AccordionSectionContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
+  align-items: left;
+
   h2 {
     display: flex;
     justify-content: space-between;
@@ -71,3 +82,5 @@ const AccordionSectionContainer = styled.div`
     text-align: left;
   }
 `;
+
+const SectionBox = styled.div``;

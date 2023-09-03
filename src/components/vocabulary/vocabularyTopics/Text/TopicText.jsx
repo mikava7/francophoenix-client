@@ -157,6 +157,7 @@ const TopicTextContainer = styled.div`
   font-size: ${(props) => props.theme.medium};
   line-height: ${(props) => props.theme.largeLineHeight};
   letter-spacing: ${(props) => props.theme.extraMegaLetterSpacing};
+  border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
   @media (min-width: 577px) and (max-width: 767px) {
     font-size: ${(props) => props.theme.mediumSmall};
     line-height: ${(props) => props.theme.mediumLineHeight};
@@ -164,13 +165,18 @@ const TopicTextContainer = styled.div`
   }
   @media (min-width: 393px) and (max-width: 576px) {
     font-size: ${(props) => props.theme.mediumSmall};
-    line-height: ${(props) => props.theme.mediumLineHeight};
+    line-height: ${(props) => props.theme.largeLineHeight};
     letter-spacing: ${(props) => props.theme.megaLetterSpacing};
   }
   @media (max-width: 392px) {
     font-size: ${(props) => props.theme.small};
-    line-height: ${(props) => props.theme.mediumLineHeight};
+    line-height: ${(props) => props.theme.largeLineHeight};
     letter-spacing: ${(props) => props.theme.extraLargeLetterSpacing};
+  }
+  h2 {
+    display: flex;
+
+    justify-content: center;
   }
 `;
 
@@ -229,7 +235,7 @@ const VerbsInText = styled.ul`
       width: auto;
       background-color: ${(props) => props.theme.secondaryText};
       color: ${(props) => props.theme.secondaryBackground};
-
+      cursor: pointer;
       font-size: ${(props) => props.theme.small};
     }
   }
@@ -238,5 +244,6 @@ const WordConatiner = styled.span`
   &.first {
     margin-left: 1rem;
     font-size: ${(props) => props.theme.medium};
+    font-weight: bold;
   }
 `;

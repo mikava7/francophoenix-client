@@ -284,7 +284,7 @@ const WordPair = styled.p`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
+  height: 4.2rem;
   padding: 0 0.4rem;
   margin: 1rem;
   color: ${(props) => props.theme.text};
@@ -332,13 +332,13 @@ const OptionsContainer = styled.div`
   }
 `;
 const Option = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.8rem;
   background-color: ${(props) =>
     props.isSelected
       ? props.isCorrect
         ? props.theme.correctBack
         : props.theme.wrongback
-      : "transparent"};
+      : props.theme.primaryBackground};
   color: ${(props) =>
     props.isSelected
       ? props.isCorrect
@@ -356,8 +356,8 @@ const Option = styled.div`
     ${(props) =>
       !props.isSelected &&
       `
-      background-color: #0055A4;
-      color: ${props.theme.background};
+      background-color: ${props.theme.highlight3};
+      color: ${props.theme.primaryText};
     `}
   }
   @media (max-width: 392px) {

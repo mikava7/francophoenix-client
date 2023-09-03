@@ -174,7 +174,7 @@ const SecondLanguageWord = styled.span`
   /* border: 1px solid grey; */
 
   @media (max-width: 577px) {
-    overflow-x: scroll;
+    overflow-x: auto; /* Use 'auto' instead of 'scroll' */
     font-size: ${({ theme }) => theme.extraSmall};
     margin-left: 0.5rem;
   }
