@@ -9,7 +9,7 @@ import {
   TopicCard,
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
-import { vocabularySectionData } from "../../data/components/vocabularySectionData";
+import { vocabularySectionData } from "../sidebar/components/vocabularySectionData";
 
 const VocabularyLanding = () => {
   const { t, i18n } = useTranslation(); // Initialize the translation function
