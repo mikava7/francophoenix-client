@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import flashCardIcon from "../../../../public/icons/flash-card.png";
 import Listen from "../../Listen";
-import Favorite from "../../Favorite";
 import AddToFlashcards from "../../Utility/AddToFlashcards";
 import AddToFavorites from "../../Utility/AddToFavorites";
 import useListenWord from "../../../hooks/useListenWord";

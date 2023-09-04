@@ -14,7 +14,6 @@ import {
   Phrasessection,
 } from "./style-elementaryComponant";
 import Listen from "../components/Listen";
-import Favorite from "../components/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchNewPhrases } from "../redux/slices/elementary/newPhraseSlice";
@@ -65,7 +64,6 @@ const NewPhrases = ({ Continue, lessonsCurrentIndex }) => {
                 <PhrasesBox key={`phrase-${index}`}>
                   <OriginalPhrase onClick={() => playSound(index)}>
                     <Listen /> <div>{originalPhrase}</div>
-                    <Favorite />
                   </OriginalPhrase>
                   <PhraseTranslation>
                     {newPhrase.translatedPhrases[index]}

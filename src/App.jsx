@@ -24,7 +24,6 @@ import Loading from "./components/loading/Loading";
 import A1Dialogues from "./components/dialogues/A1Dialogues";
 import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage/DialoguePage";
 import FindTranslationForFrenchWord from "./pages/SearchComponent/frenchWords/FindTranslationForFrenchWord";
-import LegumesTTS from "./components/test/LegumesTTS";
 import FavoriteWords from "./components/favoriteList/FavoriteWords";
 import QuizPictures from "./components/quizPictures/QuizPictures";
 import PresentTense from "./components/verbs/presentTense/PresentTense";
