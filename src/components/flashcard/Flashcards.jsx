@@ -74,11 +74,6 @@ const Flashcards = () => {
         <NoWordsMessage />
       ) : (
         <FavoriteWordsUl>
-          <SelectAll>
-            {t("Tout sélectionner")}
-            <Input type="checkbox" onClick={selectAllWords} />
-          </SelectAll>
-
           {flashcards.map((card, index) => {
             const {
               word,
@@ -176,22 +171,48 @@ const Blury = styled.div`
 const FavoriteWordsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  max-width: 95%;
 
-  width: 100%;
-
-  margin: 0 auto;
-  /* border-bottom: 2px solid green; */
+  padding: 0 0.1rem;
+  margin: 0;
+  overflow: hidden;
+  @media (min-width: 767px) and (max-width: 913px) {
+    max-width: 92%;
+  }
+  @media (min-width: 577px) and (max-width: 767px) {
+    max-width: 80%;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    max-width: 83%;
+  }
+  @media (max-width: 392px) {
+    max-width: 75%;
+  }
+  @media (max-width: 300px) {
+    max-width: 55%;
+  }
 `;
 const FavoriteWordsUl = styled.div`
   display: flex;
   flex-direction: column;
 
   border-radius: 12px;
-  /* min-width: 420px; */
-  /* max-width: 920px; */
+
   margin: 0 auto;
   margin-top: 4rem;
   margin-bottom: 1rem;
+  max-width: 100%;
+
+  @media (min-width: 577px) and (max-width: 767px) {
+    gap: 0.8rem;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    max-width: 100%;
+  }
+  @media (max-width: 392px) {
+    max-width: 100%;
+  }
 `;
 
 const FavoriteInstance = styled.div`
@@ -200,12 +221,26 @@ const FavoriteInstance = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   min-height: 4rem;
-  max-width: 100%;
+  max-width: 95%;
   border-bottom: 3px solid ${(props) => props.theme.primaryText};
   padding: 0.4rem 0.8rem;
   border-radius: 0 0 0 12px;
+  margin: 0 0.5rem;
   margin-bottom: 1rem;
   background-color: ${(props) => props.theme.secondaryBackground};
+  @media (min-width: 767px) and (max-width: 913px) {
+    width: 85%;
+  }
+  @media (min-width: 577px) and (max-width: 767px) {
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    max-width: 86%;
+    min-height: 3rem;
+  }
+  @media (max-width: 392px) {
+    max-width: 90%;
+    min-height: 3rem;
+  }
 `;
 const FrenchWord = styled.span`
   font-size: ${(props) => props.theme.large};
@@ -215,10 +250,28 @@ const FrenchWord = styled.span`
   &:after {
     content: " - ";
   }
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: ${(props) => props.theme.medium};
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: ${(props) => props.theme.small};
+  }
+  @media (max-width: 392px) {
+    font-size: ${(props) => props.theme.small};
+  }
 `;
 const SeconLangWord = styled.span`
   font-size: ${(props) => props.theme.small};
   font-style: italic;
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: ${(props) => props.theme.small};
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: ${(props) => props.theme.extraSmall};
+  }
+  @media (max-width: 392px) {
+    font-size: ${(props) => props.theme.extraSmall};
+  }
 `;
 
 const ClearAllButton = styled.button`
@@ -242,30 +295,36 @@ const ClearAllButton = styled.button`
   }
 `;
 const RemoveFromFlashcards = styled.img`
-  max-width: 1.5rem;
-  max-height: 1.5rem;
+  max-width: 1.3rem;
+  max-height: 1.3rem;
   margin-left: auto;
   cursor: pointer;
 `;
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
-  /* border: 2px solid red; */
-  /* justify-content: space-between; */
+
   gap: 1rem;
 
   text-align: center;
   margin-left: auto;
-  /* margin-right: 1rem; */
-  /* pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")}; */
+  margin-right: 1rem;
+  @media (max-width: 576px) {
+    margin-right: 0;
+    gap: 0.2rem;
+  }
 `;
 const CheckboxWrapper = styled.div`
   /* width: 5rem; */
 `;
 const Input = styled.input`
   cursor: pointer;
-  width: 1.5rem; /* Make the input element wider */
-  height: 1.5rem; /* Make the input element taller */
+  width: 1.5rem;
+  height: 1.5rem;
+  @media (max-width: 576px) {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 const TrainingButton = styled(ClearAllButton)`
   background: gold;
@@ -309,10 +368,4 @@ const TrainerButtons = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 10vh;
-`;
-const SelectAll = styled.div`
-  display: flex;
-  margin-left: auto;
-  margin-right: 0.9rem;
-  /* border-bottom: red; */
 `;

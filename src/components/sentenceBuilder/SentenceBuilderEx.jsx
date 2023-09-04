@@ -192,7 +192,8 @@ export const BuildBox = styled.div`
 `;
 const TopBox = styled.div`
   margin: 0 auto;
-  width: 96%;
+  width: 340px;
+
   height: 14rem;
   margin-bottom: 2rem;
   margin-top: 2rem;

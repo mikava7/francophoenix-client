@@ -48,6 +48,11 @@ const MobileMenu = ({ isDarkMode, t }) => {
               {t("Dictionnaire")}
             </MenuLink>
           </li>
+          <li>
+            <MenuLink to="/vocabulary/flashcards" onClick={closeMenu}>
+              {t("Entraîneur de cartes mémoire")}
+            </MenuLink>
+          </li>
         </MenuUl>
       </MenuToggle>
     </MenuContainer>
