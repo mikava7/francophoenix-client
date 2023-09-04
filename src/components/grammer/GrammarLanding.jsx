@@ -9,7 +9,7 @@ import {
   TopicCard,
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
-import { grammarTopicsDescriptions } from "../../data/components/grammarTopicsDescriptions";
+import { grammarTopicsDescriptions } from "../sidebar/components/grammarTopicsDescriptions";
 
 const GrammarLanding = () => {
   const { t, i18n } = useTranslation(); // Initialize the translation function
