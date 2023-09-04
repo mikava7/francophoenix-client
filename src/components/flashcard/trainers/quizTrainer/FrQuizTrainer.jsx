@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import wrongOptionsData from "../../../../data/wrongOptionsData";
+import wrongOptionsData from "./wrongOptionsData";
 
 const FrQuizTrainer = ({ FrenchWord, secondLanguageWord }) => {
   const [topicIndex, setTopicIndex] = useState(0);
