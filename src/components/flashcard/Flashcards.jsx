@@ -50,14 +50,19 @@ const Flashcards = () => {
     dispatch(clearFlashcards());
   };
   const handleShowTrainer = () => {
-    setShowTrainer(true);
-    // Calculate the scroll position to account for the fixed navbar
-    const navbarHeight = 30 * 16; // 3rem (adjust as needed)
-    BlurryVocabularyRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start", // Scroll to the top of the component
-      inline: "nearest", // Keep the component at the nearest edge of the viewport
-    });
+    console.log("handleShowTrainer called"); // Add this line
+
+    if (BlurryVocabularyRef.current) {
+      setShowTrainer(true);
+      // Calculate the scroll position to account for the fixed navbar
+      const navbarHeight = 3 * 16; // 3rem (adjust as needed)
+      const scrollPosition =
+        BlurryVocabularyRef.current.offsetTop - navbarHeight;
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   // useEffect(()=>{
@@ -125,24 +130,25 @@ const Flashcards = () => {
             </Message>
           )}
           <TrainerButtons onClick={handleShowTrainer}>
+            <h2>{t("Exercices")}</h2>
             <Blurry onClick={() => setSelectedTrainer("blurry")}>
               Blurry Trainer
             </Blurry>
-            <Jumble onClick={() => setSelectedTrainer("wordJumble")}>
+            <Blurry onClick={() => setSelectedTrainer("wordJumble")}>
               Word Jumble Trainer
-            </Jumble>
-            <Jumble onClick={() => setSelectedTrainer("FrQuizTrainer")}>
+            </Blurry>
+            <Blurry onClick={() => setSelectedTrainer("FrQuizTrainer")}>
               FrQuizTrainer Trainer
-            </Jumble>
+            </Blurry>
           </TrainerButtons>
 
           {/* Render the selected trainer only when flashcards are selected */}
           {selectedTrainer === "blurry" && selectedFlashcards.length > 0 && (
-            <Blury ref={BlurryVocabularyRef}>
+            <Blurry ref={BlurryVocabularyRef}>
               <BlurryVocabularyTrainer
                 selectedFlashcards={selectedFlashcards}
               />
-            </Blury>
+            </Blurry>
           )}
           {selectedTrainer === "wordJumble" &&
             selectedFlashcards.length > 0 && (
@@ -164,10 +170,6 @@ const Flashcards = () => {
 };
 
 export default Flashcards;
-const Blury = styled.div`
-  height: 100vh;
-  overflow: auto;
-`;
 const FavoriteWordsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,16 +183,21 @@ const FavoriteWordsContainer = styled.div`
     max-width: 92%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
-    max-width: 80%;
+    max-width: 98%;
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    max-width: 83%;
+    max-width: 98%;
+    outline: 1px solid brown;
   }
   @media (max-width: 392px) {
-    max-width: 75%;
+    max-width: 95%;
+    outline: 1px solid brown;
   }
-  @media (max-width: 300px) {
-    max-width: 55%;
+  @media (max-width: 361px) {
+    max-width: 85%;
+  }
+  @media (max-width: 340px) {
+    max-width: 65%;
   }
 `;
 const FavoriteWordsUl = styled.div`
@@ -229,17 +236,18 @@ const FavoriteInstance = styled.div`
   margin-bottom: 1rem;
   background-color: ${(props) => props.theme.secondaryBackground};
   @media (min-width: 767px) and (max-width: 913px) {
-    width: 85%;
+    max-width: 100%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    max-width: 86%;
+    max-width: 100%;
     min-height: 3rem;
   }
   @media (max-width: 392px) {
-    max-width: 90%;
+    max-width: 100%;
     min-height: 3rem;
+    outline: 1px solid red;
   }
 `;
 const FrenchWord = styled.span`
@@ -286,12 +294,17 @@ const ClearAllButton = styled.button`
   font-size: 1.2rem;
 
   background: #001a1a;
-  color: gold;
+  color: ${(props) => props.theme.highlight1};
   font-weight: bold;
   cursor: pointer;
   &:hover {
-    background: gold;
+    background: ${(props) => props.theme.highlight1};
     color: #001a1a;
+  }
+  @media (max-width: 576px) {
+    width: 8rem;
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
   }
 `;
 const RemoveFromFlashcards = styled.img`
@@ -327,11 +340,11 @@ const Input = styled.input`
   }
 `;
 const TrainingButton = styled(ClearAllButton)`
-  background: gold;
+  background: ${(props) => props.theme.highlight1};
   color: #001a1a;
   &:hover {
     background: #001a1a;
-    color: gold;
+    color: ${(props) => props.theme.highlight1};
   }
 `;
 const TrainAllButton = styled(TrainingButton)``;
@@ -339,8 +352,23 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 2rem;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid ${(props) => props.theme.highlight3};
+  @media (max-width: 576px) {
+    /* width: 8rem;
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem; */
+  }
 `;
+const TrainerButtons = styled.div`
+  display: flex;
+  flex-direction: column;
 
+  align-items: space-between;
+
+  width: 100%;
+`;
 const Jumble = styled(TrainingButton)`
   width: 10rem;
   background: #ffffff;
@@ -350,22 +378,13 @@ const Jumble = styled(TrainingButton)`
     color: #ffffff;
   }
 `;
-const Blurry = styled(TrainingButton)`
+const Blurry = styled.button`
   width: auto;
-  margin-right: 2rem;
-  background: #fff2f2;
-  color: #001a1a;
-  &:hover {
-    background: #001a1a;
-    color: #fff2f2;
-  }
+  margin: 0.2rem;
+  border-radius: 0.5rem;
+  font-size: ${(props) => props.theme.medium};
+  background: ${(props) => props.theme.highlight2};
+  color: ${(props) => props.theme.primaryText};
+  cursor: pointer;
 `;
 const Message = styled.div``;
-const TrainerButtons = styled.div`
-  display: flex;
-  border: 2px solid red;
-  align-items: space-between;
-  justify-content: space-between;
-  width: 100%;
-  height: 10vh;
-`;

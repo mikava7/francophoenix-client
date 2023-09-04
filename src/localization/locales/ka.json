@@ -90,5 +90,8 @@
   "Tout sélectionner": "Მონიშნე ყველა",
   "Supprimer tout": "წაშალე ყველა",
   "Aucun mot sélectionné. Veuillez sélectionner des mots pour choisir le mode entraîneur.": "არც ერთი სიტყვა არ არის მონიშნული. გთხოვთ, მონიშნოთ სიტყვები სავარჯიშოს ასარჩევად.",
-  "Entraîneur de cartes mémoire": "შენახული სიტყვების სავარჯიშო"
+  "Entraîneur de cartes mémoire": "შენახული სიტყვების სავარჯიშო",
+  "Mots déjà revus": "გავლილი სიყვების რაოდენობა.",
+  "Vous suivez ?": "მომყვები ?",
+  "Continue": "გაგრძელება."
 }

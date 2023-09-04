@@ -6,7 +6,7 @@ import { fetchBooksPreview } from "../../redux/slices/books/booksSlice";
 import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import Carousel from "../../components/carousel/Carousel";
 import WellcomeCarousel from "../../components/wellcome/WellcomeCarousel";
-import { wellcomeData } from "../../data/wellcome/wellcome";
+import { wellcomeData } from "./wellcomeData";
 import { useTranslation } from "react-i18next";
 import Loading from "../../components/loading/Loading";
 import VocabularyTopicCarousel from "../../components/carousel/vocabularyTopicCarousel/vocabularyTopicCarousel";

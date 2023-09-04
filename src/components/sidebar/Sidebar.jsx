@@ -11,7 +11,7 @@ import Loading from "../loading/Loading";
 import ErrorMessage from "../Utility/ErrorMessage";
 import SideGrammarSection from "./grammarSection/SideGrammarSection";
 import SideVocabularySection from "./vocabularySection/SideVocabularySection";
-import { vocabularySectionData } from "../../data/components/vocabularySectionData";
+import { vocabularySectionData } from "./components/vocabularySectionData";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();

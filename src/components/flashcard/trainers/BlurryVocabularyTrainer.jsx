@@ -5,11 +5,14 @@ import {
   CenteredMessageContent,
   FlexContainer,
 } from "../../../Styles/globalStyles";
+import { useTranslation } from "react-i18next";
 
 const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
+  const { t } = useTranslation();
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wordCount, setWordCount] = useState(0);
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(4);
   const [blurLevel, setBlurLevel] = useState(100);
   const [showPause, setShowPause] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -24,13 +27,13 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
       if (!showPause && !isPaused) {
         if (timer > 0) {
           setTimer((prevTimer) => prevTimer - 1);
-          setBlurLevel((prevBlur) => prevBlur - 20);
+          setBlurLevel((prevBlur) => prevBlur - 25);
         } else {
           setCurrentIndex((prevIndex) =>
             prevIndex === word.length - 1 ? 0 : prevIndex + 1
           );
           setWordCount((prevCount) => prevCount + 1);
-          setTimer(5);
+          setTimer(4);
           setBlurLevel(100);
         }
       }
@@ -61,11 +64,13 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
         <PauseScreen>
           <div>
             {" "}
-            Words reviewed already
+            {t("Words already reviewed")}
             <p>{wordCount}</p>
           </div>
-          <CenteredMessageContent>Are you following?</CenteredMessageContent>
-          <ContinueButton onClick={handleContinue}>Continue</ContinueButton>
+          <CenteredMessageContent>{t("Vous suivez ?")}</CenteredMessageContent>
+          <ContinueButton onClick={handleContinue}>
+            {t("Continue")}
+          </ContinueButton>
         </PauseScreen>
       ) : (
         <>
@@ -92,21 +97,20 @@ export default BlurryVocabularyTrainer;
 
 const Container = styled(FlexContainer)`
   width: 100%;
-  height: 100vh;
-  border: 2px solid green;
-  border: 2rem;
+  margin-top: 2rem;
+  /* background: ${(props) => props.theme.secondaryBackground}; */
 `;
 
 const WordBox = styled.div`
   width: 365px;
-  height: 600px;
+  height: 40rem;
   margin-bottom: 1rem;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #dec2ff;
+  background: ${(props) => props.theme.tertiaryBackground};
 `;
 
 const Word = styled.span`
@@ -132,8 +136,7 @@ const TranslationBox = styled.div`
   flex-direction: column; /* Added this line */
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
-  color: black;
+
   filter: ${(props) => `blur(${props.blurLevel}%)`}; /* Fix this line */
 `;
 
@@ -141,14 +144,14 @@ const Translation = styled.span`
   font-size: 2rem;
   padding: 1rem 2rem;
   font-weight: bold;
-  background: #61f061;
-  color: #fff2f2;
+  background: ${(props) => props.theme.highlight2};
+  color: ${(props) => props.theme.primaryText};
 `;
 
 const Timer = styled.div`
   font-size: 2rem;
   margin-top: -3rem;
-  color: #61f061;
+  color: ${(props) => props.theme.primaryText};
 `;
 
 const PauseScreen = styled.div`
@@ -157,6 +160,7 @@ const PauseScreen = styled.div`
   align-items: center;
   justify-content: space-evenly;
   border: 2px solid black;
+  background: ${(props) => props.theme.tertiaryBackground};
 
   width: 365px;
   height: 40rem;
@@ -164,9 +168,9 @@ const PauseScreen = styled.div`
     p {
       text-align: center;
       margin: 2rem;
-      font-size: 2rem;
+      font-size: 2.6rem;
       font-style: bold;
-      color: #61f061;
+      color: ${(props) => props.theme.primaryText};
     }
   }
   p {

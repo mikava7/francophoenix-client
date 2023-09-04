@@ -41,20 +41,11 @@ export const fetchAspectList = createAsyncThunk(
       const response = await axiosInstance.get("/grammar/all-aspect");
       return response.data;
     } catch (error) {
-      // return thunkAPI.rejectWithValue(error.response.data);
       throw Error("Failed to fetch grammer lessons");
     }
   }
 );
-// export const fetchGrammarLessonById = createAsyncThunk(
-//   "grammer/fetchGrammarLessonById",
-//   async (id) => {
-//     try {
-//       const response = await axiosInstance.get(`/grammar/all-aspect/$`);
-//       return response.data;
-//     } catch (error) {}
-//   }
-// );
+
 const initialState = {
   quizData: [],
   topicsByAspect: {},
