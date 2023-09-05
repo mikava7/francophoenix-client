@@ -8,6 +8,7 @@ import BasicGrammerTopic from "./BasicGrammerTopic";
 import { FlexContainer, StyledLink } from "../../Styles/globalStyles";
 import VerbTenseList from "./verbe Tenses/VerbTenseList";
 import SelectedTenseDetails from "./verbe Tenses/SelectedTenseDetails";
+import ErrorMessage from "../Utility/ErrorMessage";
 const BasicGrammerLessons = () => {
   const [selectedTenseId, setSelectedTenseId] = useState(null);
 
@@ -29,7 +30,7 @@ const BasicGrammerLessons = () => {
     return <Loading />;
   }
   if (error) {
-    return <p>{error.message}</p>;
+    return <ErrorMessage error={error} />;
   }
   return (
     <BasicGrammerLessonsContainer>

@@ -7,6 +7,7 @@ import {
   LandingCardContainer,
   CardContainer,
   TopicCard,
+  CardDescription,
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { vocabularySectionData } from "../sidebar/components/vocabularySectionData";
@@ -21,11 +22,11 @@ const VocabularyLanding = () => {
   return (
     <LandingCardContainer>
       <h1>{t("Bienvenue dans la section Vocabulaire")}</h1>
-      <h3>
+      <CardDescription>
         {t(
           "Explorez différents sujets de vocabulaire pour améliorer vos compétences linguistiques"
         )}
-      </h3>
+      </CardDescription>
       <CardContainer>
         {topicsForLang.map((topic, index) => (
           <TopicCard>
@@ -49,6 +50,10 @@ export default VocabularyLanding;
 const CardButton = styled(Button)`
   margin-bottom: auto;
   width: 10rem;
+  @media (max-width: 576px) {
+    width: 6rem;
+    font-size: 1.2rem;
+  }
 `;
 
 const CardLink = styled(StyledLink)`

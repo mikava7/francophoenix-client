@@ -49,6 +49,11 @@ const LanguageToggleContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   align-items: center;
+  @media (max-width: 290px) {
+    flex-direction: column;
+    width: 80%;
+    /* outline: 1px solid red; */
+  }
 `;
 const ToggleContainer = styled.div`
   display: flex;
@@ -57,7 +62,6 @@ const ToggleContainer = styled.div`
   position: relative;
   /* width: 50%; */
   @media (max-width: 576px) {
-    /* width: 2rem; */
   }
 `;
 
@@ -82,6 +86,7 @@ const ToggleIcon = styled.div`
     }
     @media (max-width: 576px) {
       width: 2rem;
+      height: 2.2rem;
     }
     animation: ${(props) =>
       props.inputLanguage === "french"
@@ -107,7 +112,12 @@ const French = styled.div`
   border-radius: 12px;
   @media (max-width: 576px) {
     font-size: 1rem;
-    width: 4rem;
+    padding: 0.5rem 1rem;
+    width: 4.2rem;
+  }
+  @media (max-width: 320px) {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
   }
 `;
 const SecondLanguage = styled(French)`

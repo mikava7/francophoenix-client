@@ -275,12 +275,34 @@ export const LandingCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  /* outline: 2px solid red; */
+  overflow-x: hidden;
+  margin: 0 auto;
+  width: 96%;
   h1 {
     color: ${(props) => props.theme.primaryText};
+    margin: 1rem;
+    @media (max-width: 361px) {
+      font-size: 1rem;
+    }
+  }
+  h4 {
+    @media (max-width: 421px) {
+      font-size: 1rem;
+    }
   }
   p {
     margin-bottom: 2rem;
+    @media (max-width: 361px) {
+      font-size: 0.8rem;
+    }
+  }
+  @media (max-width: 361px) {
+    max-width: 90%;
+  }
+  @media (max-width: 321px) {
+    max-width: 82%;
   }
 `;
 export const CardContainer = styled.div`
@@ -288,7 +310,7 @@ export const CardContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.primaryBackground};
   gap: 1rem;
 
   @media (min-width: 576px) and (max-width: 767px) {
@@ -339,7 +361,21 @@ export const TopicCard = styled.div`
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
     }
   }
+  @media (min-width: 376px) (max-width: 420px) {
+    width: 95%;
+  }
+  @media (max-width: 376px) {
+    width: 85%;
+  }
 `;
+
+export const CardDescription = styled.p`
+  margin: 0 1.8rem;
+  padding-right: 0;
+
+  text-align: center;
+`;
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 export const StyledLink = styled(Link)`

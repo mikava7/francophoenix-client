@@ -15,7 +15,7 @@ const optionsData = [
     ],
     buttonLabel: "Lire",
     buttonColor: "#00384A",
-    link: "/books",
+    link: "/reading-zone/french-easy-reading",
   },
   {
     title: " Jouer Avec Le Français",
@@ -43,7 +43,7 @@ const optionsData = [
     ],
     buttonLabel: "Apprendre",
     buttonColor: "#67330A",
-    link: "",
+    link: "grammar",
   },
 ];
 

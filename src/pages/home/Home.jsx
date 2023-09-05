@@ -95,21 +95,17 @@ const HomeContainer = styled.section`
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
   max-width: 100%;
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
+  overflow-x: hidden;
+  /* outline:1px solid green; */
   @media screen and (max-width: 576px) {
     margin: 0 0.2rem;
-    font-size: 1.1rem;
   }
   @media screen and (min-width: 768px) {
     margin: 0 0.3rem;
-    font-size: 1.3rem;
   }
   @media screen and (min-width: 992px) {
     margin: 0 0.6rem;
-    font-size: 1.4rem;
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 1.6rem;
   }
 `;
 const WellcomeSection = styled.div`

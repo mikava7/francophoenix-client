@@ -7,6 +7,7 @@ import {
   LandingCardContainer,
   CardContainer,
   TopicCard,
+  CardDescription,
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { grammarTopicsDescriptions } from "../sidebar/components/grammarTopicsDescriptions";
@@ -21,11 +22,11 @@ const GrammarLanding = () => {
   return (
     <LandingCardContainer>
       <h1>{t("Bienvenue dans la section Grammaire")}</h1>
-      <p>
+      <CardDescription>
         {t(
           "Découvrez différents sujets de grammaire pour améliorer vos compétences linguistiques"
         )}
-      </p>
+      </CardDescription>
       <CardContainer>
         {topicsForLang.map((topic, index) => (
           <TopicCard index={index}>

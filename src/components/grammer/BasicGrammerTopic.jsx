@@ -16,7 +16,7 @@ const BasicGrammerTopic = ({ topics }) => {
 
   return (
     <BasicGrammerContainer>
-      <h3>{titleFr}</h3>
+      <h2>{titleFr}</h2>
       <h5>{secondLanguage}</h5>
     </BasicGrammerContainer>
   );
@@ -45,5 +45,8 @@ const BasicGrammerContainer = styled.div`
   h5 {
     text-align: center;
     margin-top: auto;
+  }
+  @media (max-width: 356px) {
+    width: auto;
   }
 `;
