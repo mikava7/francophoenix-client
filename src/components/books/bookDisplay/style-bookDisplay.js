@@ -12,6 +12,7 @@ export const BookCardLayout = styled.div`
   background-color: ${(props) => props.theme.tertiaryBackground};
   box-shadow: 2.3rem 2.3rem 3.1rem 0.9rem
     ${(props) => props.theme.tertiaryBackground};
+  outline: 1px solid red;
 `;
 export const Actions = styled.div`
   position: fixed;

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import ListenImg from "../../../../public/icons/sound-50.png";
 import useListenWord from "../../../hooks/useListenWord";
 import { useNavigate } from "react-router-dom"; // Import useHistory from React Router
+import ErrorMessage from "../../Utility/ErrorMessage";
 
 import {
   GrammerTopicPageContainer,
@@ -16,8 +17,8 @@ import {
   DescriptionBox,
   ExampleContainer,
   ExampleBox,
-  ListenIcon,
 } from "../grammerStyles";
+import { ListenIcon } from "../../../Styles/globalStyles";
 const AspectTopicPage = () => {
   const { TopicId } = useParams();
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -30,7 +31,7 @@ const AspectTopicPage = () => {
       if (arrays.hasOwnProperty(key) && Array.isArray(arrays[key])) {
         const foundTopic = arrays[key].find((topic) => topic._id === topicId);
         if (foundTopic) {
-          console.log("foundTopic in AspectTopicPage", foundTopic);
+          // console.log("foundTopic in AspectTopicPage", foundTopic);
           return foundTopic;
         }
       }
@@ -40,7 +41,7 @@ const AspectTopicPage = () => {
   const selectedGrammerTopic = useSelector((state) =>
     findTopicById(state.grammer.topicsByAspect, TopicId)
   );
-  console.log("selectedGrammerTopic in ", selectedGrammerTopic);
+  // console.log("selectedGrammerTopic in ", selectedGrammerTopic);
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
   useEffect(() => {
@@ -54,7 +55,7 @@ const AspectTopicPage = () => {
     return <Loading />;
   }
   if (error) {
-    return <p>{error.message}</p>;
+    return <ErrorMessage />;
   }
   if (!selectedGrammerTopic && selectedGrammerTopic === null) {
     return null;
@@ -76,7 +77,7 @@ const AspectTopicPage = () => {
   return (
     <GrammerTopicPageContainer>
       <TitleContainer>
-        <h2>{titleFr}</h2>
+        <h1>{titleFr}</h1>
       </TitleContainer>
 
       <DescriptionContainer>
@@ -85,6 +86,7 @@ const AspectTopicPage = () => {
         {descriptionFr.map((description, index) => (
           <DescriptionBox key={index}>
             <p>{description}</p>
+
             <span>{secondLanguageDescription[index]}</span>
           </DescriptionBox>
         ))}

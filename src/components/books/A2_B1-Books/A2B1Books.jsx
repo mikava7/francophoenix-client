@@ -55,15 +55,11 @@ const A2B1Books = () => {
 
 export default A2B1Books;
 const BooksPageContainer = styled.div`
-  /* min-height: 100vh; */
-  margin: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  flex-wrap: wrap;
-
-  /* background-color: #fdf3f2; */
+  /* width: 90%; */
+  /* outline: 1px solid red; */
 `;
 const Title = styled.h2`
   font-size: 24px;
@@ -73,9 +69,11 @@ const Title = styled.h2`
 
 const BookList = styled.ul`
   display: flex;
-  width: 100%;
+  /* outline: 1px solid blue; */
 
-  gap: 2rem;
+  /* width: 90%; */
+
+  flex-wrap: wrap; //when i comment this line then all books are in one line horizontally. if i add this line then one by one vertically. why?
   list-style: none;
   padding: 0;
 `;
@@ -83,8 +81,8 @@ const BookList = styled.ul`
 const BookItem = styled.li`
   font-size: 18px;
   margin-bottom: 5px;
-  width: 100%;
-  margin: 0 2rem;
+  /* width: 100%; */
+  margin: 0 1rem;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

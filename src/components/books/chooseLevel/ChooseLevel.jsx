@@ -1,22 +1,62 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
+import styled from "styled-components";
 const ChooseLevel = ({ onChange, selectedLevel }) => {
   const { t } = useTranslation();
   const levels = ["Tous", "A1", "A2", "B1", "B2", "C1"];
 
   return (
-    <div>
-      <label htmlFor="levelDropdown">{t("Choisir le niveau")}:</label>
-      <select id="levelDropdown" value={selectedLevel} onChange={onChange}>
+    <ChooseLevelContainer>
+      <Label htmlFor="levelDropdown">{t("Choisir le niveau")}:</Label>
+      <Select id="levelDropdown" value={selectedLevel} onChange={onChange}>
         {levels.map((level) => (
-          <option key={level} value={level}>
+          <Option key={level} value={level}>
             {t(level)}
-          </option>
+          </Option>
         ))}
-      </select>
-    </div>
+      </Select>
+    </ChooseLevelContainer>
   );
 };
 
 export default ChooseLevel;
+const ChooseLevelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  gap: 1rem;
+`;
+const Label = styled.label`
+  text-align: center;
+  font-size: 1.2rem;
+`;
+const Select = styled.select`
+  width: 100%;
+  min-width: 5rem;
+  max-width: 10rem;
+  border: 1px solid ${(props) => props.theme.secondaryText};
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+`;
+const Option = styled.option`
+  font-size: 22px;
+  color: #000;
+  max-height: 245px;
+  margin: 0;
+  padding: 0;
+
+  padding: 16px 30px 18px;
+  margin: 0;
+  border-bottom: 1px solid #e5e5e5;
+  -webkit-transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  -o-transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  line-height: 20px;
+`;

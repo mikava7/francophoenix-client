@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
+import { darkTheme } from "../../../Styles/theme";
 import { useTranslation } from "react-i18next";
 import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +8,14 @@ import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPicture
 import Loading from "../../loading/Loading";
 import useListenWord from "../../../hooks/useListenWord";
 import ListenImg from "../../../../public/icons/sound-50.png";
+import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
+
 import { ListenIcon } from "../../../Styles/globalStyles";
 const VerbConjugation = () => {
+  const theme = useTheme();
+
+  const soundImg = theme === darkTheme ? ListenImgGold : ListenImg;
+  // console.log(theme);
   const { verb: verbFromParams } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
 
@@ -63,7 +70,7 @@ const VerbConjugation = () => {
                           onClick={handleListen(tenseItem?.french)}
                           isActive={isActiveStates[index]}
                         >
-                          <img src={ListenImg} alt="ListenImg" />
+                          <img src={soundImg} alt="soundImg" />
                         </ListenIcon>
                       </FirstLanguageBox>
                       <SecondLanguage>
@@ -84,9 +91,9 @@ export default VerbConjugation;
 const VerbContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  justify-content: center;
 
+  width: 100%;
+  /* outline: 1px solid yellow; */
   height: auto;
 `;
 
@@ -112,10 +119,10 @@ const TenseList = styled.div`
 
 const TenseListItem = styled.div`
   margin-bottom: 1rem;
-  outline: 2px solid grey;
+  outline: 2px solid ${(props) => props.theme.secondaryText};
   background-color: ${(props) => props.theme.secondaryBackground};
   margin: 1rem;
-  width: 400px;
+  width: 100%;
 
   h2 {
     background-color: ${(props) => props.theme.primaryBackground};
@@ -127,24 +134,32 @@ const TenseContent = styled.div`
   /* margin: 1rem; */
   ul {
     list-style: none;
+    li {
+      width: 90%;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid ${(props) => props.theme.primaryText};
+    }
   }
 `;
 const FirstLanguage = styled.p`
+  margin-bottom: 1rem;
+
   &:before {
     content: ${(props) =>
       props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
   }
 `;
 const SecondLanguage = styled.span`
-  margin-left: 2.5rem;
+  margin-left: 2rem;
   color: ${(props) => props.theme.secondaryText};
   padding: 1rem;
 `;
 const FirstLanguageBox = styled.div`
   background: ${(props) =>
-    props.highlight ? props.theme.primaryBackground : "transparent"};
+    props.highlight ? props.theme.highlight2 : "transparent"};
 
   display: flex;
-  border-top: 1px solid ${(props) => props.theme.tertiaryBackground};
+  justify-content: space-between;
+  border-top: 1px solid ${(props) => props.theme.highlight1};
   padding-top: 0.4rem;
 `;

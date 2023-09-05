@@ -3,13 +3,11 @@ export const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* outline: 2px solid black; */
 
-  margin: 0 1.8rem;
-  max-width: 100%;
+  width: 99%;
 
   @media (min-width: 768px) and (max-width: 920px) {
-    margin: 0 0.2rem;
-    max-width: 90%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
   }
@@ -26,18 +24,18 @@ export const DescriptionContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  /* outline: 2px solid red; */
   margin: 0 auto;
 
   width: 100%;
 
   border-bottom: 3px solid black;
+
+  margin-bottom: 2rem;
   @media (min-width: 768px) and (max-width: 920px) {
-    margin: 0 0.2rem;
+    /* margin: 0 0.2rem; */
     width: 100%;
   }
-  cursor: pointer;
-  margin-bottom: 2rem;
 `;
 export const DescriptionBox = styled.div`
   display: flex;
@@ -69,21 +67,44 @@ export const DescriptionBox = styled.div`
   @media (max-width: 392px) {
     width: 300px;
   }
+  @media (max-width: 320px) {
+    width: 240px;
+  }
 `;
-export const ExampleContainer = styled(DescriptionContainer)`
+export const ExampleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${(props) => props.theme.primaryBackground};
+  margin-bottom: 1rem;
   width: 94%;
-  padding: 0 1rem;
-
+  padding: 0.5rem;
   p {
-    font-size: 1.2rem;
-    margin-bottom: 0;
-  }
+    text-indent: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
 
-  @media (min-width: 577px) and (max-width: 767px) {
-    width: 90%;
+    &:before {
+      content: ${(props) =>
+        props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
+    }
   }
-  @media (min-width: 393px) and (max-width: 576px) {
-    width: 90%;
+  span {
+    text-indent: 1rem;
+    margin-left: 2rem;
+
+    color: ${(props) => props.theme.secondaryText};
+  }
+  @media (min-width: 768px) and (max-width: 920px) {
+    /* max-width: 99%; */
+  }
+  @media (min-width: 392px) and (max-width: 768px) {
+    width: 98%;
+  }
+  @media (max-width: 392px) {
+    width: 300px;
+  }
+  @media (max-width: 320px) {
+    width: 240px;
   }
 `;
 
@@ -109,7 +130,6 @@ export const ListenIcon = styled.div`
   margin-right: 3rem;
   margin-left: auto;
   & > img {
-    color: black;
     width: ${(props) => props.width || "1.2rem"};
     height: ${(props) => props.height || "1.2rem"};
     cursor: pointer;
