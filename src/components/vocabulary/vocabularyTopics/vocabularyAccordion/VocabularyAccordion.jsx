@@ -211,10 +211,10 @@ const SecondLanguageWord = styled.span`
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 
   margin-left: auto;
-  margin-right: 0.5rem;
+
   gap: 1rem;
   text-align: center;
   /* border: 1px solid grey; */

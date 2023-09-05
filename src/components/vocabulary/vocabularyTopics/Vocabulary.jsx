@@ -118,12 +118,14 @@ const VocabularyContainer = styled.article`
     padding: 0;
     margin: 0;
     width: 90%;
+    overflow-x: hidden;
     margin-right: auto;
   }
   /* width: 100%; */
   @media (max-width: 392px) {
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
     width: 90%;
     /* margin-right: auto; */
   }
@@ -184,6 +186,19 @@ const NextStepChoise = styled.div`
 const TopicTextBox = styled(NextStepChoise)`
   /* border: 2px solid gold; */
   margin: 0 auto;
-  width: 98%;
-  padding-left: 0.8rem;
+  padding-bottom: 5rem;
+  padding-top: 1rem;
+
+  width: 99%;
+  /* outline: 2px solid red; */
+  overflow-x: hidden;
+  @media (min-width: 768px) and (max-width: 1220px) {
+  }
+  @media (min-width: 415px) and (max-width: 767px) {
+  }
+  @media (min-width: 359px) and (max-width: 415px) {
+    /* outline: 2px solid blue; */
+  }
+  @media (max-width: 364px) {
+  }
 `;

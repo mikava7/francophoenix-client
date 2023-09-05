@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSentences } from "../../redux/slices/sentence builder/sentenceBuild";
@@ -9,9 +9,13 @@ import { NextButton } from "../verbs/presentTense/PresentTense";
 import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
-
-const SentenceBuilderEx = ({ sentenceData }) => {
+import { scrollToContainer } from "../Utility/scrollToContainer";
+const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   // console.log("sentenceData", sentenceData);
+  const buildBoxRef = useRef();
+  const [navbarHeight, setNavbarHeight] = useState(0);
+
+  // console.log("isActive in SentenceBuilderEx", isActive);
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -90,9 +94,51 @@ const SentenceBuilderEx = ({ sentenceData }) => {
     }
   };
 
+  useEffect(() => {
+    // Function to calculate navbar height based on viewport size
+    const calculateNavbarHeight = () => {
+      // Define your media query breakpoints here
+      const smallMobileBreakpoint = 376; // Adjust this as needed
+
+      const mobileBreakpoint = 576; // Adjust this as needed
+      const tabletBreakpoint = 768; // Adjust this as needed
+      const laptopBreakpoint = 968; // Adjust this as needed
+
+      // Determine the navbar height based on viewport size
+      if (window.innerWidth < smallMobileBreakpoint) {
+        setNavbarHeight(6 * 16); //  Small Mobile navbar height
+      } else if (window.innerWidth < mobileBreakpoint) {
+        setNavbarHeight(7 * 16); // Mobile navbar height
+      } else if (window.innerWidth < tabletBreakpoint) {
+        setNavbarHeight(7 * 16); // Tablet navbar height
+      } else if (window.innerWidth < laptopBreakpoint) {
+        setNavbarHeight(10 * 16); // laptop navbar height
+      } else {
+        setNavbarHeight(13 * 16); // Default navbar height
+      }
+    };
+
+    // Initial calculation
+    calculateNavbarHeight();
+
+    // Listen for window resize events to recalculate navbar height
+    window.addEventListener("resize", calculateNavbarHeight);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", calculateNavbarHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isActive) {
+      // Use the scrollToContainer helper function
+      scrollToContainer(buildBoxRef, navbarHeight);
+    }
+  }, [isActive, navbarHeight]);
   const nextComponent = sentenceIndex === dataToRender.length - 1;
   return (
-    <BuildBoxContainer>
+    <BuildBoxContainer ref={buildBoxRef}>
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -121,7 +167,7 @@ const SentenceBuilderEx = ({ sentenceData }) => {
           isCorrect ? (
             nextComponent ? (
               <div onClick={handleNext}>
-                <Button>Continue</Button>
+                <Button>{t("Continue")}</Button>
               </div>
             ) : (
               <div onClick={handleNext}>
@@ -151,7 +197,7 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   /* margin: 0 auto; */
-  width: 100%;
+  width: 98%;
 
   margin: 0 0.3rem;
 
@@ -165,9 +211,10 @@ const BuildBoxContainer = styled.section`
   }
   /* width: 100%; */
   @media (max-width: 392px) {
+    /* height: 92vh; */
   }
-  @media (max-width: 281px) {
-    max-width: 100%;
+  @media (max-width: 300px) {
+    width: 90%;
   }
 `;
 export const BuildBox = styled.div`
@@ -185,18 +232,22 @@ export const BuildBox = styled.div`
   @media (max-width: 392px) {
     width: 340px;
   }
-  @media (max-width: 281px) {
+  @media (max-width: 362px) {
     overflow-x: scroll;
-    width: 200px;
+    width: 250px;
+  }
+  @media (max-width: 301px) {
+    overflow-x: scroll;
+    width: 210px;
   }
 `;
 const TopBox = styled.div`
   margin: 0 auto;
-  width: 340px;
+  width: 90%;
 
   height: 14rem;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 
   position: relative;
   flex-wrap: wrap;

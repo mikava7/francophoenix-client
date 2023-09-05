@@ -20,7 +20,7 @@ const AccordionSection = ({
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
-      const navbarHeight = 10 * 16; // 3rem (adjust as needed)
+      const navbarHeight = 9 * 16; // 3rem (adjust as needed)
       const scrollPosition = sectionRef.current.offsetTop - navbarHeight;
 
       // Scroll to the adjusted position
@@ -68,19 +68,39 @@ export default AccordionSection;
 
 const AccordionSectionContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   flex-direction: column;
   border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
   align-items: left;
+  /* margin-bottom: 2rem; */
 
+  width: 99%;
   h2 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    padding: 2rem;
+    width: 95%;
 
-    text-align: left;
+    /* border: 2px solid green; */
+    /* text-align: left; */
+  }
+  @media (min-width: 768px) and (max-width: 1220px) {
+  }
+  @media (min-width: 415px) and (max-width: 767px) {
+  }
+  @media (min-width: 359px) and (max-width: 415px) {
+    /* width: 350px; */
+  }
+  @media (max-width: 364px) {
+  }
+  @media (max-width: 321px) {
   }
 `;
 
-const SectionBox = styled.div``;
+const SectionBox = styled.div`
+  /* border: 2px solid green; */
+  width: 97%;
+  padding: 1rem;
+`;

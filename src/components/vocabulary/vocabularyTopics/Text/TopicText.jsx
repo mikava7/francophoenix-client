@@ -145,7 +145,12 @@ const TopicText = ({
 
         <RotatingChevron isActive={showArticle} onClick={handleArticleToggle} />
       </h2>
-      {showArticle && <SentenceBuilderEx sentenceData={filteredSentenceData} />}
+      {showArticle && (
+        <SentenceBuilderEx
+          sentenceData={filteredSentenceData}
+          isActive={showArticle}
+        />
+      )}
     </TopicTextContainer>
   );
 };

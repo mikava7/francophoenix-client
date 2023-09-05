@@ -271,7 +271,8 @@ export const CenteredMessageContent = styled.p`
 export const ListenIcon = styled.div`
   display: flex;
   align-items: center;
-  outline: 1px solid blue;
+  width: 1.8rem;
+  height: 1.8rem;
   @media (min-width: 767px) and (max-width: 920px) {
     width: 1.8rem;
     height: 1.8rem;
@@ -309,7 +310,7 @@ export const ChevronIcon = styled.span`
   margin: 0;
   font-size: 2rem;
   /* margin-left:auto; */
-  border: 2px solid red;
+  /* border: 2px solid red; */
   @media (min-width: 767px) and (max-width: 920px) {
     font-size: 1.8rem;
   }
