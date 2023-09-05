@@ -17,9 +17,11 @@ import SentenceBuilderEx from "../../components/sentenceBuilder/SentenceBuilderE
 import { StyledLink } from "../../Styles/globalStyles";
 import Footer from "../footer/Footer";
 import ExploreOptions from "../../components/exploreOptions/ExploreOptions";
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  useScrollToTopOnRouteChange();
   const books = useSelector((state) => state.books.books);
   const isLoading = useSelector((state) => state.books.isLoading);
 

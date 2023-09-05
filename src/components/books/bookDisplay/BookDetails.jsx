@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import BookmarkIcon from "../../../assets/icons/bookmark-50.png";
 import { useParams } from "react-router-dom";
@@ -13,14 +13,34 @@ import {
   Title,
   Author,
 } from "./style-bookDisplay";
+const BookDetails = ({ books, description }) => {
+  const [doubleTap, setDoubleTap] = useState(false);
 
-const BookDetails = ({ books }) => {
+  const handleDoubleClick = () => {
+    setDoubleTap(true);
+    setTimeout(() => {
+      setDoubleTap(false);
+    }, 500); // Reset double-tap after 500 milliseconds
+  };
   return (
     <BookCardLayout>
       <Actions>
         <img src={BookmarkIcon} alt="BookmarkIcon" />
       </Actions>
-      <BookCover>
+      <BookCover
+        onTouchStart={() => {
+          if (doubleTap) {
+            handleDoubleClick();
+          } else {
+            setDoubleTap(true);
+            setTimeout(() => {
+              setDoubleTap(false);
+            }, 500); // Reset double-tap after 500 milliseconds
+          }
+        }}
+        onTouchMove={(e) => e.preventDefault()} // Prevent scrolling while swiping
+        className={doubleTap ? "double-tap" : ""}
+      >
         <BookTop
           src={books.poster}
           alt="book-top"
@@ -31,11 +51,11 @@ const BookDetails = ({ books }) => {
           alt="book-side"
         />
       </BookCover>
-      <Preface>
+      <Preface showDescription={doubleTap}>
         <Title>{books.title}</Title>
 
         <Author>by {books.author}</Author>
-        <p>{books.description}</p>
+        <p>{description}</p>
       </Preface>
     </BookCardLayout>
   );

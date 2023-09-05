@@ -11,11 +11,11 @@ import {
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { vocabularySectionData } from "../sidebar/components/vocabularySectionData";
-
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const VocabularyLanding = () => {
   const { t, i18n } = useTranslation(); // Initialize the translation function
   const lang = i18n.language; // Get the current language
-
+  useScrollToTopOnRouteChange();
   // Get the vocabulary topics array for the current language
   const topicsForLang = vocabularySectionData[lang] || [];
 

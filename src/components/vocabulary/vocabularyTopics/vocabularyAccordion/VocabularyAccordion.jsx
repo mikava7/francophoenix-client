@@ -146,7 +146,7 @@ const AccordionHeader = styled.div`
   @media (min-width: 393px) and (max-width: 576px) {
     width: 88%;
     /* outline: 2px solid green; */
-    padding-left: 0.4rem;
+    padding-left: 0.1rem;
   }
   @media (max-width: 392px) {
     /* outline: 2px solid red; */

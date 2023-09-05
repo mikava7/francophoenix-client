@@ -1,10 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const GrammerTopic = ({ topics }) => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  // console.log("topics in BasicGrammerTopic", topics);
+  useScrollToTopOnRouteChange();
   if (!topics) {
     return null;
   }

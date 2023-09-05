@@ -44,7 +44,7 @@ const A2B1Books = () => {
         {filteredBooks.map((book) => (
           <BookItem key={book._id}>
             <StyledLink to={`/reading-zone/french-easy-reading/${book._id}`}>
-              <BookDetails books={book} />
+              <BookDetails books={book} description={description} />
             </StyledLink>
           </BookItem>
         ))}
@@ -58,11 +58,10 @@ const BooksPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: 90%; */
-  /* outline: 1px solid red; */
+
+  overflow-x: hidden;
 `;
 const Title = styled.h2`
-  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
