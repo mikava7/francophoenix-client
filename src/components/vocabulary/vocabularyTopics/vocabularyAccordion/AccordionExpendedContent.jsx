@@ -11,7 +11,7 @@ const AccordionExpendedContent = ({ index, expandedIndex, definition }) => {
 
 export default AccordionExpendedContent;
 const AccordionContent = styled.div`
-  width: 100%;
+  width: 96%;
   margin: 0 auto;
   max-height: ${(props) => (props.isExpanded ? "1000px" : "0")};
   opacity: ${(props) => (props.isExpanded ? "1" : "0")};

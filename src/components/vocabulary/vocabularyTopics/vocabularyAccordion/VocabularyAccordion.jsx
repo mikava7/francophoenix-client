@@ -7,6 +7,7 @@ import AccordionExpendedContent from "./AccordionExpendedContent";
 import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
+import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
 const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
   // console.log("definition in VocabularyAccordion", definition);
   useScrollToTopOnRouteChange();
@@ -35,17 +36,12 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
               {secondLanguage[index] || ""}
             </SecondLanguageWord>
             <IconsWrapper>
-              <AccordionListenIcon
+              <ListenIcon
                 onClick={handleListen(word)}
                 isActive={isActiveStates[index]}
               >
                 <img src={ListenImg} alt="ListenImg" />
-              </AccordionListenIcon>
-              {/* <AddToFavorites
-                word={word}
-                definition={definition[index]}
-                secondLanguage={secondLanguage[index]}
-              /> */}
+              </ListenIcon>
 
               <AddToFlashcards
                 word={word}
@@ -78,7 +74,6 @@ const AccordionContaner = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  overflow: hidden;
   max-width: 99%;
   overflow-x: hidden;
 
@@ -138,10 +133,10 @@ const AccordionHeader = styled.div`
     props.isExpanded ? "#e6af68" : props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
   &:hover {
-    background-color: ${(props) => props.theme.primaryBackground};
+    background-color: ${(props) => props.theme.tertiaryBackground};
   }
   @media (min-width: 767px) and (max-width: 920px) {
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 
     width: 90%;
   }
@@ -220,7 +215,7 @@ const IconsWrapper = styled.div`
 
   margin-left: auto;
   margin-right: 0.5rem;
-  /* max-width: 100px; */
+  gap: 1rem;
   text-align: center;
   /* border: 1px solid grey; */
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
@@ -231,29 +226,24 @@ const IconsWrapper = styled.div`
   }
   @media (min-width: 577px) and (max-width: 767px) {
     /* outline: 1px solid red; */
-    gap: 0.4rem;
+    gap: 0.8rem;
   }
-  @media (min-width: 359px) and (max-width: 512px) {
-    margin-left: auto;
+  @media (min-width: 359px) and (max-width: 577px) {
+    /* outline: 1px solid red; */
+    gap: 0.2rem;
   }
   @media (max-width: 364px) {
     margin-right: 0;
+    gap: 0.2rem;
   }
   @media (max-width: 321px) {
     margin-right: 0;
+    gap: 0.1rem;
   }
 `;
 
 const Example = styled.span`
   margin: 0 0.5rem 0 1rem;
-`;
-const ChevronIcon = styled.div`
-  transform: ${(props) =>
-    props.isExpanded ? "rotate(180deg)" : "rotate(0deg)"};
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
-
-  font-size: 1.4rem;
 `;
 
 export const AccordionListenIcon = styled.div`

@@ -267,6 +267,62 @@ export const CenteredMessageContent = styled.p`
   letter-spacing: 1.5px;
   font-size: 1.3rem;
 `;
+
+export const ListenIcon = styled.div`
+  display: flex;
+  align-items: center;
+  outline: 1px solid blue;
+  @media (min-width: 767px) and (max-width: 920px) {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  @media (min-width: 577px) and (max-width: 767px) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  @media (max-width: 392px) {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  & > img {
+    max-width: 100%;
+    max-height: 100%;
+    cursor: pointer;
+
+    filter: ${(props) => (props.isActive ? "none" : "invert(-150%)")};
+    transition: transform 0.3s ease-in-out;
+    transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
+  }
+`;
+export const ChevronIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: ${(props) =>
+    props.isExpanded ? "rotate(180deg)" : "rotate(0deg)"};
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 0;
+  font-size: 2rem;
+  /* margin-left:auto; */
+  border: 2px solid red;
+  @media (min-width: 767px) and (max-width: 920px) {
+    font-size: 1.8rem;
+  }
+  @media (min-width: 577px) and (max-width: 767px) {
+    font-size: 1.6rem;
+  }
+  @media (min-width: 393px) and (max-width: 576px) {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 392px) {
+    font-size: 1.2rem;
+  }
+`;
 /////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // ///////////////// Section Landing Cards ////////////////////////////////////
@@ -361,7 +417,7 @@ export const TopicCard = styled.div`
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
     }
   }
-  @media (min-width: 376px) (max-width: 420px) {
+  @media (min-width: 376px) and (max-width: 420px) {
     width: 95%;
   }
   @media (max-width: 376px) {
@@ -402,13 +458,7 @@ export const StyledLink = styled(Link)`
     color: ${(props) => props.theme.secondaryText};
   }
 `;
-export const ChevronIcon = styled.span`
-  transform: ${(props) =>
-    props.isExpanded ? "rotate(180deg)" : "rotate(0deg)"};
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
-  margin: 0 0.5rem;
-`;
+
 export const AccordionContent = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -594,19 +644,6 @@ export const StarIcon = styled.div`
     filter: ${(props) => (props.isStarred ? "invert(50%)" : "none")};
     transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.isStarred ? "scale(1)" : "scale(1.1)")};
-  }
-`;
-export const ListenIcon = styled.div`
-  display: flex;
-  align-items: center;
-  & > img {
-    width: ${(props) => props.width || "1.2rem"};
-    height: ${(props) => props.height || "1.2rem"};
-    cursor: pointer;
-
-    filter: ${(props) => (props.isActive ? "none" : "invert(50%)")};
-    transition: transform 0.3s ease-in-out;
-    transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
   }
 `;
 
