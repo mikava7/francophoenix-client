@@ -77,11 +77,13 @@ export default VocabularyAccordion;
 const AccordionContaner = styled.div`
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
   overflow: hidden;
-  max-width: 90%;
-  /* margin: 0 auto; */
-  /* outline: 1px solid blue; */
-  /* border: 2px solid black; */
+  max-width: 99%;
+  overflow-x: hidden;
+
+  margin: 0 auto;
+
   margin-right: auto;
 
   background-color: ${(props) => props.theme.primaryBackground};
@@ -90,14 +92,15 @@ const AccordionContaner = styled.div`
     /* margin-right: auto;
     border: 2px solid black; */
     align-items: center;
-    max-width: 100%;
+    max-width: 99%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
-    /* max-width: 60%; */
-    /* border: 2px solid blue; */
+    max-width: 90%;
+    /* border: 2px solid black; */
   }
   @media (min-width: 393px) and (max-width: 576px) {
     width: 95%;
+    /* border: 2px solid blue; */
   }
   @media (max-width: 392px) {
     /* margin: 0 auto; */
@@ -110,11 +113,13 @@ const AccordionItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 90%;
+  /* outline: 2px solid blue; */
+  margin-left: 0.5rem;
+  width: 97%;
   margin-bottom: 1rem;
   border-radius: 12px 12px 0 0;
   @media (min-width: 767px) and (max-width: 920px) {
-    width: 100%;
+    width: 97%;
   }
 `;
 
@@ -122,9 +127,10 @@ const AccordionHeader = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
-  margin: 0 auto;
+  margin: 0.5rem auto;
   /* margin-right: auto; */
-  width: 70%;
+  width: 92%;
+
   overflow: hidden;
 
   cursor: pointer;
@@ -135,23 +141,34 @@ const AccordionHeader = styled.div`
     background-color: ${(props) => props.theme.primaryBackground};
   }
   @media (min-width: 767px) and (max-width: 920px) {
-    padding: 0.5rem;
-    width: 98%;
+    outline: 1px solid red;
+
+    width: 90%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
-    /* font-size: ${({ theme }) => theme.medium}; */
+    width: 90%;
+    /* outline: 2px solid red; */
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
-    /* margin: 0 auto; */
-    /* border: 2px solid green; */
-
-    width: 100%;
+    width: 88%;
+    /* outline: 2px solid green; */
   }
   @media (max-width: 392px) {
-    width: 100%;
-
-    /* font-size: ${({ theme }) => theme.small}; */
+    /* outline: 2px solid red; */
+    width: 87%;
+  }
+  @media (min-width: 322px) and (max-width: 359px) {
+    /* outline: 2px solid black; */
+    width: 84%;
+    flex-wrap: wrap;
+    font-size: ${({ theme }) => theme.extraSmall};
+  }
+  @media (max-width: 321px) {
+    /* outline: 2px solid red; */
+    width: 80%;
+    flex-wrap: wrap;
+    font-size: ${({ theme }) => theme.extraSmall};
   }
 `;
 const FrenchWord = styled.p`
@@ -166,6 +183,18 @@ const FrenchWord = styled.p`
   }
   @media (max-width: 577px) {
     font-size: ${({ theme }) => theme.small};
+    margin-left: 0;
+  }
+  @media (max-width: 364px) {
+    margin-left: 0;
+
+    font-size: ${({ theme }) => theme.extraSmall};
+  }
+  @media (max-width: 321px) {
+    margin-left: 0;
+    width: 60%;
+
+    font-size: ${({ theme }) => theme.extraSmall};
   }
 `;
 const SecondLanguageWord = styled.span`
@@ -178,18 +207,41 @@ const SecondLanguageWord = styled.span`
     font-size: ${({ theme }) => theme.extraSmall};
     margin-left: 0.5rem;
   }
+  @media (max-width: 364px) {
+    margin-left: 1rem;
+
+    font-size: ${({ theme }) => theme.extraSmall};
+  }
 `;
 const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* gap: 0.1rem; */
+
   margin-left: auto;
   margin-right: 0.5rem;
-  max-width: 100px;
+  /* max-width: 100px; */
   text-align: center;
   /* border: 1px solid grey; */
   pointer-events: ${(props) => (props.isExpanded ? "none" : "auto")};
+  @media (min-width: 768px) and (max-width: 1220px) {
+    /* outline: 1px solid red; */
+    gap: 1rem;
+    /* width: 90%; */
+  }
+  @media (min-width: 577px) and (max-width: 767px) {
+    /* outline: 1px solid red; */
+    gap: 0.4rem;
+  }
+  @media (min-width: 359px) and (max-width: 512px) {
+    margin-left: auto;
+  }
+  @media (max-width: 364px) {
+    margin-right: 0;
+  }
+  @media (max-width: 321px) {
+    margin-right: 0;
+  }
 `;
 
 const Example = styled.span`
@@ -201,7 +253,7 @@ const ChevronIcon = styled.div`
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 
-  /* border: 1px solid grey; */
+  font-size: 1.4rem;
 `;
 
 export const AccordionListenIcon = styled.div`

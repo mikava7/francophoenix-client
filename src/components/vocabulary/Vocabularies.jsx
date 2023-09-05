@@ -106,8 +106,13 @@ const TopicCardContainer = styled.div`
 
   @media (max-width: 392px) {
     margin: 1rem auto;
+    max-width: 280px;
   }
-  @media (max-width: 302px) {
+  @media (max-width: 348px) {
+    margin: 1rem auto;
+    max-width: 240px;
+  }
+  @media (max-width: 313px) {
     margin: 1rem auto;
     max-width: 210px;
   }

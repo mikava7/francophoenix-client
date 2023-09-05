@@ -106,10 +106,9 @@ const VocabularyContainer = styled.article`
   justify-content: flex-start;
   overflow: hidden;
   align-items: flex-start;
-  margin: 0;
-  /* border: 2px solid red; */
+  overflow-x: hidden;
   margin: 0 auto;
-  /* width:100%; */
+  max-width: 100%;
   @media (min-width: 577px) and (max-width: 767px) {
     width: 95%;
   }
@@ -123,11 +122,10 @@ const VocabularyContainer = styled.article`
   }
   /* width: 100%; */
   @media (max-width: 392px) {
-    /* outline: 1px solid red; */
     padding: 0;
     margin: 0;
     width: 90%;
-    margin-right: auto;
+    /* margin-right: auto; */
   }
 `;
 const WordPairContainer = styled.li`
@@ -135,20 +133,32 @@ const WordPairContainer = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* padding: 2rem; */
+  max-width: 99%;
+  /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
+
   margin: 0 auto;
   border-bottom: 4px solid ${(props) => props.theme.tertiaryText};
 
   @media (max-width: 920px) {
-    /* width: 768px; */
+    width: 99%;
   }
-  @media (max-width: 768px) {
-    /* width: 630px; */
+  @media (min-width: 513px) and (max-width: 768px) {
+    width: 99%;
   }
+  @media (min-width: 420px) and (max-width: 512px) {
+    width: 99%;
+  }
+  @media (min-width: 365px) and (max-width: 420px) {
+    width: 370px;
 
-  @media (max-width: 500px) {
-    width: 374px;
     /* outline: 1px solid red; */
+  }
+  @media (max-width: 364px) {
+    width: 335px;
+  }
+  @media (max-width: 321px) {
+    align-self: center;
+    width: 279px;
   }
 `;
 const WordCount = styled.div`
@@ -158,7 +168,8 @@ const WordCount = styled.div`
   text-align: center;
   margin: 0 auto;
   font-size: 1.2rem;
-
+  background-color: ${(props) => props.theme.secondaryBackground};
+  margin-bottom: 1rem;
   b {
     font-size: 1.4rem;
     border-bottom: 2px solid ${(props) => props.theme.primaryText};
