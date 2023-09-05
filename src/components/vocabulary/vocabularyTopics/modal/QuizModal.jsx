@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
 const QuizModal = ({ onClose, isQuizFinished, isAllCorrect, Restart }) => {
+  // console.log(Restart);
   const { t } = useTranslation();
   return (
     <ModalWrapper>

@@ -64,6 +64,7 @@ const Vocabulary = () => {
       <TopicTextBox>
         <AccordionSection
           type={t("Texte")}
+          identifier="Texte"
           isOpen={openComponent === "Texte"}
           onToggle={() =>
             setOpenComponent(openComponent === "Texte" ? null : "Texte")
@@ -73,6 +74,7 @@ const Vocabulary = () => {
         />
         <AccordionSection
           type={t("Genre des noms")}
+          identifier="Genre des noms"
           isOpen={openComponent === "Genre des noms"}
           onToggle={() =>
             setOpenComponent(
@@ -84,6 +86,7 @@ const Vocabulary = () => {
 
         <AccordionSection
           type={t("Questionnaire")}
+          identifier="Questionnaire"
           isOpen={openComponent === "Questionnaire"}
           onToggle={() =>
             setOpenComponent(
@@ -113,11 +116,9 @@ const VocabularyContainer = styled.article`
     width: 95%;
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    /* max-width: 95%; */
-    /* outline: 1px solid red; */
     padding: 0;
     margin: 0;
-    width: 90%;
+    width: 99%;
     overflow-x: hidden;
     margin-right: auto;
   }
@@ -125,9 +126,9 @@ const VocabularyContainer = styled.article`
   @media (max-width: 392px) {
     padding: 0;
     margin: 0;
+
     overflow-x: hidden;
-    width: 90%;
-    /* margin-right: auto; */
+    width: 95%;
   }
 `;
 const WordPairContainer = styled.li`
@@ -136,7 +137,6 @@ const WordPairContainer = styled.li`
   justify-content: center;
   align-items: center;
   max-width: 99%;
-  /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
 
   margin: 0 auto;
   border-bottom: 4px solid ${(props) => props.theme.tertiaryText};
@@ -151,9 +151,7 @@ const WordPairContainer = styled.li`
     width: 99%;
   }
   @media (min-width: 365px) and (max-width: 420px) {
-    width: 370px;
-
-    /* outline: 1px solid red; */
+    width: 99%;
   }
   @media (max-width: 364px) {
     width: 335px;

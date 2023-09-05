@@ -78,30 +78,26 @@ const AccordionContaner = styled.div`
   overflow-x: hidden;
 
   margin: 0 auto;
-
   margin-right: auto;
 
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
   @media (min-width: 767px) and (max-width: 920px) {
-    /* margin-right: auto;
-    border: 2px solid black; */
     align-items: center;
+    overflow-x: hidden;
     max-width: 99%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
     max-width: 90%;
-    /* border: 2px solid black; */
+    overflow-x: hidden;
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 95%;
-    /* border: 2px solid blue; */
+    width: 99%;
+    overflow-x: hidden;
   }
   @media (max-width: 392px) {
-    /* margin: 0 auto; */
-    width: 95%;
-
-    /* border: 2px solid grey; */
+    overflow-x: hidden;
+    width: 100%;
   }
 `;
 const AccordionItem = styled.div`
@@ -113,6 +109,7 @@ const AccordionItem = styled.div`
   width: 97%;
   margin-bottom: 1rem;
   border-radius: 12px 12px 0 0;
+
   @media (min-width: 767px) and (max-width: 920px) {
     width: 97%;
   }
@@ -125,6 +122,7 @@ const AccordionHeader = styled.div`
   margin: 0.5rem auto;
   /* margin-right: auto; */
   width: 92%;
+  outline: 1px solid ${(props) => props.theme.tertiaryText};
 
   overflow: hidden;
 
@@ -148,6 +146,7 @@ const AccordionHeader = styled.div`
   @media (min-width: 393px) and (max-width: 576px) {
     width: 88%;
     /* outline: 2px solid green; */
+    padding-left: 0.4rem;
   }
   @media (max-width: 392px) {
     /* outline: 2px solid red; */

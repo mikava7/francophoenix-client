@@ -162,7 +162,7 @@ const TopicTextContainer = styled.div`
   font-size: ${(props) => props.theme.medium};
   line-height: ${(props) => props.theme.largeLineHeight};
   letter-spacing: ${(props) => props.theme.extraMegaLetterSpacing};
-  border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
+  border-bottom: 3px solid ${(props) => props.theme.highlight3};
   @media (min-width: 577px) and (max-width: 767px) {
     font-size: ${(props) => props.theme.mediumSmall};
     line-height: ${(props) => props.theme.mediumLineHeight};

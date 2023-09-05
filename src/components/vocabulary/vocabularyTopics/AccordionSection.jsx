@@ -4,6 +4,8 @@ import TopicText from "./Text/TopicText";
 import VocabularyQuiz from "./VocabularyQuiz";
 import RotatingChevron from "../../Utility/RotatingChevron";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
+import { scrollToContainer } from "../../Utility/scrollToContainer";
 
 const AccordionSection = ({
   type,
@@ -13,21 +15,18 @@ const AccordionSection = ({
   vocabularyData,
   english,
   georgian,
+  identifier,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
-      const navbarHeight = 9 * 16; // 3rem (adjust as needed)
-      const scrollPosition = sectionRef.current.offsetTop - navbarHeight;
-
-      // Scroll to the adjusted position
-      window.scrollTo({
-        top: scrollPosition,
-        behavior: "smooth",
-      });
+      const navbarHeight = 12 * 16; // 3rem (adjust as needed)
+      const scrollOffset = navbarHeight;
+      scrollToContainer(sectionRef, scrollOffset); // Use the helper function
     }
   }, [isOpen]);
 
@@ -35,11 +34,11 @@ const AccordionSection = ({
     <AccordionSectionContainer>
       <h2 onClick={onToggle}>
         {type}
-        <RotatingChevron />
+        <RotatingChevron onClick={onToggle} isActive={isOpen} />
       </h2>
       {isOpen && (
         <SectionBox ref={sectionRef}>
-          {type === "Texte" && (
+          {identifier === "Texte" && (
             <TopicText
               text={vocabularyData?.text}
               vocabulary={french}
@@ -48,10 +47,10 @@ const AccordionSection = ({
               vocabularyData={vocabularyData}
             />
           )}
-          {type === "Genre des noms" && (
+          {identifier === "Genre des noms" && (
             <ExerciseArticle frenchWords={french} parentsData={true} />
           )}
-          {type === "Questionnaire" && (
+          {identifier === "Questionnaire" && (
             <VocabularyQuiz
               french={french}
               english={english}
@@ -65,7 +64,6 @@ const AccordionSection = ({
 };
 
 export default AccordionSection;
-
 const AccordionSectionContainer = styled.div`
   display: flex;
   /* justify-content: space-around; */
