@@ -70,7 +70,7 @@ const ModalContent = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
 
-  width: 250px;
+  width: 280px;
   padding: 20px;
   border-radius: 10px;
   position: relative;
@@ -85,6 +85,10 @@ const ModalContent = styled.div`
     border-top: 20px solid #fff;
     filter: drop-shadow(0.5px 4px 2px #0889f385);
   }
+  @media (max-width: 361px) {
+    width: 200px;
+    align-self: center;
+  }
 `;
 
 const ModalText = styled.p`
@@ -96,7 +100,7 @@ const ModalText = styled.p`
 const ModalButton = styled.div`
   cursor: pointer;
   padding: 1rem;
-  width: 70%;
+  width: 12rem;
   text-align: center;
   font-size: ${(props) => props.theme.large};
   border-radius: 8px;
@@ -113,12 +117,10 @@ const ModalButton = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  flex-direction: column;
+  align-items: center;
   display: flex;
   gap: 1rem;
-  @media (max-width: 510px) {
-    flex-direction: column;
-    align-items: center;
-  }
 `;
 const List = styled.div`
   width: 90%;

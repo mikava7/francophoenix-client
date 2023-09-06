@@ -123,6 +123,7 @@ const AccordionHeader = styled.div`
   /* margin-right: auto; */
   width: 92%;
   outline: 1px solid ${(props) => props.theme.tertiaryText};
+  outline: 2px solid blue;
 
   overflow: hidden;
 
@@ -144,13 +145,13 @@ const AccordionHeader = styled.div`
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 88%;
+    width: 95%;
     /* outline: 2px solid green; */
-    padding-left: 0.1rem;
+    padding-left: 0.2rem;
   }
   @media (max-width: 392px) {
     /* outline: 2px solid red; */
-    width: 87%;
+    width: 90%;
   }
   @media (min-width: 322px) and (max-width: 359px) {
     /* outline: 2px solid black; */

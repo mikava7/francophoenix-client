@@ -251,6 +251,7 @@ export const Button = styled.button`
   }
 `;
 export const LightButton = styled(Button)`
+  width: 12rem;
   background: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
   &:hover {
