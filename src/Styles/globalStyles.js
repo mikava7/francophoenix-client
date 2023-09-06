@@ -334,7 +334,7 @@ export const LandingCardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
-  /* outline: 2px solid red; */
+  /* outline: 2px solid ${(props) => props.theme.tertiaryText}; */
   overflow-x: hidden;
   /* margin: 0 auto; */
   width: 96%;

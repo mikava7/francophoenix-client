@@ -138,31 +138,37 @@ const Flashcards = () => {
               Word Jumble Trainer
             </Blurry>
             <Blurry onClick={() => setSelectedTrainer("FrQuizTrainer")}>
-              FrQuizTrainer Trainer
+              Quiz
             </Blurry>
           </TrainerButtons>
 
           {/* Render the selected trainer only when flashcards are selected */}
-          {selectedTrainer === "blurry" && selectedFlashcards.length > 0 && (
-            <Blurry ref={BlurryVocabularyRef}>
-              <BlurryVocabularyTrainer
-                selectedFlashcards={selectedFlashcards}
-              />
-            </Blurry>
-          )}
-          {selectedTrainer === "wordJumble" &&
-            selectedFlashcards.length > 0 && (
-              <WordJumble selectedFlashcards={words} />
+          <TrainerContainer>
+            {selectedTrainer === "blurry" && selectedFlashcards.length > 0 && (
+              <TrainerBox ref={BlurryVocabularyRef}>
+                <BlurryVocabularyTrainer
+                  selectedFlashcards={selectedFlashcards}
+                />
+              </TrainerBox>
             )}
-          {selectedTrainer === "FrQuizTrainer" &&
-            selectedFlashcards.length > 0 && (
-              <FrQuizTrainer
-                FrenchWord={selectedFlashcards.map((card) => card.word)}
-                secondLanguageWord={selectedFlashcards.map(
-                  (card) => card.secondLanguage
-                )}
-              />
-            )}
+            {selectedTrainer === "wordJumble" &&
+              selectedFlashcards.length > 0 && (
+                <TrainerBox ref={BlurryVocabularyRef}>
+                  <WordJumble selectedFlashcards={words} />
+                </TrainerBox>
+              )}
+            {selectedTrainer === "FrQuizTrainer" &&
+              selectedFlashcards.length > 0 && (
+                <TrainerBox ref={BlurryVocabularyRef}>
+                  <FrQuizTrainer
+                    FrenchWord={selectedFlashcards.map((card) => card.word)}
+                    secondLanguageWord={selectedFlashcards.map(
+                      (card) => card.secondLanguage
+                    )}
+                  />
+                </TrainerBox>
+              )}
+          </TrainerContainer>
         </FavoriteWordsUl>
       )}
     </FavoriteWordsContainer>
@@ -174,11 +180,11 @@ const FavoriteWordsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 95%;
+  width: 100%;
 
   padding: 0 0.1rem;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
   @media (min-width: 767px) and (max-width: 913px) {
     max-width: 92%;
   }
@@ -186,18 +192,16 @@ const FavoriteWordsContainer = styled.div`
     max-width: 98%;
   }
   @media (min-width: 393px) and (max-width: 576px) {
-    max-width: 98%;
-    outline: 1px solid brown;
+    width: 100%;
   }
-  @media (max-width: 392px) {
-    max-width: 95%;
-    outline: 1px solid brown;
+  @media (min-width: 359px) and (max-width: 393px) {
+    width: 95%;
   }
-  @media (max-width: 361px) {
-    max-width: 85%;
+  @media (min-width: 300px) and (max-width: 359px) {
+    width: 80%;
   }
-  @media (max-width: 340px) {
-    max-width: 65%;
+  @media (max-width: 300px) {
+    width: 70%;
   }
 `;
 const FavoriteWordsUl = styled.div`
@@ -226,10 +230,12 @@ const FavoriteInstance = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   min-height: 4rem;
   max-width: 95%;
+
   border-bottom: 3px solid ${(props) => props.theme.primaryText};
+  border-right: 2px solid ${(props) => props.theme.primaryText};
   padding: 0.4rem 0.8rem;
   border-radius: 0 0 0 12px;
   margin: 0 0.5rem;
@@ -243,10 +249,16 @@ const FavoriteInstance = styled.div`
   @media (min-width: 393px) and (max-width: 576px) {
     max-width: 100%;
     min-height: 3rem;
+    /* outline: 1px solid red; */
   }
-  @media (max-width: 392px) {
-    max-width: 100%;
-    min-height: 3rem;
+  @media (min-width: 359px) and(max-width: 392px) {
+    width: 100%;
+    /* min-height: 3rem; */
+    /* outline: 1px solid red; */
+  }
+  @media (min-width: 280px) and(max-width: 358px) {
+    width: 70%;
+    /* min-height: 3rem; */
     outline: 1px solid red;
   }
 `;
@@ -292,15 +304,17 @@ const ClearAllButton = styled.button`
   border-radius: 12px;
   width: 10rem;
   font-size: 1.2rem;
-
-  background: #001a1a;
-  color: ${(props) => props.theme.highlight1};
   font-weight: bold;
+
   cursor: pointer;
+  background: ${(props) => props.theme.highlight3};
+  color: ${(props) => props.theme.primaryText};
+
   &:hover {
-    background: ${(props) => props.theme.highlight1};
-    color: #001a1a;
+    background: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.highlight3};
   }
+
   @media (max-width: 576px) {
     width: 8rem;
     font-size: 1.2rem;
@@ -324,7 +338,7 @@ const IconsWrapper = styled.div`
   margin-right: 1rem;
   @media (max-width: 576px) {
     margin-right: 0;
-    gap: 0.2rem;
+    gap: 0.5rem;
   }
 `;
 const CheckboxWrapper = styled.div`
@@ -340,11 +354,12 @@ const Input = styled.input`
   }
 `;
 const TrainingButton = styled(ClearAllButton)`
-  background: ${(props) => props.theme.highlight1};
-  color: #001a1a;
+  background: ${(props) => props.theme.highlight2};
+  color: black;
+
   &:hover {
-    background: #001a1a;
-    color: ${(props) => props.theme.highlight1};
+    background: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.highlight2};
   }
 `;
 const TrainAllButton = styled(TrainingButton)``;
@@ -354,7 +369,7 @@ const ButtonContainer = styled.div`
   margin: 2rem;
   gap: 1rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid ${(props) => props.theme.highlight3};
+  border-bottom: 1px solid ${(props) => props.theme.highlight2};
   @media (max-width: 576px) {
     /* width: 8rem;
     font-size: 1.2rem;
@@ -365,26 +380,39 @@ const TrainerButtons = styled.div`
   display: flex;
   flex-direction: column;
 
-  align-items: space-between;
+  align-items: center;
 
   width: 100%;
 `;
-const Jumble = styled(TrainingButton)`
-  width: 10rem;
-  background: #ffffff;
-  color: #001a1a;
-  &:hover {
-    background: #001a1a;
-    color: #ffffff;
-  }
-`;
+
 const Blurry = styled.button`
-  width: auto;
-  margin: 0.2rem;
-  border-radius: 0.5rem;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  overflow-x: hidden;
+  width: 70%;
+  padding: 1rem;
+  margin: 1rem 0;
   font-size: ${(props) => props.theme.medium};
   background: ${(props) => props.theme.highlight2};
-  color: ${(props) => props.theme.primaryText};
+
   cursor: pointer;
 `;
 const Message = styled.div``;
+
+const TrainerContainer = styled.div`
+  /* outline: 1px solid blue; */
+  width: 100%;
+  margin-top: 2rem;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+`;
+const TrainerBox = styled.div`
+  display: flex;
+  align-items: center;
+  display: flex;
+  /* outline: 1px solid red; */
+  overflow-x: hidden;
+  width: 97%;
+`;
