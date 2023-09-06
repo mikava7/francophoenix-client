@@ -335,7 +335,7 @@ export const LandingCardContainer = styled.div`
   /* justify-content: center; */
   /* outline: 2px solid red; */
   overflow-x: hidden;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 96%;
   h1 {
     color: ${(props) => props.theme.primaryText};

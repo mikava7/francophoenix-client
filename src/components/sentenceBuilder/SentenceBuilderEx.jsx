@@ -195,11 +195,14 @@ const BuildBoxContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  /* margin: 0 auto; */
-  width: 98%;
+  overflow-x: hidden;
+  max-width: 390px;
+  /* justify-content: center; */
+  margin: 0 auto;
+  /* max-width: 98%; */
+  /* outline: 1px solid red; */
 
-  margin: 0 0.3rem;
+  /* margin: 0 0.3rem; */
 
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
@@ -214,23 +217,26 @@ const BuildBoxContainer = styled.section`
     /* height: 92vh; */
   }
   @media (max-width: 300px) {
-    width: 90%;
+    /* width: 90%; */
   }
 `;
 export const BuildBox = styled.div`
-  max-width: 100%;
+  width: 98%;
   display: flex;
   flex-direction: column;
+  /* outline: 3px solid blue; */
+  overflow-x: hidden;
 
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   outline: 1px solid ${(props) => props.theme.highlight2};
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 360px;
+    /* width: 360px; */
+    /* outline: 3px solid blue; */
   }
   /* width: 100%; */
   @media (max-width: 392px) {
-    width: 340px;
+    /* width: 340px; */
   }
   @media (max-width: 362px) {
     overflow-x: scroll;
@@ -268,7 +274,7 @@ export const TopWord = styled.span`
   background-color: ${(props) => props.theme.highlight3};
   color: ${(props) => props.theme.primaryText};
   border-bottom: 2px solid ${(props) => props.theme.flagFirst};
-
+  overflow-x: scroll;
   cursor: pointer;
   text-align: center;
   font-size: 1.5rem;
@@ -281,8 +287,10 @@ export const TopWord = styled.span`
   }
   @media (max-width: 392px) {
     font-size: 1.2rem;
-    /* margin: 0.5rem; */
-    /* padding: 0.2rem; */
+    margin: 0.4rem;
+    padding: 0.2rem;
+    /* outline: 1px solid blue; */
+    height: 2rem;
   }
 `;
 export const BottomBox = styled(TopBox)`
@@ -304,6 +312,13 @@ export const BottomWord = styled.button`
   max-width: 100%;
   border: none;
   display: ${(props) => (props.isSelected ? "none" : "block")};
+  @media (max-width: 412px) {
+    font-size: 1.4rem;
+    margin: 0.4rem;
+    padding: 0.2rem;
+    /* outline: 1px solid blue; */
+    height: 2.6rem;
+  }
 `;
 const Sentence = styled.p`
   display: none;

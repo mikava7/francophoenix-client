@@ -56,10 +56,10 @@ const BasicGrammerLessons = () => {
 export default BasicGrammerLessons;
 const BasicGrammerLessonsContainer = styled.div`
   display: flex;
-
+  /* overflow-x: hidden; */
   align-items: center;
   justify-content: center;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
   flex-wrap: wrap;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};

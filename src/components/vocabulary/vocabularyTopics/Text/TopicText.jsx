@@ -140,11 +140,11 @@ const TopicText = ({
         }
       })}
 
-      <h2 onClick={handleArticleToggle}>
+      <SentenceBuildHeader onClick={handleArticleToggle}>
         {t("Construire la phrase")}
 
         <RotatingChevron isActive={showArticle} onClick={handleArticleToggle} />
-      </h2>
+      </SentenceBuildHeader>
       {showArticle && (
         <SentenceBuilderEx
           sentenceData={filteredSentenceData}
@@ -251,4 +251,13 @@ const WordConatiner = styled.span`
     font-size: ${(props) => props.theme.medium};
     font-weight: bold;
   }
+`;
+const SentenceBuildHeader = styled.p`
+  margin: 2rem 0;
+  font-weight: bold;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  /* margin-right: 2rem; */
 `;
