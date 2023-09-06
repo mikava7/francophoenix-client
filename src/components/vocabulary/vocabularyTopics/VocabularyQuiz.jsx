@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { StyledButton, Button } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../generateQuizQuestions";
 import QuizModal from "./modal/QuizModal";
 const VocabularyQuiz = ({ french, english, georgian }) => {
+  // const currentQuestionRef = useRef(null);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,9 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
   // console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
   ///////////////////////////////////////////////////////////
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
+    useState([]);
+
   const [score, setScore] = useState(0);
   const [answered, setAnswered] = useState({});
 
@@ -30,21 +34,55 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
     setAnswered({ ...answered, [questionIndex]: true });
 
     checkAnswer(questionIndex, optionIndex);
+
+    // Calculate the index of the next question
+    const nextQuestionIndex = questionIndex + 1;
+
+    // Scroll to the next question if it exists with a delay of 1500 milliseconds (1.5 seconds)
+    if (nextQuestionIndex < vocabularyQuizQuestions.length) {
+      setTimeout(() => {
+        const nextQuestion = document.getElementById(
+          `question-${nextQuestionIndex}`
+        );
+        if (nextQuestion) {
+          nextQuestion.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500);
+    }
   };
 
+  // console.log("currentQuestionRef", currentQuestionRef);
   const checkAnswer = (questionIndex, optionIndex) => {
     const selectedOption =
       vocabularyQuizQuestions[questionIndex].options[optionIndex];
+    if (selectedOption !== vocabularyQuizQuestions[questionIndex].answer) {
+      // If the answer is incorrect, add the question to the state variable
+      setIncorrectlyAnsweredQuestions((prevQuestions) => [
+        ...prevQuestions,
+        vocabularyQuizQuestions[questionIndex],
+      ]);
+    }
     if (selectedOption === vocabularyQuizQuestions[questionIndex].answer) {
       setScore(score + 1);
     }
   };
-
   const restartQuiz = () => {
     setSelectedAnswers({});
     setAnswered({});
     setScore(0);
+
+    // Calculate the index of the first question
+    const firstQuestionIndex = 0;
+
+    // Scroll to the first question if it exists
+    const firstQuestion = document.getElementById(
+      `question-${firstQuestionIndex}`
+    );
+    if (firstQuestion) {
+      firstQuestion.scrollIntoView({ behavior: "smooth" });
+    }
   };
+
   const isAllCorrect = vocabularyQuizQuestions.every(
     (quizItem, questionIndex) => {
       const selectedOptionIndex = selectedAnswers[questionIndex];
@@ -67,11 +105,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
     <QuizContainer>
       <QuizItem>
         {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
-          <QuizQuestion key={questionIndex}>
-            <Score>
-              {" "}
-              Score: {score}/{vocabularyQuizQuestions.length}
-            </Score>
+          <QuizQuestion key={questionIndex} id={`question-${questionIndex}`}>
             <h2>{quizItem.question}</h2>
 
             <ul>
@@ -92,21 +126,30 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
                 </QuizOption>
               ))}
             </ul>
+            <Score>
+              {" "}
+              {t("Score")}: {score}/{vocabularyQuizQuestions.length}
+            </Score>
           </QuizQuestion>
         ))}
       </QuizItem>
       <RestartButton onClick={restartQuiz}> {t("Recommencer")}</RestartButton>
       {showModal && (
-        <QuizModal
-          onClose={() => setShowModal(false)}
-          isQuizFinished={isQuizFinished}
-          isAllCorrect={isAllCorrect}
-          Restart={
-            <RestartButton onClick={restartQuiz}>
-              {t("Recommencer")}
-            </RestartButton>
-          }
-        />
+        <>
+          <BackgroundOverlay />
+
+          <QuizModal
+            onClose={() => setShowModal(false)}
+            isQuizFinished={isQuizFinished}
+            isAllCorrect={isAllCorrect}
+            incorrectlyAnsweredQuestions={incorrectlyAnsweredQuestions}
+            Restart={
+              <RestartButton onClick={restartQuiz}>
+                {t("Recommencer")}
+              </RestartButton>
+            }
+          />
+        </>
       )}{" "}
     </QuizContainer>
   );
@@ -125,6 +168,7 @@ const QuizItem = styled.div`
   padding: 0 1rem;
   /* margin: 0 auto; */
   width: 95%;
+  max-width: 500px;
 `;
 
 const QuizQuestion = styled.div`
@@ -134,6 +178,8 @@ const QuizQuestion = styled.div`
   border-radius: 12px;
   color: ${(props) => props.theme.highlihgt1};
   background-color: ${(props) => props.theme.secondaryBackground};
+  /* transition: scroll-behavior 3.5s ease-in-out; */
+
   h2 {
     padding: 1rem;
     border-radius: 1rem;
@@ -148,7 +194,7 @@ const QuizQuestion = styled.div`
 `;
 
 const QuizOption = styled.li`
-  border: 1px solid ${(props) => props.theme.tertiaryText};
+  border: 1px solid ${(props) => props.theme.primaryText};
   padding: 0.5rem 1rem;
   margin: 1rem;
   border-radius: 0.5rem;
@@ -161,13 +207,13 @@ const QuizOption = styled.li`
       ? props.correctAnswer
         ? props.theme.correctBack
         : props.theme.wrongback
-      : "transparent"};
+      : props.theme.primaryBackground};
   color: ${(props) =>
     props.selectedAnswers ? "black" : props.theme.primaryText};
 
   &:hover {
     background-color: ${(props) =>
-      props.disabled ? "" : props.theme.primaryBackground};
+      props.disabled ? "" : props.theme.tertiaryBackground};
     color: ${(props) => (props.disabled ? "" : props.theme.primaryText)};
   }
 `;
@@ -200,4 +246,13 @@ const RestartButton = styled.button`
     background-color: ${(props) => props.theme.primaryText};
     color: ${(props) => props.theme.highlight2};
   }
+`;
+const BackgroundOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: 9998; /* Make sure it's behind the modal (9999) */
 `;

@@ -1,9 +1,20 @@
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-
-const QuizModal = ({ onClose, isQuizFinished, isAllCorrect, Restart }) => {
+import { LightButton } from "../../../../Styles/globalStyles";
+import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
+const QuizModal = ({
+  onClose,
+  isQuizFinished,
+  isAllCorrect,
+  Restart,
+  incorrectlyAnsweredQuestions,
+}) => {
   // console.log(Restart);
   const { t } = useTranslation();
+  const scrollToTop = () => {
+    onClose();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <ModalWrapper>
       {isQuizFinished && (
@@ -15,11 +26,22 @@ const QuizModal = ({ onClose, isQuizFinished, isAllCorrect, Restart }) => {
           ) : (
             <ModalText>
               {t("Toutes les réponses ne sont pas correctes. Réessayer!")}
+              <List>
+                {incorrectlyAnsweredQuestions.map((word) => (
+                  <li>{word.question}</li>
+                ))}
+              </List>
             </ModalText>
           )}
-          <ModalButton onClick={onClose} isAllCorrect={isAllCorrect}>
-            {isAllCorrect ? t("Fermer") : Restart}
-          </ModalButton>
+          <ButtonContainer>
+            <LightButton onClick={scrollToTop}>
+              {t("Réviser le vocabulaire")}
+            </LightButton>
+
+            <ModalButton onClick={onClose} isAllCorrect={isAllCorrect}>
+              {isAllCorrect ? t("Fermer") : Restart}
+            </ModalButton>
+          </ButtonContainer>
         </ModalContent>
       )}
     </ModalWrapper>
@@ -34,7 +56,8 @@ const ModalWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background: ${(props) => props.theme.tertiaryBackground} 0.5; */
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +67,9 @@ const ModalWrapper = styled.div`
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
+
   width: 250px;
   padding: 20px;
   border-radius: 10px;
@@ -65,29 +90,47 @@ const ModalContent = styled.div`
 const ModalText = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: black;
+  color: ${(props) => props.theme.primaryText};
 `;
 
-const ModalButton = styled.button`
+const ModalButton = styled.div`
+  cursor: pointer;
   padding: 1rem;
+  width: 70%;
   text-align: center;
-  align-self: center;
-  width: 12rem;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
-  cursor: pointer;
+  font-size: ${(props) => props.theme.large};
+  border-radius: 8px;
+  font-weight: bold;
   background-color: ${(props) =>
-    props.isAllCorrect ? "#0055a4" : "transparent"};
-
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 auto;
+    props.isAllCorrect ? props.theme.primaryText : "transparent"};
+  color: ${(props) => props.theme.primaryBackground};
   &:hover {
     background-color: ${(props) =>
       props.isAllCorrect ? "white" : "transparent"};
     color: ${(props) => (props.isAllCorrect ? "#0055a4" : "#white")};
     border: ${(props) => (props.isAllCorrect ? "2px solid #0055a4" : "")};
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  @media (max-width: 510px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+const List = styled.div`
+  width: 90%;
+  height: 12rem;
+  border: 1px solid ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.tertiaryBackground};
+  margin: 0 auto;
+  border-radius: 4px;
+  overflow-x: scroll;
+  padding: 0.4rem;
+  margin-top: 1rem;
+  li {
+    padding: 0.4rem;
   }
 `;
