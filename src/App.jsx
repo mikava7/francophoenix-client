@@ -106,7 +106,7 @@ function App() {
 
             <Route
               path="/vocabulary/exercise-article"
-              element={<Exercise Article />}
+              element={<ExerciseArticle />}
             />
             <Route
               path="/vocabulary/verb-tense-exercise"
