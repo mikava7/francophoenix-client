@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGrammer } from "../../redux/slices/elementary/grammerSlice";
 import styled from "styled-components";
-import Listen from "../../components/Listen";
 import { ContinueButtonWrapper } from "../style-elementaryComponant";
 import useListenWord from "../../hooks/useListenWord";
-import ListenImg from "../../../public/icons/sound-50.png";
-
+// import ListenImg from "../../../public/icons/sound-50.png";
+import Listen from "../../components/Listen";
 const Grammer = ({ lessonsCurrentIndex, Continue }) => {
   const dispatch = useDispatch();
   const grammer = useSelector((state) => state.grammer.grammer) || [];
@@ -40,12 +39,9 @@ const Grammer = ({ lessonsCurrentIndex, Continue }) => {
                         className={
                           isActiveStates[index] ? "active" : "inactive"
                         }
+                        isActive={isActiveStates[index]}
                       >
-                        <img
-                          src={ListenImg}
-                          alt="ListenImg"
-                          isActive={isActiveStates[index]}
-                        />
+                        <Listen />
                       </ListenIcon>
 
                       {verbe}

@@ -5,7 +5,6 @@ import Listen from "../../../Listen";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import useListenWord from "../../../../hooks/useListenWord";
 import AddToFavorites from "../../../Utility/AddToFavorites";
-import ListenImg from "../../../../../public/icons/sound-50.png";
 import DefinitionToggle from "./DefinitionToggle";
 const VocabularyPage = ({ words }) => {
   const french = words.map((word) => word.french);

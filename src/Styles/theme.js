@@ -28,6 +28,8 @@ export const darkTheme = {
   highlight1: "#FF00FF", // Magenta highlight
   highlight2: "#FFA500", // Orange highlight
   highlight3: "#0000FF", // Bright blue highlight
+  highlight4: "#60c5d9", // sky blue highlight
+
   correctBack: "#70ff41",
   wrongback: "#DC143C",
   //////////////////////////////////
@@ -93,6 +95,8 @@ export const lightTheme = {
   highlight1: "#f5f3e0", // Beige highlight
   highlight2: "#e0eaf1", // Light blue highlight
   highlight3: "#acc8e5", // Lighter blue highlight
+  highlight4: "#FFA500", // sky blue highlight
+
   correctBack: "#70ff41",
   wrongback: "#DC143C",
   //////////////////////////////////

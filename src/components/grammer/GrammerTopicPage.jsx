@@ -5,7 +5,7 @@ import Loading from "../loading/Loading";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import ListenImg from "../../../public/icons/sound-50.png";
+
 import useListenWord from "../../hooks/useListenWord";
 import {
   GrammerTopicPageContainer,
@@ -16,7 +16,7 @@ import {
   ExampleBox,
   ListenIcon,
 } from "./grammerStyles";
-
+import Listen from "../Listen";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const GrammerTopicPage = () => {
   const { BasicGrammerTopicId } = useParams();
@@ -78,7 +78,7 @@ const GrammerTopicPage = () => {
                 onClick={handleListen(example)}
                 isActive={isActiveStates[index]}
               >
-                <img src={ListenImg} alt="ListenImg" />
+                <Listen />
               </ListenIcon>
             </div>
             <span>{secondLanguageExample[index]}</span>

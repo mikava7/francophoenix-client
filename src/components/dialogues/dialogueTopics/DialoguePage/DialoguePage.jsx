@@ -11,7 +11,6 @@ import VocabularyPage from "../VocabularyPage/VocabularyPage";
 import DialoguePhrase from "../DialoguePhrase/DialoguePhrase";
 import useListenWord from "../../../../hooks/useListenWord";
 import ToggleTranslation from "../ToggleTranslation";
-import ListenImg from "../../../../../public/icons/sound-50.png";
 const DialoguePage = () => {
   const dispatch = useDispatch();
   const { dialogueTopicId } = useParams();

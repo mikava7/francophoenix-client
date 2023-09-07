@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPictures";
 import Loading from "../../loading/Loading";
 import useListenWord from "../../../hooks/useListenWord";
-import ListenImg from "../../../../public/icons/sound-50.png";
-import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
-
+// import ListenImg from "../../../../public/icons/sound-50.png";
+// import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
+import Listen from "../../Listen";
 import { ListenIcon } from "../../../Styles/globalStyles";
 const VerbConjugation = () => {
   const theme = useTheme();
@@ -70,7 +70,7 @@ const VerbConjugation = () => {
                           onClick={handleListen(tenseItem?.french)}
                           isActive={isActiveStates[index]}
                         >
-                          <img src={soundImg} alt="soundImg" />
+                          <Listen />
                         </ListenIcon>
                       </FirstLanguageBox>
                       <SecondLanguage>

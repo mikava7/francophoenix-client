@@ -8,13 +8,14 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import SearchIcon from "../../../../public/icons/search-50.png";
 import ClearIcon from "../../../../public/icons/cross-24.png";
-import ListenImg from "../../../../public/icons/sound-50.png";
+
 import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
 import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
 import AddToFlashcards from "../../../components/Utility/AddToFlashcards";
 import LanguageToggle from "../LanguageToggle";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
+import Listen from "../../../components/Listen";
 const mapSearchResults = (searchResults, field) =>
   searchResults.map((result) => result[field]);
 
@@ -134,12 +135,11 @@ const FindTranslationForFrenchWord = () => {
       {filteredResults.map((result, index) => (
         <WordCard key={result._id}>
           <FrenchWord>
-            <ListenIcon onClick={handleListen(result.french)}>
-              <img
-                src={ListenImg}
-                alt="ListenImg"
-                isActive={isActiveStates[index]}
-              />
+            <ListenIcon
+              onClick={handleListen(result.french)}
+              isActive={isActiveStates[index]}
+            >
+              <Listen />
             </ListenIcon>
             {inputLanguage === "french"
               ? result.french

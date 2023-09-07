@@ -8,10 +8,11 @@ import {
 import styled from "styled-components";
 import FavoriteIMG from "../../../public/icons/starFilled.png";
 import { useTranslation } from "react-i18next";
-import ListenImg from "../../../public/icons/sound-50.png";
+// import ListenImg from "../../../public/icons/sound-50.png";
 import useListenWord from "../../hooks/useListenWord";
 import AccordionExpendedContent from "../vocabulary/vocabularyTopics/vocabularyAccordion/AccordionExpendedContent";
 import { Button } from "../../Styles/globalStyles";
+import Listen from "../Listen";
 const FavoriteWords = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
@@ -51,7 +52,7 @@ const FavoriteWords = () => {
                       onClick={handleListen(favorite.word)}
                       isActive={isActiveStates[index]}
                     >
-                      <img src={ListenImg} alt="ListenImg" />
+                      <Listen />
                     </AccordionListenIcon>
 
                     <AddToFavoriteImg

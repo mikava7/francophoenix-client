@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import { useTranslation } from "react-i18next";
-import ListenImg from "../../../../../public/icons/sound-50.png";
 import AddToFavorites from "../../../Utility/AddToFavorites";
 import AccordionExpendedContent from "./AccordionExpendedContent";
 import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
+import Listen from "../../../Listen";
 const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
   // console.log("definition in VocabularyAccordion", definition);
   useScrollToTopOnRouteChange();
@@ -40,7 +40,8 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
                 onClick={handleListen(word)}
                 isActive={isActiveStates[index]}
               >
-                <img src={ListenImg} alt="ListenImg" />
+                <Listen />
+                {/* <img src={ListenImg} alt="ListenImg" /> */}
               </ListenIcon>
 
               <AddToFlashcards
@@ -88,7 +89,8 @@ const AccordionContaner = styled.div`
     max-width: 99%;
   }
   @media (min-width: 577px) and (max-width: 767px) {
-    max-width: 90%;
+    max-width: 99%;
+    /* outline: 2px solid red; */
     overflow-x: hidden;
   }
   @media (min-width: 393px) and (max-width: 576px) {
@@ -122,8 +124,8 @@ const AccordionHeader = styled.div`
   margin: 0.5rem auto;
   /* margin-right: auto; */
   width: 92%;
-  outline: 1px solid ${(props) => props.theme.tertiaryText};
-  outline: 2px solid blue;
+  outline: 1px solid ${(props) => props.theme.highlight4};
+  /* outline: 2px solid blue; */
 
   overflow: hidden;
 
@@ -134,14 +136,17 @@ const AccordionHeader = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.tertiaryBackground};
   }
-  @media (min-width: 767px) and (max-width: 920px) {
-    /* outline: 1px solid red; */
-
-    width: 90%;
+  @media (min-width: 769px) and (max-width: 920px) {
+    max-width: 91%;
+    margin-left: -0.6rem;
+    /* outline: 2px solid blue; */
   }
-  @media (min-width: 577px) and (max-width: 767px) {
+  @media (min-width: 751px) and (max-width: 768px) {
+    margin-left: -0.3rem;
+    max-width: 99%;
+  }
+  @media (min-width: 577px) and (max-width: 750px) {
     width: 90%;
-    /* outline: 2px solid red; */
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
@@ -178,7 +183,7 @@ const FrenchWord = styled.p`
   }
   @media (max-width: 577px) {
     font-size: ${({ theme }) => theme.small};
-    margin-left: 0;
+    margin-left: 0.2rem;
   }
   @media (max-width: 364px) {
     margin-left: 0;
@@ -224,9 +229,11 @@ const IconsWrapper = styled.div`
     gap: 1rem;
     /* width: 90%; */
   }
-  @media (min-width: 577px) and (max-width: 767px) {
+
+  @media (min-width: 751px) and (max-width: 768px) {
     /* outline: 1px solid red; */
-    gap: 0.8rem;
+    gap: 0.3rem;
+    /* overflow-x: scroll; */
   }
   @media (min-width: 359px) and (max-width: 577px) {
     /* outline: 1px solid red; */
