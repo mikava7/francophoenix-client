@@ -35,7 +35,7 @@ const VocabularyPage = ({ words }) => {
               isMultipleDefinitions={true}
             />
             <WordCArdApendix>
-              <p>nom masculin</p>
+              {/* <p>nom masculin</p> */}
               <IconsContainer>
                 <ListenIconContainer onClick={handleListen(frWord)}>
                   <Listen />
