@@ -7,7 +7,10 @@ import ErrorMessage from "../../Utility/ErrorMessage";
 import { StyledLink } from "../../../Styles/globalStyles";
 import AspectTopicPage from "../AspectTopics/AspectTopicPage";
 import GrammerTopic from "../AspectTopics/GrammerTopic";
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const Articles = () => {
+  useScrollToTopOnRouteChange();
+
   const { aspect } = useParams();
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.grammer.topicsByAspect) || {};

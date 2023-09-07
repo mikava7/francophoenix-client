@@ -10,7 +10,10 @@ import FavoriteWords from "../favoriteList/FavoriteWords";
 import styled from "styled-components";
 import { fetchTopicNames } from "../../redux/slices/quizPictures/quizPictures";
 import { useTranslation } from "react-i18next";
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const Vocabularies = () => {
+  useScrollToTopOnRouteChange();
+
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];

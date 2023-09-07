@@ -11,8 +11,9 @@ import {
 } from "../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { grammarTopicsDescriptions } from "../sidebar/components/grammarTopicsDescriptions";
-
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const GrammarLanding = () => {
+  useScrollToTopOnRouteChange();
   const { t, i18n } = useTranslation(); // Initialize the translation function
   const lang = i18n.language; // Get the current language
 

@@ -10,7 +10,10 @@ import CategoryDropdown from "../../quizPictures/CategoryDropdown";
 import Loading from "../../loading/Loading";
 import { displayWord } from "../../Utility/utils";
 import { Button, FlexContainer } from "../../../Styles/globalStyles";
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const ExerciseArticle = ({ frenchWords }) => {
+  useScrollToTopOnRouteChange();
+
   const dispatch = useDispatch();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const quizData =

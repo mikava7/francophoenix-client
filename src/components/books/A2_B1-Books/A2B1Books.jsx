@@ -7,11 +7,13 @@ import BookDetails from "../bookDisplay/BookDetails";
 import { fetchBooksPreview } from "../../../redux/slices/books/booksSlice";
 import Loading from "../../loading/Loading";
 import ChooseLevel from "../chooseLevel/ChooseLevel";
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const description = `Découvrez les aventures d’Alex Leroc, un journaliste d’investigation français qui travaille à Bruxelles et qui vit uniquement pour son travail.
 Résumé:
 Le festival de Cannes rassemble, comme chaque année, les stars du cinéma et toute la presse. Naturellement, Alex Leroc y va. C’est le printemps, il fait beau sur la Côte d’Azur. Les conditions sont idéales pour la grande fête du cinéma. Alex s’intéresse à un acteur parisien et sa petite amie top modèle, un couple apparemment parfait`;
 
 const A2B1Books = () => {
+  useScrollToTopOnRouteChange();
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books) || [];
   const isLoading = useSelector((state) => state.books.isLoading);

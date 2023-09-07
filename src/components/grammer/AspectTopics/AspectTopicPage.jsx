@@ -9,7 +9,7 @@ import ListenImg from "../../../../public/icons/sound-50.png";
 import useListenWord from "../../../hooks/useListenWord";
 import { useNavigate } from "react-router-dom"; // Import useHistory from React Router
 import ErrorMessage from "../../Utility/ErrorMessage";
-
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 import {
   GrammerTopicPageContainer,
   TitleContainer,
@@ -20,6 +20,8 @@ import {
 } from "../grammerStyles";
 import { ListenIcon } from "../../../Styles/globalStyles";
 const AspectTopicPage = () => {
+  useScrollToTopOnRouteChange();
+
   const { TopicId } = useParams();
   const navigate = useNavigate(); // Initialize useNavigate hook
   const { handleListen, isActiveStates } = useListenWord();

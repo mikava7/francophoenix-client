@@ -16,8 +16,12 @@ import {
   ExampleBox,
   ListenIcon,
 } from "./grammerStyles";
+
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const GrammerTopicPage = () => {
   const { BasicGrammerTopicId } = useParams();
+  useScrollToTopOnRouteChange();
+
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
 

@@ -9,7 +9,9 @@ import { FlexContainer, StyledLink } from "../../Styles/globalStyles";
 import VerbTenseList from "./verbe Tenses/VerbTenseList";
 import SelectedTenseDetails from "./verbe Tenses/SelectedTenseDetails";
 import ErrorMessage from "../Utility/ErrorMessage";
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const BasicGrammerLessons = () => {
+  useScrollToTopOnRouteChange();
   const [selectedTenseId, setSelectedTenseId] = useState(null);
 
   const dispatch = useDispatch();

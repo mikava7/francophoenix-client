@@ -14,11 +14,12 @@ import AddToFavorites from "../../../components/Utility/AddToFavorites";
 import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
 import AddToFlashcards from "../../../components/Utility/AddToFlashcards";
 import LanguageToggle from "../LanguageToggle";
-
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const mapSearchResults = (searchResults, field) =>
   searchResults.map((result) => result[field]);
 
 const FindTranslationForFrenchWord = () => {
+  useScrollToTopOnRouteChange();
   const { handleListen, isActiveStates } = useListenWord();
   const [isActive, setIsActive] = useState(false);
   const [showDefinition, setShowDefinition] = useState(true);
