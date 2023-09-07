@@ -17,18 +17,20 @@ const DefinitionToggle = ({
   return (
     <DefinitionToggleContainer>
       <ButtonContainer>
-        <button
-          style={{ background: showDefinition ? "#FD5602" : "#ffffec" }}
+        <ToggleButton
+          showDefinition={showDefinition}
+          // style={{ background: showDefinition ? "#FD5602" : "#ffffec" }}
           onClick={toggleDefinition}
         >
           {secondLangButtonName}
-        </button>
-        <button
-          style={{ background: showDefinition ? "#ffffec" : "#FD5602" }}
+        </ToggleButton>
+        <ToggleButtonFr
+          // style={{ background: showDefinition ? "#ffffec" : "#60c5d9" }}
+          showDefinition={showDefinition}
           onClick={toggleDefinition}
         >
           Fr
-        </button>
+        </ToggleButtonFr>
       </ButtonContainer>
       <SecondLangOrDef>
         {isMultipleDefinitions
@@ -49,7 +51,7 @@ const DefinitionToggleContainer = styled.div`
 `;
 const ButtonContainer = styled.div`
   position: absolute;
-  top: 10%;
+  top: 8%;
   right: 2%;
   font-size: 1.4rem;
 
@@ -65,9 +67,28 @@ const ButtonContainer = styled.div`
   }
 `;
 const SecondLangOrDef = styled.div`
-  margin-left: 1rem;
+  margin-left: 2rem;
   min-height: 3rem;
   padding: 0.5rem;
   color: ${(props) => props.theme.secondaryText};
+  font-size: ${(props) => props.theme.medium};
+
   font-style: italic;
+`;
+const ToggleButton = styled.button`
+  background-color: ${(props) =>
+    props.showDefinition
+      ? props.theme.highlight4
+      : props.theme.primaryBackground};
+  color: ${(props) =>
+    props.showDefinition
+      ? props.theme.primaryBackground
+      : props.theme.primaryText};
+`;
+const ToggleButtonFr = styled(ToggleButton)`
+  background-color: ${(props) =>
+    props.showDefinition
+      ? props.theme.primaryBackground
+      : props.theme.highlight4};
+  color: ${(props) => props.theme.primaryText};
 `;
