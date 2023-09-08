@@ -108,7 +108,7 @@ const VocabularyContainer = styled.article`
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-  align-items: flex-start;
+  align-items: center;
   overflow-x: hidden;
   margin: 0 auto;
   max-width: 100%;
@@ -118,9 +118,10 @@ const VocabularyContainer = styled.article`
   @media (min-width: 393px) and (max-width: 576px) {
     padding: 0;
     margin: 0;
-    width: 99%;
+    width: 100%;
     overflow-x: hidden;
-    margin-right: auto;
+    /* outline: 1px solid red; */
+    /* margin-right: auto; */
   }
   /* width: 100%; */
   @media (max-width: 392px) {
@@ -151,7 +152,7 @@ const WordPairContainer = styled.li`
     width: 99%;
   }
   @media (min-width: 365px) and (max-width: 420px) {
-    width: 99%;
+    width: 100%;
   }
   @media (max-width: 364px) {
     width: 335px;

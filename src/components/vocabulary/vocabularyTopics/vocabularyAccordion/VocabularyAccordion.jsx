@@ -74,12 +74,12 @@ export default VocabularyAccordion;
 const AccordionContaner = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
   max-width: 99%;
   overflow-x: hidden;
+  justify-content: center;
 
-  margin: 0 auto;
-  margin-right: auto;
+  /* margin-right: auto; */
 
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
@@ -96,6 +96,7 @@ const AccordionContaner = styled.div`
   @media (min-width: 393px) and (max-width: 576px) {
     width: 99%;
     overflow-x: hidden;
+    /* outline: 2px solid red; */
   }
   @media (max-width: 392px) {
     overflow-x: hidden;
@@ -108,7 +109,7 @@ const AccordionItem = styled.div`
   align-items: center;
   /* outline: 2px solid blue; */
   margin-left: 0.5rem;
-  width: 97%;
+  width: 96%;
   margin-bottom: 1rem;
   border-radius: 12px 12px 0 0;
 
@@ -150,12 +151,13 @@ const AccordionHeader = styled.div`
   }
 
   @media (min-width: 393px) and (max-width: 576px) {
-    width: 95%;
+    width: 92%;
     /* outline: 2px solid green; */
-    padding-left: 0.2rem;
+    margin-left: -0.5rem;
   }
   @media (max-width: 392px) {
     /* outline: 2px solid red; */
+    margin-left: -0.5rem;
     width: 90%;
   }
   @media (min-width: 322px) and (max-width: 359px) {
