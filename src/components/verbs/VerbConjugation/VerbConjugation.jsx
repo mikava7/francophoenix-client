@@ -14,8 +14,6 @@ import { ListenIcon } from "../../../Styles/globalStyles";
 const VerbConjugation = () => {
   const theme = useTheme();
 
-  const soundImg = theme === darkTheme ? ListenImgGold : ListenImg;
-  // console.log(theme);
   const { verb: verbFromParams } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
 
