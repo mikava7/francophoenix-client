@@ -9,9 +9,10 @@ import { fetchVerbDetails } from "../../../../redux/slices/quizPictures/quizPict
 import Loading from "../../../loading/Loading";
 import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
+import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
   // console.log("tooltipContent", tooltipContent);
-  console.log("conjugated in TooltipComponent", conjugated);
+  console.log({ tooltipContent, index, conjugated });
 
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
@@ -32,6 +33,11 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
       <Icon onClick={handleListen(tooltipContent)}>
         <Listen isActive={isActiveStates[index]} />
       </Icon>
+      {/* <FlashCardBox>
+        <AddToFlashcards    word={tooltipContent}
+            secondLanguage={"secondLanguage"}
+            definition={"definition"}/>
+      </FlashCardBox> */}
       {showWord && (
         <VerbComponentBox>
           <VerbComponent />
@@ -52,6 +58,9 @@ const TooltipComponentContainer = styled.span`
 `;
 const Icon = styled.span`
   margin-left: 0.4rem;
+`;
+const FlashCardBox = styled.span`
+  width: 80%;
 `;
 const VerbComponentBox = styled.div`
   position: absolute;
