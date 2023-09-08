@@ -28,9 +28,9 @@ const WordTooltip = ({ content, children }) => {
       <ContentAndIconWrapper>
         <TooltipContent>{content}</TooltipContent>
         <IconsBox>
-          <ListenContainer onClick={handleListen(children.props.children)}>
+          {/* <ListenContainer onClick={handleListen(children.props.children)}>
             <Listen />
-          </ListenContainer>
+          </ListenContainer> */}
           <AddToFlashcards
             word={children}
             frenchExamples={"content missing"}

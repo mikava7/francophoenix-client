@@ -25,7 +25,7 @@ const TopicText = ({
   vocabularyData,
 }) => {
   const { t, i18n } = useTranslation();
-
+  // console.log("isTextVerbs", isTextVerbs);
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
 
@@ -65,6 +65,7 @@ const TopicText = ({
         ?.replace(" (f.)", "") // Remove "(f.)" if present
         ?.replace(" (m.)", "") // Remove "(f.)" if present
   );
+  // console.log("cleanedVocabulary", cleanedVocabulary);
   const filteredSentenceData = sentenceData.filter(
     (item) => item.words.length <= 7
   );

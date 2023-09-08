@@ -7,9 +7,16 @@ import WordTooltip from "./wordTooltips/WordTooltip";
 import Loading from "../loading/Loading";
 import { useTranslation } from "react-i18next";
 import ChapterPagination from "./chapterPagination/ChapterPagination";
+import TooltipComponent from "../vocabulary/vocabularyTopics/Text/TooltipComponent";
+import { handleMouseEnter } from "../Utility/utils";
 const Book = () => {
   const { bookId } = useParams();
   const dispatch = useDispatch();
+
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredVerb, setHoveredVerb] = useState(""); // State to track hovered verb
+  const [hoveredWordIndex, setHoveredWordIndex] = useState(null); // State to track hovered word index
+
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
 
@@ -35,6 +42,9 @@ const Book = () => {
   const [selectedChapter, setSelectedChapter] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
 
+  // console.log("selectedChapter", selectedChapter);
+  // console.log("selectedBook", selectedBook);
+
   const handleWordClick = (word) => {
     setSelectedWord((prevWord) => (prevWord === word ? "" : word));
   };
@@ -46,11 +56,28 @@ const Book = () => {
   if (isLoading) {
     return <Loading />;
   }
-
+  if (selectedBook.lengt === 0) {
+    return <Loading />;
+  }
   if (!selectedBook) {
     return <p>Book not found.</p>;
   }
+  const verbsFormMapping =
+    selectedBook &&
+    selectedBook?.chapters &&
+    selectedBook?.chapters[selectedChapter].verbFormMapping;
+  const textVerbs =
+    selectedBook &&
+    selectedBook?.chapters &&
+    selectedBook?.chapters[selectedChapter].textVerbs;
 
+  const verbs = (verbsFormMapping && Object.values(verbsFormMapping)) || [];
+  const uniqueVerbs = [...new Set(verbs)];
+  // console.log("selectedBook", selectedBook);
+  // console.log("uniqueVerbs", uniqueVerbs);
+  // console.log("textVerbs", textVerbs);
+
+  // console.log("verbsFormMapping", verbsFormMapping);
   const formatChapterText = (text) => {
     return text.replace(/—/g, "\n-");
   };
@@ -71,45 +98,104 @@ const Book = () => {
           onPrevious={() => setSelectedChapter(selectedChapter - 1)}
           onNext={() => setSelectedChapter(selectedChapter + 1)}
         />
-        {selectedBook?.chapters?.map((chapter, index) => (
-          <ChapterBox key={index}>
-            <h3>{formatChapterText(chapter.chapterTitle)}</h3>
-            <div>
-              {words?.map((word, index) => {
-                const cleanedWord = cleanWord(word); // You need to implement the function cleanWord()
-                const translation = vocabularyTranslations[cleanedWord];
-                const isClicked = selectedWord === word;
-                const isInVocabulary = isWordInVocabulary(cleanedWord);
-                const wordElement = isInVocabulary ? (
-                  <Highlighted
-                    key={index}
-                    onClick={() => handleWordClick(word)}
-                  >
-                    {word}
-                  </Highlighted>
-                ) : (
-                  formatChapterText(word)
-                );
+        {selectedBook &&
+          selectedBook.chapters &&
+          selectedBook.chapters[selectedChapter] && (
+            <ChapterBox key={selectedChapter}>
+              <h3>
+                {formatChapterText(
+                  selectedBook.chapters[selectedChapter].chapterTitle
+                )}
+              </h3>
+              <div>
+                {words?.map((word, index) => {
+                  const cleanedWord = cleanWord(word);
+                  const translation = vocabularyTranslations[cleanedWord];
+                  const isClicked = selectedWord === word;
+                  const isInVocabulary = isWordInVocabulary(cleanedWord);
+                  const isTextVerb = textVerbs.includes(cleanedWord);
 
-                return (
-                  <ChapterText key={index}>
-                    {isClicked && translation ? (
-                      <WordTooltip
-                        content={translation}
-                        handleWordClick={handleWordClick}
-                        wordElement={wordElement}
+                  const handleMouseEnter = (wordIndex) => {
+                    if (isTextVerb) {
+                      setIsHovering(true);
+                      setHoveredWordIndex(wordIndex); // Set the hovered word index
+                      const word = words[wordIndex];
+                      const cleanedWord = cleanWord(word);
+                      const appropriateVerb = verbsFormMapping[cleanedWord];
+                      setHoveredVerb(appropriateVerb);
+                    }
+                  };
+
+                  // console.log("hoveredVerb in return", hoveredVerb); // Get the appropriate verb
+
+                  const handleMouseLeave = () => {
+                    if (isTextVerb) {
+                      setIsHovering(false);
+
+                      setHoveredVerb("");
+                    }
+                  };
+
+                  let wordElement = null;
+
+                  if (isInVocabulary) {
+                    wordElement = (
+                      <Highlighted
+                        key={index}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                       >
-                        {wordElement}
-                      </WordTooltip>
-                    ) : (
-                      <span>{wordElement} </span>
-                    )}
-                  </ChapterText>
-                );
-              })}
-            </div>
-          </ChapterBox>
-        ))}
+                        {word}
+                      </Highlighted>
+                    );
+                  } else {
+                    wordElement = (
+                      <VerbBox
+                        className={index === 0 ? "first" : ""}
+                        key={index}
+                        onMouseEnter={() => handleMouseEnter(index)} // Pass index
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        {word}
+                        <TooltipComponentBox>
+                          {isHovering &&
+                            hoveredWordIndex === index && ( // Conditionally render based on the hovered word index
+                              <TooltipComponent
+                                id={`verb-tooltip-${index}`}
+                                tooltipContent={hoveredVerb}
+                                conjugated={word}
+                                index={index}
+                              />
+                            )}
+                        </TooltipComponentBox>
+                      </VerbBox>
+                    );
+                  }
+
+                  return (
+                    <ChapterText key={index}>
+                      {isTextVerb ? (
+                        <Highlighted
+                          content={translation}
+                          handleWordClick={handleWordClick}
+                          wordElement={wordElement}
+                        >
+                          {wordElement}{" "}
+                        </Highlighted>
+                      ) : (
+                        <span
+                          className={index === 0 ? " first" : ""}
+                          key={index}
+                        >
+                          {word}{" "}
+                        </span>
+                      )}
+                    </ChapterText>
+                  );
+                })}
+              </div>
+            </ChapterBox>
+          )}
       </ChapterBoxesContainer>
     </BookContainer>
   );
@@ -134,6 +220,13 @@ const BookContainer = styled.div`
   margin: 0 0.1rem;
   padding: 2rem;
   /* max-width: 920px; */
+  span {
+    &.first {
+      margin-left: 1rem;
+      font-size: ${(props) => props.theme.medium};
+      font-weight: bold;
+    }
+  }
 `;
 
 const BookAuthor = styled.span`
@@ -160,12 +253,12 @@ const ChapterText = styled.span`
   white-space: pre-line;
   line-height: 2;
   width: 100%;
-
   font-size: 1.3rem;
   letter-spacing: 1px;
   font-family: "Palatino", sans-serif;
   text-indent: 30px;
 `;
+
 const ChapterBoxesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -174,6 +267,29 @@ const ChapterBoxesContainer = styled.div`
   width: 100%;
 `;
 const Highlighted = styled.span`
-  background-color: #bdf5bd;
-  padding: 0.2rem;
+  margin: 0 0.3rem;
+  padding: 0.2rem 0.4rem;
+  /* border: 1px solid red; */
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  @media (max-width: 392px) {
+    padding: 0.1rem;
+  }
+`;
+const TooltipComponentBox = styled.span`
+  position: absolute;
+  background-color: ${(props) => props.theme.highlight3};
+
+  top: -120%;
+  left: -40%;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+`;
+const VerbBox = styled.span`
+  background-color: ${(props) => props.theme.highlight2};
+  /* text-decoration: underline; */
+  position: relative;
+  padding: 0.2rem 0.4rem;
 `;

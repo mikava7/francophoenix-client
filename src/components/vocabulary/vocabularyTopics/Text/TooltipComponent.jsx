@@ -11,8 +11,7 @@ import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
-  // console.log("tooltipContent", tooltipContent);
-  console.log({ tooltipContent, index, conjugated });
+  // // console.log("tooltipContent", tooltipContent);
 
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
@@ -25,9 +24,9 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
       data-tip={tooltipContent}
       onClick={handleShowWord}
     >
-      <StyledLink to={`/verbs/${tooltipContent}?conjugated=${conjugated}`}>
+      <StyledTooltip to={`/verbs/${tooltipContent}?conjugated=${conjugated}`}>
         {tooltipContent}
-      </StyledLink>
+      </StyledTooltip>
 
       <Tooltip place="top" effect="solid" />
       <Icon onClick={handleListen(tooltipContent)}>
@@ -50,11 +49,14 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
 export default TooltipComponent;
 const TooltipComponentContainer = styled.span`
   width: 100%;
-  height: 1.8rem;
+  height: 2.4rem;
   display: flex;
   text-align: center;
   align-items: center;
   position: relative;
+  background-color: ${(props) => props.theme.secondaryText};
+  border-radius: 8px;
+  padding-right: 1rem;
 `;
 const Icon = styled.span`
   margin-left: 0.4rem;
@@ -72,4 +74,9 @@ const VerbComponentBox = styled.div`
   background-color: white;
   border: 2px solid red;
   z-index: 999;
+`;
+const StyledTooltip = styled(Link)`
+  text-decoration: none;
+  width: 100%;
+  color: ${(props) => props.theme.primaryBackground};
 `;

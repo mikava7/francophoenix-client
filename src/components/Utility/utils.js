@@ -23,3 +23,15 @@ export const shuffleArray = (array) => {
   }
   return array;
 };
+
+export const handleMouseEnter = () => {
+  if (isTextVerbsWord) {
+    setHoveredVerb(cleanWord);
+  }
+};
+
+export const handleMouseLeave = () => {
+  if (isTextVerbsWord) {
+    setHoveredVerb(null);
+  }
+};
