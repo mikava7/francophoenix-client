@@ -11,17 +11,27 @@ const AccordionExpendedContent = ({ index, expandedIndex, definition }) => {
 
 export default AccordionExpendedContent;
 const AccordionContent = styled.div`
-  width: 96%;
+  width: 95%;
   margin: 0 auto;
+  margin-left: -0.1rem;
+
+  /* outline: 4px solid red; */
   max-height: ${(props) => (props.isExpanded ? "1000px" : "0")};
   opacity: ${(props) => (props.isExpanded ? "1" : "0")};
   overflow: hidden;
   transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  background-color: ${(props) => props.theme.tertiaryText};
-  color: ${(props) => props.theme.primaryBackground};
-
+  background-color: ${(props) => props.theme.tertiaryBackground};
+  color: ${(props) => props.theme.primaryText};
   position: relative;
   clip-path: polygon(0 0, 100% 0, 97% 100%, 3% 100%);
+  @media (min-width: 303px) and (max-width: 576px) {
+    margin-left: -0.1rem;
+  }
+  @media (max-width: 302px) {
+    width: 91%;
+
+    margin-left: -0.4rem;
+  }
 `;
 const FrenchExamples = styled.div`
   text-align: center;

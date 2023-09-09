@@ -67,7 +67,7 @@ const FlashCardBox = styled.span`
 const VerbComponentBox = styled.div`
   position: absolute;
   top: -1000%;
-  left: 60%;
+  left: 40%;
   width: 350px;
   height: 400px;
   overflow-y: scroll;
@@ -78,5 +78,6 @@ const VerbComponentBox = styled.div`
 const StyledTooltip = styled(Link)`
   text-decoration: none;
   width: 100%;
+
   color: ${(props) => props.theme.primaryBackground};
 `;

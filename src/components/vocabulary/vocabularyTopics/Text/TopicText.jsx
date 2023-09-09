@@ -208,8 +208,8 @@ const HighlightedVerb = styled(Highlighted)`
 const TooltipComponentBox = styled.span`
   position: absolute;
   background-color: ${(props) => props.theme.highlight3};
-  top: -100%;
-  left: 40%;
+  top: -120%;
+  left: -11%;
   /* padding: 0.2rem 0.4rem; */
   text-align: center;
   cursor: pointer;

@@ -387,8 +387,7 @@ export const CardContainer = styled.div`
 export const TopicCard = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: flex-end; */
-  margin: 0 auto;
+  text-align: center;
   margin-bottom: 2rem;
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.secondaryText};
@@ -406,11 +405,23 @@ export const TopicCard = styled.div`
       content: ${(props) =>
         props.theme.background === "#000000" ? '" 🔷"' : '" 🔶"'};
     }
+    @media (max-width: 376px) {
+      width: 89%;
+    }
+    @media (max-width: 300px) {
+      width: 70%;
+    }
   }
   h4 {
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"❔"' : '"❓"'};
+    }
+    @media (max-width: 376px) {
+      width: 89%;
+    }
+    @media (max-width: 300px) {
+      width: 70%;
     }
   }
   p {
@@ -418,12 +429,17 @@ export const TopicCard = styled.div`
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
     }
+    @media (max-width: 376px) {
+      width: 89%;
+    }
+    @media (max-width: 300px) {
+      width: 70%;
+    }
   }
   @media (min-width: 376px) and (max-width: 420px) {
-    width: 95%;
   }
   @media (max-width: 376px) {
-    width: 85%;
+    width: 99%;
   }
 `;
 

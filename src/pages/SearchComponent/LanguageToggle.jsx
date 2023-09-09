@@ -102,7 +102,9 @@ const French = styled.div`
   margin: 0.5rem auto;
   outline: 2px solid ${(props) => props.theme.primarText};
   background-color: ${(props) =>
-    props.inputLanguage === "french" ? "#007bff" : props.theme.primaryText};
+    props.inputLanguage === "french"
+      ? props.theme.primaryBackground
+      : props.theme.primaryText};
   color: ${(props) =>
     props.inputLanguage === "french"
       ? props.theme.primaryText
@@ -121,8 +123,11 @@ const French = styled.div`
   }
 `;
 const SecondLanguage = styled(French)`
+  text-align: center;
   background-color: ${(props) =>
-    props.inputLanguage === "french" ? props.theme.primaryText : "#007bff"};
+    props.inputLanguage === "french"
+      ? props.theme.primaryText
+      : props.theme.primaryBackground};
   color: ${(props) =>
     props.inputLanguage === "french"
       ? props.theme.primaryBackground
