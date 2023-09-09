@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const ChapterPagination = ({
   selectedChapter,
@@ -7,19 +8,18 @@ const ChapterPagination = ({
   onPrevious,
   onNext,
 }) => {
+  const { t } = useTranslation();
   return (
     <PaginationContainer>
-      {/* Previous chapter button */}
       <PaginationButton onClick={onPrevious} disabled={selectedChapter === 0}>
-        Previous chapter
+        {t("Chapitre précédent")}
       </PaginationButton>
 
-      {/* Next chapter button */}
       <PaginationButton
         onClick={onNext}
         disabled={selectedChapter === totalChapters - 1}
       >
-        Next chapter
+        {t("Chapitre suivant")}
       </PaginationButton>
     </PaginationContainer>
   );
@@ -31,24 +31,23 @@ const PaginationContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  gap: 1rem;
 `;
 
 const PaginationButton = styled.button`
   padding: 8px 16px;
   font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: ${(props) => props.theme.highlight4};
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 
-  &:hover {
-    background-color: #0056b3;
-  }
-
   &:disabled {
     background-color: #ccc;
+    color: ${(props) => props.theme.tertiaryText};
+
     cursor: not-allowed;
   }
 `;

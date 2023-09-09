@@ -145,14 +145,6 @@ const MenuUl = styled.ul`
     transition-delay: 2s;
     padding-left: 3rem;
   }
-  @media (min-width: 300px) and (max-width: 412px) {
-    & > :nth-child(3) {
-      display: none;
-    }
-    & > :nth-child(4) {
-      display: none;
-    }
-  }
 `;
 const MenuLink = styled(Link)`
   text-decoration: none;

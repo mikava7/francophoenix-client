@@ -322,10 +322,38 @@ const ClearAllButton = styled.button`
   }
 `;
 const RemoveFromFlashcards = styled.img`
-  max-width: 1.3rem;
-  max-height: 1.3rem;
   margin-left: auto;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 1.8rem;
+
+  height: 1.8rem;
+  img {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    filter: ${(props) => (props.isWordInFlashcards ? "" : "invert(50%)")};
+    transition: transform 0.3s ease-in-out;
+    transform: ${(props) =>
+      props.isWordInFlashcards ? "scale(1.1)" : "scale(1)"};
+    @media (min-width: 767px) and (max-width: 920px) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+    @media (min-width: 577px) and (max-width: 767px) {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+    @media (min-width: 393px) and (max-width: 576px) {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+    @media (max-width: 392px) {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
 `;
 const IconsWrapper = styled.div`
   display: flex;

@@ -60,4 +60,10 @@ const CardLink = styled(StyledLink)`
   margin-top: auto;
   margin-left: auto;
   margin-bottom: 1rem;
+  @media (max-width: 376px) {
+    margin-right: 1rem;
+  }
+  @media (max-width: 300px) {
+    margin-right: 5rem;
+  }
 `;

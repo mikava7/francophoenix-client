@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import ChapterPagination from "./chapterPagination/ChapterPagination";
 import TooltipComponent from "../vocabulary/vocabularyTopics/Text/TooltipComponent";
 import { handleMouseEnter } from "../Utility/utils";
+import VerbsInText from "../vocabulary/verbsinText/VerbsInText";
+import BookVocabulary from "./bookVocabulary/BookVocabulary";
 const Book = () => {
   const { bookId } = useParams();
   const dispatch = useDispatch();
@@ -21,26 +23,28 @@ const Book = () => {
   const isGeorgian = i18n.language === "ka";
 
   const selectedBook = useSelector((state) => state.books.selectedBook) || [];
-  const vocabulary = selectedBook.vocabulary || [];
+  const isLoading = useSelector((state) => state.books.isLoading);
+  const { chapters } = selectedBook || [];
+
+  const [selectedChapter, setSelectedChapter] = useState(0);
+  const [selectedWord, setSelectedWord] = useState("");
+  const vocabulary = chapters && chapters[selectedChapter].chapterVocabulary;
+  // console.log("chapters", chapters);
+  // console.log("vocabulary", vocabulary);
+
   const vocabularyTranslations = {};
-  vocabulary.forEach((word) => {
-    // console.log("word", word.georgian);
-    vocabularyTranslations[word.french] = isGeorgian
-      ? word.georgian
-      : word.english;
-  });
+  vocabulary &&
+    vocabulary?.forEach((word) => {
+      // console.log("word", word.georgian);
+      vocabularyTranslations[word.french] = isGeorgian
+        ? word.georgian
+        : word.english;
+    });
   // console.log("vocabularyTranslations", vocabularyTranslations);
 
   const cleanWord = (word) => {
     return word.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
   };
-
-  const { chapters } = selectedBook || [];
-
-  const isLoading = useSelector((state) => state.books.isLoading);
-
-  const [selectedChapter, setSelectedChapter] = useState(0);
-  const [selectedWord, setSelectedWord] = useState("");
 
   // console.log("selectedChapter", selectedChapter);
   // console.log("selectedBook", selectedBook);
@@ -73,11 +77,7 @@ const Book = () => {
 
   const verbs = (verbsFormMapping && Object.values(verbsFormMapping)) || [];
   const uniqueVerbs = [...new Set(verbs)];
-  // console.log("selectedBook", selectedBook);
-  // console.log("uniqueVerbs", uniqueVerbs);
-  // console.log("textVerbs", textVerbs);
 
-  // console.log("verbsFormMapping", verbsFormMapping);
   const formatChapterText = (text) => {
     return text.replace(/—/g, "\n-");
   };
@@ -98,6 +98,9 @@ const Book = () => {
           onPrevious={() => setSelectedChapter(selectedChapter - 1)}
           onNext={() => setSelectedChapter(selectedChapter + 1)}
         />
+        <div>
+          <VerbsInText uniqueVerbs={uniqueVerbs} />
+        </div>
         {selectedBook &&
           selectedBook.chapters &&
           selectedBook.chapters[selectedChapter] && (
@@ -113,6 +116,7 @@ const Book = () => {
                   const translation = vocabularyTranslations[cleanedWord];
                   const isClicked = selectedWord === word;
                   const isInVocabulary = isWordInVocabulary(cleanedWord);
+
                   const isTextVerb = textVerbs.includes(cleanedWord);
 
                   const handleMouseEnter = (wordIndex) => {
@@ -137,18 +141,13 @@ const Book = () => {
                   };
 
                   let wordElement = null;
-
+                  // console.log("Before if (isInVocabulary)");
                   if (isInVocabulary) {
-                    wordElement = (
-                      <Highlighted
-                        key={index}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        {word}
-                      </Highlighted>
-                    );
+                    // console.log("Inside if (isInVocabulary)");
+                    wordElement = <b>{word}</b>;
+                    // console.log("wordElement", wordElement);
                   } else {
+                    // console.log("Inside else");
                     wordElement = (
                       <VerbBox
                         className={index === 0 ? "first" : ""}
@@ -180,14 +179,18 @@ const Book = () => {
                           handleWordClick={handleWordClick}
                           wordElement={wordElement}
                         >
-                          {wordElement}{" "}
+                          {wordElement}
                         </Highlighted>
                       ) : (
                         <span
                           className={index === 0 ? " first" : ""}
                           key={index}
                         >
-                          {word}{" "}
+                          {isInVocabulary ? (
+                            <VocabularyWord>{word}</VocabularyWord>
+                          ) : (
+                            <span> {word}</span>
+                          )}
                         </span>
                       )}
                     </ChapterText>
@@ -196,6 +199,13 @@ const Book = () => {
               </div>
             </ChapterBox>
           )}
+        <BookVocabulary vocabularyTranslations={vocabularyTranslations} />
+        <ChapterPagination
+          selectedChapter={selectedChapter}
+          totalChapters={selectedBook?.chapters?.length}
+          onPrevious={() => setSelectedChapter(selectedChapter - 1)}
+          onNext={() => setSelectedChapter(selectedChapter + 1)}
+        />
       </ChapterBoxesContainer>
     </BookContainer>
   );
@@ -276,6 +286,12 @@ const Highlighted = styled.span`
   @media (max-width: 392px) {
     padding: 0.1rem;
   }
+`;
+const VocabularyWord = styled.span`
+  /* border: 1px solid grey; */
+  font-weight: bold;
+  margin-left: 0.2rem;
+  /* background: yellow; */
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;

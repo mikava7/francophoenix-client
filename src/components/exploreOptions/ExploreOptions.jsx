@@ -2,59 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-const optionsData = [
-  {
-    title: " Découverte de la littérature française.",
-    description:
-      "Plongez dans les trésors de la littérature française classique et contemporaine, en explorant différents niveaux de difficulté, dès le niveau A1. Découvrez :",
-    listItems: [
-      " 50 classiques littéraires",
-      " 35 contemporains",
-      " 20 adaptations",
-      " 100 articles",
-    ],
-    buttonLabel: "Lire",
-    buttonColor: "#00384A",
-    link: "/reading-zone/french-easy-reading",
-  },
-  {
-    title: " Jouer Avec Le Français",
-    description:
-      "Améliorez vos compétences linguistiques en jouant à des jeux amusants et éducatifs qui vous aideront à maîtriser le français tout en vous amusant. Profitez de :",
-    listItems: [
-      " Quiz interactifs",
-      " Jeux de mots",
-      " Exercices de dictée",
-      " Activités ludiques",
-    ],
-    buttonLabel: "Jouer",
-    buttonColor: "#2B4700",
-    link: "/games",
-  },
-  {
-    title: " Approndre Le Français",
-    description:
-      "Débutez votre parcours d'apprentissage du français, explorez les bases de la grammaire, du vocabulaire et de la communication, et avancez vers la maîtrise. Venez découvrir :",
-    listItems: [
-      " Les fondamentaux de la grammaire",
-      " Un vaste vocabulaire",
-      " La communication quotidienne",
-      " Le perfectionnement",
-    ],
-    buttonLabel: "Apprendre",
-    buttonColor: "#67330A",
-    link: "grammar",
-  },
-];
-
+import {
+  optionsDataFr,
+  optionsDataEng,
+  optionsDataGeo,
+} from "./ExploreOptionsData";
 const ExploreOptions = () => {
   const { t, i18n } = useTranslation();
 
+  const dataToRender =
+    i18n.language === "fr"
+      ? optionsDataFr
+      : i18n.language === "ka"
+      ? optionsDataGeo
+      : optionsDataEng;
+
+  // console.log("dataToRender", dataToRender);
+
   return (
     <ExploreOptionsContainer>
-      <h1>Parlez-vous français?</h1>
+      <Header>Parlez-vous français?</Header>
       <CardContainer>
-        {optionsData.map((data) => {
+        {dataToRender.map((data) => {
           const {
             title,
             buttonLabel,
@@ -95,17 +64,23 @@ const ExploreOptionsContainer = styled.div`
   font-family: "Roboto Sans Serif", Verdana, sans-serif;
   line-height: 1.4;
   -webkit-text-size-adjust: 100%;
-
+  /* outline: 1px solid red; */
   margin: 0 1rem;
   margin: 0;
   padding: 0;
   h1 {
+    padding: 0;
+    outline: 1px solid red;
+
     color: ${(props) => props.theme.primaryText};
   }
 `;
 
 const CardContainer = styled.div`
+  /* outline: 1px solid blue; */
+
   margin-bottom: 1rem;
+
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -206,4 +181,12 @@ const List = styled.ul`
 `;
 const CardTilte = styled.h3`
   color: ${(props) => props.theme.primaryText};
+  text-align: center;
+  width: 100%;
+`;
+const Header = styled.header`
+  text-align: center;
+  font-size: 2rem;
+  padding: 1rem;
+  font-weight: bold;
 `;

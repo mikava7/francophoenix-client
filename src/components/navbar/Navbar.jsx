@@ -192,6 +192,9 @@ const StyledLogo = styled(Link)`
 
     background-size: 100%;
   }
+  @media (max-width: 320px) {
+    margin-right: 3rem;
+  }
 `;
 
 const ToggleContainer = styled.div`
@@ -204,4 +207,15 @@ const LocalizationContainer = styled.div`
   padding: 0.2rem 0.5rem;
   /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
   display: flex;
+  @media (max-width: 361px) {
+    & > :nth-child(1) {
+      display: none;
+    }
+    & > :nth-child(2) {
+      margin-right: 2rem;
+    }
+  }
+  @media (max-width: 320px) {
+    display: none;
+  }
 `;

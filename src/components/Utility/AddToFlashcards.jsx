@@ -48,7 +48,9 @@ const AddButton = styled.button`
 const IconWrapper = styled.span`
   display: flex;
   align-items: center;
-
+  width: 2rem;
+  /* outline: 1px solid red; */
+  height: 2rem;
   img {
     width: 2rem;
     height: 2rem;

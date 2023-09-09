@@ -63,10 +63,6 @@ const VocabularyContainer = styled.ul`
   flex-wrap: wrap;
 `;
 
-const FavoriteLinkBox = styled(Button)`
-  transition: background-color 0.3s ease;
-  width: auto;
-`;
 const LocalStyledLink = styled(Link)`
   text-decoration: none;
   /* color: #333; */

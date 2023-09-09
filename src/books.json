@@ -114,7 +114,110 @@
           "suivre": "suivre",
           "venir": "venir",
           "vouloir": "vouloir"
-        }
+        },
+        "chapterVocabulary": [
+          {
+            "french": "le voilier",
+            "english": "sailboat",
+            "georgian": "იალქნიანი ნავი ან გემი",
+            "definition": "Bateau à voiles.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "accoster",
+            "english": "dock",
+            "georgian": "დოკში გემის შესვლა ან შეყვანა",
+            "definition": "Faire entrer un bateau dans un port.",
+            "part_of_speech": "v"
+          },
+          {
+            "french": "l'armateur (m.)",
+            "english": "shipowner",
+            "georgian": "გემის მფლობელი",
+            "definition": "Personne qui possède ou exploite des navires commerciaux.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le marin",
+            "english": "sailor",
+            "georgian": "მეზღვაური",
+            "definition": "Personne qui travaille sur un navire.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "capitaine",
+            "english": "captain",
+            "georgian": "კაპიტანი",
+            "definition": "Chef d'un navire ou d'une équipe.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "l'île (f.)",
+            "english": "island",
+            "georgian": "კუნძული",
+            "definition": "Étendue de terre entourée d'eau.",
+            "part_of_speech": "n"
+          },
+
+          {
+            "french": "l'Empereur (m.)",
+            "english": "Emperor",
+            "georgian": "იმპერატორი",
+            "definition": "Un souverain d'un empire.",
+            "part_of_speech": "n"
+          },
+
+          {
+            "french": "prétendant",
+            "english": "suitor",
+            "georgian": "მთხოვნელი (მაგ. ქალის ცოლობისა)",
+            "definition": "Un homme qui courtise ou séduit une femme.",
+            "part_of_speech": "n"
+          },
+
+          {
+            "french": "bénéfice",
+            "english": "profit",
+            "georgian": "მოგება, სარფა",
+            "definition": "L'argent gagné après avoir soustrait les coûts.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "impartial",
+            "english": "impartial",
+            "georgian": "მიუკერძოებელი",
+            "definition": "Pas biaisé ni favorisant un côté plus que l'autre.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "chaleureusement",
+            "english": "warmly",
+            "georgian": "გულთბილად, თბილად",
+            "definition": "De manière amicale et cordiale, avec chaleur et bienveillance.",
+            "part_of_speech": "adv"
+          },
+          {
+            "french": "manœuvre",
+            "english": "maneuver",
+            "georgian": "მანევრი",
+            "definition": "Action ou série d'actions effectuées pour atteindre un objectif ou effectuer une tâche particulière.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "négligemment",
+            "english": "carelessly",
+            "georgian": "დაუდევრად, უყურადღებოდ",
+            "definition": "Sans prêter une grande attention ou sans soin.",
+            "part_of_speech": "adv"
+          },
+          {
+            "french": "sournoisement",
+            "english": "slyly",
+            "georgian": "ეშმაკურად, მზაკვრულად",
+            "definition": "De manière rusée, avec ruse ou discrétion pour tromper ou manipuler.",
+            "part_of_speech": "adv"
+          }
+        ]
       },
       {
         "chapterTitle": "Le complot",
@@ -253,109 +356,6 @@
           "voir": "voir",
           "vouloir": "vouloir"
         }
-      }
-    ],
-    "words": [
-      {
-        "french": "le voilier",
-        "english": "sailboat",
-        "georgian": "იალქნიანი ნავი ან გემი",
-        "definition": "Bateau à voiles.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "accoster",
-        "english": "dock",
-        "georgian": "დოკში გემის შესვლა ან შეყვანა",
-        "definition": "Faire entrer un bateau dans un port.",
-        "part_of_speech": "v"
-      },
-      {
-        "french": "l'armateur (m.)",
-        "english": "shipowner",
-        "georgian": "გემის მფლობელი",
-        "definition": "Personne qui possède ou exploite des navires commerciaux.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "le marin",
-        "english": "sailor",
-        "georgian": "მეზღვაური",
-        "definition": "Personne qui travaille sur un navire.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "capitaine",
-        "english": "captain",
-        "georgian": "კაპიტანი",
-        "definition": "Chef d'un navire ou d'une équipe.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "l'île (f.)",
-        "english": "island",
-        "georgian": "კუნძული",
-        "definition": "Étendue de terre entourée d'eau.",
-        "part_of_speech": "n"
-      },
-
-      {
-        "french": "l'Empereur (m.)",
-        "english": "Emperor",
-        "georgian": "იმპერატორი",
-        "definition": "Un souverain d'un empire.",
-        "part_of_speech": "n"
-      },
-
-      {
-        "french": "prétendant",
-        "english": "suitor",
-        "georgian": "მთხოვნელი (მაგ. ქალის ცოლობისა)",
-        "definition": "Un homme qui courtise ou séduit une femme.",
-        "part_of_speech": "n"
-      },
-
-      {
-        "french": "bénéfice",
-        "english": "profit",
-        "georgian": "მოგება, სარფა",
-        "definition": "L'argent gagné après avoir soustrait les coûts.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "impartial",
-        "english": "impartial",
-        "georgian": "მიუკერძოებელი",
-        "definition": "Pas biaisé ni favorisant un côté plus que l'autre.",
-        "part_of_speech": "adj"
-      },
-      {
-        "french": "chaleureusement",
-        "english": "warmly",
-        "georgian": "გულთბილად, თბილად",
-        "definition": "De manière amicale et cordiale, avec chaleur et bienveillance.",
-        "part_of_speech": "adv"
-      },
-      {
-        "french": "manœuvre",
-        "english": "maneuver",
-        "georgian": "მანევრი",
-        "definition": "Action ou série d'actions effectuées pour atteindre un objectif ou effectuer une tâche particulière.",
-        "part_of_speech": "n"
-      },
-      {
-        "french": "négligemment",
-        "english": "carelessly",
-        "georgian": "დაუდევრად, უყურადღებოდ",
-        "definition": "Sans prêter une grande attention ou sans soin.",
-        "part_of_speech": "adv"
-      },
-      {
-        "french": "sournoisement",
-        "english": "slyly",
-        "georgian": "ეშმაკურად, მზაკვრულად",
-        "definition": "De manière rusée, avec ruse ou discrétion pour tromper ou manipuler.",
-        "part_of_speech": "adv"
       }
     ]
   },

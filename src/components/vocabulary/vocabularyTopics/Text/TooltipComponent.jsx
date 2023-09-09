@@ -48,7 +48,7 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
 
 export default TooltipComponent;
 const TooltipComponentContainer = styled.span`
-  width: 100%;
+  width: 90%;
   height: 2.4rem;
   display: flex;
   text-align: center;
@@ -57,11 +57,14 @@ const TooltipComponentContainer = styled.span`
   background-color: ${(props) => props.theme.secondaryText};
   border-radius: 8px;
   padding-right: 1rem;
+
+  /* border: 1px solid red; */
 `;
 const Icon = styled.span`
   margin-left: 0.4rem;
 `;
 const FlashCardBox = styled.span`
+  /* border: 1px solid blue; */
   width: 80%;
 `;
 const VerbComponentBox = styled.div`
@@ -72,12 +75,16 @@ const VerbComponentBox = styled.div`
   height: 400px;
   overflow-y: scroll;
   background-color: white;
-  border: 2px solid red;
+
   z-index: 999;
 `;
 const StyledTooltip = styled(Link)`
   text-decoration: none;
   width: 100%;
-
+  /* border: 1px solid blue; */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin-left: -1rem;
   color: ${(props) => props.theme.primaryBackground};
 `;
