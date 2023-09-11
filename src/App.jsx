@@ -40,6 +40,8 @@ import VocabularyLanding from "./components/vocabulary/VocabularyLanding";
 import Articles from "./components/grammer/articles/Articles";
 import AspectTopicPage from "./components/grammer/AspectTopics/AspectTopicPage";
 import Layout from "./layout/Layout";
+import Register from "./pages/User/Register";
+import Login from "./pages/User/Login";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -64,7 +66,10 @@ function App() {
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
+          
           {/**8//////////////////////////////////////// */}
           <Route element={<Layout />}>
             <Route

@@ -48,7 +48,7 @@
           "accoster",
           "annonce",
           "apprendre",
-          "caderousse",
+
           "consolent",
           "croit",
           "demander",
@@ -64,7 +64,7 @@
           "nommer",
           "penser",
           "plaire",
-          "plaisir",
+
           "pleurer",
           "prévenir",
           "rapporter",
@@ -83,7 +83,7 @@
         "verbFormMapping": {
           "accoster": "accoster",
           "annonce": "annoncer",
-          "caderousse": "caderousse",
+          "avoir": "avoir",
           "consolent": "consoler",
           "croit": "croire",
           "demander": "demander",
@@ -99,7 +99,7 @@
           "nommer": "nommer",
           "penser": "penser",
           "plaire": "plaire",
-          "plaisir": "plaisir",
+
           "pleurer": "pleurer",
           "prévenir": "prévenir",
           "rapporter": "rapporter",
@@ -145,7 +145,7 @@
             "part_of_speech": "n"
           },
           {
-            "french": "capitaine",
+            "french": "le capitaine",
             "english": "captain",
             "georgian": "კაპიტანი",
             "definition": "Chef d'un navire ou d'une équipe.",
@@ -176,7 +176,7 @@
           },
 
           {
-            "french": "bénéfice",
+            "french": "le bénéfice",
             "english": "profit",
             "georgian": "მოგება, სარფა",
             "definition": "L'argent gagné après avoir soustrait les coûts.",
@@ -225,7 +225,157 @@
         "chapterImages": [
           "/images/bookImages/monte_cristo/monte_cristo-ch2-img1.png"
         ],
-        "text": "Caderousse et Danglars s’asseyent à la terrasse d’un café et commandent à boire. Un peu plus loin, devant une maison du village des Catalans, une belle jeune fille aux cheveux noirs et aux yeux étincelants semble attendre quelque chose avec impatience. À ses côtés, un jeune homme se balance sur une chaise. Il a l’air déçu et triste. — Pourquoi refusez-vous de m’épouser, Mercédès ? Votre mère aurait béni ce mariage, vous le savez bien. — Fernand, je ne vous ai jamais menti : je vous aime, oui... mais comme un frère ! Vous savez bien que mon cœur bat pour un autre. Acceptez mon amitié, Fernand. C’est la seule chose que je puisse vous offrir ! Fernand se lève, fait quelques pas et regarde Mercédès droit dans les yeux. — Vous êtes sûre, Mercédès ? — Oui. J’aime Edmond Dantès, et je n’épouserai personne d’autre. Fernand est désespéré, mais tout à coup son regard s’illumine. — Et s’il devait mourir ? — Je mourrais aussi. — Et s’il vous oubliait ? — Mercédès ! crie une voix au loin. C’est Edmond qui arrive. Il court vers Mercédès et la prend dans ses bras. Mais pendant qu’il la serre contre lui, il se sent observé. Il tourne la tête et aperçoit le cousin de Mercédès, pâle comme la mort. Dantès lui tend la main pour le saluer, mais Fernand se détourne. Edmond comprend la situation à l’instant même. — Je ne pensais pas trouver un ennemi chez toi, Mercédès. — Tu te trompes, Edmond, tu n’as pas d’ennemi ici. Fernand va te serrer la main comme il le fait avec tous ses amis, poursuit Mercédès en regardant Fernand qui, malgré sa haine pour son rival, ne sait pas résister à sa cousine. Il s’approche d’Edmond pour obéir à Mercédès, lui serre à peine la main et s’en va immédiatement. « Je suis si malheureux ! » pense-t-il en s’éloignant. « Comme je voudrais me débarrasser de cet homme ! » — Où cours-tu comme ça ? crie Danglars, alors que Fernand passe sur la place. Viens donc t’asseoir avec nous ! Fernand s’arrête et aperçoit Danglars et Caderousse installés sous un platane. — Tu as l’air d’un homme qui a été rejeté par une femme, continue Caderousse un peu ivre, en regardant Fernand s’approcher. Fernand se laisse tomber sur une chaise et commence à pleurer de désespoir. — Il paraît que Dantès va bientôt épouser Mercédès, ajoute Caderousse, et qu’il va, en plus, devenir capitaine du Pharaon. — Ce n’est pas encore fait, dit le comptable à voix basse. Danglars regarde Caderousse, puis Fernand et pense : « L’un est ivre d’alcool et l’autre d’amour. Je ne peux pas compter sur eux. Je dois agir seul et vite car les fiançailles d’Edmond et de Mercédès auront lieu après-demain. Mais, j’y pense... Edmond doit aller à Paris pour remettre la lettre que le grand maréchal lui a donnée... Ah ! Mon cher Dantès, tu n’es pas encore marié et tu ne seras peut-être jamais capitaine... » Puis, il s’adresse au cousin de Mercédès : — Ah, Fernand, j’aimerais tant pouvoir vous aider ! Il doit bien y avoir une solution... — Oui, mais laquelle ? J’avais pensé le poignarder, mais s’il meurt, elle meurt aussi. — Je ne veux pas que Dantès meure, moi. C’est mon ami, interrompt Caderousse complètement ivre. — Dantès ne doit pas nécessairement mourir... Le mariage peut ne pas avoir lieu, même si Dantès reste en vie... Il suffit que les murs d’une prison les séparent, ajoute Danglars. — Et vous connaissez un moyen de le faire emprisonner ? demande Fernand, intéressé. Vous aussi, Danglars, vous avez des raisons de haïr Dantès, n’est-ce pas ? — Absolument pas ! Je vous vois malheureux, c’est tout. Je fais simplement cela pour vous aider. Mais si mon aide ne vous intéresse pas..., dit le comptable en faisant semblant de se lever. — Attendez, Danglars ! Quelle importance, après tout ! Je le déteste, et je n’ai pas honte de l’avouer. Trouvez un moyen, et je l’exécuterai, pourvu que Dantès ne meure pas. À ces mots, Danglars se rassoit et demande qu’on lui apporte de quoi écrire. — Du papier, de l’encre et une plume : voilà les instruments les plus sûrs pour se débarrasser d’un homme..., ajoute Caderousse dans un sursaut de lucidité. « Il n’est pas encore complètement ivre » constate Danglars. Il se tourne ensuite vers Fernand. — Il serait facile de le dénoncer comme agent bonapartiste, surtout après son passage sur l’île d’Elbe où se trouve l’Empereur. Danglars prend alors la plume de la main gauche pour masquer son écriture et se met à écrire. Il donne ensuite la feuille de papier à Fernand et la lui fait lire. <<Edmond Dantès, second du navire le Pharaon, a fait une escale à l'île d’Elbe. Il a apporté un message à l’usurpateur qui lui a donné une lettre à remettre au comité bonapartiste de Paris. Vous aurez la preuve de son crime en l’arrêtant car vous trouverez cette lettre sur lui, chez son père ou dans sa cabine à bord du Pharaon.>> — Et voilà, mon cher Fernand, comment pourrait finalement se réaliser votre rêve. — Oui, mais ce serait une infamie ! ajoute Caderousse. — Mais je plaisante, voyons, dit Danglars. Je serais vraiment désolé s’il arrivait quelque chose à ce cher Edmond ! Le comptable froisse la lettre, puis la jette négligemment sous la table. Peu de temps après, Caderousse et Danglars se lèvent pour partir. Ce dernier remarque avec satisfaction que Fernand, qui n’a pas quitté des yeux l’endroit où se trouve la lettre, en profite pour la récupérer discrètement et la cacher dans sa poche. Le comptable est maintenant presque sûr qu’Edmond Dantès ne deviendra jamais capitaine...",
+        "text": "Caderousse et Danglars s’asseyent à la terrasse d’un café et commandent à boire.\n Un peu plus loin, devant une maison du village des Catalans, une belle jeune fille aux cheveux noirs et aux yeux étincelants semble attendre quelque chose avec impatience. À ses côtés, un jeune homme se balance sur une chaise. Il a l’air déçu et triste. \n — Pourquoi refusez-vous de m’épouser, Mercédès ? Votre mère aurait béni ce mariage, vous le savez bien.\n — Fernand, je ne vous ai jamais menti: je vous aime, oui... mais comme un frère ! Vous savez bien que mon cœur bat pour un autre. Acceptez mon amitié, Fernand. C’est la seule chose que je puisse vous offrir !\n Fernand se lève, fait quelques pas et regarde Mercédès droit dans les yeux.\n — Vous êtes sûre, Mercédès ?\n — Oui. J’aime Edmond Dantès, et je n’épouserai personne d’autre.\n Fernand est désespéré, mais tout à coup son regard s’illumine.\n — Et s’il devait mourir ?\n — Je mourrais aussi.\n — Et s’il vous oubliait ?\n — Mercédès ! crie une voix au loin.\n C’est Edmond qui arrive. Il court vers Mercédès et la prend dans ses bras. Mais pendant qu’il la serre contre lui, il se sent observé. Il tourne la tête et aperçoit le cousin de Mercédès, pâle comme la mort. Dantès lui tend la main pour le saluer, mais Fernand se détourne. Edmond comprend la situation à l’instant même.\n — Je ne pensais pas trouver un ennemi chez toi, Mercédès.\n — Tu te trompes, Edmond, tu n’as pas d’ennemi ici. Fernand va te serrer la main comme il le fait avec tous ses amis, poursuit Mercédès en regardant Fernand qui, malgré sa haine pour son rival, ne sait pas résister à sa cousine.\n Il s’approche d’Edmond pour obéir à Mercédès, lui serre à peine la main et s’en va immédiatement. \n « Je suis si malheureux ! » pense-t-il en s’éloignant. « Comme je voudrais me débarrasser de cet homme ! »\n — Où cours-tu comme ça ? crie Danglars, alors que Fernand passe sur la place. Viens donc t’asseoir avec nous !\n Fernand s’arrête et aperçoit Danglars et Caderousse installés sous un platane.\n — Tu as l’air d’un homme qui a été rejeté par une femme, continue Caderousse un peu ivre, en regardant Fernand s’approcher. \n Fernand se laisse tomber sur une chaise et commence à pleurer de désespoir. \n — Il paraît que Dantès va bientôt épouser Mercédès, ajoute Caderousse, et qu’il va, en plus, devenir capitaine du Pharaon.\n — Ce n’est pas encore fait, dit le comptable à voix basse. \n Danglars regarde Caderousse, puis Fernand et pense :\n « L’un est ivre d’alcool et l’autre d’amour. Je ne peux pas compter sur eux. Je dois agir seul et vite car les fiançailles d’Edmond et de Mercédès auront lieu après-demain. Mais, j’y pense... Edmond doit aller à Paris pour remettre la lettre que le grand maréchal lui a donnée... Ah ! Mon cher Dantès, tu n’es pas encore marié et tu ne seras peut-être jamais capitaine... »\n Puis, il s’adresse au cousin de Mercédès :\n — Ah, Fernand, j’aimerais tant pouvoir vous aider ! Il doit bien y avoir une solution...\n — Oui, mais laquelle ? J’avais pensé le poignarder, mais s’il meurt, elle meurt aussi.\n — Je ne veux pas que Dantès meure, moi. C’est mon ami, interrompt Caderousse complètement ivre.\n — Dantès ne doit pas nécessairement mourir... Le mariage peut ne pas avoir lieu, même si Dantès reste en vie... Il suffit que les murs d’une prison les séparent, ajoute Danglars. \n— Et vous connaissez un moyen de le faire emprisonner ? demande Fernand, intéressé. Vous aussi, Danglars, vous avez des raisons de haïr Dantès, n’est-ce pas ? \n— Absolument pas ! Je vous vois malheureux, c’est tout. Je fais simplement cela pour vous aider. Mais si mon aide ne vous intéresse pas..., dit le comptable en faisant semblant de se lever.\n — Attendez, Danglars ! Quelle importance, après tout ! Je le déteste, et je n’ai pas honte de l’avouer. Trouvez un moyen, et je l’exécuterai, pourvu que Dantès ne meure pas. \n À ces mots, Danglars se rassoit et demande qu’on lui apporte de quoi écrire.\n — Du papier, de l’encre et une plume : voilà les instruments les plus sûrs pour se débarrasser d’un homme..., ajoute Caderousse dans un sursaut de lucidité. \n « Il n’est pas encore complètement ivre » constate Danglars. \n Il se tourne ensuite vers Fernand. \n— Il serait facile de le dénoncer comme agent bonapartiste, surtout après son passage sur l’île d’Elbe où se trouve l’Empereur. \n Danglars prend alors la plume de la main gauche pour masquer son écriture et se met à écrire. Il donne ensuite la feuille de papier à Fernand et la lui fait lire.\n <<<Edmond Dantès, second du navire le Pharaon, a fait une escale à l'île d’Elbe. Il a apporté un message à l’usurpateur qui lui a donné une lettre à remettre au comité bonapartiste de Paris. Vous aurez la preuve de son crime en l’arrêtant car vous trouverez cette lettre sur lui, chez son père ou dans sa cabine à bord du Pharaon.>>>\n — Et voilà, mon cher Fernand, comment pourrait finalement se réaliser votre rêve.\n — Oui, mais ce serait une infamie ! ajoute Caderousse.\n — Mais je plaisante, voyons, dit Danglars. Je serais vraiment désolé s’il arrivait quelque chose à ce cher Edmond ! \nLe comptable froisse la lettre, puis la jette négligemment sous la table. Peu de temps après, Caderousse et Danglars se lèvent pour partir. Ce dernier remarque avec satisfaction que Fernand, qui n’a pas quitté des yeux l’endroit où se trouve la lettre, en profite pour la récupérer discrètement et la cacher dans sa poche. Le comptable est maintenant presque sûr qu’Edmond Dantès ne deviendra jamais capitaine...",
+        "chapterVocabulary": [
+          {
+            "french": "étincelant",
+            "english": "sparkling",
+            "georgian": "მბრწყინავი, მბზინავი,",
+            "definition": "Qui brille intensément, qui scintille.",
+            "part_of_speech": "adj."
+          },
+          {
+            "french": "impatience",
+            "english": "impatience",
+            "georgian": "მოუთმენლობა",
+            "definition": "État d'esprit marqué par l'attente anxieuse et le désir pressant.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "côté",
+            "english": "side",
+            "georgian": "გვერდი, მხარე",
+            "definition": "L'un des deux bords ou surfaces extérieurs d'un objet plat.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "balance",
+            "english": "swing",
+            "georgian": "ქანაობა, დარწევა",
+            "definition": "Se mouvoir d'un côté à l'autre en oscillant.",
+            "part_of_speech": "v."
+          },
+          {
+            "french": "déçu",
+            "english": "disappointed",
+            "georgian": "იმედგაცრუებული, გულგატეხილი",
+            "definition": "Éprouver de la déception, être désillusionné.",
+            "part_of_speech": "adj."
+          },
+          {
+            "french": "amitié",
+            "english": "friendship",
+            "georgian": "მეგობრობა",
+            "definition": "Sentiment d'affection et de fidélité réciproques entre amis.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "pâle",
+            "english": "pale",
+            "georgian": "ფერმიხდილი, ფერწასული",
+            "definition": "Qui manque de couleur, de teint.",
+            "part_of_speech": "adj."
+          },
+          {
+            "french": "tend",
+            "english": "stretch",
+            "georgian": "გაჭიმვა",
+            "definition": "Exercer une force pour étirer ou tirer quelque chose.",
+            "part_of_speech": "v."
+          },
+          {
+            "french": "l’ennemi (m)",
+            "english": "enemy",
+            "georgian": "მტერი, მოწინააღმდეგე",
+            "definition": "Personne ou chose adverse, hostile.",
+            "part_of_speech": "n."
+          },
+
+          {
+            "french": "les fiançailles",
+            "english": "engagement",
+            "georgian": "ნიშნობა",
+            "definition": "Promesse solennelle de mariage, échangée entre futurs époux.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "laquelle",
+            "english": "which",
+            "georgian": "რომელი? რომელიც, რაც, რამაც",
+            "definition": "Mot utilisé pour demander ou se référer à une chose spécifique parmi un groupe de choses.",
+            "part_of_speech": "pron."
+          },
+          {
+            "french": "nécessairement",
+            "english": "necessarily",
+            "georgian": "აუცილებლად, უეჭველად",
+            "definition": "D'une manière nécessaire.",
+            "part_of_speech": "adv."
+          },
+          {
+            "french": "moyen",
+            "english": "means",
+            "georgian": "საშუალება",
+            "definition": "Une méthode ou une manière de faire quelque chose.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "haïr",
+            "english": "hate",
+            "georgian": "სიძულვილი (სძულს), შეძაგება",
+            "definition": "Éprouver une aversion intense ou une antipathie passionnée envers quelqu'un.",
+            "part_of_speech": "v."
+          },
+          {
+            "french": "la honte",
+            "english": "shame",
+            "georgian": "სირცხვილი",
+            "definition": "Un sentiment d'humiliation ou de détresse provoqué par la conscience de comportement erroné ou insensé.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "l’encre (f)",
+            "english": "ink",
+            "georgian": "მელანი",
+            "definition": "Un liquide coloré utilisé pour écrire, dessiner ou imprimer.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "plume",
+            "english": "feather",
+            "georgian": "ბუმბული, პერო",
+            "definition": "Une structure fine et légère trouvée sur les oiseaux et utilisée pour le vol.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "sursaut",
+            "english": "startle",
+            "georgian": "გაოცება",
+            "definition": "Une réaction brusque de surprise ou de peur.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "usurpateur",
+            "english": "usurper",
+            "georgian": "უზურპატორი",
+            "definition": "Une personne qui prend illégalement le pouvoir ou la position de quelqu'un d'autre.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "infamie",
+            "english": "infamy",
+            "georgian": "უნამუსობა, სისაძაგლე",
+            "definition": "La réputation d'être notoirement mauvais ou honteux.",
+            "part_of_speech": "n."
+          },
+          {
+            "french": "discrètement",
+            "english": "discreetly",
+            "georgian": "მალულად",
+            "definition": "De manière à ne pas attirer l'attention ou à rester secrète.",
+            "part_of_speech": "adv."
+          }
+        ],
         "textVerbs": [
           "accepter",
           "agir",
@@ -356,6 +506,280 @@
           "voir": "voir",
           "vouloir": "vouloir"
         }
+      },
+      {
+        "chapterTitle": "Les fiançailles",
+        "text": "Deux jours plus tard ont lieu les fiançailles d’Edmond et de Mercédès. Les amis de Dantès et les marins du navire le Pharaon sont présents. La joie se lit sur leur visage car tous apprécient Edmond et Mercédès. L’armateur assiste lui aussi à la fête, ce qui confirme aux yeux de tous la promotion d’Edmond au grade de capitaine. À table, Caderousse s’est assis près du père d’Edmond et cet excellent repas le rend encore plus aimable avec la famille Dantès. Edmond et Mercédès sont aveuglés par leur bonheur. Ils ne remarquent pas le sourire cruel de Fernand qui semble attendre quelque chose. Caderousse n’a plus qu’un vague souvenir de ce qui s’est passé deux jours auparavant. Quant à Danglars, il est nerveux et il ne perd pas de vue Fernand. Tout à coup, au beau milieu des réjouissances, un bruit confus de pas, mêlé à un cliquetis d’armes, couvre le brouhaha de la fête.\n— Au nom de la loi ! gronde soudain une voix.\nC’est la voix d’un commissaire qui entre, suivi de quatre soldats.\n— Que se passe-t-il ? demande l’armateur, terrorisé. Vous devez très certainement faire erreur.\n— J’ai un mandat d’arrêt qui parmi vous est Edmond Dantès ?\n Tous les regards se tournent vers le jeune homme qui, ému et digne à la fois, fait un pas en avant et déclare :\n— C’est moi, monsieur. Que me voulez-vous ?\n— Edmond Dantès, au nom de la loi, je vous arrête !\n— Mais pourquoi m’arrêtez-vous ?\n— Vous le saurez lors de votre interrogatoire. Les invités ne comprennent rien à ce qui se passe. Chacun s’interroge à voix basse. Caderousse s’approche de Danglars.\n— Qu’est-ce que cela signifie ? Où est Fernand ? demande-t-il à Danglars en cherchant des yeux le cousin de Mercédès.\n Caderousse se souvient alors...\n— Tu n’as pas déchiré le papier... Tu l’as seulement jeté...\n— Tu n’as rien vu, tu étais ivre, réplique le comptable. Au lieu de chercher Fernand, essayons plutôt d’aider Dantès.\n Ils s’approchent du groupe qui s’est formé autour du commissaire. Mais il n’y a rien à faire : le prisonnier doit suivre les soldats. \n — Edmond ! crie Mercédès en se lançant vers la voiture. \n C’est la dernière chose que le prisonnier entend avant que la portière ne se referme sur lui. Monsieur Morrel monte dans une autre voiture. Il promet à Mercédès de s’informer et de revenir le plus rapidement possible. Les invités sont désespérés. Mercédès et le père d’Edmond, brisés par la douleur, pleurent dans les bras l’un de l’autre. Caderousse aperçoit Fernand.\n— C’est lui ! affirme-t-il à Danglars. Il a dû écouter les conseils que tu lui as donnés. Je suis sûr qu’il a récupéré la lettre que tu avais jetée sous la table et qu’il l’a remise au commissaire !\n— Mais non... Edmond a probablement rapporté quelques marchandises qu’il n’a pas déclarées, répond Danglars à voix haute pour rassurer les invités. \n Entre-temps, monsieur Morrel est revenu. Il est très pâle et tous comprennent alors que les nouvelles ne sont pas bonnes.\n— La chose est grave... très grave... plus grave que ce que l’on pouvait imaginer : on l’accuse d’être un agent bonapartiste ! \n À l’époque, c’est une accusation terrible.\n— Mais il est innocent ! s’écrie Mercédès.\n— Je sais ! Mais il sera difficile de le prouver... \n Mercédès et le père d’Edmond sont désespérés.\n— Danglars, tu m’as trompé, et je vais tout leur dire ! menace Caderousse.\n— Tais-toi ! ordonne le comptable. Qui te dit qu’il n’est pas vraiment coupable ? Et si l’on trouve les preuves de sa culpabilité, ceux qui l’auront soutenu pourraient passer pour ses complices. \n Caderousse comprend l’allusion en un éclair.\n— Tu as raison... Il vaut mieux attendre.\nMonsieur Morrel, qui a malheureusement besoin de quelqu’un pour commander son navire, nomme temporairement Danglars capitaine du Pharaon. « Le temps qu’Edmond soit remis en liberté », précise l’armateur. Le comptable a du mal à cacher sa joie. \n « Ah ! » pense-t-il, « tout se passe comme prévu : je suis le nouveau capitaine du Pharaon et si Caderousse se tait, je le serai pour longtemps. De plus, avec monsieur de Villefort comme substitut du procureur du roi, je suis tranquille, ils ne le relâcheront jamais : il est en effet plus royaliste que le roi ! »",
+        "chapterVocabulary": [
+          {
+            "french": "auparavant",
+            "english": "beforehand",
+            "georgian": "",
+            "definition": "Dans le temps qui précède, précédemment, avant.",
+            "part_of_speech": "adv"
+          },
+          {
+            "french": "le grade",
+            "english": "rank",
+            "georgian": "",
+            "definition": "Une position ou un niveau hiérarchique dans une organisation ou une structure.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le repas",
+            "english": "meal",
+            "georgian": "",
+            "definition": "Un ensemble de nourriture pris à un moment donné pour se nourrir.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "aveuglé",
+            "english": "blinded",
+            "georgian": "",
+            "definition": "Privé de la vue, incapable de voir.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "Entre-temps",
+            "english": "meanwhile",
+            "georgian": "",
+            "definition": "Pendant ce temps, pendant une période définie qui s'est écoulée entre deux moments ou événements.",
+            "part_of_speech": "adv"
+          },
+          {
+            "french": "grave",
+            "english": "serious",
+            "georgian": "",
+            "definition": "D'une grande importance ou signification, nécessitant une attention ou une considération soigneuse.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "Tais-toi",
+            "english": "shut up",
+            "georgian": "",
+            "definition": "Une commande informelle ou une demande à quelqu'un de cesser de parler ou de se taire.",
+            "part_of_speech": "v"
+          },
+          {
+            "french": "la menace",
+            "english": "threat",
+            "georgian": "",
+            "definition": "Une expression d'intention de nuire ou de causer des dommages, provoquant souvent de la peur ou de l'alarme.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "coupable",
+            "english": "guilty",
+            "georgian": "",
+            "definition": "Responsable d'avoir commis une infraction, un acte répréhensible ou un crime.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "la culpabilité",
+            "english": "guilt",
+            "georgian": "",
+            "definition": "L'état de responsabilité pour une faute ou une infraction, souvent accompagné de remords ou de regret.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le complice",
+            "english": "accomplice",
+            "georgian": "",
+            "definition": "Une personne qui aide ou participe à un acte criminel ou répréhensible avec une autre personne.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "l'allusion (f)",
+            "english": "allusion",
+            "georgian": "",
+            "definition": "Une référence indirecte ou une suggestion à quelque chose, souvent sans la mentionner explicitement.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la liberté",
+            "english": "freedom",
+            "georgian": "",
+            "definition": "L'état de ne pas être soumis à l'oppression, aux restrictions ou aux limitations.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le procureur",
+            "english": "prosecutor",
+            "georgian": "",
+            "definition": "Un représentant légal qui initie et mène des poursuites judiciaires contre un accusé au nom du gouvernement ou d'un plaignant.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "cruel",
+            "english": "cruel",
+            "georgian": "",
+            "definition": "Causer intentionnellement de la douleur, de la souffrance ou des dommages à autrui, souvent sans pitié.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "la vague",
+            "english": "wave",
+            "georgian": "",
+            "definition": "Une perturbation ou une oscillation qui se propage dans l'espace ou la matière, souvent sous forme d'ondes d'eau ou d'ondes sonores.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la réjouissance",
+            "english": "rejoicing",
+            "georgian": "",
+            "definition": "Un état de bonheur et de célébration, souvent exprimé ouvertement et joyeusement.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "mêlé",
+            "english": "mixed",
+            "georgian": "",
+            "definition": "Combiné ou mélangé à partir de divers éléments ou sources.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "le cliquetis",
+            "english": "clinking",
+            "georgian": "",
+            "definition": "Une série de sons nets, aigus et répétitifs, souvent produits par des objets qui s'entrechoquent.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "l'arme (f)",
+            "english": "weapon",
+            "georgian": "",
+            "definition": "Un instrument ou un dispositif conçu pour être utilisé dans le combat, l'attaque ou la défense.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le brouhaha",
+            "english": "hubbub",
+            "georgian": "",
+            "definition": "Une situation bruyante et chaotique avec de nombreuses personnes qui parlent ou font du bruit en même temps.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le commissaire",
+            "english": "commissioner",
+            "georgian": "",
+            "definition": "Un officiel ou une personne responsable d'un département, d'une organisation ou d'une tâche particulière.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le soldat",
+            "english": "soldier",
+            "georgian": "",
+            "definition": "Une personne qui sert dans une armée, généralement formée pour le combat et la guerre.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la voix",
+            "english": "voice",
+            "georgian": "",
+            "definition": "Le son produit par les cordes vocales chez les humains et les animaux, utilisé pour parler, chanter ou faire des bruits.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "l'erreur (f)",
+            "english": "error",
+            "georgian": "",
+            "definition": "Une erreur ou un écart par rapport à la justesse ou à la précision.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le mandat",
+            "english": "mandate",
+            "georgian": "",
+            "definition": "Un ordre ou une commission officielle pour faire quelque chose, souvent délivré par un gouvernement ou une autorité.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "le mandat d’arrêt",
+            "english": "arrest warrant",
+            "georgian": "",
+            "definition": "Un document légal émis par un tribunal autorisant l'arrestation d'une personne suspectée d'avoir commis un crime.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "parmi",
+            "english": "among",
+            "georgian": "",
+            "definition": "Indique le fait de faire partie d'un groupe, d'un ensemble ou d'une catégorie.",
+            "part_of_speech": "prep"
+          },
+          {
+            "french": "digne",
+            "english": "worthy",
+            "georgian": "",
+            "definition": "Méritant le respect, l'honneur ou l'admiration en raison de ses qualités ou de ses actions.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "ému/émue",
+            "english": "moved",
+            "georgian": "",
+            "definition": "Affecté émotionnellement, généralement de manière profonde ou émouvante.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "l'interrogatoire (m)",
+            "english": "interrogation",
+            "georgian": "",
+            "definition": "Un interrogatoire ou un examen formel, souvent utilisé dans des contextes juridiques ou d'enquête.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "ivre",
+            "english": "drunk",
+            "georgian": "",
+            "definition": "Sous l'influence de l'alcool, ivre.",
+            "part_of_speech": "adj"
+          },
+          {
+            "french": "le prisonnier",
+            "english": "prisoner",
+            "georgian": "",
+            "definition": "Une personne qui est enfermée ou incarcérée en punition ou en attendant un procès.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la voiture",
+            "english": "car",
+            "georgian": "",
+            "definition": "Un véhicule à moteur avec quatre roues, généralement conçu pour transporter des passagers sur des routes.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la portière",
+            "english": "car door",
+            "georgian": "",
+            "definition": "Une porte à charnière ou coulissante sur un véhicule, tel qu'une voiture, utilisée pour entrer et sortir.",
+            "part_of_speech": "n"
+          },
+          {
+            "french": "la marchandise",
+            "english": "goods",
+            "georgian": "",
+            "definition": "Des objets tangibles ou des produits qui sont achetés, vendus ou échangés.",
+            "part_of_speech": "n"
+          }
+        ]
+      },
+      {
+        "chapterTitle": "L’interrogatoire",
+        "text": "Prenons le temps de faire la connaissance de monsieur de Villefort car c'est lui qui décidera de la vie d'Edmond Dantès. Âgé de vingt-sept ans, ce fervent royaliste occupe déjà un poste important dans la magistrature, puisqu'il est substitut du procureur du roi. De plus, il va bientôt épouser une jeune aristocrate, mademoiselle de Saint-Méran, qui appartient à l'une des plus importantes familles de l'époque. Monsieur de Villefort est donc promis à un bel avenir. Malheureusement, son père, monsieur Noirtier, est un bonapartiste fidèle et dévoué, ce qui menace en permanence son avenir. Pour faire oublier ce père bonapartiste à la famille royaliste de sa fiancée, il doit donc se montrer inflexible avec les conspirateurs. Monsieur de Villefort pense à tout cela lorsqu'il quitte la maison de sa future épouse pour aller se prononcer sur le cas d'Edmond Dantès. Monsieur Morrel connaît un peu monsieur de Villefort, et c'est pour cette raison qu'il s'est rendu au palais de justice : il veut plaider la cause d'Edmond. Il sait que Villefort est royaliste, mais il souhaite tout de même faire appel à sa bonté. Lorsque monsieur de Villefort arrive, l'armateur se précipite vers lui et le prie d'épargner ce pauvre Edmond Dantès, un homme bon et honnête, et un excellent marin. Le substitut du procureur du roi regarde Morrel avec mépris et lui dit : 'On peut être un homme bien dans la vie privée et dans son travail, et être coupable au niveau politique. Vous le savez bien, monsieur Morrel...', lui dit Villefort en insistant sur les derniers mots. Morrel reste sans voix, car il est en effet bonapartiste. Le magistrat le salue froidement et entre dans le palais de justice. Après s'être installé à son bureau, monsieur de Villefort ordonne de faire entrer le prisonnier. L'interrogatoire commence. 'Que faisiez-vous lorsque vous avez été arrêté ?', 'J'étais sur le point de me fiancer avec une jeune femme que j'aime depuis trois ans', répond Edmond. Cette phrase touche le substitut car elle lui rappelle sa propre existence. On l'a dérangé pour détruire le bonheur d'un homme comme lui, un homme qui lui aussi va se marier, qui lui aussi est heureux ! Au fur et à mesure de l'interrogatoire, Villefort se sent de plus en plus proche d'Edmond. 'Monsieur Dantès, vous dites ne pas avoir d'ennemis, mais peut-être que certains de vos amis ou de vos connaissances sont vieux : vous allez être capitaine à dix-neuf ans et vous allez épouser une jolie femme qui vous aime. Cela suffit pour faire des jaloux ! Lisez la lettre de dénonciation et dites-moi si vous reconnaissez l'écriture.' Dantès lit attentivement la lettre, puis répond : 'Je ne connais pas cette écriture. Mais on dirait que j'ai un ennemi.' 'À présent, dites-moi ce qu'il y a de vrai dans cette accusation.' 'En quittant Naples, le capitaine Leclère, sur le point de mourir, m'a demandé de prendre le commandement et de faire escale à l'île d'Elbe pour remettre une lettre au grand maréchal. En échange, je devais en recevoir une autre. Les dernières prières d'un mourant sont sacrées et j'ai donc exécuté ses ordres. Comme prévu, le grand maréchal m'a remis une lettre que je devais porter en personne à Paris. Voilà toute l'histoire. La suite, vous la connaissez : j'allais me fiancer quand on m'a arrêté.' 'Vous semblez dire la vérité. Bien, jetons un œil à la lettre que vous deviez porter à Paris, et vous serez libre.' 'Merci, monsieur, vous êtes la bonté même !' 'Vous voyez, vous pouvez avoir confiance en moi !' Il s'approche de Dantès. 'Permettez-moi de vous donner quelques conseils. Si quelqu'un d'autre vient vous interroger, vous pouvez tout lui raconter, mais ne parlez jamais de cette lettre : c'est la seule façon de vous sauver.' 'Je vous le promets', affirme Dantès. Villefort sonne et Dantès repart avec un officier. Dès que la porte se referme, Villefort s'écroule dans un fauteuil. 'Le bonheur ne tient qu'à un fil !' se dit-il. 'Si quelqu'un d'autre avait lu la lettre, j'étais perdu ! Et tout ça, à cause de mon père !' Tout à coup, son visage s'illumine. 'Mais attends un peu... Cette lettre qui devait me détruire pourrait bien finalement contribuer à mon bonheur...'"
+      },
+      {
+        "chapterTitle": "Le château d’If",
+        "text": "On conduit Dantès au port et on le fait monter à bord d’une petite embarcation. Il a confiance en Villefort et il ne s’étonne pas de ce départ inexpliqué. Cependant, lorsque la barque s’éloigne du quai, il commence à s’inquiéter.\n— Où m’emmenez-vous ? demande-t-il à l’un des gendarmes.\n— Vous le saurez bien tôt.\n— Je vous en prie, j’ai besoin de le savoir !\n— Regardez autour de vous, lui dit le gendarme.\nDantès aperçoit au loin le rocher noir sur lequel se dresse le château d’If.\n— Mais... Je ne comprends pas. Le château d’If est une prison d’État où vont seulement les prisonniers politiques importants. Moi, je n’ai commis aucun crime et monsieur de Villefort m’avait promis...\nEdmond comprend alors que toute espérance est perdue et pour échapper au sort qui l’attend, il tente de se jeter à la mer. Mais les gendarmes réussissent à le retenir. Peu de temps après, l’embarcation arrive sur l’île. On conduit Dantès dans une cellule. — il y a du pain et de l’eau dans la cruche, lui dit le geôlier, et de la paille dans un coin pour dormir : tout ce qu’un prisonnier peut désirer. Bonne nuit.\nLa porte se referme sur lui. Désespéré, Dantès commence à pleurer. « Pourquoi suis-je ici ? Pour combien de temps ? Comment vont mon père et Mercédès ? »\nLe lendemain, à l’aube, le geôlier entre dans la cellule.\n— Vous voulez quelque chose ? demande-t-il à Dantès.\n— Je veux voir le gouverneur !\n— Un prisonnier n’a pas le droit de parler au gouverneur.\n— Je veux voir le gouverneur, c’est très important !\n— N’insistez pas, c’est impossible ! Si vous vous obstinez ainsi, vous allez devenir fou. C’est ainsi que commence la folie ! C’est comme cet abbé qui voulait absolument offrir un million au gouverneur en échange de sa liberté. Eh bien, il a fini au cachot !\n— Écoutez, je ne suis pas fou. Aidez-moi ! Si je vous offre dix écus, promettez-moi de porter ce message à Mercédès, une jeune fille qui habite aux Catalans, à Marseille.\n— Si je suis découvert, je perds ma place. Gardez votre argent !\n— Si vous refusez, je trouverai le moyen de me venger...\nDantès s’empare de la cruche et menace le geôlier.\n— D’accord, d’accord, je vais dire au gouverneur que vous voulez le voir, puis j’apporterai le message à la jeune fille.\nLe geôlier sort de la cellule. Quelques minutes plus tard, il revient accompagné de quatre soldats.\n— Par ordre du gouverneur, descendez le prisonnier au cachot. Il faut mettre les fous avec les fous !"
+      },
+      {
+        "chapterTitle": "Entre le roi et l’Empereur",
+        "text": "Suite à sa découverte, monsieur de Villefort décide de se rendre 8 dans la capitale pour avertir le roi du complot qui se prépare contre lui. Alors qu'il se rend chez lui pour préparer ses malles, il est arrêté dans la rue par Mercédès. Elle veut connaître les raisons de l'arrestation d'Edmond, l'homme qu'elle aime et qu'elle devait épouser.\n— Cet homme est coupable et je ne peux rien faire pour lui, répond le substitut du procureur à Mercédès.\nLa belle Catalane laisse échapper un long sanglot. Villefort semble indifférent à la réaction de Mercédès. Il reprend son chemin, mais il sait, cependant, qu'il sacrifie un homme à son ambition, qu'il fait payer à un innocent la culpabilité de son propre père. Cette fois, il n'est plus juge, mais bourreau. Il vient de condamner à la prison à vie un innocent qui, comme lui, voulait seulement être heureux. Villefort hésite, il est plein de remords, mais ce n'est qu'un moment de faiblesse passagère... il est trop tard... Edmond Dantès est condamné.\nFernand est allé rejoindre Mercédès chez elle. La jeune Catalane est folle de désespoir et Fernand, qui souffre de la voir si triste, jure qu'il restera auprès d'elle. Le père Dantès, lui, a tant de peine pour son fils qu'il en tombe malade. Morrel, de son côté, a essayé par tous les moyens de venir en aide à Edmond, mais tous ses efforts ont été inutiles. Caderousse ne se pardonne pas ce qui s'est passé, mais au lieu d'agir, il s'enferme chez lui pour boire et essayer d'oublier. Danglars est évidemment le seul à être tranquille et heureux : il s'est assuré sa place à bord du Pharaon.\nVillefort a donc décidé de prévenir Louis XVIII de la conspiration dont il est l'objet. S'il avertit lui-même le roi, il obtiendra sa reconnaissance, il empêchera que le nom du conspirateur, c'est-à-dire celui de son père, ne soit révélé et surtout, il sauvera sa carrière.\nCependant, malgré les efforts du substitut, Napoléon remonte sur le trône quelques jours plus tard. Monsieur Morrel tente alors d'intervenir de nouveau auprès de Villefort. Ce dernier, convaincu que la chute de l'Empereur est imminente, ne peut pas relâcher Dantès sans risque pour lui et sa carrière. Pour ne pas éveiller les soupçons de Morrel, Villefort fait semblant de vouloir aider Dantès.\n— La seule solution est d'écrire une lettre adressée au ministre de la Justice, explique-t-il sur un ton qui se veut bienveillant.\n— Mais comment serons-nous sûrs qu'elle arrivera ? s'inquiète Morrel.\n— Nous allons l'écrire ensemble et je prendrai moi-même soin de la faire parvenir.\nVillefort dicte la lettre à l'armateur.\n-Je vous remercie pour votre aide. Et maintenant, que doit-on faire ? demande-t-il au substitut.\n-Attendre. Ne vous inquiétez pas, je m'occupe de tout.\nMorrel s'en va, le cœur rempli d'espoir. Mais c'est, hélas, bien naïf de connaître Villefort ! Au lieu d'envoyer la lettre à Paris au ministre de la Justice, il la garde bien précieusement dans son tiroir, car si Dantès est libéré, il sait qu'il est perdu !\nHeureusement pour Villefort, le retour de la monarchie ne se fait pas attendre. Après les Cent-Jours et l'échec de la bataille de Waterloo, Louis XVIII reprend le pouvoir.\nPendant le bref retour de Napoléon, Danglars craignait chaque jour que Dantès ne soit relâché et qu'il ne revienne se venger. Il a donc décidé de quitter la France pour partir s'installer en Espagne, à Madrid. À la chute de l'Empereur, le vieux Dantès perd toute espérance de revoir un jour son fils. Cinq mois après avoir vu Edmond pour la dernière fois, il rend son dernier soupir. Monsieur Morrel s'occupe de tout et paie les dernières dettes de la famille Dantès. C'est un véritable acte de courage de la part de l'armateur. Secourir le père d'un bonapartiste au moment du retour du roi sur le trône pourrait lui être fatal.\nFernand prend soin de Mercédès qui attend toujours le retour de Dantès. Le dévouement dont il fait preuve transforme progressivement les sentiments de Mercédès. À l'amitié s'ajoute maintenant la reconnaissance : elle l'appelle \"mon frère."
+      },
+      {
+        "chapterTitle": "L'abbe Faria",
+        "text": "Un an après le retour du roi sur le trône, un inspecteur général se rend dans les prisons pour un contrôle. Il visite les cellules les unes après les autres et demande aux prisonniers s’ils ont des réclamations à faire. Tous répondent de façon unanime : la liberté ! Dantès, du fond de son cachot, devine que quelque chose d’important se passe. Lorsque l’inspecteur entre, il comprend que c'est une occasion inespérée d’expliquer sa situation. — Que voulez-vous ? demande l’inspecteur. » Je voudrais savoir de quoi je suis accusé. Je voudrais un procès : qu’on me fusille si je suis coupable, et qu’on me rende ma liberté si je suis innocent ! Pourquoi suis-je encore ici ? Cela fait longtemps maintenant que je suis en prison ! — Quand avez-vous été arrêté ? — Le 28 février 1815. Nous sommes le 30 juillet 1816, dit l’inspecteur, cela fait dix-sept mois que vous êtes prisonnier. Dix-sept mois ?! Mais j’ai l’impression d’être enfermé depuis dix-sept siècles ! Je ne vous demande pas de me libérer, mais de me donner des juges pour que mon procès ait lieu. — On verra, ajoute l’inspecteur, ému par le discours du jeune homme. Qui vous a interrogé ? — Monsieur de Villefort. Il a été bon pour moi au moment de l’arrestation. — Je peux donc croire tout ce qu’il a écrit dans votre dossier ? — Vous pouvez le croire sur parole, affirme Dantès. L’inspecteur se rend ensuite dans le cachot du dernier prisonnier, celui d’un vieil abbé italien, emprisonné depuis 1811. On le dit fou parce qu’il prétend posséder un immense trésor : l’abbé Faria promet à chaque personne qui entre une grosse somme d’argent en échange de sa liberté. — Que voulez-vous ? demande l’inspecteur. L’abbé Faria se trouve au milieu de la pièce, assis à l’intérieur d’un cercle tracé par terre. Il est en train de dessiner des lignes géométriques. Dès que l’inspecteur entre, il se lève rapidement. — Je suis heureux de vous voir, même si vous m’avez dérangé... Je faisais des calculs très importants. Il se tait un instant, puis il dit à l’inspecteur : — J’ai des révélations à vous faire... — Vous voyez bien qu’il est fou, murmure le gardien. Maintenant, il va vous proposer de l’argent. — Je suis né à Rome, continue l’abbé, et pendant vingt ans, j’ai été secrétaire du cardinal Rospigliosi. J’ai été arrêté en 1811... je me demande encore pourquoi. Je voudrais parler avec vous, seul à seul. En échange de ma liberté, je peux donner une énorme somme d’argent à votre gouvernement. — Nous connaissons votre histoire, monsieur, et le gouvernement n'a pas besoin de votre argent, répond l’inspecteur. — Si je ne sors jamais de prison, si je meurs sans avoir révélé mon secret à personne, ce trésor sera perdu ! Pourquoi ne pas vouloir en profiter ? — À l’entendre, on le croirait presque, dit l’inspecteur à voix basse. — Je vous dis la vérité, ce trésor existe ! s’indigne l’abbé. — Êtes-vous bien nourri ? interrompt l’inspecteur pour mettre fin à l’entretien. L’abbé comprend qu’il n’obtiendra rien de cet homme non plus. — Partez, je n’ai plus rien à vous dire. Et il se remet à ses calculs. L’inspecteur sort du cachot, convaincu lui aussi que cet abbé est complètement fou. Comme il l’a promis à Edmond Dantès, l’inspecteur va examiner son dossier dans le bureau du gouverneur, mais le rapport est formel : Dantès est un bon à rien enragé, et un commentaire récent précise qu’il faut garder ce prisonnier sous haute surveillance. L’inspecteur ne peut donc malheureusement rien faire pour lui, mais Edmond ne le sait pas et espère de nouveau voir la lumière du jour. Trois ans plus tard, il doit se rendre à l’évidence : il ne sortira jamais de cette prison ! Le plus noir des désespoirs s’empare de lui : la mort lui semble le meilleur moyen de mettre fin à ses souffrances et il décide de se laisser mourir de faim. Un soir, très affaibli, il entend un bruit sourd, de l’autre côté du mur. Un rat ? Une hallucination ? La folie ? Le bruit continue, puis Edmond entend une sorte d’éboulement... Est-ce un autre prisonnier qui, comme lui, cherche la liberté ? Edmond reprend espoir, mais ne sera-t-il pas encore déçu ? Il décide d’avoir le cœur net et il commence à donner, lui aussi, des coups contre le mur, si la personne recherchée veut vraiment s’évader, elle répondra et le bruit s’arrêtera immédiatement. Dès le premier coup, le bruit cesse : plus de doute, c’est bien un prisonnier... Trois interminables jours passent... toujours pas de bruit. Puis, il entend quelque chose de l’autre côté du mur. Fou de joie, il décide de venir en aide au travailleur invisible. Il casse sa cruche, en fait quelques morceaux et commence à gratter le mur. Après quelques jours de travail intense, Dantès est arrêté par une grosse pierre. Il est complètement découragé lorsque soudain, il entend une voix de l’autre côté du mur. — Qui êtes-vous ? lui demande la voix. — Qui êtes-vous ? répond Dantès. — Je suis un malheureux prisonnier. Depuis combien de temps êtes-vous enfermé ? Depuis le 28 février 1815, et vous ? Depuis 1811. Edmond sent un frisson lui parcourir le dos : l’homme a passé quatre ans de plus que lui en prison ! Cette idée lui est insupportable, mais la joie de pouvoir enfin parler à quelqu’un et de partager ses souffrances lui redonne espoir."
       }
     ]
   },

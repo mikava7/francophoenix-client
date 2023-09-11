@@ -1,19 +1,23 @@
 import React from "react";
-import { StyledLink } from "../../../Styles/globalStyles";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 const VerbsInText = ({ uniqueVerbs }) => {
   const { t } = useTranslation();
+
+  const redirectToBescherelle = (verb) => {
+    const formattedVerb = verb.replace(/\s+/g, "-");
+    const url = `https://conjugaison.bescherelle.com/verbes/${formattedVerb}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <VerbsInTextBox>
       <h3>{t("Verbes utilisés dans le texte")}</h3>
       {uniqueVerbs.map((verb, index) => (
-        <StyledLink to={`/verbs/${verb}`}>
-          <li key={index}>
-            <button>{verb}</button>
-          </li>
-        </StyledLink>
+        <li key={index}>
+          <button onClick={() => redirectToBescherelle(verb)}>{verb}</button>
+        </li>
       ))}
     </VerbsInTextBox>
   );
@@ -38,17 +42,23 @@ const VerbsInTextBox = styled.ul`
     display: flex;
     text-decoration: none;
     padding: 0;
-    margin: 0;
+    margin: 0.5rem;
     flex-wrap: wrap;
+
     button {
       text-decoration: none;
+      border-radius: 4px;
       padding: 0.2rem;
       margin: 0;
       width: auto;
-      background-color: ${(props) => props.theme.secondaryText};
+      background-color: ${(props) => props.theme.primaryText};
       color: ${(props) => props.theme.secondaryBackground};
       cursor: pointer;
       font-size: ${(props) => props.theme.small};
+      &:hover {
+        background-color: ${(props) => props.theme.secondaryBackground};
+        color: ${(props) => props.theme.primaryText};
+      }
     }
   }
 `;

@@ -1,69 +1,66 @@
-// Register.tsx
+// Login.tsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/slices/authSlice";
+import { loginUser } from "../../redux/slices/auth/authSlice";
+import { useNavigate, Link } from "react-router-dom";
 import {
   FormContainer,
   InputField,
   FormButton,
   FormContainerApendix,
   SignLink,
-} from "../../Styles/globalStyles";
-import { useTranslation } from "react-i18next";
-
+} from "./Register";
 import userIcon from "../../assets/user-50.png";
 import passwordIcon from "../../assets/password-50.png";
-import emailIcon from "../../assets/email-50.png";
-const Register = () => {
+import { useTranslation } from "react-i18next";
+
+const Login = () => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const isSuccess = useSelector((state) => state.auth.isSuccess);
   const error = useSelector((state) => state.auth.error);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
 
-  const handleRegister = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     // Create user data object
     const userData = {
       username,
       password,
-      email,
     };
 
-    // Dispatch the registerUser action
-    dispatch(registerUser(userData));
+    try {
+      // Dispatch the loginUser action
+      await dispatch(loginUser(userData));
+
+      navigate("/"); // Navigate to the desired page
+    } catch (error) {
+      // Handle error
+    }
   };
 
   return (
     <FormContainer>
-      <h2>{t("Inscription")}</h2>
+      <h2>{t("Connexion")}</h2>
       {/* {error && <p>{error}</p>} */}
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleLogin}>
         <InputField>
           <input
             type="text"
             placeholder={t("Pseudonyme")}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          />
+          />{" "}
+          <label htmlFor=""></label>
           <img src={userIcon} alt="userIcon" />
-        </InputField>
-
-        <InputField>
-          <input
-            type="email"
-            placeholder={t("E-mail")}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <img src={emailIcon} alt="emailIcon" />
         </InputField>
         <InputField>
           <input
@@ -74,17 +71,34 @@ const Register = () => {
           />
           <img src={passwordIcon} alt="passwordIcon" />
         </InputField>
+        <ForgotPassword>
+          <PasswordLink to="/">{t("Mot de passe oublié?")}</PasswordLink>
+        </ForgotPassword>
         <FormButton type="submit" disabled={isLoading}>
-          {isLoading ? `${t("Chargement")}...` : t("Inscription")}
+          {isLoading ? `${t("Chargement")}...` : t("Connexion")}
         </FormButton>
         <FormContainerApendix>
-          {t("Avez-vous déjà un compte?")}
-          <SignLink to="/login">{t("Connexion")}</SignLink>
+          {" "}
+          {t("pas de compte?")}
+          <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
         </FormContainerApendix>
-        {isSuccess && <p>Registration successful</p>}
+        {isSuccess && <p>Login successful</p>}
       </form>
     </FormContainer>
   );
 };
 
-export default Register;
+const ForgotPassword = styled.div`
+  text-align: left;
+  margin: 10px 0 10px 5px;
+`;
+const PasswordLink = styled(Link)`
+  font-size: 1rem;
+  color: ${(props) => props.theme.text};
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export default Login;

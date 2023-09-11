@@ -42,6 +42,9 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
       <LocalizationContainer>
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Localization />
+        <StyledList to="/register" isGeorgian={isGeorgian}>
+          {t("Register")}
+        </StyledList>
       </LocalizationContainer>
     </NavbarContainer>
   );
