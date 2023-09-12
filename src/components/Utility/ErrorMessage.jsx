@@ -5,7 +5,7 @@ const ErrorMessage = ({ error }) => {
   // console.log("error in errorMessage", error);
   return (
     <ErrorContainer>
-      <ErrorText>{error.message}</ErrorText>
+      <ErrorText style={{ whiteSpace: "pre-line" }}>{error}</ErrorText>
     </ErrorContainer>
   );
 };
@@ -15,13 +15,14 @@ const ErrorContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100px;
-  background-color: #fdecea; /* Use a suitable background color for error */
   border-radius: 8px;
   margin: 20px 0;
+  background-color: ${(props) => props.theme.secondaryBackground};
 `;
 
 const ErrorText = styled.p`
   font-size: 18px;
+  font-weight: bold;
   color: #c62828; /* Use a suitable text color for error */
 `;
 

@@ -7,7 +7,7 @@ import VerbConjugation from "../../../verbs/VerbConjugation/VerbConjugation";
 import { Button, StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useSelector } from "react-redux";
 import RotatingChevron from "../../../Utility/RotatingChevron";
 import VerbsInText from "../../verbsinText/VerbsInText";
 const displayCleanWord = (word) => {
@@ -17,7 +17,6 @@ const displayCleanWord = (word) => {
     return word;
   }
 };
-
 const TopicText = ({
   text,
   vocabulary,
@@ -29,7 +28,8 @@ const TopicText = ({
   // console.log("isTextVerbs", isTextVerbs);
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
-
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log("isAuthenticated", isAuthenticated);
   const handleArticleToggle = () => {
     setShowArticle(!showArticle);
     setRotationArticle((prevRotation) => prevRotation + 180);
@@ -135,15 +135,18 @@ const TopicText = ({
 
       <SentenceBuildHeader onClick={handleArticleToggle}>
         {t("Construire la phrase")}
-
-        <RotatingChevron isActive={showArticle} onClick={handleArticleToggle} />
+        <RotatingChevron isActive={showArticle} />
       </SentenceBuildHeader>
-      {showArticle && (
+      {showArticle && isAuthenticated ? (
         <SentenceBuilderEx
           sentenceData={filteredSentenceData}
           isActive={showArticle}
         />
-      )}
+      ) : !isAuthenticated ? (
+        <p>
+          login to use this exercise: <Link to="/login">login</Link>
+        </p>
+      ) : null}
     </TopicTextContainer>
   );
 };

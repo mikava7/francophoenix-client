@@ -63,7 +63,7 @@ const Home = () => {
       <PickAndQuiz>
         <PresentTense />
       </PickAndQuiz>
-      <Section>
+      {/* <Section>
         <TopOfCarousel>
           <CarouselTitle>{t("Vocabulaire thématique")} </CarouselTitle>
           <SeeAllLink to="/vocabulary-topics">{t("Tout afficher")}</SeeAllLink>
@@ -73,7 +73,7 @@ const Home = () => {
           vocabularyTopic={vocabularyTopic}
           isLoadingvocabularyTopit={isLoadingvocabularyTopic}
         />
-      </Section>
+      </Section> */}
       <SentenceBuilderEx />
 
       <Section>

@@ -14,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
-
     width: 100vw;
     background-color: ${(props) => props.theme.primaryBackground};
     color: ${(props) => props.theme.primaryText};

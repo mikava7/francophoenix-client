@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import useScrollHandler from "../../hooks/HOC";
 import { Link } from "react-router-dom";
-import User from "../../../public/icons/user-50.png";
+import UserIcon from "../../../public/icons/user-50.png";
 import ThemeToggle from "../themeToggle/themeToggle";
 import Localization from "../../localization/Localization";
 import { useTranslation } from "react-i18next";
 import { ani, changeColor } from "../../Styles/frames";
 import MobileMenu from "./MobileMenu";
-
+import User from "../../pages/User/User";
 const Navbar = ({ toggleTheme, isDarkMode }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -40,6 +40,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
       </StyledUl>
 
       <LocalizationContainer>
+        <User />
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Localization />
         <StyledList to="/register" isGeorgian={isGeorgian}>

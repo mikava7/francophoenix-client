@@ -14,18 +14,21 @@ import {
 } from "./Register";
 import userIcon from "../../assets/user-50.png";
 import passwordIcon from "../../assets/password-50.png";
-import { useTranslation } from "react-i18next";
+import emailIcon from "../../assets/email-50.png";
 
+import { useTranslation } from "react-i18next";
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const Login = () => {
+  useScrollToTopOnRouteChange();
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
-  const isSuccess = useSelector((state) => state.auth.isSuccess);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const error = useSelector((state) => state.auth.error);
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
@@ -33,17 +36,16 @@ const Login = () => {
 
     // Create user data object
     const userData = {
-      username,
+      email,
       password,
     };
 
     try {
       // Dispatch the loginUser action
       await dispatch(loginUser(userData));
-
       navigate("/"); // Navigate to the desired page
     } catch (error) {
-      // Handle error
+      console.log("error", error);
     }
   };
 
@@ -54,13 +56,13 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <InputField>
           <input
-            type="text"
-            placeholder={t("Pseudonyme")}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />{" "}
+            type="email"
+            placeholder={t("E-mail")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label htmlFor=""></label>
-          <img src={userIcon} alt="userIcon" />
+          <img src={emailIcon} alt="emailIcon" />
         </InputField>
         <InputField>
           <input
@@ -82,7 +84,7 @@ const Login = () => {
           {t("pas de compte?")}
           <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
         </FormContainerApendix>
-        {isSuccess && <p>Login successful</p>}
+        {isAuthenticated && <p>Login successful</p>}
       </form>
     </FormContainer>
   );
@@ -90,7 +92,7 @@ const Login = () => {
 
 const ForgotPassword = styled.div`
   text-align: left;
-  margin: 10px 0 10px 5px;
+  margin: 1rem 0 10px 5px;
 `;
 const PasswordLink = styled(Link)`
   font-size: 1rem;

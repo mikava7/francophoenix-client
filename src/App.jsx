@@ -69,7 +69,6 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
-          
           {/**8//////////////////////////////////////// */}
           <Route element={<Layout />}>
             <Route
@@ -158,9 +157,11 @@ export default App;
 const AppContainer = styled.section`
   display: flex;
   align-items: center;
+  /* justify-content: center; */
   flex-direction: column;
   box-sizing: border-box;
   margin: 0 auto;
   width: 100%;
-  outline: 1px solid blue;
+  /* height: 100vw; */
+  /* outline: 1px solid blue; */
 `;

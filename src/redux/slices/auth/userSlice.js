@@ -8,18 +8,20 @@ export const registerUser = createAsyncThunk(
       const response = await axiosInstance.post("/register", userData);
       return response.data;
     } catch (error) {
-      throw Error("Failed to fetch books preview");
+      throw new Error(
+        `Failed to register user:\n ${error.response.data.message}`
+      );
     }
   }
 );
 const initialState = {
-  user: [],
+  user: "",
   isSuccess: false,
   isLoading: false,
   error: null,
 };
 const usersSlice = createSlice({
-  name: "books",
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -29,8 +31,8 @@ const usersSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
-        state.isLoading = false;
         state.isSuccess = true;
+        state.isLoading = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.error.message;
