@@ -37,9 +37,9 @@ const Home = () => {
     dispatch(fetchVocabularyTopics());
   }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <HomeContainer>
@@ -50,9 +50,9 @@ const Home = () => {
         <WellcomeCarousel wellcomeData={wellcomeData} />
       </WellcomeSection> */}
 
-      <QuizPictures />
+      {/* <QuizPictures /> */}
 
-      <Section>
+      {/* <Section>
         <TopOfCarousel>
           <CarouselTitle>{t("Tous les livres")} </CarouselTitle>
           <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
@@ -62,7 +62,7 @@ const Home = () => {
       </Section>
       <PickAndQuiz>
         <PresentTense />
-      </PickAndQuiz>
+      </PickAndQuiz> */}
       {/* <Section>
         <TopOfCarousel>
           <CarouselTitle>{t("Vocabulaire thématique")} </CarouselTitle>
