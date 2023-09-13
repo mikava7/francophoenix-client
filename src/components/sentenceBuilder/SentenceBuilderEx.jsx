@@ -10,11 +10,12 @@ import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { scrollToContainer } from "../Utility/scrollToContainer";
+import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   // console.log("sentenceData", sentenceData);
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
-
+  useScrollToTopOnRouteChange();
   // console.log("isActive in SentenceBuilderEx", isActive);
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
@@ -274,7 +275,7 @@ export const TopWord = styled.span`
   background-color: ${(props) => props.theme.highlight3};
   color: ${(props) => props.theme.primaryText};
   border-bottom: 2px solid ${(props) => props.theme.flagFirst};
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   cursor: pointer;
   text-align: center;
   font-size: 1.5rem;

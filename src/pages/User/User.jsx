@@ -3,10 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/slices/auth/authSlice";
 import styled from "styled-components";
-import userIcon from "../../assets/outlander-claire.jpg";
+import userIcon from "../../icons/user-50.png";
 import { StyledLink, Button } from "../../Styles/globalStyles";
 import Loading from "../../components/loading/Loading";
+import { useTranslation } from "react-i18next";
 const User = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isLoading = useSelector((state) => state.auth.isLoading);
@@ -30,13 +33,11 @@ const User = () => {
   }
   return (
     <UserContainer onClick={toggleDropdown}>
-      <UserName>
-        {/* Display user's name */}
-        {username}
-      </UserName>
+      <UserName>{/* Display user's name */}</UserName>
       <UserAvatar>
         {/* Display user avatar icon here */}
         <img src={userIcon} alt="User Icon" />
+        {isAuthenticated ? username : t("Pas connecté")}
       </UserAvatar>
 
       <DropdownContent>
@@ -53,7 +54,7 @@ const User = () => {
               <>
                 <DropdownItem>
                   <StyledProfileLink to="/">
-                    Profile
+                    {t("Profil")}
                     <UserAvatar>
                       {/* Display user avatar icon here */}
                       <img src={userIcon} alt="User Icon" />
@@ -61,16 +62,16 @@ const User = () => {
                   </StyledProfileLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <Button onClick={handleLogout}>Logout</Button>
+                  <Button onClick={handleLogout}> {t("Se déconnecter")}</Button>
                 </DropdownItem>
               </>
             ) : (
               <>
                 <DropdownItem>
-                  <StyledLink to="/register">Register</StyledLink>
+                  <StyledLink to="/register">{t("Inscription")}</StyledLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <StyledLink to="/login">Login</StyledLink>
+                  <StyledLink to="/login">{t("Connexion")}</StyledLink>
                 </DropdownItem>
               </>
             )}
@@ -82,18 +83,23 @@ const User = () => {
 };
 
 export default User;
-const UserContainer = styled.div`
+export const UserContainer = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
 `;
 
-const UserAvatar = styled.div`
+export const UserAvatar = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
   img {
-    width: 40px;
-    height: 40px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     margin-right: 10px;
+    background: white;
+    padding: 0.4rem;
   }
 `;
 
@@ -110,7 +116,6 @@ const DropdownButton = styled.button`
 
 const DropdownContent = styled.div`
   position: relative;
-  margin-left: 10px;
 `;
 
 const DropdownList = styled.ul`

@@ -109,8 +109,9 @@ export const ExampleContainer = styled.div`
 `;
 
 export const ExampleBox = styled(DescriptionBox)`
+  display: flex;
+  /* outline: 2px solid red; */
   width: 100%;
-
   @media (min-width: 393px) and (max-width: 576px) {
     width: 90%;
   }
@@ -119,6 +120,11 @@ export const ExampleBox = styled(DescriptionBox)`
   }
   span {
     padding: 0.5rem 1rem;
+  }
+  p {
+    /* outline: 2px solid blue; */
+
+    display: flex;
   }
 `;
 

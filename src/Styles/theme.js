@@ -32,6 +32,10 @@ export const darkTheme = {
 
   correctBack: "#70ff41",
   wrongback: "#DC143C",
+  facebookLogo: "#000000",
+  facebookBack: "#3b5998",
+  facebookText: "#fcfcfd",
+
   //////////////////////////////////
   extraSmall: "0.9rem",
   small: "1rem",
@@ -99,6 +103,9 @@ export const lightTheme = {
 
   correctBack: "#70ff41",
   wrongback: "#DC143C",
+  facebookLogo: "#1877f2",
+  facebookBack: "#fcfcfd",
+  facebookText: "#3b5998",
   //////////////////////////////////
   extraSmall: "0.9rem",
   small: "1rem",

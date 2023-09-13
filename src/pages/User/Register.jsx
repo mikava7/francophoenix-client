@@ -146,7 +146,7 @@ export const FormBox = styled.form``;
 export const FormButton = styled.button`
   margin: 15px 0;
   width: 100%;
-  height: 50px;
+  height: 4rem;
   font-size: 18px;
   line-height: 50px;
   font-weight: 600;
@@ -157,7 +157,8 @@ export const FormButton = styled.button`
   cursor: pointer;
 `;
 export const InputField = styled.div`
-  height: 50px;
+  height: 3rem;
+
   width: 100%;
   display: flex;
   position: relative;
@@ -215,9 +216,26 @@ export const FormContainerApendix = styled.div`
 export const SignLink = styled(Link)`
   text-decoration: none;
   padding-left: 0.5rem;
-  color: ${(props) => props.theme.primaryText};
+
   font-weight: bold;
-  &:hover {
-    text-decoration: underline;
+  font-style: italic;
+  position: relative;
+  color: ${(props) => props.theme.primaryText};
+  text-decoration: none;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 10px;
+    width: 50%;
+    height: 2px;
+    background-color: ${(props) => props.theme.primaryText};
+    transition: width 0.3s ease;
   }
+  &:hover::after {
+    width: calc(100% - 2px); /* Expand width to 100% on hover */
+  }
+`;
+export const PasswordLink = styled(SignLink)`
+  font-weight: normal;
 `;

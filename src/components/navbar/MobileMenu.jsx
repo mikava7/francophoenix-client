@@ -1,19 +1,37 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/slices/auth/authSlice";
 import darkHamburgerIcon from "../../../public/icons/dark-hamburger-menu-64.png";
-
+import User from "../../pages/User/User";
 import lightHamburgerIcon from "../../../public/icons/light-hamburger-menu-48.png";
-import { StyledLink } from "../../Styles/globalStyles";
+import { StyledLink, Button } from "../../Styles/globalStyles";
 import { Link } from "react-router-dom";
-const MobileMenu = ({ isDarkMode, t }) => {
-  // State to track whether the menu is open or closed
+import { Logo, StyledLogo, LocalizationContainer } from "./Navbar";
+import { FormContainerApendix, SignLink } from "../../pages/User/Register";
+import { UserAvatar } from "../../pages/User/User";
+import userIcon from "../../icons/user-50.png";
+import Localization from "../../localization/Localization";
+import ThemeToggle from "../themeToggle/themeToggle";
+const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
+  const dispatch = useDispatch();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const auth = useSelector((state) => state.auth.auth) || {};
+  const id = auth.user?._id; // Use optional chaining to handle potential undefined values
+  const username = auth.user?.username; // Use optional chaining to handle potential undefined values
 
   // Function to close the menu
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+  const handleLogout = (e) => {
+    e.stopPropagation();
 
+    // Dispatch the logout action
+    dispatch(logoutUser(id));
+  };
   return (
     <MenuContainer class="content">
       <MenuToggle id="menuToggle">
@@ -27,6 +45,44 @@ const MobileMenu = ({ isDarkMode, t }) => {
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
         <MenuUl onClick={closeMenu}>
+          <UserMobile>
+            <StyledLogo to="/">Francophoenix</StyledLogo>
+            <LocalAndThemeBox>
+              <Localization />
+              <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+            </LocalAndThemeBox>
+
+            <UserMobileMenu>
+              <UserAvatar>
+                {isAuthenticated ? (
+                  <UserBox>
+                    <img src={userIcon} alt="User Icon" />
+
+                    <UserAvatar>{username}</UserAvatar>
+                    <button onClick={handleLogout}>
+                      {t("Se déconnecter")}
+                    </button>
+                  </UserBox>
+                ) : (
+                  t("Pas connecté")
+                )}
+              </UserAvatar>
+            </UserMobileMenu>
+            {!isAuthenticated && (
+              <>
+                <FormContainerApendix>
+                  {t("Avez-vous déjà un compte?")}
+                  <SignLink to="/login">{t("Connexion")}</SignLink>
+                </FormContainerApendix>
+                <FormContainerApendix>
+                  {" "}
+                  {t("Pas de compte?")}
+                  <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
+                </FormContainerApendix>
+              </>
+            )}
+          </UserMobile>
+
           <li>
             <MenuLink to="/grammar">{t("Grammaire")}</MenuLink>
           </li>
@@ -166,7 +222,7 @@ const MenuLink = styled(Link)`
     width: 0%;
     padding-bottom: 2.5rem;
     height: 6px;
-    background-color: ${(props) => props.theme.primaryText};
+    background-color: ${(props) => props.theme.highlight4};
     color: ${(props) => props.theme.primaryBackground};
 
     transition: width 0.3s ease;
@@ -177,4 +233,45 @@ const MenuLink = styled(Link)`
 
     width: calc(100% + 2px); /* Expand width to 100% on hover */
   }
+`;
+
+const UserMobile = styled.li`
+  background: ${(props) => props.theme.secondaryBackground};
+`;
+const UserMobileMenu = styled.div`
+  outline: 6px solid ${(props) => props.theme.facebookText};
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+  width: 18rem;
+  background: ${(props) => props.theme.tertiaryBackground};
+`;
+const UserBox = styled.div`
+  max-width: 100%;
+
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  align-items: space-between;
+  /* outline: 1px solid red; */
+  img {
+    background: white;
+    padding: 0.4rem;
+  }
+  button {
+    width: 8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    margin-left: 1rem;
+
+    background-color: ${(props) => props.theme.highlight4};
+
+    cursor: pointer;
+  }
+`;
+const LocalAndThemeBox = styled.div`
+  width: 18rem;
+  display: flex;
+  outline: 1px solid ${(props) => props.theme.tertiaryText};
+  margin: 1rem;
 `;

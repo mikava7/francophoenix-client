@@ -16,7 +16,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
 
   return (
     <NavbarContainer>
-      <MobileMenu isDarkMode={isDarkMode} t={t} />
+      <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
       <Logo>
         <StyledLogo to="/">Francophoenix</StyledLogo>
       </Logo>
@@ -43,9 +43,6 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
         <User />
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Localization />
-        <StyledList to="/register" isGeorgian={isGeorgian}>
-          {t("Register")}
-        </StyledList>
       </LocalizationContainer>
     </NavbarContainer>
   );
@@ -139,7 +136,7 @@ const StyledList = styled(Link)`
   }
 `;
 
-const Logo = styled.div`
+export const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,7 +157,7 @@ const Logo = styled.div`
   }
 `;
 
-const StyledLogo = styled(Link)`
+export const StyledLogo = styled(Link)`
   font-size: 2.4rem;
   background-image: linear-gradient(-90deg, #0055a4, #f5e2e2, #ef4135);
   background-position: 0 10%;
@@ -205,11 +202,10 @@ const ToggleContainer = styled.div`
   /* flex: 1; */
   border: 2px solid red;
 `;
-const LocalizationContainer = styled.div`
+export const LocalizationContainer = styled.div`
   max-width: 100%;
   margin-right: 0.5rem;
   padding: 0.2rem 0.5rem;
-  /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
   display: flex;
   @media (max-width: 361px) {
     & > :nth-child(1) {

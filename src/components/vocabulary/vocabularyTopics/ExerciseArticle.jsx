@@ -12,6 +12,7 @@ import { displayWord } from "../../Utility/utils";
 import { Button, FlexContainer } from "../../../Styles/globalStyles";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const ExerciseArticle = ({ frenchWords }) => {
+  console.log("frenchWords", frenchWords);
   useScrollToTopOnRouteChange();
 
   const dispatch = useDispatch();

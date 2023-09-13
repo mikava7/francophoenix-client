@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPresentTense } from "../../../redux/slices/verbeTenses/presentTenseSlice";
 import Loading from "../../loading/Loading";
 import styled from "styled-components";
-
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const PresentTense = () => {
+  useScrollToTopOnRouteChange();
   const dispatch = useDispatch();
   const presentTenseVerbe =
     useSelector((state) => state.presentTense.presentTense.presentTenseVerbs) ||

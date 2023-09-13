@@ -98,16 +98,18 @@ const AspectTopicPage = () => {
         {exampleFr.map((example, index) => (
           <ExampleBox key={index}>
             <div>
-              <p>{example}</p>
+              <p>
+                {example}
 
-              {example.length !== 0 && ( // Check if example is not empty before rendering the icon
-                <ListenIcon
-                  onClick={handleListen(example)}
-                  isActive={isActiveStates[index]}
-                >
-                  <Listen />
-                </ListenIcon>
-              )}
+                {example.length !== 0 && ( // Check if example is not empty before rendering the icon
+                  <ListenIcon
+                    onClick={handleListen(example)}
+                    isActive={isActiveStates[index]}
+                  >
+                    <Listen />
+                  </ListenIcon>
+                )}
+              </p>
             </div>
             <span>{secondLanguageExample[index]}</span>
           </ExampleBox>
@@ -118,3 +120,7 @@ const AspectTopicPage = () => {
 };
 
 export default AspectTopicPage;
+const ListenIcon = styled.span`
+  display: flex;
+  align-items: center;
+`;
