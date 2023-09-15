@@ -4,6 +4,7 @@ import { StyledButton, Button } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../generateQuizQuestions";
 import QuizModal from "./modal/QuizModal";
+import { BackgroundOverlay } from "../vocabularyStyles/styles";
 const VocabularyQuiz = ({ french, english, georgian }) => {
   // const currentQuestionRef = useRef(null);
   const { t, i18n } = useTranslation();
@@ -79,7 +80,19 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
       `question-${firstQuestionIndex}`
     );
     if (firstQuestion) {
-      firstQuestion.scrollIntoView({ behavior: "smooth" });
+      // Calculate the scroll position, considering the navbar height
+      const navbarHeight = 450;
+      console.log("navbarHeight", navbarHeight);
+      const scrollPosition =
+        firstQuestion.getBoundingClientRect().top +
+        window.scrollY -
+        navbarHeight;
+
+      // Scroll to the first question, aligning it at the top of the viewport
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -246,13 +259,4 @@ const RestartButton = styled.button`
     background-color: ${(props) => props.theme.primaryText};
     color: ${(props) => props.theme.highlight2};
   }
-`;
-const BackgroundOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-  z-index: 9998; /* Make sure it's behind the modal (9999) */
 `;

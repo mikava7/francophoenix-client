@@ -11,9 +11,22 @@ import Loading from "../../loading/Loading";
 import { displayWord } from "../../Utility/utils";
 import { Button, FlexContainer } from "../../../Styles/globalStyles";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
+import QuizModal from "./modal/QuizModal";
+import { BackgroundOverlay } from "../vocabularyStyles/styles";
+
 const ExerciseArticle = ({ frenchWords }) => {
-  console.log("frenchWords", frenchWords);
+  // console.log("frenchWords", frenchWords);
   useScrollToTopOnRouteChange();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+
+  const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
+    useState([]);
+  const [score, setScore] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [topicIndex, setTopicIndex] = useState(0);
+
+  // const [currentQuestionSet, setCurrentQuestionSet] = useState([]);
 
   const dispatch = useDispatch();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
@@ -22,13 +35,10 @@ const ExerciseArticle = ({ frenchWords }) => {
   // console.log("frenchWords in ExerciseArticle", frenchWords);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const topic = topicNames.map((topic) => topic.topic);
+  const [selectedCategory, setSelectedCategory] = useState(topic[0]);
 
   const ownFrenchWords = quizData.map((words) => words.french);
 
-  const [topicIndex, setTopicIndex] = useState(0);
-
-  const [selectedCategory, setSelectedCategory] = useState(topic[0]);
-  const [currentQuestionSet, setCurrentQuestionSet] = useState([]);
   const handleCategoryChange = (selectedCategory) => {
     const newSelectedCategory = event.target.value;
     setSelectedCategory(newSelectedCategory);
@@ -60,14 +70,12 @@ const ExerciseArticle = ({ frenchWords }) => {
   }, [frenchWords, topicNames, selectedCategory]); // Only fetch quiz data if not used as part of a parent component
 
   const { t } = useTranslation();
-  const [score, setScore] = useState(0);
-  const [selectedOptions, setSelectedOptions] = useState({});
 
   const isWordCorrect = (selectedOption, word) => {
     const startsWithLa = word.toLowerCase().startsWith("la ");
     const startsWithLe = word.toLowerCase().startsWith("le ");
-    const startsWithL = word.toLowerCase().startsWith("l’");
-
+    const startsWithL = word.toLowerCase().startsWith("l'");
+    // console.log("startsWithL", startsWithL);
     if (startsWithLa && selectedOption === "la") {
       return true;
     }
@@ -78,11 +86,11 @@ const ExerciseArticle = ({ frenchWords }) => {
 
     if (startsWithL) {
       if (word.includes("(m.)")) {
-        // For words with (m.), assume "l' (le)" is correct
+        // For words with (m.)
         return selectedOption === "le";
       }
       if (word.includes("(f.)")) {
-        // For words with (f.), assume "l' (la)" is correct
+        // For words with (f.)
         return selectedOption === "la";
       }
     }
@@ -92,52 +100,100 @@ const ExerciseArticle = ({ frenchWords }) => {
 
   const handleOptionSelect = (word, option) => {
     if (selectedOptions[word]) {
-      // User already made a selection for this word, do not allow changing the option
       return;
     }
     setSelectedOptions((prevSelectedOptions) => ({
       ...prevSelectedOptions,
       [word]: option,
     }));
-
+    // console.log(selectedOptions, selectedOptions);
     const isCorrect = isWordCorrect(option, word);
     if (isCorrect) {
       setScore((prevScore) => prevScore + 1);
+    } else {
+      // Add the incorrectly answered question to the array
+      setIncorrectlyAnsweredQuestions((prevIncorrect) => [
+        ...prevIncorrect,
+        { question: word, answer: option }, // You might need to adjust this structure based on your data
+      ]);
     }
-  };
-  // const displayWord = (word) => {
-  //   if (word.startsWith("l'")) {
-  //     return word
-  //       .slice(2)
-  //       .replace(/\([^()]*\)/, "")
-  //       .trim("(");
-  //   } else if (word.startsWith("les ")) {
-  //     // For plural words starting with "les ", slice the first four characters ("les ")
-  //     return word.slice(4);
-  //   } else if (word.startsWith("le/la ")) {
-  //     return null; // Return null to exclude this word from rendering
-  //   } else {
-  //     // For regular words starting with "le " or "la ", slice the first three characters
-  //     return word.slice(3);
-  //   }
-  // };
-
-  const areAllCorrect = () => {
-    return frenchWords.every((word) =>
-      isWordCorrect(selectedOptions[word], word)
-    );
   };
 
   const restartExercise = () => {
+    setSelectedAnswers({});
     setSelectedOptions({});
     setScore(0);
+    setIncorrectlyAnsweredQuestions([]);
+
+    // Calculate the index of the first question
+    const firstQuestionIndex = 0;
+
+    // Get the first question element by ID
+    const firstQuestion = document.getElementById(
+      `question-${firstQuestionIndex}`
+    );
+
+    if (firstQuestion) {
+      // Calculate the scroll position, considering the navbar height
+      const navbarHeight = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--navbar-height"
+        )
+      );
+      // console.log("navbarHeight", navbarHeight);
+      const scrollPosition =
+        firstQuestion.getBoundingClientRect().top +
+        window.scrollY -
+        navbarHeight;
+
+      // Scroll to the first question, aligning it at the top of the viewport
+      window.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   const wordsToRender = frenchWords ? frenchWords : ownFrenchWords;
-  const bothGenderWords = wordsToRender.filter((word) =>
-    word.startsWith("le/la ")
-  );
+
+  const bothGenderWords = wordsToRender
+    .filter((word) => word.startsWith("le/la ") || word.includes("(m./f.)"))
+    .map((word) => {
+      // Remove "(m./f.)" if it's present
+      return word
+        .replace(/\(m\.\/f\.\)/, "")
+        .replace(/le\/la /, "")
+        .trim();
+    });
   // console.log("bothGenderWords", bothGenderWords);
+
+  const filterWords = (wordsToRender) => {
+    return wordsToRender.filter((word) => {
+      const includesMF = word.includes("(m./f.)");
+      const startsWithLes = word.toLowerCase().startsWith("les ");
+      const startsWithLeLa = word.toLowerCase().startsWith("le/la");
+      return !startsWithLes && !includesMF && !startsWithLeLa;
+    });
+  };
+  const isAllCorrect = wordsToRender.every((quizItem, questionIndex) => {
+    const selectedOptionIndex = setSelectedOptions[questionIndex];
+    return (
+      selectedOptionIndex !== undefined &&
+      quizItem.options[selectedOptionIndex] === quizItem.answer
+    );
+  });
+
+  const filteredWords = filterWords(wordsToRender);
+
+  const maxScore = filteredWords.length;
+  const isQuizFinished = Object.keys(selectedOptions).length === maxScore;
+
+  useEffect(() => {
+    if (isQuizFinished) {
+      setShowModal(true);
+    }
+  }, [isQuizFinished]);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -145,11 +201,11 @@ const ExerciseArticle = ({ frenchWords }) => {
     <ExerciseArticleContainer>
       <BothGenderWordsContainer>
         <h2>{t("Les noms à double genre")}</h2>
-        {bothGenderWords.map((word, index) => (
-          <ul key={index}>
-            <li>{word}</li>
-          </ul>
-        ))}
+        <ul>
+          {bothGenderWords.map((word, index) => (
+            <li key={index}>{word}</li>
+          ))}
+        </ul>
       </BothGenderWordsContainer>
       {!frenchWords && (
         <ExerciseArticleTopPart>
@@ -161,15 +217,14 @@ const ExerciseArticle = ({ frenchWords }) => {
           />
         </ExerciseArticleTopPart>
       )}
-
       <ExerciseArticleBottomPart>
         {/* {console.log("wordsToRender", wordsToRender)} */}
-        {wordsToRender.map((word, index) => {
+        {filteredWords.map((word, index) => {
           const displayedWord = displayWord(word);
 
           if (displayedWord !== null) {
             return (
-              <WordPair key={index}>
+              <WordPair key={index} id={`question-${index}`}>
                 <WordText>{displayedWord}</WordText>
                 <OptionsContainer key={index}>
                   {word.startsWith("la ") && (
@@ -190,6 +245,7 @@ const ExerciseArticle = ({ frenchWords }) => {
                       </Option>
                     </>
                   )}
+
                   {word.startsWith("l'") && (
                     <>
                       <Option
@@ -205,9 +261,11 @@ const ExerciseArticle = ({ frenchWords }) => {
                         isCorrect={isWordCorrect("la", word)}
                       >
                         la
+                        {/* Add this line */}
                       </Option>
                     </>
                   )}
+                  {/* Add this line */}
                   {word.startsWith("le") && (
                     <>
                       <Option
@@ -234,7 +292,6 @@ const ExerciseArticle = ({ frenchWords }) => {
           }
         })}
       </ExerciseArticleBottomPart>
-
       <ExerciseArticleContainerApendix>
         <Score>
           {t("Score")}: {score}
@@ -245,6 +302,23 @@ const ExerciseArticle = ({ frenchWords }) => {
           {t("Recommencer")}
         </RestartButton>
       </ExerciseArticleContainerApendix>
+      {showModal && (
+        <>
+          <BackgroundOverlay />
+
+          <QuizModal
+            onClose={() => setShowModal(false)}
+            isQuizFinished={isQuizFinished}
+            isAllCorrect={isAllCorrect}
+            incorrectlyAnsweredQuestions={incorrectlyAnsweredQuestions}
+            Restart={
+              <RestartButton onClick={restartExercise}>
+                {t("Recommencer")}
+              </RestartButton>
+            }
+          />
+        </>
+      )}{" "}
     </ExerciseArticleContainer>
   );
 };
@@ -346,8 +420,8 @@ const Option = styled.div`
   color: ${(props) =>
     props.isSelected
       ? props.isCorrect
-        ? props.theme.wrongback
-        : "black"
+        ? props.theme.primaryText
+        : props.theme.primaryBackground
       : ""};
   margin: 0 0.5rem;
   border-radius: 4px;
@@ -394,14 +468,34 @@ const RestartButton = styled(Button)`
     padding: 0.1 0.2rem;
   }
 `;
-const BothGenderWordsContainer = styled(FlexContainer)`
+const BothGenderWordsContainer = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
   width: 100%;
 
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
   ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    /* outline: 1px solid red; */
+    gap: 1rem;
+
     li {
-      list-style: none;
       font-size: 1.2rem;
+      margin: 0;
+      background-color: ${(props) => props.theme.primaryBackground};
+      border-radius: 4px;
+      padding: 0.5rem;
+      outline: 1px solid ${(props) => props.theme.highlight4};
+      margin-left: 1rem;
+      margin-bottom: 1rem;
     }
   }
 `;

@@ -19,7 +19,18 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.primaryText};
 
   }
+  @media (max-width: 520px) {
+  :root {
+    --navbar-height: 650px;
+  }
+}
 
+/* Tablet and larger screens navbar */
+@media (min-width: 521px) {
+  :root {
+    --navbar-height: 450px;
+  }
+}
 .slick-prev,
 .slick-next {
 
