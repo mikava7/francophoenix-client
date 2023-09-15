@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../redux/slices/auth/authSlice";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import userIcon from "../../icons/user-50.png";
 import { StyledLink, Button } from "../../Styles/globalStyles";
 import Loading from "../../components/loading/Loading";
@@ -33,20 +33,23 @@ const User = () => {
   }
   return (
     <UserContainer onClick={toggleDropdown}>
-      <UserName>{/* Display user's name */}</UserName>
       <UserAvatar>
         {/* Display user avatar icon here */}
-        <img src={userIcon} alt="User Icon" />
-        {isAuthenticated ? username : t("Pas connecté")}
+        <UserIcon
+          src={userIcon}
+          alt="User Icon"
+          isConnected={isAuthenticated}
+        />
+        <Dot isConnected={isAuthenticated} />
+        <span>{isAuthenticated ? username : t("Pas connecté")}</span>
+        <DropdownButton onClick={toggleDropdown}>
+          &#9660; {/* Downward-pointing arrow */}
+        </DropdownButton>
       </UserAvatar>
 
       <DropdownContent>
         {/* Show the dropdown when the user is authenticated */}
-        {isAuthenticated && (
-          <DropdownButton onClick={toggleDropdown}>
-            &#9660; {/* Downward-pointing arrow */}
-          </DropdownButton>
-        )}
+
         {isDropdownOpen && (
           <DropdownList>
             {/* Display different links based on authentication status */}
@@ -88,18 +91,18 @@ export const UserContainer = styled.div`
   align-items: center;
   cursor: pointer;
 `;
-
-export const UserAvatar = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0.4rem 0.8rem;
-  img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    margin-right: 10px;
-    background: white;
-    padding: 0.4rem;
+const pulsateAnimation = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 `;
 
@@ -144,4 +147,50 @@ const StyledProfileLink = styled(StyledLink)`
   background-color: #e0fcdb;
   gap: 2rem;
   cursor: pointer;
+`;
+export const UserAvatar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  width: 140px;
+  /* outline: 1px solid blue; */
+  font-size: 0.8rem;
+  background-color: ${(props) => props.theme.primaryBackground};
+
+  @media (max-width: 520px) {
+    width: 100px;
+
+    > span {
+      visibility: hidden;
+      height: 0;
+      width: 0;
+    }
+  }
+`;
+
+export const UserIcon = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: white;
+  outline: 1px solid ${(props) => (props.isConnected ? "green" : "red")};
+
+  padding: 0.4rem;
+  margin: 0.2rem;
+`;
+
+export const Dot = styled.div`
+  position: absolute;
+  bottom: 12%;
+  left: 28%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: ${pulsateAnimation} 1s infinite;
+  background-color: ${(props) => (props.isConnected ? "green" : "red")};
+  @media (max-width: 520px) {
+    left: 40%;
+  }
 `;

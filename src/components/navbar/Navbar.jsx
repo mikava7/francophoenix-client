@@ -18,7 +18,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
     <NavbarContainer>
       <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
       <Logo>
-        <StyledLogo to="/">Francophoenix</StyledLogo>
+        <StyledLogo to="/">Home</StyledLogo>
       </Logo>
       <StyledUl>
         <StyledList to="/grammar" isGeorgian={isGeorgian}>
@@ -40,9 +40,9 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
       </StyledUl>
 
       <LocalizationContainer>
-        <User />
-        <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Localization />
+        <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+        <User />
       </LocalizationContainer>
     </NavbarContainer>
   );
@@ -55,6 +55,8 @@ const NavbarContainer = styled.div`
   top: 0;
   z-index: 999;
   display: flex;
+  height: 4rem;
+  overflow-x: hidden;
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) => props.theme.secondaryBackground};
@@ -64,13 +66,21 @@ const NavbarContainer = styled.div`
 
 const StyledUl = styled.ul`
   display: flex;
-  gap: 0.6rem;
+  /* gap: 0.6rem; */
   padding: 0;
   max-width: 50%;
   flex: 1;
 
+  @media (min-width: 992px) and (max-width: 1025) {
+    & > :nth-child(4) {
+      display: none;
+    }
+  }
   @media (min-width: 768px) and (max-width: 991px) {
     & > :nth-child(4) {
+      display: none;
+    }
+    & > :nth-child(3) {
       display: none;
     }
   }
@@ -80,6 +90,12 @@ const StyledUl = styled.ul`
       display: none;
     }
     & > :nth-child(4) {
+      display: none;
+    }
+    & > :nth-child(1) {
+      display: none;
+    }
+    & > :nth-child(2) {
       display: none;
     }
   }
@@ -145,15 +161,10 @@ export const Logo = styled.div`
   margin-left: 1rem;
 
   @media (min-width: 576px) and (max-width: 767px) {
-    font-size: 1.3rem;
-    background-size: 120%;
   }
 
-  @media (max-width: 576px) {
-    font-size: 1.3rem;
-    background-size: 100%;
-    width: 200px;
-    margin-left: 0.21rem;
+  @media (max-width: 767px) {
+    /* display: none; */
   }
 `;
 
@@ -200,22 +211,37 @@ export const StyledLogo = styled(Link)`
 
 const ToggleContainer = styled.div`
   /* flex: 1; */
-  border: 2px solid red;
+  /* border: 2px solid red; */
 `;
 export const LocalizationContainer = styled.div`
   max-width: 100%;
   margin-right: 0.5rem;
   padding: 0.2rem 0.5rem;
   display: flex;
-  @media (max-width: 361px) {
-    & > :nth-child(1) {
+  gap: 1rem;
+  @media (min-width: 394px) and (max-width: 415px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+    gap: 0.2rem;
+  }
+
+  @media (max-width: 393px) {
+    gap: 0.2rem;
+
+    & > :nth-child(2) {
       display: none;
     }
-    & > :nth-child(2) {
-      margin-right: 2rem;
-    }
   }
-  @media (max-width: 320px) {
-    display: none;
+  @media (max-width: 361px) {
+    gap: 0.2rem;
+
+    & > :nth-child(2) {
+      display: none;
+    }
+    & > :nth-child(3) {
+      display: none;
+    }
   }
 `;
