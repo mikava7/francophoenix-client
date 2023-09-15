@@ -135,12 +135,8 @@ const ExerciseArticle = ({ frenchWords }) => {
 
     if (firstQuestion) {
       // Calculate the scroll position, considering the navbar height
-      const navbarHeight = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--navbar-height"
-        )
-      );
-      // console.log("navbarHeight", navbarHeight);
+      const navbarHeight = 450;
+      // console.log("navbarHeight in articles", navbarHeight);
       const scrollPosition =
         firstQuestion.getBoundingClientRect().top +
         window.scrollY -
@@ -470,7 +466,7 @@ const RestartButton = styled(Button)`
 `;
 const BothGenderWordsContainer = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
-  width: 100%;
+  max-width: 100%;
 
   h2 {
     font-size: 1.5rem;
@@ -482,6 +478,7 @@ const BothGenderWordsContainer = styled.div`
     padding: 0;
     margin: 0 auto;
     display: flex;
+    align-items: center;
     /* flex-direction: row; */
     flex-wrap: wrap;
     /* outline: 1px solid red; */
@@ -489,7 +486,7 @@ const BothGenderWordsContainer = styled.div`
 
     li {
       font-size: 1.2rem;
-      margin: 0;
+      /* margin: 0 auto; */
       background-color: ${(props) => props.theme.primaryBackground};
       border-radius: 4px;
       padding: 0.5rem;

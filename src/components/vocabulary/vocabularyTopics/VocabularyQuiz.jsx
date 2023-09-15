@@ -46,7 +46,20 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
           `question-${nextQuestionIndex}`
         );
         if (nextQuestion) {
-          nextQuestion.scrollIntoView({ behavior: "smooth" });
+          // Calculate the scroll position, considering the navbar height
+          const navbarHeight = 100;
+          // console.log("navbarHeight", navbarHeight);
+          const scrollPosition =
+            nextQuestion.getBoundingClientRect().top +
+            window.scrollY -
+            navbarHeight;
+          console.log("scrollPosition", scrollPosition);
+
+          // Scroll to the first question, aligning it at the top of the viewport
+          window.scrollTo({
+            top: scrollPosition,
+            behavior: "smooth",
+          });
         }
       }, 500);
     }
@@ -79,14 +92,18 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
     const firstQuestion = document.getElementById(
       `question-${firstQuestionIndex}`
     );
+    // console.log("firstQuestion", firstQuestion);
     if (firstQuestion) {
-      // Calculate the scroll position, considering the navbar height
-      const navbarHeight = 600;
-      console.log("navbarHeight", navbarHeight);
+      const navbarHeight = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--navbar-height"
+        )
+      );
       const scrollPosition =
         firstQuestion.getBoundingClientRect().top +
         window.scrollY -
         navbarHeight;
+      // console.log("scrollPosition", scrollPosition);
 
       // Scroll to the first question, aligning it at the top of the viewport
       window.scrollTo({

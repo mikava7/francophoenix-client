@@ -17,7 +17,10 @@ const Vocabularies = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
+  const quizData = useSelector((state) => state.quizData) || [];
+  console.log("quizData", quizData);
 
+  console.log("topicNames", topicNames);
   // console.log("topicNames", topicNames);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
@@ -39,6 +42,7 @@ const Vocabularies = () => {
           <TopicCardContainer>
             <TopicImage src={topic.imageUrl} alt="Topic" />
             <WordsCount>
+              <TopicTitle>{topic.topic}</TopicTitle>
               <TopicTitle>{topic.topic}</TopicTitle>
             </WordsCount>{" "}
             <TopicDesription>

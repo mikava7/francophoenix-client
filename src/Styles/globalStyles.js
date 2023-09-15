@@ -21,14 +21,14 @@ export const GlobalStyle = createGlobalStyle`
   }
   @media (max-width: 520px) {
   :root {
-    --navbar-height: 650px;
+    --navbar-height: 230px;
   }
 }
 
 /* Tablet and larger screens navbar */
 @media (min-width: 521px) {
   :root {
-    --navbar-height: 450px;
+    --navbar-height: 300px;
   }
 }
 .slick-prev,
