@@ -81,7 +81,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
     );
     if (firstQuestion) {
       // Calculate the scroll position, considering the navbar height
-      const navbarHeight = 450;
+      const navbarHeight = 600;
       console.log("navbarHeight", navbarHeight);
       const scrollPosition =
         firstQuestion.getBoundingClientRect().top +
