@@ -55,8 +55,7 @@ const NavbarContainer = styled.div`
   top: 0;
   z-index: 999;
   display: flex;
-  height: 4rem;
-  overflow-x: hidden;
+  min-height: 4rem;
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) => props.theme.secondaryBackground};
@@ -66,6 +65,7 @@ const NavbarContainer = styled.div`
 
 const StyledUl = styled.ul`
   display: flex;
+  overflow: hidden;
   /* gap: 0.6rem; */
   padding: 0;
   max-width: 50%;

@@ -51,27 +51,29 @@ const DefinitionToggleContainer = styled.div`
 `;
 const ButtonContainer = styled.div`
   position: absolute;
-  top: 8%;
-  right: 2%;
+  top: 2%;
+  right: 1%;
   font-size: 1.4rem;
 
   button {
     border: none;
-    font-size: 1.2rem;
-    width: 3rem;
-    height: 2rem;
+    font-size: 1.1rem;
+    width: 2.6rem;
+    height: 1.6rem;
     transition: background-color 0.5s ease;
     outline: 1px solid ${(props) => props.theme.secondaryText};
     /* background:  */
-    color: ${(props) => props.theme.highlight};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 const SecondLangOrDef = styled.div`
-  margin-left: 2rem;
+  margin-left: 1rem;
   min-height: 3rem;
   padding: 0.5rem;
+  display: flex;
+  align-items: center;
   color: ${(props) => props.theme.secondaryText};
-  font-size: ${(props) => props.theme.medium};
+  font-size: ${(props) => props.theme.small};
 
   font-style: italic;
 `;

@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import SearchIcon from "../../../../public/icons/search-50.png";
 import ClearIcon from "../../../../public/icons/cross-24.png";
-
 import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
 import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";
@@ -16,6 +15,8 @@ import AddToFlashcards from "../../../components/Utility/AddToFlashcards";
 import LanguageToggle from "../LanguageToggle";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 import Listen from "../../../components/Listen";
+import { Link } from "react-router-dom";
+import { redirectToBescherelle } from "../../../components/Utility/utils";
 const mapSearchResults = (searchResults, field) =>
   searchResults.map((result) => result[field]);
 
@@ -31,7 +32,7 @@ const FindTranslationForFrenchWord = () => {
   const dispatch = useDispatch();
   const searchResults =
     useSelector((state) => state.dictionary.searchResults) || [];
-  // console.log("searchResults", searchResults);
+  console.log("searchResults", searchResults);
 
   const french = mapSearchResults(searchResults, "french");
   const georgian = mapSearchResults(searchResults, "georgian");
@@ -147,16 +148,27 @@ const FindTranslationForFrenchWord = () => {
               ? result.georgian
               : result.english}
           </FrenchWord>
-          <DefinitionToggle
-            definition={definition}
-            secondLanguage={
-              inputLanguage === "french" ? secondLanguage : french
-            }
-            secondLangButtonName={secondLangButtonName}
-            french={inputLanguage === "french" ? french : secondLanguage}
-            index={index}
-            isMultipleDefinitions={true}
-          />
+          <TranslatedWord>
+            <span>{result.part_of_speech}</span>
+            <DefinitionToggle
+              definition={definition}
+              secondLanguage={
+                inputLanguage === "french" ? secondLanguage : french
+              }
+              secondLangButtonName={secondLangButtonName}
+              french={inputLanguage === "french" ? french : secondLanguage}
+              index={index}
+              isMultipleDefinitions={true}
+            />
+          </TranslatedWord>
+          {result.part_of_speech.includes("v") && (
+            <SearchResultApendix>
+              <span>this is a link to bachharelle Conjugation page</span>
+              <button onClick={() => redirectToBescherelle(result.french)}>
+                {result.french}
+              </button>
+            </SearchResultApendix>
+          )}
           <FlasCardBox>
             <AddToFlashcards
               word={
@@ -190,8 +202,9 @@ const DictionaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   max-width: 800px;
+  overflow: hidden;
 `;
 
 const DictionaryInputContainer = styled.div`
@@ -329,4 +342,44 @@ const FlasCardBox = styled.div`
   bottom: 10%;
   right: 5%;
   /* border: 1px solid red; */
+`;
+const TranslatedWord = styled.div`
+  display: flex;
+  align-items: center;
+  /* outline: 1px solid red; */
+  justify-content: center;
+  span {
+    font-style: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+`;
+const SearchResultApendix = styled.div`
+  display: flex;
+  span {
+    font-size: 0.8rem;
+    color: ${(props) => props.theme.tertiaryText};
+    margin-right: 1rem;
+  }
+  button {
+    border: none;
+    font-style: italic;
+    position: relative;
+    cursor: pointer;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 50%;
+      height: 2px;
+      background-color: ${(props) => props.theme.primaryText};
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: calc(100% - 2px); /* Expand width to 100% on hover */
+    }
+  }
 `;

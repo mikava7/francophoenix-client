@@ -156,7 +156,7 @@ export const UserAvatar = styled.div`
   width: 140px;
   /* outline: 1px solid blue; */
   font-size: 0.8rem;
-  background-color: ${(props) => props.theme.primaryBackground};
+  background-color: ${(props) => props.theme.tertiaryBackground};
 
   @media (max-width: 520px) {
     width: 100px;

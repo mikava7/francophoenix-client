@@ -35,3 +35,9 @@ export const handleMouseLeave = () => {
     setHoveredVerb(null);
   }
 };
+
+export const redirectToBescherelle = (verb) => {
+  const formattedVerb = verb.replace(/\s+/g, "-");
+  const url = `https://conjugaison.bescherelle.com/verbes/${formattedVerb}`;
+  window.open(url, "_blank");
+};

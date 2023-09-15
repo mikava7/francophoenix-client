@@ -56,9 +56,11 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               <UserAvatar>
                 {isAuthenticated ? (
                   <UserBox>
-                    <img src={userIcon} alt="User Icon" />
+                    <UserImgAndName>
+                      <img src={userIcon} alt="User Icon" />
 
-                    <UserAvatar>{username}</UserAvatar>
+                      {username}
+                    </UserImgAndName>
                     <button onClick={handleLogout}>
                       {t("Se déconnecter")}
                     </button>
@@ -70,15 +72,17 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
             </UserMobileMenu>
             {!isAuthenticated && (
               <>
-                <FormContainerApendix>
-                  {t("Avez-vous déjà un compte?")}
-                  <SignLink to="/login">{t("Connexion")}</SignLink>
-                </FormContainerApendix>
-                <FormContainerApendix>
+                <MobileFormContainerApendix>
+                  <p>{t("Avez-vous déjà un compte?")}</p>
+                  <MobileSignLink to="/login">{t("Connexion")}</MobileSignLink>
+                </MobileFormContainerApendix>
+                <MobileFormContainerApendix>
                   {" "}
-                  {t("Pas de compte?")}
-                  <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
-                </FormContainerApendix>
+                  <p>{t("Pas de compte?")}</p>
+                  <MobileSignLink to="/register">
+                    {t("Inscrivez-vous")}{" "}
+                  </MobileSignLink>
+                </MobileFormContainerApendix>
               </>
             )}
           </UserMobile>
@@ -131,6 +135,7 @@ const MenuToggle = styled.div`
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
+
   input {
     display: flex;
     width: 40px;
@@ -143,9 +148,10 @@ const MenuToggle = styled.div`
   span {
     display: flex;
     width: 29px;
+
     height: 3px;
     margin-top: 4px;
-    margin-left: 0.2rem;
+    margin-left: 0.5rem;
     position: relative;
     background: ${(props) =>
       props.isDarkMode
@@ -180,6 +186,8 @@ const MenuToggle = styled.div`
   }
 `;
 const MenuUl = styled.ul`
+  overflow-x: hidden;
+
   padding: 0;
   list-style-type: none;
   position: absolute;
@@ -188,7 +196,7 @@ const MenuUl = styled.ul`
   box-shadow: 0 0 10px #85888c;
   margin: -50px 0 0 -50px;
   padding: 50px;
-  padding-top: 125px;
+  padding-top: 100px;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
 
@@ -199,7 +207,13 @@ const MenuUl = styled.ul`
   li {
     padding: 10px 0;
     transition-delay: 2s;
-    padding-left: 3rem;
+    padding-left: 2rem;
+    margin: 0 1rem;
+    margin-top: 1rem;
+    max-width: 380px;
+    outline: 2px solid ${(props) => props.theme.highlight4};
+    background-color: ${(props) => props.theme.secondaryBackground};
+    border-radius: 8px;
   }
 `;
 const MenuLink = styled(Link)`
@@ -210,10 +224,10 @@ const MenuLink = styled(Link)`
   font-size: 1.5em;
   font-weight: 400;
   transition: 200ms;
+
   font-style: italic;
   position: relative;
-  padding: 0.5rem;
-
+  /* padding: 0.5rem; */
   &::after {
     content: "";
     position: absolute;
@@ -236,33 +250,49 @@ const MenuLink = styled(Link)`
 `;
 
 const UserMobile = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: ${(props) => props.theme.secondaryBackground};
+  /* outline: 2px solid red; */
+  margin: 0 1rem;
 `;
 const UserMobileMenu = styled.div`
-  outline: 6px solid ${(props) => props.theme.facebookText};
+  outline: 6px solid ${(props) => props.theme.secondaryBackground};
   display: flex;
   align-items: center;
-  margin: 1rem;
-  width: 18rem;
+  justify-content: space-between;
+  /* outline: 2px solid blue; */
+  /* margin: 0 auto; */
+  width: 17rem;
+  height: 3rem;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
   background: ${(props) => props.theme.tertiaryBackground};
+  @media (max-width: 359px) {
+    width: 12rem;
+  }
 `;
 const UserBox = styled.div`
-  max-width: 100%;
+  width: 100%;
+  outline: 2px solid green;
+  background-color: ${(props) => props.theme.highlight4};
 
-  padding: 0.4rem 0.8rem;
+  /* padding: 0.4rem 0.8rem; */
   display: flex;
   align-items: center;
-  align-items: space-between;
+  justify-content: space-between;
   /* outline: 1px solid red; */
   img {
-    background: white;
+    max-width: 2rem;
     padding: 0.4rem;
+    border-radius: 50%;
   }
   button {
     width: 8rem;
     padding: 0.4rem 0.8rem;
     border-radius: 0.4rem;
-    margin-left: 1rem;
+    margin-left: 5rem;
 
     background-color: ${(props) => props.theme.highlight4};
 
@@ -272,6 +302,24 @@ const UserBox = styled.div`
 const LocalAndThemeBox = styled.div`
   width: 18rem;
   display: flex;
-  outline: 1px solid ${(props) => props.theme.tertiaryText};
-  margin: 1rem;
+  /* outline: 1px solid ${(props) => props.theme.tertiaryText}; */
+  margin: 1rem 0;
+`;
+const MobileFormContainerApendix = styled(FormContainerApendix)`
+  display: flex;
+  flex-direction: column;
+`;
+const MobileSignLink = styled(SignLink)`
+  margin-right: 2rem;
+  margin-left: auto;
+
+  /* max-width: 100%; */
+  /* border: 2px solid red; */
+`;
+const UserImgAndName = styled.div`
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  /* overflow-x: hidden; */
 `;

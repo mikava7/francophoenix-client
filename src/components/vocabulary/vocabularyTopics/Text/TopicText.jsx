@@ -29,7 +29,7 @@ const TopicText = ({
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log("isAuthenticated", isAuthenticated);
+  // console.log("isAuthenticated", isAuthenticated);
   const handleArticleToggle = () => {
     setShowArticle(!showArticle);
     setRotationArticle((prevRotation) => prevRotation + 180);
