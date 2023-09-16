@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import SentenceBuilderEx from "../../../sentenceBuilder/SentenceBuilderEx";
 import { displayWord, shuffleArray } from "../../../Utility/utils";
@@ -7,9 +7,11 @@ import VerbConjugation from "../../../verbs/VerbConjugation/VerbConjugation";
 import { Button, StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RotatingChevron from "../../../Utility/RotatingChevron";
 import VerbsInText from "../../verbsinText/VerbsInText";
+
+import { mapSearchResults } from "../../../Utility/utils";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
     return word?.slice(2);
@@ -25,11 +27,13 @@ const TopicText = ({
   vocabularyData,
 }) => {
   const { t, i18n } = useTranslation();
+
   // console.log("isTextVerbs", isTextVerbs);
+  const dispatch = useDispatch();
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  // console.log("isAuthenticated", isAuthenticated);
+
   const handleArticleToggle = () => {
     setShowArticle(!showArticle);
     setRotationArticle((prevRotation) => prevRotation + 180);
@@ -39,9 +43,10 @@ const TopicText = ({
   // console.log(words);
 
   const [hoveredVerb, setHoveredVerb] = useState(null); // State to track hovered verb
-  // console.log("verbFormMapping", verbFormMapping);
+  const highlightedVerbs = new Set();
   const verbs = (verbFormMapping && Object.values(verbFormMapping)) || [];
   const uniqueVerbs = [...new Set(verbs)];
+  // console.log("uniqueVerbs", uniqueVerbs);
 
   const generateSentenceBuilderData = (text) => {
     const sentences = text?.split(".");
@@ -99,7 +104,9 @@ const TopicText = ({
           }
         };
 
-        if (isTextVerbsWord) {
+        if (isTextVerbsWord && !highlightedVerbs.has(cleanWord)) {
+          highlightedVerbs.add(cleanWord);
+
           return (
             <HighlightedVerb
               key={index}
@@ -114,7 +121,6 @@ const TopicText = ({
                     tooltipContent={tooltipContent}
                     conjugated={word}
                     index={index}
-                    // place="top"
                     // effect="solid"
                     offset={{ top: -100 }}
                   />
@@ -202,6 +208,8 @@ const HighlightedVerb = styled(Highlighted)`
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;
+  width: 180px;
+  /* outline: 1px solid blue; */
   background-color: ${(props) => props.theme.highlight3};
   top: -120%;
   left: -11%;

@@ -14,7 +14,8 @@ const AddToFlashcards = ({ word, secondLanguage, definition }) => {
   const isWordInFlashcards = flashcards.some(
     (flashcard) => flashcard.word === word
   );
-  const handleFlashcards = () => {
+  const handleFlashcards = (event) => {
+    event.stopPropagation();
     if (isWordInFlashcards) {
       dispatch(removeFromFlashcards(word));
     } else {

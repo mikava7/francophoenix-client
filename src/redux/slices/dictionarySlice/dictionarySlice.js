@@ -16,6 +16,7 @@ export const fetchWordsByLanguage = createAsyncThunk(
 
 const initialState = {
   searchResults: [],
+  // verbs: [],
   isLoading: false,
   error: null,
 };

@@ -41,3 +41,6 @@ export const redirectToBescherelle = (verb) => {
   const url = `https://conjugaison.bescherelle.com/verbes/${formattedVerb}`;
   window.open(url, "_blank");
 };
+
+export const mapSearchResults = (searchResults, field) =>
+  searchResults.map((result) => result[field]);

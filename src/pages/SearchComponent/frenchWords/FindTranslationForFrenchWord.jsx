@@ -17,9 +17,7 @@ import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteCha
 import Listen from "../../../components/Listen";
 import { Link } from "react-router-dom";
 import { redirectToBescherelle } from "../../../components/Utility/utils";
-const mapSearchResults = (searchResults, field) =>
-  searchResults.map((result) => result[field]);
-
+import { mapSearchResults } from "../../../components/Utility/utils";
 const FindTranslationForFrenchWord = () => {
   useScrollToTopOnRouteChange();
   const { handleListen, isActiveStates } = useListenWord();
@@ -32,7 +30,7 @@ const FindTranslationForFrenchWord = () => {
   const dispatch = useDispatch();
   const searchResults =
     useSelector((state) => state.dictionary.searchResults) || [];
-  console.log("searchResults", searchResults);
+  // console.log("searchResults", searchResults);
 
   const french = mapSearchResults(searchResults, "french");
   const georgian = mapSearchResults(searchResults, "georgian");
@@ -202,7 +200,7 @@ const DictionaryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 0 auto; */
+  margin: 0 auto;
   max-width: 800px;
   overflow: hidden;
 `;

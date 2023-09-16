@@ -10,11 +10,20 @@ import Loading from "../../../loading/Loading";
 import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
-const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
-  // // console.log("tooltipContent", tooltipContent);
+import { mapSearchResults } from "../../../Utility/utils";
+const TooltipComponent = ({
+  tooltipContent,
+  index,
+  conjugated,
+  id,
+  searchResults,
+}) => {
+  // console.log("tooltipContent", tooltipContent);
+  // console.log("id", id);
 
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
+
   const handleShowWord = () => {
     setShowWord(!showWord);
   };
@@ -28,15 +37,17 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
         {tooltipContent}
       </StyledTooltip>
 
-      <Tooltip place="top" effect="solid" />
+      {/* <Tooltip place="top" effect="solid" /> */}
       <Icon onClick={handleListen(tooltipContent)}>
         <Listen isActive={isActiveStates[index]} />
       </Icon>
-      {/* <FlashCardBox>
-        <AddToFlashcards    word={tooltipContent}
-            secondLanguage={"secondLanguage"}
-            definition={"definition"}/>
-      </FlashCardBox> */}
+      <FlashCardBox>
+        <AddToFlashcards
+          word={tooltipContent}
+          secondLanguage={"secondLanguage"}
+          definition={"definition"}
+        />
+      </FlashCardBox>
       {showWord && (
         <VerbComponentBox>
           <VerbComponent />
@@ -48,13 +59,14 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
 
 export default TooltipComponent;
 const TooltipComponentContainer = styled.span`
-  width: 90%;
+  max-width: 100%;
   height: 2.4rem;
+  font-size: 1.1rem;
   display: flex;
-  text-align: center;
   align-items: center;
   position: relative;
   background-color: ${(props) => props.theme.secondaryText};
+  border: 2px solid red;
   border-radius: 8px;
   padding-right: 1rem;
 
@@ -62,6 +74,8 @@ const TooltipComponentContainer = styled.span`
 `;
 const Icon = styled.span`
   margin-left: 0.4rem;
+  display: flex;
+  align-items: center;
 `;
 const FlashCardBox = styled.span`
   /* border: 1px solid blue; */
@@ -85,6 +99,6 @@ const StyledTooltip = styled(Link)`
   text-align: center;
   display: flex;
   align-items: center;
-  margin-left: -1rem;
+  margin-left: 1rem;
   color: ${(props) => props.theme.primaryBackground};
 `;
