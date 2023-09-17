@@ -38,8 +38,8 @@ const BookDetails = ({ books, description }) => {
             }, 500); // Reset double-tap after 500 milliseconds
           }
         }}
-        onTouchMove={(e) => e.preventDefault()} // Prevent scrolling while swiping
-        className={doubleTap ? "double-tap" : ""}
+        // onTouchMove={(e) => e.preventDefault()} // Prevent scrolling while swiping
+        // className={doubleTap ? "double-tap" : ""}
       >
         <BookTop
           src={books.poster}

@@ -168,6 +168,7 @@ const FindTranslationForFrenchWord = () => {
             </SearchResultApendix>
           )}
           <FlasCardBox>
+            add to
             <AddToFlashcards
               word={
                 inputLanguage === "french"
@@ -320,7 +321,7 @@ const AddToFavoritesBox = styled.div`
 `;
 ///////////////
 const WordCard = styled.div`
-  width: 90%;
+  max-width: 100%;
   border-bottom: 5px solid ${(props) => props.theme.primaryText};
   border-right: 5px solid ${(props) => props.theme.primaryText};
   background: ${(props) => props.theme.secondaryBackground};
@@ -335,10 +336,12 @@ const WordCard = styled.div`
 `;
 
 const FlasCardBox = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   position: absolute;
-  bottom: 10%;
-  right: 5%;
+  bottom: 40%;
+  font-size: 0.8rem;
+  right: 0;
   /* border: 1px solid red; */
 `;
 const TranslatedWord = styled.div`
@@ -355,8 +358,9 @@ const TranslatedWord = styled.div`
 `;
 const SearchResultApendix = styled.div`
   display: flex;
+  max-width: 100%;
   span {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     color: ${(props) => props.theme.tertiaryText};
     margin-right: 1rem;
   }

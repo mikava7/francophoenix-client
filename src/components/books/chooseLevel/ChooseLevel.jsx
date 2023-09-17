@@ -23,14 +23,20 @@ export default ChooseLevel;
 const ChooseLevelContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 0 auto;
-  gap: 1rem;
+  justify-content: space-evenly;
+  width: 92%;
+  /* gap: 1rem; */
+  /* margin: 0 1rem; */
+
+  /* outline: 1px solid black; */
 `;
 const Label = styled.label`
   text-align: center;
-  font-size: 1.2rem;
+  width: auto;
+
+  padding: 0.25rem 0.5rem;
+  /* font-size: 1.2rem; */
+  /* outline: 1px solid blue; */
 `;
 const Select = styled.select`
   width: 100%;
@@ -42,6 +48,7 @@ const Select = styled.select`
   font-size: 1.25rem;
   cursor: pointer;
   line-height: 1.1;
+  /* outline: 1px solid red; */
 
   background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
 `;

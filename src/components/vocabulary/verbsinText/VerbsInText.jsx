@@ -32,8 +32,13 @@ const VerbsInTextBox = styled.ul`
   overflow-y: scroll;
   margin: 0;
   margin-bottom: 1rem;
+  margin-top: 1rem;
+
   padding: 0;
   border-bottom: 2px solid ${(props) => props.theme.highlight3};
+  background-color: ${(props) => props.theme.secondaryBackground};
+
+  max-width: 80%;
   h3 {
     margin: 0 auto;
     width: 100%;

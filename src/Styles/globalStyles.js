@@ -13,6 +13,8 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     list-style: none;
     overflow-x: hidden;
+  /* overflow-y: hidden; */
+
     font-family: 'Poppins', sans-serif;
     width: 100vw;
     background-color: ${(props) => props.theme.primaryBackground};

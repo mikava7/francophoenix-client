@@ -161,7 +161,6 @@ const AppContainer = styled.section`
   flex-direction: column;
   box-sizing: border-box;
   margin: 0 auto;
-  width: 100%;
-  /* height: 100vw; */
-  /* outline: 1px solid blue; */
+  max-width: 100%;
+  overflow: hidden;
 `;

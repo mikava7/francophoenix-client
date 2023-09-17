@@ -17,7 +17,7 @@ const A2B1Books = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books) || [];
   const isLoading = useSelector((state) => state.books.isLoading);
-  const [selectedLevel, setSelectedLevel] = useState(null); // Initialize with null
+  const [selectedLevel, setSelectedLevel] = useState(null);
 
   useEffect(() => {
     dispatch(fetchBooksPreview());
@@ -60,19 +60,22 @@ const BooksPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  max-width: 100%;
   overflow-x: hidden;
+  /* outline: 1px solid red; */
 `;
 const Title = styled.h2`
   font-weight: bold;
+  overflow-x: hidden;
   margin-bottom: 10px;
 `;
 
 const BookList = styled.ul`
   display: flex;
   /* outline: 1px solid blue; */
+  overflow-x: hidden;
 
-  /* width: 90%; */
+  max-width: 100%;
 
   flex-wrap: wrap; //when i comment this line then all books are in one line horizontally. if i add this line then one by one vertically. why?
   list-style: none;
@@ -82,10 +85,14 @@ const BookList = styled.ul`
 const BookItem = styled.li`
   font-size: 18px;
   margin-bottom: 5px;
+  overflow-x: hidden;
   /* width: 100%; */
-  margin: 0 1rem;
+  /* outline: 1px solid yellow; */
+  /* margin: 0 1rem; */
 `;
 const StyledLink = styled(Link)`
+  overflow-x: hidden;
   text-decoration: none;
+  /* outline: 1px solid green; */
   color: black;
 `;

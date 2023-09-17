@@ -3,21 +3,29 @@ import styled from "styled-components";
 import Listen from "../../Listen";
 import useListenWord from "../../../hooks/useListenWord";
 import AddToFlashcards from "../../Utility/AddToFlashcards";
+
+const VocabularyContainer = styled.div`
+  overflow-x: hidden; /* Hide horizontal overflow */
+`;
+
 const BookVocabulary = ({ vocabularyTranslations }) => {
   const { handleListen, isActiveStates } = useListenWord();
 
   return (
-    <CardContainer>
+    <VocabularyContainer>
       {Object.entries(vocabularyTranslations).map(
         ([frenchWord, englishTranslation], index) => (
-          <Word>
-            <Index>{index + 1}</Index>
-            <ListenBox onClick={handleListen(frenchWord)}>
-              <Listen isActive={isActiveStates[index]} />
-            </ListenBox>
-            <French>{frenchWord}</French>
-            <Translation>{englishTranslation}</Translation>
+          <Word key={index}>
+            <TopPart>
+              <Index>{index + 1}</Index>
+
+              <French>{frenchWord.replace(/\([^)]*\)/, "").trim()}</French>
+              <Translation>{englishTranslation}</Translation>
+            </TopPart>
             <FlashcardBox>
+              <ListenBox onClick={handleListen(frenchWord)}>
+                <Listen isActive={isActiveStates[index]} />
+              </ListenBox>
               <AddToFlashcards
                 word={frenchWord}
                 definition={""}
@@ -27,61 +35,57 @@ const BookVocabulary = ({ vocabularyTranslations }) => {
           </Word>
         )
       )}
-    </CardContainer>
+    </VocabularyContainer>
   );
 };
 
 export default BookVocabulary;
 
-const CardContainer = styled.div`
-  display: flex;
-  border-radius: 12px;
-  /* justify-content: center; */
-  /* margin: 0 auto; */
-  border: 1px solid green;
-  height: 25rem;
-  width: 100%;
-  flex-direction: column;
-  background-color: ${(props) => props.theme.secondaryBackground};
-  overflow-y: scroll;
-
-  &:not(input) {
-    user-select: none;
-  }
-`;
-
-const Word = styled.div`
+const Word = styled.span`
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.text};
   display: flex;
-
-  /* justify-content: space-between; */
-  align-items: center; /* Horizontally center within the container */
+  /* align-items: center; */
   border-radius: 12px;
-  font-size: 1.3rem;
-  /* width: 100%; */
-  outline: 1px solid ${(props) => props.theme.primaryText};
   font-style: oblique;
-  padding: 1rem;
-  margin: 1rem;
-`;
-const French = styled.span`
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-right: 1rem;
-  margin-left: 0.4rem;
-  display: flex;
-
-  &::after {
-    content: ": ";
+  box-sizing: border-box;
+  padding: 0.4rem 0;
+  padding-left: 0.1rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 2px solid ${(props) => props.theme.highlight3};
+  margin: 0.4rem 0;
+  @media (max-width: 415px) {
+    flex-direction: column;
   }
 `;
+const TopPart = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: space-around; */
+`;
+const French = styled.span`
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 0.4rem;
+  /* outline: 1px solid red; */
+  display: flex;
+  align-items: center;
+  /* width: 35%; */
+  &::after {
+    content: " :";
+  }
+`;
+
 const Translation = styled.span`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  /* height: 2rem; */
   font-weight: 400;
+  /* overflow-x: scroll; */
+  color: ${(props) => props.theme.secondaryText};
+  overflow-x: scroll;
 
   display: flex;
-  font-style: normal;
   &::after {
     content: "";
   }
@@ -89,15 +93,21 @@ const Translation = styled.span`
 
 const Index = styled.span`
   color: ${(props) => props.theme.secondartText};
-  font-size: 1.4rem;
-
-  margin-right: 0.6rem;
-
+  font-size: 1rem;
+  /* margin-right: 0.6rem; */
+  margin-left: 0.4rem;
+  width: 1.6rem;
   &::after {
-    content: ".";
+    content: " .";
   }
 `;
+
 const ListenBox = styled.span``;
+
 const FlashcardBox = styled.span`
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: row;
 `;

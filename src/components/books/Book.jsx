@@ -11,6 +11,13 @@ import TooltipComponent from "../vocabulary/vocabularyTopics/Text/TooltipCompone
 import { handleMouseEnter } from "../Utility/utils";
 import VerbsInText from "../vocabulary/verbsinText/VerbsInText";
 import BookVocabulary from "./bookVocabulary/BookVocabulary";
+const tooltipContent = {
+  french: "avoir",
+  english: "have",
+  georgian: "ქონა, ყოლა",
+  definition: "Posséder ou détenir quelque chose.",
+  part_of_speech: "v",
+};
 const Book = () => {
   const { bookId } = useParams();
   const dispatch = useDispatch();
@@ -89,147 +96,145 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h1>{selectedBook?.title}</h1>
+      <h3>{selectedBook?.title}</h3>
       <BookAuthor>{selectedBook.author}</BookAuthor>
-      <ChapterBoxesContainer>
-        <ChapterPagination
-          selectedChapter={selectedChapter}
-          totalChapters={selectedBook?.chapters?.length}
-          onPrevious={() => setSelectedChapter(selectedChapter - 1)}
-          onNext={() => setSelectedChapter(selectedChapter + 1)}
-        />
-        <div>
-          <VerbsInText uniqueVerbs={uniqueVerbs} />
-        </div>
-        {selectedBook &&
-          selectedBook.chapters &&
-          selectedBook.chapters[selectedChapter] && (
-            <ChapterBox key={selectedChapter}>
-              <h3>
-                {formatChapterText(
-                  selectedBook.chapters[selectedChapter].chapterTitle
-                )}
-              </h3>
-              <div>
-                {words?.map((word, index) => {
-                  const cleanedWord = cleanWord(word);
-                  const translation = vocabularyTranslations[cleanedWord];
-                  const isClicked = selectedWord === word;
-                  const isInVocabulary = isWordInVocabulary(cleanedWord);
+      {/* <ChapterBoxesContainer> */}
+      <ChapterPagination
+        selectedChapter={selectedChapter}
+        totalChapters={selectedBook?.chapters?.length}
+        onPrevious={() => setSelectedChapter(selectedChapter - 1)}
+        onNext={() => setSelectedChapter(selectedChapter + 1)}
+      />
 
-                  const isTextVerb = textVerbs.includes(cleanedWord);
+      <VerbsInText uniqueVerbs={uniqueVerbs} />
 
-                  const handleMouseEnter = (wordIndex) => {
-                    if (isTextVerb) {
-                      setIsHovering(true);
-                      setHoveredWordIndex(wordIndex); // Set the hovered word index
-                      const word = words[wordIndex];
-                      const cleanedWord = cleanWord(word);
-                      const appropriateVerb = verbsFormMapping[cleanedWord];
-                      setHoveredVerb(appropriateVerb);
-                    }
-                  };
+      {selectedBook &&
+        selectedBook.chapters &&
+        selectedBook.chapters[selectedChapter] && (
+          <ChapterBox key={selectedChapter}>
+            <h3>
+              {formatChapterText(
+                selectedBook.chapters[selectedChapter].chapterTitle
+              )}
+            </h3>
+            <div>
+              {words?.map((word, index) => {
+                const cleanedWord = cleanWord(word);
+                const translation = vocabularyTranslations[cleanedWord];
+                const isClicked = selectedWord === word;
+                const isInVocabulary = isWordInVocabulary(cleanedWord);
 
-                  // console.log("hoveredVerb in return", hoveredVerb); // Get the appropriate verb
+                const isTextVerb = textVerbs.includes(cleanedWord);
 
-                  const handleMouseLeave = () => {
-                    if (isTextVerb) {
-                      setIsHovering(false);
-
-                      setHoveredVerb("");
-                    }
-                  };
-
-                  let wordElement = null;
-                  // console.log("Before if (isInVocabulary)");
-                  if (isInVocabulary) {
-                    // console.log("Inside if (isInVocabulary)");
-                    wordElement = <b>{word}</b>;
-                    // console.log("wordElement", wordElement);
-                  } else {
-                    // console.log("Inside else");
-                    wordElement = (
-                      <VerbBox
-                        className={index === 0 ? "first" : ""}
-                        key={index}
-                        onMouseEnter={() => handleMouseEnter(index)} // Pass index
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        {word}
-                        <TooltipComponentBox>
-                          {isHovering &&
-                            hoveredWordIndex === index && ( // Conditionally render based on the hovered word index
-                              <TooltipComponent
-                                id={`verb-tooltip-${index}`}
-                                tooltipContent={hoveredVerb}
-                                conjugated={word}
-                                index={index}
-                              />
-                            )}
-                        </TooltipComponentBox>
-                      </VerbBox>
-                    );
+                const handleMouseEnter = (wordIndex) => {
+                  if (isTextVerb) {
+                    setIsHovering(true);
+                    setHoveredWordIndex(wordIndex); // Set the hovered word index
+                    const word = words[wordIndex];
+                    const cleanedWord = cleanWord(word);
+                    const appropriateVerb = verbsFormMapping[cleanedWord];
+                    setHoveredVerb(appropriateVerb);
                   }
+                };
 
-                  return (
-                    <ChapterText key={index}>
-                      {isTextVerb ? (
-                        <Highlighted
-                          content={translation}
-                          handleWordClick={handleWordClick}
-                          wordElement={wordElement}
-                        >
-                          {wordElement}
-                        </Highlighted>
-                      ) : (
-                        <span
-                          className={index === 0 ? " first" : ""}
-                          key={index}
-                        >
-                          {isInVocabulary ? (
-                            <VocabularyWord>{word}</VocabularyWord>
-                          ) : (
-                            <span> {word}</span>
+                // console.log("hoveredVerb in return", hoveredVerb); // Get the appropriate verb
+
+                const handleMouseLeave = () => {
+                  if (isTextVerb) {
+                    setIsHovering(false);
+
+                    setHoveredVerb("");
+                  }
+                };
+
+                let wordElement = null;
+                // console.log("Before if (isInVocabulary)");
+                if (isInVocabulary) {
+                  // console.log("Inside if (isInVocabulary)");
+                  wordElement = <b>{word}</b>;
+                  // console.log("wordElement", wordElement);
+                } else {
+                  // console.log("Inside else");
+                  wordElement = (
+                    <VerbBox
+                      className={index === 0 ? "first" : ""}
+                      key={index}
+                      onMouseEnter={() => handleMouseEnter(index)} // Pass index
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      {word}
+                      <TooltipComponentBox>
+                        {isHovering &&
+                          hoveredWordIndex === index && ( // Conditionally render based on the hovered word index
+                            <TooltipComponent
+                              id={`verb-tooltip-${index}`}
+                              tooltipContent={tooltipContent}
+                              conjugated={word}
+                              index={index}
+                            />
                           )}
-                        </span>
-                      )}
-                    </ChapterText>
+                      </TooltipComponentBox>
+                    </VerbBox>
                   );
-                })}
-              </div>
-            </ChapterBox>
-          )}
-        <BookVocabulary vocabularyTranslations={vocabularyTranslations} />
+                }
+
+                return (
+                  <ChapterText key={index}>
+                    {isTextVerb ? (
+                      <Highlighted
+                        content={translation}
+                        handleWordClick={handleWordClick}
+                        wordElement={wordElement}
+                      >
+                        {wordElement}
+                      </Highlighted>
+                    ) : (
+                      <span className={index === 0 ? " first" : ""} key={index}>
+                        {isInVocabulary ? (
+                          <VocabularyWord>{word}</VocabularyWord>
+                        ) : (
+                          <span> {word}</span>
+                        )}
+                      </span>
+                    )}
+                  </ChapterText>
+                );
+              })}
+            </div>
+          </ChapterBox>
+        )}
+      <BottomPart>
+        <VocabularyBox>
+          <BookVocabulary vocabularyTranslations={vocabularyTranslations} />
+        </VocabularyBox>
         <ChapterPagination
           selectedChapter={selectedChapter}
           totalChapters={selectedBook?.chapters?.length}
           onPrevious={() => setSelectedChapter(selectedChapter - 1)}
           onNext={() => setSelectedChapter(selectedChapter + 1)}
         />
-      </ChapterBoxesContainer>
+      </BottomPart>
+      {/* </ChapterBoxesContainer> */}
     </BookContainer>
   );
 };
 
 export default Book;
 
-const ChapterBox = styled.div`
-  display: flex;
-
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-`;
 const BookContainer = styled.div`
-  background-color: ${(props) => props.theme.secondaryBackground};
+  background-color: ${(props) => props.theme.primaryBackground};
   display: flex;
 
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0 0.1rem;
-  padding: 2rem;
-  /* max-width: 920px; */
+  /* padding: 2rem; */
+  max-width: 100%;
+  /* outline: 1px solid red; */
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 0.4rem;
+  margin: 0;
+  /* margin: 0 auto; */
   span {
     &.first {
       margin-left: 1rem;
@@ -238,10 +243,21 @@ const BookContainer = styled.div`
     }
   }
 `;
+const ChapterBox = styled.div`
+  display: flex;
 
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.4rem;
+  /* outline: 2px solid violet; */
+  overflow-x: hidden;
+  /* margin: 0 0.1rem; */
+`;
 const BookAuthor = styled.span`
   font-style: italic;
   position: relative;
+  /* outline: 1px solid green; */
 
   &::after {
     content: "";
@@ -262,19 +278,21 @@ const BookAuthor = styled.span`
 const ChapterText = styled.span`
   white-space: pre-line;
   line-height: 2;
-  width: 100%;
-  font-size: 1.3rem;
+  max-width: 100%;
+  font-size: 1.1rem;
   letter-spacing: 1px;
   font-family: "Palatino", sans-serif;
-  text-indent: 30px;
+  /* outline: 1px solid green; */
 `;
 
 const ChapterBoxesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-  width: 100%;
+  outline: 1px solid black;
+
+  /* gap: 1rem; */
+  max-width: 90%;
 `;
 const Highlighted = styled.span`
   margin: 0 0.3rem;
@@ -291,21 +309,39 @@ const VocabularyWord = styled.span`
   /* border: 1px solid grey; */
   font-weight: bold;
   margin-left: 0.2rem;
-  /* background: yellow; */
+  background: yellow;
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;
-  background-color: ${(props) => props.theme.highlight3};
+  /* background-color: ${(props) => props.theme.highlight3}; */
 
-  top: -120%;
+  top: -430%;
   left: -40%;
   border-radius: 12px;
   text-align: center;
-  cursor: pointer;
+  border: 1px solid red;
 `;
+const BottomPart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+`;
+
 const VerbBox = styled.span`
   background-color: ${(props) => props.theme.highlight2};
   /* text-decoration: underline; */
   position: relative;
   padding: 0.2rem 0.4rem;
+  margin-top: 1rem;
+`;
+const VocabularyBox = styled.span`
+  overflow-x: hidden; /* Hide horizontal overflow */
+  box-sizing: border-box;
+  max-width: 100%;
+  /* border: 1px solid red; */
+
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
 `;
