@@ -15,7 +15,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
   const isScrolled = useScrollHandler();
 
   return (
-    <NavbarContainer>
+    <NavbarContainer isVisible={isScrolled}>
       <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
       <Logo>
         <StyledLogo to="/">FrancoPhenix</StyledLogo>
@@ -50,17 +50,21 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
 
 export default Navbar;
 const NavbarContainer = styled.div`
-  position: sticky;
   box-sizing: border-box;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 999;
   display: flex;
+  width: 100%;
   min-height: 4rem;
   align-items: center;
   justify-content: space-between;
-  background-color: ${(props) => props.theme.secondaryBackground};
+  background-color: ${(props) =>
+    props.isVisible ? props.theme.tertiaryText : "transparent"};
+  color: white;
+  transition: background-color 0.3s ease-in-out;
   border-bottom: 3px solid ${(props) => props.theme.highligt1};
-  width: 100%;
 `;
 
 const StyledUl = styled.ul`
@@ -200,7 +204,8 @@ export const StyledLogo = styled(Link)`
   }
 
   @media (max-width: 576px) {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    width: 80%;
     margin: 0;
     padding: 0;
     background-size: 80%;

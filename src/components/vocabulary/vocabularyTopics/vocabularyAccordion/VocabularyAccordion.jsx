@@ -30,11 +30,13 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
       {frenchWords?.map((word, index) => (
         <AccordionItem key={index}>
           <AccordionHeader>
-            <FrenchWord>{word}</FrenchWord>
+            <Words>
+              <FrenchWord>{word}</FrenchWord>
 
-            <SecondLanguageWord>
-              {secondLanguage[index] || ""}
-            </SecondLanguageWord>
+              <SecondLanguageWord>
+                {secondLanguage[index] || ""}
+              </SecondLanguageWord>
+            </Words>
             <IconsWrapper>
               <ListenIcon
                 onClick={handleListen(word)}
@@ -147,17 +149,14 @@ const AccordionHeader = styled.div`
     max-width: 99%;
   }
   @media (min-width: 577px) and (max-width: 750px) {
+    flex-direction: column;
     width: 90%;
   }
 
-  @media (min-width: 393px) and (max-width: 576px) {
-    width: 92%;
-    /* outline: 2px solid green; */
+  @media (min-width: 360px) and (max-width: 576px) {
+    flex-direction: column;
     margin-left: -0.5rem;
-  }
-  @media (max-width: 392px) {
-    /* outline: 2px solid red; */
-    margin-left: -0.5rem;
+
     width: 90%;
   }
   @media (min-width: 322px) and (max-width: 359px) {
@@ -172,6 +171,12 @@ const AccordionHeader = styled.div`
     flex-wrap: wrap;
     font-size: ${({ theme }) => theme.extraSmall};
   }
+`;
+const Words = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* outline: 1px solid red; */
+  width: 100%;
 `;
 const FrenchWord = styled.p`
   font-weight: bold;
@@ -219,9 +224,7 @@ const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-
-  margin-left: auto;
-
+  margin-top: 0.4rem;
   gap: 1rem;
   text-align: center;
   /* border: 1px solid grey; */
@@ -230,24 +233,6 @@ const IconsWrapper = styled.div`
     /* outline: 1px solid red; */
     gap: 1rem;
     /* width: 90%; */
-  }
-
-  @media (min-width: 751px) and (max-width: 768px) {
-    /* outline: 1px solid red; */
-    gap: 0.3rem;
-    /* overflow-x: scroll; */
-  }
-  @media (min-width: 359px) and (max-width: 577px) {
-    /* outline: 1px solid red; */
-    gap: 0.2rem;
-  }
-  @media (max-width: 364px) {
-    margin-right: 0;
-    gap: 0.2rem;
-  }
-  @media (max-width: 321px) {
-    margin-right: 0;
-    gap: 0.1rem;
   }
 `;
 

@@ -101,9 +101,9 @@ const TopicText = ({
   // console.log(filteredSentenceData);
   return (
     <TopicTextContainer>
-      <div>
+      <VerbsInTextBox>
         <VerbsInText uniqueVerbs={uniqueVerbs} />
-      </div>
+      </VerbsInTextBox>
       {words?.map((word, index) => {
         const cleanWord = displayCleanWord(word)
           .toLowerCase()
@@ -257,4 +257,9 @@ const SentenceBuildHeader = styled.p`
   align-items: center;
   justify-content: space-around;
   /* margin-right: 2rem; */
+`;
+const VerbsInTextBox = styled.div`
+  display: flex;
+
+  margin: 0 1rem;
 `;
