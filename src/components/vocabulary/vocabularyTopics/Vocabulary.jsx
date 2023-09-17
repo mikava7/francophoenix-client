@@ -120,8 +120,6 @@ const VocabularyContainer = styled.article`
     margin: 0;
     width: 100%;
     overflow-x: hidden;
-    /* outline: 1px solid red; */
-    /* margin-right: auto; */
   }
   /* width: 100%; */
   @media (max-width: 392px) {
@@ -168,6 +166,7 @@ const WordCount = styled.div`
   padding: 0.5rem 1rem;
   text-align: center;
   margin: 0 auto;
+  margin-top: 3rem;
   font-size: 1.2rem;
   background-color: ${(props) => props.theme.secondaryBackground};
   margin-bottom: 1rem;

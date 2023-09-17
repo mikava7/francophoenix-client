@@ -61,6 +61,7 @@ export default Vocabularies;
 const VocabularyContainer = styled.ul`
   display: flex;
   margin: 0 auto;
+  margin-top: 3rem;
   align-items: center;
   width: 90%;
   /* outline: 2px solid red; */

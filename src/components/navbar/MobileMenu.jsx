@@ -113,6 +113,7 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               {t("Entraîneur de cartes mémoire")}
             </MenuLink>
           </li>
+          <li></li>
         </MenuUl>
       </MenuToggle>
     </MenuContainer>
@@ -196,7 +197,7 @@ const MenuUl = styled.ul`
   box-shadow: 0 0 10px #85888c;
   margin: -50px 0 0 -50px;
   padding: 50px;
-  padding-top: 100px;
+  padding-top: 4rem;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
 
@@ -205,7 +206,7 @@ const MenuUl = styled.ul`
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   li {
-    padding: 10px 0;
+    padding: 0.2rem 0;
     transition-delay: 2s;
     padding-left: 2rem;
     margin: 0 1rem;
@@ -214,6 +215,10 @@ const MenuUl = styled.ul`
     outline: 2px solid ${(props) => props.theme.highlight4};
     background-color: ${(props) => props.theme.secondaryBackground};
     border-radius: 8px;
+    &:last-child {
+      margin-bottom: 3rem;
+      outline: 2px solid ${(props) => props.theme.highlight3};
+    }
   }
 `;
 const MenuLink = styled(Link)`

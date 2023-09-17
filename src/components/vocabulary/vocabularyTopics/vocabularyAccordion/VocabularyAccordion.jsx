@@ -185,12 +185,16 @@ const FrenchWord = styled.p`
   width: 40%;
   margin-left: 0.4rem;
   font-size: ${({ theme }) => theme.medium};
+  &::after {
+    content: " :";
+  }
   @media (min-width: 577px) and (max-width: 767px) {
     font-size: ${({ theme }) => theme.mediumSmall};
   }
   @media (max-width: 577px) {
     font-size: ${({ theme }) => theme.small};
     margin-left: 0.2rem;
+    width: 50%;
   }
   @media (max-width: 364px) {
     margin-left: 0;
@@ -213,6 +217,8 @@ const SecondLanguageWord = styled.span`
     overflow-x: auto; /* Use 'auto' instead of 'scroll' */
     font-size: ${({ theme }) => theme.extraSmall};
     margin-left: 0.5rem;
+    width: 60%;
+    /* outline: 1px solid red; */
   }
   @media (max-width: 364px) {
     margin-left: 1rem;

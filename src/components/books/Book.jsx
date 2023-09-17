@@ -96,7 +96,7 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h4>{selectedBook?.title}</h4>
+      <h2>{selectedBook?.title}</h2>
       <BookAuthor>{selectedBook.author}</BookAuthor>
       {/* <ChapterBoxesContainer> */}
       <ChapterPagination
@@ -112,11 +112,11 @@ const Book = () => {
         selectedBook.chapters &&
         selectedBook.chapters[selectedChapter] && (
           <ChapterBox key={selectedChapter}>
-            <h3>
+            <h2>
               {formatChapterText(
                 selectedBook.chapters[selectedChapter].chapterTitle
               )}
-            </h3>
+            </h2>
             <div>
               {words?.map((word, index) => {
                 const cleanedWord = cleanWord(word);
@@ -234,6 +234,7 @@ const BookContainer = styled.div`
   box-sizing: border-box;
   padding: 0.4rem;
   margin: 0;
+  margin-top: 3rem;
   /* margin: 0 auto; */
   span {
     &.first {
@@ -311,7 +312,7 @@ const VocabularyWord = styled.span`
   /* border: 1px solid grey; */
   font-weight: bold;
   margin-left: 0.2rem;
-  background: yellow;
+  /* background: yellow; */
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;
