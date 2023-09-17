@@ -18,7 +18,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
     <NavbarContainer>
       <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
       <Logo>
-        <StyledLogo to="/">Home</StyledLogo>
+        <StyledLogo to="/">FrancoPhenix</StyledLogo>
       </Logo>
       <StyledUl>
         <StyledList to="/grammar" isGeorgian={isGeorgian}>
@@ -200,9 +200,11 @@ export const StyledLogo = styled(Link)`
   }
 
   @media (max-width: 576px) {
-    font-size: 1.3rem;
-
-    background-size: 100%;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+    background-size: 80%;
+    font-weight: 400;
   }
   @media (max-width: 320px) {
     margin-right: 3rem;

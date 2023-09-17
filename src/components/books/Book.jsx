@@ -96,7 +96,7 @@ const Book = () => {
   // console.log("words", words);
   return (
     <BookContainer>
-      <h3>{selectedBook?.title}</h3>
+      <h4>{selectedBook?.title}</h4>
       <BookAuthor>{selectedBook.author}</BookAuthor>
       {/* <ChapterBoxesContainer> */}
       <ChapterPagination
@@ -228,7 +228,7 @@ const BookContainer = styled.div`
   flex-direction: column;
   align-items: center;
   /* padding: 2rem; */
-  max-width: 100%;
+  max-width: 95%;
   /* outline: 1px solid red; */
   overflow-x: hidden;
   box-sizing: border-box;
@@ -250,6 +250,7 @@ const ChapterBox = styled.div`
   align-items: center;
   max-width: 100%;
   padding: 0.4rem;
+  /* margin-right: 0.2rem; */
   /* outline: 2px solid violet; */
   overflow-x: hidden;
   /* margin: 0 0.1rem; */
@@ -281,6 +282,7 @@ const ChapterText = styled.span`
   max-width: 100%;
   font-size: 1.1rem;
   letter-spacing: 1px;
+
   font-family: "Palatino", sans-serif;
   /* outline: 1px solid green; */
 `;

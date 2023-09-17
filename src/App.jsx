@@ -162,5 +162,5 @@ const AppContainer = styled.section`
   box-sizing: border-box;
   margin: 0 auto;
   max-width: 100%;
-  overflow: hidden;
+  /* overflow-x: hidden; */
 `;
