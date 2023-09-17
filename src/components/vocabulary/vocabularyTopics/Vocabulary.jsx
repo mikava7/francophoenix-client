@@ -38,7 +38,7 @@ const Vocabulary = () => {
   if (isLoading) {
     return <Loading />;
   }
-
+  // console.log("vocabularyData", vocabularyData);
   const french = vocabularyData?.words?.map((word) => word?.french);
   const english = vocabularyData?.words?.map((word) => word?.english);
   const georgian = vocabularyData?.words?.map((word) => word?.georgian);

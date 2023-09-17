@@ -53,7 +53,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
             nextQuestion.getBoundingClientRect().top +
             window.scrollY -
             navbarHeight;
-          console.log("scrollPosition", scrollPosition);
+          // console.log("scrollPosition", scrollPosition);
 
           // Scroll to the first question, aligning it at the top of the viewport
           window.scrollTo({

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
 export const fetchQuizData = createAsyncThunk(
-  "currentTopic/fetchQuizData",
+  "quizData/fetchQuizData",
   async (id) => {
     try {
       const response = await axiosInstance.get(`/quiz-topic/${id}`);

@@ -17,10 +17,8 @@ const Vocabularies = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
-  const quizData = useSelector((state) => state.quizData) || [];
-  console.log("quizData", quizData);
 
-  console.log("topicNames", topicNames);
+  // console.log("topicNames", topicNames);
   // console.log("topicNames", topicNames);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
@@ -43,7 +41,9 @@ const Vocabularies = () => {
             <TopicImage src={topic.imageUrl} alt="Topic" />
             <WordsCount>
               <TopicTitle>{topic.topic}</TopicTitle>
-              <TopicTitle>{topic.topic}</TopicTitle>
+              <TopicSecondTitle>
+                {i18n.language === "ka" ? topic.topicGeo : topic.topicEng}
+              </TopicSecondTitle>
             </WordsCount>{" "}
             <TopicDesription>
               <span>{t("Nombre de Mots")}</span>
@@ -135,6 +135,9 @@ const TopicTitle = styled.h3`
   margin: 0;
   line-height: ${(props) => props.theme.smallLineHeight};
   margin-bottom: 8px;
+`;
+const TopicSecondTitle = styled(TopicTitle)`
+  font-size: ${(props) => props.theme.small};
 `;
 
 const WordsCount = styled.p`

@@ -11,16 +11,11 @@ import { StyledLink } from "../../../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { mapSearchResults } from "../../../Utility/utils";
-const TooltipComponent = ({
-  tooltipContent,
-  index,
-  conjugated,
-  id,
-  searchResults,
-}) => {
-  // console.log("tooltipContent", tooltipContent);
-  // console.log("id", id);
-
+import { useTranslation } from "react-i18next";
+const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
+  const { t, i18n } = useTranslation();
+  const { definition, english, georgian, french } = tooltipContent;
+  console.log({ definition, english, georgian, french });
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
 
@@ -29,19 +24,22 @@ const TooltipComponent = ({
   };
 
   return (
-    <TooltipComponentContainer
-      data-tip={tooltipContent}
-      onClick={handleShowWord}
-    >
-      <StyledTooltip to={`/verbs/${tooltipContent}?conjugated=${conjugated}`}>
-        {tooltipContent}
-      </StyledTooltip>
+    <TooltipComponentContainer data-tip={french} onClick={french}>
+      <TopPart>
+        <Icon onClick={handleListen(french)}>
+          <Listen isActive={isActiveStates[index]} />
+        </Icon>
+        <StyledTooltip to={`/verbs/${french}?conjugated=${conjugated}`}>
+          <French>{french}</French>
+        </StyledTooltip>
+      </TopPart>
+      <SecondLanguage>
+        {i18n.language === "ka" ? georgian : english}
+      </SecondLanguage>
 
       {/* <Tooltip place="top" effect="solid" /> */}
-      <Icon onClick={handleListen(tooltipContent)}>
-        <Listen isActive={isActiveStates[index]} />
-      </Icon>
       <FlashCardBox>
+        <span>Learn</span>
         <AddToFlashcards
           word={tooltipContent}
           secondLanguage={"secondLanguage"}
@@ -60,26 +58,57 @@ const TooltipComponent = ({
 export default TooltipComponent;
 const TooltipComponentContainer = styled.span`
   max-width: 100%;
-  height: 2.4rem;
+
   font-size: 1.1rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
   position: relative;
-  background-color: ${(props) => props.theme.secondaryText};
-  border: 2px solid red;
+  background-color: ${(props) => props.theme.primaryText};
+  /* border: 2px solid red; */
   border-radius: 8px;
   padding-right: 1rem;
+  height: 8rem;
 
   /* border: 1px solid red; */
 `;
+const TopPart = styled.span`
+  /* margin-top: 1rem; */
+  padding: 0.2rem 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  /* outline: 1px solid red; */
+`;
+const French = styled.span`
+  font-size: ${(props) => props.theme.smallMedium};
+  font-weight: bold;
+  /* margin-left: 1rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const SecondLanguage = styled(French)`
+  color: ${(props) => props.theme.primaryBackground};
+`;
+
 const Icon = styled.span`
   margin-left: 0.4rem;
   display: flex;
+  justify-content: center;
   align-items: center;
 `;
 const FlashCardBox = styled.span`
-  /* border: 1px solid blue; */
-  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  font-size: 0.8rem;
+  color: red;
+  /* outline: 1px solid red; */
 `;
 const VerbComponentBox = styled.div`
   position: absolute;
@@ -88,17 +117,18 @@ const VerbComponentBox = styled.div`
   width: 350px;
   height: 400px;
   overflow-y: scroll;
-  background-color: white;
+  /* background-color: red; */
 
   z-index: 999;
 `;
 const StyledTooltip = styled(Link)`
   text-decoration: none;
+  /* margin-top: 1rem; */
   width: 100%;
   /* border: 1px solid blue; */
-  text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-left: 1rem;
   color: ${(props) => props.theme.primaryBackground};
 `;

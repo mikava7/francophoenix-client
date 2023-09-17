@@ -28,8 +28,31 @@ const TopicText = ({
 }) => {
   const { t, i18n } = useTranslation();
 
-  // console.log("isTextVerbs", isTextVerbs);
+  const verbDetails = vocabularyData.verbDetails;
+  console.log({ verbFormMapping, verbDetails });
   const dispatch = useDispatch();
+
+  const verbMappingWithDetails = {};
+
+  for (const key in verbFormMapping) {
+    if (verbFormMapping.hasOwnProperty(key)) {
+      const verbForm = key;
+      const verbInfinitive = verbFormMapping[key];
+
+      // Find the corresponding verb detail
+      const verbDetail = verbDetails.find(
+        (detail) => detail.french === verbInfinitive
+      );
+
+      if (verbDetail) {
+        // Add the verb detail to the mapping
+        verbMappingWithDetails[verbForm] = verbDetail;
+      }
+    }
+  }
+
+  console.log(verbMappingWithDetails);
+
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -89,8 +112,9 @@ const TopicText = ({
         const isTextVerbsWord = isTextVerbs && verbFormMapping[cleanWord];
 
         const tooltipContent = isTextVerbsWord
-          ? verbFormMapping[cleanWord]
+          ? verbMappingWithDetails[cleanWord]
           : "";
+        // console.log("tooltipContent", tooltipContent);
 
         const handleMouseEnter = () => {
           if (isTextVerbsWord) {
@@ -211,9 +235,9 @@ const TooltipComponentBox = styled.span`
   width: 180px;
   /* outline: 1px solid blue; */
   background-color: ${(props) => props.theme.highlight3};
-  top: -120%;
-  left: -11%;
-  /* padding: 0.2rem 0.4rem; */
+  top: -420%;
+  left: -60%;
+  /* display: flex; */
   text-align: center;
   cursor: pointer;
 `;
