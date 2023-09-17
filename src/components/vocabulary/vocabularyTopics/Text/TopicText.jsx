@@ -239,7 +239,7 @@ const TooltipComponentBox = styled.span`
   left: -60%;
   /* display: flex; */
   text-align: center;
-  cursor: pointer;
+  border-radius: 8px;
 `;
 
 const WordConatiner = styled.span`

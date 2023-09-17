@@ -24,7 +24,7 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
   };
 
   return (
-    <TooltipComponentContainer data-tip={french} onClick={french}>
+    <TooltipComponentContainer>
       <TopPart>
         <Icon onClick={handleListen(french)}>
           <Listen isActive={isActiveStates[index]} />
@@ -37,13 +37,12 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
         {i18n.language === "ka" ? georgian : english}
       </SecondLanguage>
 
-      {/* <Tooltip place="top" effect="solid" /> */}
       <FlashCardBox>
-        <span>Learn</span>
+        <span>Add to</span>
         <AddToFlashcards
-          word={tooltipContent}
-          secondLanguage={"secondLanguage"}
-          definition={"definition"}
+          word={french}
+          secondLanguage={i18n.language === "ka" ? georgian : english}
+          definition={definition}
         />
       </FlashCardBox>
       {showWord && (
@@ -62,12 +61,12 @@ const TooltipComponentContainer = styled.span`
   font-size: 1.1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   margin: 0 auto;
   position: relative;
-  background-color: ${(props) => props.theme.primaryText};
-  /* border: 2px solid red; */
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
   border-radius: 8px;
   padding-right: 1rem;
   height: 8rem;
@@ -86,13 +85,17 @@ const TopPart = styled.span`
 const French = styled.span`
   font-size: ${(props) => props.theme.smallMedium};
   font-weight: bold;
-  /* margin-left: 1rem; */
+  color: ${(props) => props.theme.primaryText};
   display: flex;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
 `;
 const SecondLanguage = styled(French)`
-  color: ${(props) => props.theme.primaryBackground};
+  font-style: italic;
+  font-weight: normal;
+  font-size: ${(props) => props.theme.small};
+  cursor: auto;
 `;
 
 const Icon = styled.span`
@@ -101,14 +104,16 @@ const Icon = styled.span`
   justify-content: center;
   align-items: center;
 `;
-const FlashCardBox = styled.span`
+const FlashCardBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0.2rem 0.4rem;
   font-size: 0.8rem;
-  color: red;
-  /* outline: 1px solid red; */
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
 `;
 const VerbComponentBox = styled.div`
   position: absolute;
