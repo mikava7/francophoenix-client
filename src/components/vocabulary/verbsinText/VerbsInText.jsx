@@ -38,7 +38,7 @@ const VerbsInTextBox = styled.ul`
   border-bottom: 2px solid ${(props) => props.theme.highlight3};
   background-color: ${(props) => props.theme.secondaryBackground};
 
-  max-width: 90%;
+  max-width: 70%;
   h3 {
     margin: 0 auto;
     width: 100%;
