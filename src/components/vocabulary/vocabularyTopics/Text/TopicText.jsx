@@ -29,7 +29,7 @@ const TopicText = ({
   const { t, i18n } = useTranslation();
 
   const verbDetails = vocabularyData.verbDetails;
-  console.log({ verbFormMapping, verbDetails });
+  // console.log({ verbFormMapping, verbDetails });
   const dispatch = useDispatch();
 
   const verbMappingWithDetails = {};
@@ -51,7 +51,7 @@ const TopicText = ({
     }
   }
 
-  console.log(verbMappingWithDetails);
+  // console.log(verbMappingWithDetails);
 
   const [showArticle, setShowArticle] = useState(false);
   const [rotationArticle, setRotationArticle] = useState(0);
@@ -114,7 +114,8 @@ const TopicText = ({
         const tooltipContent = isTextVerbsWord
           ? verbMappingWithDetails[cleanWord]
           : "";
-        // console.log("tooltipContent", tooltipContent);
+        // console.log("cleanWord", cleanWord);
+        // console.log("verbMappingWithDetails", verbMappingWithDetails);
 
         const handleMouseEnter = () => {
           if (isTextVerbsWord) {
@@ -233,13 +234,27 @@ const HighlightedVerb = styled(Highlighted)`
 const TooltipComponentBox = styled.span`
   position: absolute;
   width: 180px;
+
   /* outline: 1px solid blue; */
   background-color: ${(props) => props.theme.highlight3};
-  top: -420%;
-  left: -60%;
+  top: -365%;
+  left: -40%;
   /* display: flex; */
   text-align: center;
   border-radius: 8px;
+
+  @media (min-width: 767px) and (max-width: 1767px) {
+    top: -365%;
+    left: -40%;
+  }
+  @media (min-width: 393px) and (max-width: 767px) {
+    top: -420%;
+    left: -30%;
+  }
+  @media (max-width: 392px) {
+    top: -480%;
+    left: -30%;
+  }
 `;
 
 const WordConatiner = styled.span`

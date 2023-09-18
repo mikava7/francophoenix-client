@@ -13,6 +13,7 @@ import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { mapSearchResults } from "../../../Utility/utils";
 import { useTranslation } from "react-i18next";
 const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
+  // console.log("tooltipContent", tooltipContent);
   const { t, i18n } = useTranslation();
   const { definition, english, georgian, french } = tooltipContent;
   console.log({ definition, english, georgian, french });

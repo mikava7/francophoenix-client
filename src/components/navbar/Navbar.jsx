@@ -18,7 +18,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
     <NavbarContainer isVisible={isScrolled}>
       <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
       <Logo>
-        <StyledLogo to="/">FrancoPhenix</StyledLogo>
+        <StyledLogo to="/">Home</StyledLogo>
       </Logo>
       <StyledUl>
         <StyledList to="/grammar" isGeorgian={isGeorgian}>
@@ -51,7 +51,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
 export default Navbar;
 const NavbarContainer = styled.div`
   box-sizing: border-box;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   z-index: 999;
@@ -168,7 +168,6 @@ export const Logo = styled.div`
   }
 
   @media (max-width: 767px) {
-    /* display: none; */
   }
 `;
 
@@ -204,11 +203,11 @@ export const StyledLogo = styled(Link)`
   }
 
   @media (max-width: 576px) {
-    font-size: 1rem;
-    width: 80%;
+    font-size: 1.35rem;
     margin: 0;
     padding: 0;
-    background-size: 80%;
+    background-size: 120%;
+
     font-weight: 400;
   }
   @media (max-width: 320px) {
@@ -231,13 +230,13 @@ export const LocalizationContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     /* border: 1px solid red; */
-    gap: 0.2rem;
+    gap: 1rem;
   }
 
   @media (max-width: 393px) {
     gap: 0.2rem;
 
-    & > :nth-child(2) {
+    & > :nth-child() {
       display: none;
     }
   }

@@ -81,13 +81,14 @@ const Translation = styled.span`
   font-size: 0.9rem;
   /* height: 2rem; */
   font-weight: 400;
-  /* overflow-x: scroll; */
   color: ${(props) => props.theme.secondaryText};
-  overflow-x: scroll;
 
   display: flex;
   &::after {
     content: "";
+  }
+  @media (max-width: 415px) {
+    overflow-x: scroll;
   }
 `;
 

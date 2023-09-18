@@ -35,6 +35,2061 @@
     "title": "Le Comte de Monte-Cristo",
     "level": "B1",
     "poster": "/images/bookImages/posters/Le_comte_de_Monte-Cristo.png",
+    "verbs": [
+      {
+        "french": "ajouter",
+        "english": "add",
+        "georgian": "დამატება",
+        "definition": "Inclure quelque chose en plus; mettre en supplément.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "accompagner",
+        "english": "accompany",
+        "georgian": "თანხლება, გაყოლა,",
+        "definition": "Être avec quelqu'un en tant que compagnon ou en tant que guide.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "ajouter",
+        "english": "add",
+        "georgian": "დამატება",
+        "definition": "Inclure quelque chose dans quelque chose d'autre pour le rendre plus grand ou complet.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "apprécier",
+        "english": "appreciate",
+        "georgian": "დაფასება",
+        "definition": "Reconnaître la valeur ou la qualité de quelque chose ou quelqu'un; apprécier.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprendre",
+        "english": "learn",
+        "georgian": "სწავლა, შესწავლა",
+        "definition": "Acquérir des connaissances ou des compétences.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "être",
+        "english": "be",
+        "georgian": "ყოფნა",
+        "definition": "Exister; avoir une réalité ou une identité.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "goûter",
+        "english": "taste",
+        "georgian": "გასინჯვა, დაგემოვნება",
+        "definition": "Percevoir la saveur ou le goût de quelque chose par la bouche.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "utiliser",
+        "english": "use",
+        "georgian": "ხმარება, გამოყენება",
+        "definition": "Faire usage de quelque chose pour une fin particulière.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "préparer",
+        "english": "prepare",
+        "georgian": "მომზადება",
+        "definition": "Faire les arrangements nécessaires pour quelque chose à l'avance.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "transformer",
+        "english": "transform",
+        "georgian": "გარდაქმნა, გადაქცევა",
+        "definition": "Changer la forme ou la nature de quelque chose pour le rendre complètement différent.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "raconter",
+        "english": "tell",
+        "georgian": "მოყოლა",
+        "definition": "Relater des événements ou des histoires verbalement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "avoir",
+        "english": "have",
+        "georgian": "ქონა, ყოლა",
+        "definition": "Posséder ou détenir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "encadrer",
+        "english": "frame",
+        "georgian": "ჩარჩოში ჩასმა",
+        "definition": "Entourer quelque chose d'un cadre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "mettre",
+        "english": "put",
+        "georgian": "დადება",
+        "definition": "Placer ou poser quelque chose dans un endroit particulier.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "donner",
+        "english": "give",
+        "georgian": "მიცემა",
+        "definition": "Transmettre quelque chose à quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "briller",
+        "english": "shine",
+        "georgian": "ნათება, ბრწყინვა",
+        "definition": "Émettre de la lumière d'une manière éclatante.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "dessiner",
+        "english": "draw",
+        "georgian": "ხატვა",
+        "definition": "Créer une image ou un diagramme en traçant des lignes sur une surface.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "compléter",
+        "english": "complete",
+        "georgian": "დასრულება ",
+        "definition": "Finir ou terminer quelque chose en ajoutant ce qui manque.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "ausculter",
+        "english": "auscultate",
+        "georgian": "აუსკულტირება, მოსმენა",
+        "definition": "Examiner le corps en utilisant un stéthoscope pour écouter les sons internes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "bouger",
+        "english": "move",
+        "georgian": "მოძრაობა",
+        "definition": "Changer de position ou de lieu.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "demander",
+        "english": "ask",
+        "georgian": "კითხვა",
+        "definition": "Poser une question ou faire une requête pour obtenir des informations ou une faveur.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "examiner",
+        "english": "examine",
+        "georgian": "გასინჯვა",
+        "definition": "Regarder attentivement ou inspecter quelque chose en détail.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "noter",
+        "english": "note",
+        "georgian": "ჩანიშვნა",
+        "definition": "Prendre en note ou enregistrer quelque chose par écrit.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "palper",
+        "english": "palpate",
+        "georgian": "ხელებით მოსინჯვა, მედ. პალპირება",
+        "definition": "Examiner ou toucher avec les mains pour détecter des anomalies ou des signes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "prendre",
+        "english": "take",
+        "georgian": "აღება",
+        "definition": "Saisir ou saisir quelque chose avec la main.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "regarder",
+        "english": "watch",
+        "georgian": "ყურება",
+        "definition": "Observer ou examiner visuellement quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "vérifier",
+        "english": "verify",
+        "georgian": "შემოწმება",
+        "definition": "Confirmer la précision ou la validité de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "assurer",
+        "english": "assure",
+        "georgian": "აღქმა, რწმუნება",
+        "definition": "Garantir la sécurité ou la réalisation de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "éliminer",
+        "english": "eliminate",
+        "georgian": "მოშორება, აღმოფხვრა",
+        "definition": "Supprimer ou enlever complètement quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "former",
+        "english": "form",
+        "georgian": "ფორმირება",
+        "definition": "Créer ou établir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "impliquer",
+        "english": "involve",
+        "georgian": "გარევა, საქმის ქონა",
+        "definition": "Inclure ou engager dans une activité ou une situation.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "participer",
+        "english": "participate",
+        "georgian": "მონაწილეობა",
+        "definition": "Prendre part ou s'impliquer dans une activité ou un événement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réguler",
+        "english": "regulate",
+        "georgian": "მოწესრიგება",
+        "definition": "Contrôler ou maintenir quelque chose selon des règles ou des normes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "vivre",
+        "english": "live",
+        "georgian": "ცხოვრება",
+        "definition": "Être en vie et résider en un endroit.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "travailler",
+        "english": "work",
+        "georgian": "მუშაობა",
+        "definition": "Effectuer une activité rémunérée ou une tâche laborieuse pour produire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "prendre",
+        "english": "take",
+        "georgian": "აღება",
+        "definition": "Saisir ou obtenir quelque chose de quelqu'un ou de quelque part.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "signifier",
+        "english": "mean",
+        "georgian": "მნიშვნელობის ქონა, ნიშნავს",
+        "definition": "Avoir une signification particulière ou représenter quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "perdre",
+        "english": "lose",
+        "georgian": "დაკარგვა",
+        "definition": "Cesser de posséder ou de garder quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "espérer",
+        "english": "hope",
+        "georgian": "იმედოვნება ",
+        "definition": "Avoir un désir ou un espoir que quelque chose se produira à l'avenir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "trouver",
+        "english": "find",
+        "georgian": "პოვნა ",
+        "definition": "Découvrir ou localiser quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "partir",
+        "english": "leave",
+        "georgian": "წასვლა, გასვლა",
+        "definition": "Quitter un endroit ou une situation.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "admirer",
+        "english": "admire",
+        "georgian": "მოხიბვლა",
+        "definition": "Regarder ou considérer avec admiration et respect.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apporter",
+        "english": "bring",
+        "georgian": "მოტანა",
+        "definition": "Transporter ou fournir quelque chose à un endroit ou à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "rendre",
+        "english": "return",
+        "georgian": "დაბრუნება",
+        "definition": "Revenir à un lieu ou à une personne.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprendre",
+        "english": "learn",
+        "georgian": "სწავლა",
+        "definition": "Acquérir des connaissances ou des compétences par l'étude ou l'expérience.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "découvrir",
+        "english": "discover",
+        "georgian": "აღმოჩენა",
+        "definition": "Trouver ou révéler quelque chose qui était caché ou inconnu.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "explorer",
+        "english": "explore",
+        "georgian": "მოგზაურობა ადგილის, მხარის ან ქვეყნის შესასწავლად",
+        "definition": "Voyager ou examiner une région ou un sujet de manière approfondie.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "marcher",
+        "english": "walk",
+        "georgian": "სიარული",
+        "definition": "Se déplacer à pied en posant un pied devant l'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "entrer",
+        "english": "enter",
+        "georgian": "შესვლა",
+        "definition": "Passer d'un endroit extérieur à un endroit intérieur.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "chercher",
+        "english": "search",
+        "georgian": "ძიება",
+        "definition": "Rechercher ou essayer de trouver quelque chose.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "prendre",
+        "english": "take",
+        "georgian": "აღება",
+        "definition": "Saisir ou obtenir quelque chose de quelqu'un ou de quelque part.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "récolter",
+        "english": "harvest",
+        "georgian": "მოსავლის აღება",
+        "definition": "Collecter des cultures ou des récoltes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réfléchir",
+        "english": "reflect",
+        "georgian": "ფიქრი, ჩაფიქრება",
+        "definition": "Penser profondément ou méditer sur quelque chose.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "arriver",
+        "english": "arrive",
+        "georgian": "ჩამოსვლა, ჩასვლა",
+        "definition": "Parvenir à un endroit ou à un état particulier.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "raconter",
+        "english": "tell",
+        "georgian": "მოყოლა",
+        "definition": "Dire ou relater des événements ou des histoires.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faire",
+        "english": "do",
+        "georgian": "კეთება",
+        "definition": "Effectuer une action ou accomplir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "aider",
+        "english": "help",
+        "georgian": "დახმარება",
+        "definition": "Fournir une assistance ou un soutien à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "protéger",
+        "english": "protect",
+        "georgian": "დაცვა",
+        "definition": "Garder en sécurité ou prévenir les dommages.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "lire",
+        "english": "read",
+        "georgian": "კითხვა",
+        "definition": "Interpréter et comprendre des mots écrits.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "raconter",
+        "english": "tell",
+        "georgian": "მოყოლა",
+        "definition": "Dire ou relater des événements ou des histoires.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "admirer",
+        "english": "admire",
+        "georgian": "მოხიბვლა",
+        "definition": "Regarder avec respect ou admiration.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "comprendre",
+        "english": "understand",
+        "georgian": "გაგება",
+        "definition": "Avoir une connaissance ou une compréhension de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faire",
+        "english": "do",
+        "georgian": "კეთება",
+        "definition": "Effectuer une action ou accomplir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sourire",
+        "english": "smile",
+        "georgian": "გაღიმება",
+        "definition": "Afficher un sourire ou une expression joyeuse.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "entendre",
+        "english": "hear",
+        "georgian": "სმენა, გაგონება",
+        "definition": "Percevoir des sons avec les oreilles.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "savoir",
+        "english": "know",
+        "georgian": "ცოდნა",
+        "definition": "Avoir une connaissance ou une information sur quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "découvrir",
+        "english": "discover",
+        "georgian": "აღმოჩენა",
+        "definition": "Trouver ou révéler quelque chose qui était caché ou inconnu.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "Laisser",
+        "english": "Let",
+        "georgian": "ნების დართვა",
+        "definition": "Laisser faire qqn, le laisser agir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "rencontrer",
+        "english": "meet",
+        "georgian": "გაცნობა, შეხვედრა",
+        "definition": "Faire la connaissance de quelqu'un pour la première fois.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "décider",
+        "english": "decide",
+        "georgian": "გადაწყვეტა",
+        "definition": "Prendre une résolution ou choisir une option après réflexion.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "remplir",
+        "english": "fill",
+        "georgian": "გავსება",
+        "definition": "Mettre quelque chose dans un espace vide ou une contenance.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "engager",
+        "english": "engage",
+        "georgian": "რაიმეთი დაკავება.",
+        "definition": "Embaucher ou commencer une action.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "explorer",
+        "english": "explore",
+        "georgian": "მოგზაურობა ადგილის, მხარის ან ქვეყნის შესასწავლად",
+        "definition": "Voyager ou examiner quelque chose en détail.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "découvrir",
+        "english": "discover",
+        "georgian": "აღმოჩენა",
+        "definition": "Trouver ou révéler quelque chose qui était caché ou inconnu.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "sentir",
+        "english": "feel",
+        "georgian": "გრძნობა",
+        "definition": "Percevoir une émotion ou une sensation.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "séparer",
+        "english": "separate",
+        "georgian": "გაყოფა, დაშორება",
+        "definition": "Diviser ou mettre de la distance entre deux choses.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "permettre",
+        "english": "permit",
+        "georgian": " ნების დართვა",
+        "definition": "Autoriser ou donner la permission de faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réfléchir",
+        "english": "reflect",
+        "georgian": "ფიქრი, ჩაფიქრება",
+        "definition": "Penser profondément ou méditer sur quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "grandir",
+        "english": "grow",
+        "georgian": "ზრდა",
+        "definition": "Devenir plus grand ou mûrir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "retrouver",
+        "english": "find again",
+        "georgian": "ხელახლა პოვნა",
+        "definition": "Trouver à nouveau quelque chose qui avait été perdu ou égaré.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "comprendre",
+        "english": "understand",
+        "georgian": "გაგება",
+        "definition": "Saisir ou avoir une perception claire de quelque chose.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "renforcer",
+        "english": "strengthen",
+        "georgian": "გაძლიერება",
+        "definition": "Rendre quelque chose plus solide ou plus résistant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "partager",
+        "english": "share",
+        "georgian": "გაზიარება",
+        "definition": "Donner une partie de quelque chose à quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "soutenir",
+        "english": "support",
+        "georgian": "მხარდაჭერა",
+        "definition": "Fournir de l'aide ou du soutien à quelqu'un ou à quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "Suivre",
+        "english": "Follow",
+        "georgian": "მიყოლა, გაყოლა ",
+        "definition": "Aller ou venir derrière quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "partager",
+        "english": "share",
+        "georgian": "გაზიარება ",
+        "definition": "Donner une partie de quelque chose à quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "exister",
+        "english": "exist",
+        "georgian": "არსებობა",
+        "definition": "Être réel ou présent.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "pouvoir",
+        "english": "can",
+        "georgian": "შეძლება",
+        "definition": "Avoir la capacité ou la possibilité de faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "devenir",
+        "english": "become",
+        "georgian": "გახდომა",
+        "definition": "Passer d'un état à un autre, généralement en devenant quelque chose de différent.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "passer",
+        "english": "pass",
+        "georgian": "გავლა, გატარება",
+        "definition": "Aller d'un endroit à un autre ou passer du temps à faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "tenir",
+        "english": "hold",
+        "georgian": "დაიჭირა",
+        "definition": "Avoir quelque chose dans sa main ou son pouvoir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "montrer",
+        "english": "show",
+        "georgian": "ჩვენება",
+        "definition": "Faire voir ou présenter quelque chose à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "étudier",
+        "english": "study",
+        "georgian": "შესწავლა, სწავლა",
+        "definition": "Acquérir des connaissances ou apprendre quelque chose par l'examen et la pratique.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apporter",
+        "english": "bring",
+        "georgian": "მოტანა",
+        "definition": "Transporter quelque chose vers un endroit spécifique.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "cultiver",
+        "english": "cultivate",
+        "georgian": "დამუშავება, კულტივირება",
+        "definition": "Faire pousser ou cultiver des plantes ou des cultures.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "durer",
+        "english": "last",
+        "georgian": "გაგრძელება",
+        "definition": "Continuer à exister ou à fonctionner pendant une période de temps.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "oublier",
+        "english": "forget",
+        "georgian": "დავიწყება",
+        "definition": "Cesser de se rappeler quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "penser",
+        "english": "think",
+        "georgian": "ფიქრი",
+        "definition": "Utiliser son esprit pour considérer ou évaluer quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "arriver",
+        "english": "arrive",
+        "georgian": " ჩამოსვლა, მოსვლა",
+        "definition": "Atteindre un lieu ou une destination.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "ressentir",
+        "english": "feel",
+        "georgian": "გრძნობა",
+        "definition": "Éprouver une émotion ou une sensation.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sentir",
+        "english": "smell",
+        "georgian": "ყნოსვა",
+        "definition": "Percevoir des odeurs par le nez.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "fâcher",
+        "english": "anger",
+        "georgian": "გაბრაზება",
+        "definition": "Éprouver de la colère ou de l'irritation.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "s'attendre",
+        "english": "expect",
+        "georgian": "მოლოდინი",
+        "definition": "Prévoir ou anticiper quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "reconnaître",
+        "english": "recognize",
+        "georgian": "ცნობა",
+        "definition": "Identifier ou accepter quelque chose comme étant vrai ou familier.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "aller",
+        "english": "go",
+        "georgian": "სიარული, წასვლა",
+        "definition": "Se déplacer vers un autre endroit.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "comprendre",
+        "english": "understand",
+        "georgian": "გაგება",
+        "definition": "Saisir le sens ou la signification de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "montrent",
+        "english": "show",
+        "georgian": "ჩვენება",
+        "definition": "Afficher ou présenter quelque chose aux autres.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "crée",
+        "english": "create",
+        "georgian": "შექმნა (shekmna)",
+        "definition": "Faire naître quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "croit",
+        "english": "believe",
+        "georgian": "ირსება (irseba)",
+        "definition": "Accepter quelque chose comme vrai sans preuve.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "doit",
+        "english": "must",
+        "georgian": "უნდა (unda)",
+        "definition": "Être nécessaire ou obligatoire de faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faut",
+        "english": "must",
+        "georgian": "უნდა (unda)",
+        "definition": "Être nécessaire ou requis.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "voir",
+        "english": "see",
+        "georgian": "ხედავდეს (khedavdes)",
+        "definition": "Percevoir avec les yeux ; discerner visuellement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "affronter",
+        "english": "confront",
+        "georgian": "შეეხორება (sheekhoreba)",
+        "definition": "Faire face à une situation difficile ou à un défi de front.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "implique",
+        "english": "implicate",
+        "georgian": "გარევა, ჩარევა",
+        "definition": "Faire partie intégrante de quelque chose ou avoir un impact sur quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "manifester",
+        "english": "manifest",
+        "georgian": "გამოვლენა, გამომჟღავნება",
+        "definition": "Afficher, révéler ou montrer quelque chose de manière évidente.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réagir",
+        "english": "react",
+        "georgian": "რეაგირება",
+        "definition": "Répondre à une situation ou à un stimulus de manière spécifique.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "conduire",
+        "english": "drive",
+        "georgian": " წაყვანა (მანქანის)",
+        "definition": "Opérer un véhicule en le dirigeant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "ressentir",
+        "english": "to feel",
+        "georgian": "გრძნობა",
+        "definition": "Éprouver une sensation, un état physique, en être affecté de façon agréable ou pénible",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "caractérise",
+        "english": "characterize",
+        "georgian": "დახასიათება",
+        "definition": "Décrire ou identifier les traits ou caractéristiques de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "remettre",
+        "english": "hand over",
+        "georgian": "გადაცემა",
+        "definition": "Transférer ou donner quelque chose à quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "agir",
+        "english": "act",
+        "georgian": "მოქმედება",
+        "definition": "Faire quelque chose en réponse à une situation ou à un problème.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "respect",
+        "english": "respect",
+        "georgian": "პატივისცემა",
+        "definition": "Avoir de l'estime et de l'admiration pour quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "exprimer",
+        "english": "express",
+        "georgian": "გამოხატვა",
+        "definition": "Communiquer ou montrer ses pensées, ses sentiments ou ses opinions.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "juger",
+        "english": "judge",
+        "georgian": "განსჯა",
+        "definition": "Former une opinion ou un jugement sur quelque chose ou quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "cultiver",
+        "english": "cultivate",
+        "georgian": "დამუშავება, კულტივირება",
+        "definition": "Faire pousser ou développer des plantes ou des compétences.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "se soucier",
+        "english": "care",
+        "georgian": "მოვლა",
+        "definition": "Être préoccupé par quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "survenir",
+        "english": "occur",
+        "georgian": "მოულოდნელად მოხდომა",
+        "definition": "Se produire de façon plus ou moins inattendue",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sembler",
+        "english": "seem",
+        "georgian": "ჩანს, ეტყობა",
+        "definition": "Donner l'impression de quelque chose sans nécessairement le prouver.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "exercer",
+        "english": "exercise",
+        "georgian": "ვარჯიში",
+        "definition": "Pratiquer ou effectuer une activité régulière pour améliorer ses compétences ou sa condition physique.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "contribuer",
+        "english": "contribute",
+        "georgian": "წვლილის შეტანა",
+        "definition": "Fournir ou ajouter quelque chose pour aider ou améliorer quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "concevoir",
+        "english": "conceive",
+        "georgian": "წარმოდგენა, ჩაფიქრება",
+        "definition": "Imaginer ou créer mentalement quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "créer",
+        "english": "create",
+        "georgian": "შექმნა",
+        "definition": "Produire ou apporter quelque chose à l'existence.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "superviser",
+        "english": "supervise",
+        "georgian": "ზედამხედველობა",
+        "definition": "Surveiller ou gérer une activité ou un processus.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "fournir",
+        "english": "provide",
+        "georgian": "მომარაგება",
+        "definition": "Donner ou fournir quelque chose à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "représenter",
+        "english": "represent",
+        "georgian": "წარმოდგენა",
+        "definition": "Agir ou servir en tant que personne ou chose qui symbolise ou incarne quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "veiller",
+        "english": "watch over",
+        "georgian": "დარაჯობა, თვალყურის დევნება",
+        "definition": "Surveiller ou être attentif à quelque chose pour assurer sa sécurité ou son bon fonctionnement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "dispenser",
+        "english": "dispense",
+        "georgian": "განაწილება",
+        "definition": "Distribuer ou fournir quelque chose, en particulier des soins ou des services.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "développer",
+        "english": "develop",
+        "georgian": "განვითარება",
+        "definition": "Faire progresser ou étendre quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faciliter",
+        "english": "facilitate",
+        "georgian": "გაადვილება, შემსუბუქება",
+        "definition": "Rendre plus facile ou aider à accomplir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "traduire",
+        "english": "translate",
+        "georgian": "თარგმნა",
+        "definition": "Changer un texte écrit d'une langue à une autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "présider",
+        "english": "preside",
+        "georgian": "თავმჯდომარეობა",
+        "definition": "Être en charge d'une réunion ou d'un événement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "corriger",
+        "english": "correct",
+        "georgian": "გასწორება",
+        "definition": "Marquer ou réparer des erreurs dans quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réviser",
+        "english": "revise",
+        "georgian": "შესწორება",
+        "definition": "Examiner ou revoir quelque chose pour apporter des améliorations.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "recueillir",
+        "english": "collect",
+        "georgian": "შეგროვება",
+        "definition": "Rassembler ou ramasser des choses de diverses sources.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "rédiger",
+        "english": "draft",
+        "georgian": "ტექსტის ან დოკუმენტის შედგენა",
+        "definition": "Écrire ou composer un document ou un texte.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "gérer",
+        "english": "manage",
+        "georgian": "მართვა, გამგებლობა",
+        "definition": "Diriger ou superviser une entreprise ou une organisation.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "organiser",
+        "english": "organize",
+        "georgian": "ორგანიზება",
+        "definition": "Planifier et arranger des éléments de manière ordonnée.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "rechercher",
+        "english": "research",
+        "georgian": "კვლევა-ძიება",
+        "definition": "Mener des enquêtes ou des études pour obtenir des informations.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "écrire",
+        "english": "write",
+        "georgian": "წერა",
+        "definition": "Marquer des mots ou des symboles sur une surface pour communiquer.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "présenter",
+        "english": "present",
+        "georgian": "წარმოდგენა",
+        "definition": "Montrer ou exposer quelque chose à un public.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "enseigner",
+        "english": "teach",
+        "georgian": "სწავლება",
+        "definition": "Transmettre des connaissances ou des compétences à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "contribuer",
+        "english": "contribute",
+        "georgian": "წვლილის შეტანა",
+        "definition": "Fournir ou ajouter quelque chose pour aider ou améliorer quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "effectuer",
+        "english": "perform",
+        "georgian": "შესრულება",
+        "definition": "Accomplir ou exécuter une tâche ou une action.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprendre",
+        "english": "learn",
+        "georgian": "სწავლა",
+        "definition": "Acquérir des connaissances ou des compétences par l'étude ou l'expérience.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "jouer",
+        "english": "play",
+        "georgian": "თამაში",
+        "definition": "Participer à une activité récréative ou divertissante.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "maintenir",
+        "english": "maintain",
+        "georgian": "შენარჩუნება",
+        "definition": "Garder ou préserver quelque chose dans un état stable ou inchangé.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "effectuer",
+        "english": "perform",
+        "georgian": "შესრულება",
+        "definition": "Accomplir ou exécuter une tâche ou une action.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "surveiller",
+        "english": "monitor",
+        "georgian": "ზედამხედველობა",
+        "definition": "Observer attentivement ou superviser une situation, une activité ou un lieu.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "veiller",
+        "english": "watch over",
+        "georgian": "დარაჯობა, თვალყურის დევნება",
+        "definition": "Surveiller ou être attentif à quelque chose pour assurer sa sécurité ou son bon fonctionnement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "diagnostiquer",
+        "english": "diagnose",
+        "georgian": "დიაგნოზის დასმა",
+        "definition": "Identifier ou déterminer la nature d'une maladie ou d'un problème à l'aide de tests ou d'observations médicales.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "traiter",
+        "english": "treat",
+        "georgian": "მკურნალობა",
+        "definition": "Soigner ou prendre des mesures médicales pour guérir une maladie ou soulager des symptômes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "prévenir",
+        "english": "prevent",
+        "georgian": "აცილება, არიდება",
+        "definition": "Empêcher quelque chose de se produire ou prendre des mesures pour éviter un problème.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "prescrire",
+        "english": "prescribe",
+        "georgian": "წამლის გამოწერა, განკარგულების გაცემა",
+        "definition": "Émettre une ordonnance médicale ou recommander un traitement ou une médication.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "conseiller",
+        "english": "advise",
+        "georgian": "რჩევა",
+        "definition": "Fournir des recommandations ou des suggestions pour aider quelqu'un à prendre une décision ou à résoudre un problème.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "fournir",
+        "english": "provide",
+        "georgian": "მომარაგება",
+        "definition": "Donner ou fournir quelque chose à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "améliorer",
+        "english": "improve",
+        "georgian": "გაუმჯობესება",
+        "definition": "Faire en sorte que quelque chose devienne meilleur ou soit dans un état amélioré.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "choisir",
+        "english": "choose",
+        "georgian": "არჩევა",
+        "definition": "Sélectionner ou opter pour quelque chose parmi plusieurs options.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "étudier",
+        "english": "study",
+        "georgian": "სწავლა",
+        "definition": "Examiner attentivement un sujet ou une matière dans le but d'acquérir des connaissances.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "nommer",
+        "english": "name",
+        "georgian": "სახელის დარქმევა, დასახელება",
+        "definition": "Donner un nom à quelque chose ou quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "déterminer",
+        "english": "determine",
+        "georgian": "განსაზღვრა",
+        "definition": "Décider ou influencer le résultat de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "promener",
+        "english": "walk",
+        "georgian": "სიარული, მგასეირნება",
+        "definition": "Se déplacer à pied pour le plaisir ou l'exercice.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faire",
+        "english": "do",
+        "georgian": "კეთება",
+        "definition": "Effectuer une action ou accomplir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "rencontrer",
+        "english": "meet",
+        "georgian": "გაცნობა, შეხვედრა",
+        "definition": "Faire la connaissance de quelqu'un pour la première fois ou retrouver quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "peindre",
+        "english": "paint",
+        "georgian": "ხატვა",
+        "definition": "Créer une image en utilisant des couleurs sur une surface.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "renommer",
+        "english": "rename",
+        "georgian": "გადარქმევა",
+        "definition": "Changer le nom de quelque chose ou quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "évoquer",
+        "english": "evoke",
+        "georgian": "აღძვრა, გაღვიძება",
+        "definition": "Susciter ou rappeler un sentiment, une idée ou un souvenir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "contempler",
+        "english": "contemplate",
+        "georgian": "თვალიერება, დაფიქრება",
+        "definition": "Regarder ou réfléchir profondément sur quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "s'approcher",
+        "english": "approach",
+        "georgian": "მოახლოება, მიახლოება",
+        "definition": "Se déplacer plus près de quelque chose ou quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "demander",
+        "english": "ask",
+        "georgian": "კითხვა, თხოვნა",
+        "definition": "Poser une question ou solliciter quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sourire",
+        "english": "smile",
+        "georgian": "გაღიმება",
+        "definition": "Faire un sourire en courbant les lèvres pour exprimer la joie ou l'amusement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "dire",
+        "english": "say",
+        "georgian": "თქმა",
+        "definition": "Exprimer verbalement des paroles ou des informations.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "falloir",
+        "english": "be necessary",
+        "georgian": "საჭიროება",
+        "definition": "Être nécessaire ou requis pour quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "exprimer",
+        "english": "express",
+        "georgian": "გამოხატვა",
+        "definition": "Communiquer ou montrer des sentiments ou des idées.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "résonner",
+        "english": "resound",
+        "georgian": "ხმამაღლა ჟღერა",
+        "definition": "Produire un son fort qui continue de résonner.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "laisser",
+        "english": "leave",
+        "georgian": "დატოვება, მიტოვება",
+        "definition": "Permettre à quelqu'un de partir ou d'abandonner quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "briller",
+        "english": "shine",
+        "georgian": "ნათება, ბრწყინვა",
+        "definition": "Émettre une lumière brillante ou se distinguer.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "décider",
+        "english": "decide",
+        "georgian": "გადაწყვეტა",
+        "definition": "Prendre une décision ou choisir une option.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "lancer",
+        "english": "throw",
+        "georgian": "სროლა, გადაგდება",
+        "definition": "Envoyer quelque chose dans une direction en le lançant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "travailler",
+        "english": "work",
+        "georgian": "მუშაობა",
+        "definition": "Effectuer une activité pour accomplir une tâche ou gagner de l'argent.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "relâcher",
+        "english": "release",
+        "georgian": "გამოშვება",
+        "definition": "Laisser partir ou libérer quelque chose.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "prendre",
+        "english": "take",
+        "georgian": "აღება",
+        "definition": "Saisir ou saisir quelque chose avec la main ou un instrument.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "créer",
+        "english": "create",
+        "georgian": "შექმნა",
+        "definition": "Faire naître ou inventer quelque chose de nouveau.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "refléter",
+        "english": "reflect",
+        "georgian": "არეკვლა, გამოხატვა",
+        "definition": "Projeter ou montrer une image ou un reflet.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "commencer",
+        "english": "start",
+        "georgian": "დაწყება",
+        "definition": "Démarrer ou débuter une activité ou un processus.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "partager",
+        "english": "share",
+        "georgian": "გაზიარება ",
+        "definition": "Diviser ou distribuer quelque chose avec d'autres.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "exposer",
+        "english": "expose",
+        "georgian": "გამოფენა",
+        "definition": "Présenter ou montrer quelque chose en public ou en exposition.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "toucher",
+        "english": "touch",
+        "georgian": "შეხება",
+        "definition": "Entrer en contact physique avec quelque chose en le caressant ou en le frappant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "ressentir",
+        "english": "feel",
+        "georgian": "გრძნობა",
+        "definition": "Éprouver ou percevoir des émotions ou des sensations.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réussir",
+        "english": "succeed",
+        "georgian": "წარმატების მიღწევა",
+        "definition": "Atteindre un objectif ou obtenir un résultat positif.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "devenir",
+        "english": "become",
+        "georgian": "გახდომა",
+        "definition": "Passer d'un état à un autre ou se transformer en quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "être",
+        "english": "be",
+        "georgian": "ყოფნა",
+        "definition": "Exister ou se trouver dans un état particulier.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprécier",
+        "english": "appreciate",
+        "georgian": "დაფასება",
+        "definition": "Évaluer ou reconnaître la valeur de quelque chose.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "entendre",
+        "english": "hear",
+        "georgian": "სმენა, გაგონება",
+        "definition": "Percevoir des sons ou des bruits avec les oreilles.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "réaliser",
+        "english": "achieve",
+        "georgian": "მიღწევა",
+        "definition": "Accomplir ou réussir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "encourager",
+        "english": "encourage",
+        "georgian": "გამხნევება, წახალისება",
+        "definition": "Stimuler ou soutenir quelqu'un à faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "suivre",
+        "english": "follow",
+        "georgian": "მიყოლა, გაყოლა ",
+        "definition": "Aller derrière quelqu'un ou quelque chose en observant ou en obéissant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "découvrir",
+        "english": "discover",
+        "georgian": "აღმოჩენა",
+        "definition": "Trouver ou apprendre quelque chose pour la première fois.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "résider",
+        "english": "reside",
+        "georgian": "ცხოვრება",
+        "definition": "Vivre ou habiter dans un lieu particulier de manière permanente ou temporaire.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "terminer",
+        "english": "finish",
+        "georgian": "დასრულება",
+        "definition": "Compléter ou finir quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "raconter",
+        "english": "tell",
+        "georgian": "ამოკვეთებს (amokvet'eps)",
+        "definition": "Narrez ou décrivez des événements ou des histoires verbalement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "grandir",
+        "english": "grow",
+        "georgian": "გაიზრდის (gaizdrdis)",
+        "definition": "Devenir plus grand ou se développer en taille ou en maturité.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "découvrir",
+        "english": "discover",
+        "georgian": "განრიგხება (ganrigkheba)",
+        "definition": "Trouver ou apprendre quelque chose pour la première fois.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprendre",
+        "english": "learn",
+        "georgian": "ისწავლებს (ists'avlebs)",
+        "definition": "Acquérir des connaissances ou des compétences par l'étude ou l'expérience.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "explorer",
+        "english": "explore",
+        "georgian": "გამოეყენება (gamoeq'eneba)",
+        "definition": "Voyager ou examiner attentivement un endroit inconnu.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "marcher",
+        "english": "walk",
+        "georgian": "გასვლა (gasvla)",
+        "definition": "Se déplacer à pied en mettant un pied devant l'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "parler",
+        "english": "speak",
+        "georgian": "ლაპარაკობს (lap'arak'obs)",
+        "definition": "Communiquer verbalement en utilisant la parole.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "chercher",
+        "english": "search",
+        "georgian": "ძებნა (dz'ebna)",
+        "definition": "Rechercher ou tenter de trouver quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "contrôler",
+        "english": "control",
+        "georgian": "მართება (mart'eba)",
+        "definition": "Réguler ou diriger quelque chose selon des règles ou des normes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "récolter",
+        "english": "harvest",
+        "georgian": "კარავის (karavis)",
+        "definition": "Récolter ou collecter des produits agricoles ou des récompenses.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apprécier",
+        "english": "appreciate",
+        "georgian": "მიმართულებს (mimartulebs)",
+        "definition": "Éprouver de la gratitude ou de la valeur pour quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "caresser",
+        "english": "caress",
+        "georgian": "მოფერება",
+        "definition": "Toucher doucement avec affection.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "appeler",
+        "english": "call",
+        "georgian": "დაძახება",
+        "definition": "Donner un nom ou un surnom à quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "courir",
+        "english": "run",
+        "georgian": "სირბილი",
+        "definition": "Se déplacer rapidement à pied en faisant des pas rapides.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "acheter",
+        "english": "buy",
+        "georgian": "ყიდვა",
+        "definition": "Obtenir quelque chose en échange d'argent.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "manger",
+        "english": "eat",
+        "georgian": "ჭამა",
+        "definition": "Ingestion de nourriture pour se nourrir.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "grignoter",
+        "english": "snack",
+        "georgian": "წახემსება",
+        "definition": "Manger de petites quantités de nourriture légère entre les repas.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "pouvoir",
+        "english": "can",
+        "georgian": "შეძლება",
+        "definition": "Avoir la capacité ou la permission de faire quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "imiter",
+        "english": "imitate",
+        "georgian": "მიბაძვა",
+        "definition": "Copier le comportement ou les actions de quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "dire",
+        "english": "say",
+        "georgian": "თქმა",
+        "definition": "Exprimer verbalement quelque chose avec des mots.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "apporter",
+        "english": "bring",
+        "georgian": "მოტანა",
+        "definition": "Transporter ou fournir quelque chose à un endroit.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sauter",
+        "english": "jump",
+        "georgian": "ხტომა, ხტუნვა",
+        "definition": "Effectuer un saut en l'air en propulsant son corps avec les jambes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "tenir",
+        "english": "hold",
+        "georgian": "დაჭერა",
+        "definition": "Avoir quelque chose dans sa main ou entre ses doigts.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "garder",
+        "english": "keep",
+        "georgian": "შენარჩუნება",
+        "definition": "Maintenir ou conserver quelque chose dans un endroit sûr.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "grimper",
+        "english": "climb",
+        "georgian": "ასვლა, აძრომა",
+        "definition": "Se déplacer vers le haut en escaladant ou en grimpant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "tirer",
+        "english": "pull",
+        "georgian": "წევა, ქაჩვა, მოქაჩვა",
+        "definition": "Appliquer une force pour déplacer quelque chose vers soi ou dans une direction donnée.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "chercher",
+        "english": "search",
+        "georgian": "ძებნა",
+        "definition": "Tenter de localiser ou de trouver quelque chose en effectuant des recherches.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "chanter",
+        "english": "sing",
+        "georgian": "სიმღერა",
+        "definition": "Produire des sons musicaux avec la voix.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "promener",
+        "english": "walk",
+        "georgian": "სიარული, გასეირნება",
+        "definition": "Se déplacer à pied pour le plaisir ou l'exercice.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "creuser",
+        "english": "dig",
+        "georgian": "თხრა",
+        "definition": "Faire un trou dans la terre en retirant de la saleté ou de la matière.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "paître",
+        "english": "graze",
+        "georgian": "ძოვა",
+        "definition": "Manger de l'herbe ou de la végétation en broutant.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "nager",
+        "english": "swim",
+        "georgian": "ცურვა",
+        "definition": "Se déplacer dans l'eau en utilisant des mouvements corporels.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "galoper",
+        "english": "gallop",
+        "georgian": "ჭენება",
+        "definition": "Courir rapidement avec de grands bonds.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "couver",
+        "english": "brood",
+        "georgian": "კვერცხებზე ჯდომა, ბუდობა",
+        "definition": "Incuber des œufs pour les faire éclore.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "prélasser",
+        "english": "laze",
+        "georgian": "განცხრომა, ნებივრობა",
+        "definition": "Se reposer ou se détendre de manière agréable et paresseuse.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "picorer",
+        "english": "peck",
+        "georgian": "კენკვა",
+        "definition": "Manger en piochant de petits morceaux de nourriture.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "travailler",
+        "english": "work",
+        "georgian": "მუშაობა",
+        "definition": "Effectuer une activité pour gagner sa vie ou atteindre un objectif.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "aider",
+        "english": "help",
+        "georgian": "დახმარება",
+        "definition": "Fournir une assistance ou un soutien.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "veiller",
+        "english": "watch over",
+        "georgian": "დარაჯობა, თვალყურის დევნება",
+        "definition": "Surveiller ou être attentif à quelque chose pour assurer sa sécurité ou son bon fonctionnement.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "fournir",
+        "english": "provide",
+        "georgian": "მომარაგება",
+        "definition": "Donner ou fournir quelque chose à quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "vivre",
+        "english": "live",
+        "georgian": "ცხოვრება",
+        "definition": "Être en vie et exister.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "passer",
+        "english": "pass",
+        "georgian": "გადასვლა (gadasvla)",
+        "definition": "Déplacer ou traverser d'un endroit à un autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "observer",
+        "english": "observe",
+        "georgian": "დაკვირვება",
+        "definition": "Regarder attentivement quelque chose ou quelqu'un.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "courir",
+        "english": "run",
+        "georgian": "სირბილი",
+        "definition": "Se déplacer rapidement sur ses pieds.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "nager",
+        "english": "swim",
+        "georgian": "ცურვა",
+        "definition": "Se déplacer dans l'eau en utilisant ses bras et ses jambes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sauter",
+        "english": "jump",
+        "georgian": "ხტომა, ხტუნვა",
+        "definition": "Faire un bond en l'air en quittant temporairement la surface.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "veiller",
+        "english": "watch over",
+        "georgian": "დარაჯობა, თვალყურის დევნება",
+        "definition": "Surveiller attentivement ou protéger quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "déplacer",
+        "english": "move",
+        "georgian": "გადაადგილება",
+        "definition": "Changer la position ou l'emplacement de quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "chasser",
+        "english": "hunt",
+        "georgian": "ნადირობა",
+        "definition": "Poursuivre des animaux sauvages pour les capturer ou les tuer.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "promener",
+        "english": "walk",
+        "georgian": "სიარული, გასეირნება",
+        "definition": "Se déplacer à pied pour le plaisir ou l'exercice.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "dandiner",
+        "english": "waddle",
+        "georgian": "ბაჯბაჯი, ბაჯბაჯით სიარული",
+        "definition": "Marcher avec des mouvements maladroits de côté.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "sillonner",
+        "english": "plow",
+        "georgian": "ხვნა",
+        "definition": "Creuser des sillons dans la terre pour planter des graines.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "parcourir",
+        "english": "travel",
+        "georgian": "მოგზაურობა",
+        "definition": "Voyager ou traverser une certaine distance ou un territoire.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "faufiler",
+        "english": "slip",
+        "georgian": "სრიალი, შეპარვა",
+        "definition": "Passer discrètement ou rapidement à travers un espace restreint.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "jouer",
+        "english": "play",
+        "georgian": "თამაში",
+        "definition": "Participer à des activités récréatives ou divertissantes.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "cacher",
+        "english": "hide",
+        "georgian": "დაჭერა",
+        "definition": "Mettre quelque chose hors de vue pour qu'il ne soit pas visible.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "tournoyer",
+        "english": "spin",
+        "georgian": "ტრიალი, ბრუნვა",
+        "definition": "Tourner rapidement en rond ou sur soi-même.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "galoper",
+        "english": "gallop",
+        "georgian": "ჭენება",
+        "definition": "Courir rapidement avec des mouvements de sauts alternés.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "offrir",
+        "english": "offer",
+        "georgian": "შეთავაზება",
+        "definition": "Présenter quelque chose à quelqu'un pour qu'il l'accepte ou la refuse.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "résider",
+        "english": "reside",
+        "georgian": "ცხოვრება",
+        "definition": "Vivre dans un endroit particulier de manière permanente ou temporaire.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "blottir",
+        "english": "snuggle",
+        "georgian": "მიკრობა, მყუდროდ მოეწყობა",
+        "definition": "Se serrer ou se pelotonner dans un endroit confortable.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "retrouver",
+        "english": "find",
+        "georgian": "პოვნა",
+        "definition": "Découvrir quelque chose ou quelqu'un que l'on avait perdu ou oublié.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "picoter",
+        "english": "tingle",
+        "georgian": " ყურის შუილი",
+        "definition": "Sentir de légères démangeaisons ou picotements.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "barboter",
+        "english": "splash",
+        "georgian": "ჭყუმპალაობა",
+        "definition": "Jouer ou éclabousser de l'eau.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "abriter",
+        "english": "shelter",
+        "georgian": "შეფარება",
+        "definition": "Protéger ou fournir un refuge à quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "partager",
+        "english": "share",
+        "georgian": "გაზიარება ",
+        "definition": "Donner une partie de quelque chose à quelqu'un d'autre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "adapter",
+        "english": "adapt",
+        "georgian": "შეგუება",
+        "definition": "Modifier quelque chose pour le rendre approprié à une situation donnée.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "remplir",
+        "english": "fill",
+        "georgian": "ავსება, გავსება",
+        "definition": "Mettre quelque chose dans un espace vide jusqu'à ce qu'il soit plein.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "respirer",
+        "english": "breathe",
+        "georgian": "სუნთქვა",
+        "definition": "Inhaler de l'air dans les poumons et expirer.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "briller",
+        "english": "shine",
+        "georgian": "ნათება, ბრწყინვა",
+        "definition": "Émettre de la lumière d'une manière brillante ou intense.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "orner",
+        "english": "decorate",
+        "georgian": "მორთვა, შემკობა",
+        "definition": "Ajouter des décorations ou des embellissements à quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "traverser",
+        "english": "cross",
+        "georgian": "გადაკვეთა, გადაცურვა",
+        "definition": "Passer d'un côté à l'autre de quelque chose, souvent un obstacle ou une frontière.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "cacher",
+        "english": "hide",
+        "georgian": "დამალვა",
+        "definition": "Mettre quelque chose hors de vue pour qu'il ne puisse pas être vu ou trouvé.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "éclairer",
+        "english": "light up",
+        "georgian": "ანთება, განათება",
+        "definition": "Fournir de la lumière à un endroit ou à quelque chose.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "suivre",
+        "english": "follow",
+        "georgian": "მიყოლა, გაყოლა ",
+        "definition": "Aller ou venir derrière quelqu'un ou quelque chose en se déplaçant dans la même direction.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "tourner",
+        "english": "turn",
+        "georgian": "შეხვევა, მოხვევა",
+        "definition": "Changer de direction en pivotant autour d'un point ou d'un axe.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "circuler",
+        "english": "circulate",
+        "georgian": "ცირკულირება, გადაადგილება",
+        "definition": "Se déplacer ou se propager dans un endroit donné.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "abonder",
+        "english": "abound",
+        "georgian": "უხვად ყოფნა, უხვად ქონა",
+        "definition": "Être en grande quantité; être présent en grand nombre.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "étendre",
+        "english": "extend",
+        "georgian": "გაჭიმვა, გაბმა",
+        "definition": "Élargir ou prolonger quelque chose dans l'espace ou le temps.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "offrir",
+        "english": "offer",
+        "georgian": "შეთავაზება",
+        "definition": "Présenter quelque chose à quelqu'un pour qu'il l'accepte ou la refuse.",
+        "part_of_speech": "v"
+      },
+      {
+        "french": "être",
+        "english": "be",
+        "georgian": "ყოფნა",
+        "definition": "Exister; avoir une réalité ou une identité.",
+        "part_of_speech": "v"
+      },
+
+      {
+        "french": "abriter",
+        "english": "shelter",
+        "georgian": "შეფარება",
+        "definition": "Protéger ou fournir un refuge à quelqu'un ou quelque chose.",
+        "part_of_speech": "v"
+      }
+    ],
+
     "chapters": [
       {
         "chapterTitle": "Edmond et Mercedes",
@@ -514,196 +2569,196 @@
           {
             "french": "auparavant",
             "english": "beforehand",
-            "georgian": "",
+            "georgian": "წინასწარ, ადრე",
             "definition": "Dans le temps qui précède, précédemment, avant.",
             "part_of_speech": "adv"
           },
           {
             "french": "le grade",
             "english": "rank",
-            "georgian": "",
+            "georgian": "რანგი, ჩინი",
             "definition": "Une position ou un niveau hiérarchique dans une organisation ou une structure.",
             "part_of_speech": "n"
           },
           {
             "french": "le repas",
             "english": "meal",
-            "georgian": "",
+            "georgian": "ჭამა, ტრაპეზი",
             "definition": "Un ensemble de nourriture pris à un moment donné pour se nourrir.",
             "part_of_speech": "n"
           },
           {
             "french": "aveuglé",
             "english": "blinded",
-            "georgian": "",
+            "georgian": "დაბრმავებული",
             "definition": "Privé de la vue, incapable de voir.",
             "part_of_speech": "adj"
           },
           {
             "french": "Entre-temps",
             "english": "meanwhile",
-            "georgian": "",
+            "georgian": "ამასობაში, მანამ კი",
             "definition": "Pendant ce temps, pendant une période définie qui s'est écoulée entre deux moments ou événements.",
             "part_of_speech": "adv"
           },
           {
             "french": "grave",
             "english": "serious",
-            "georgian": "",
+            "georgian": "სერიოზული",
             "definition": "D'une grande importance ou signification, nécessitant une attention ou une considération soigneuse.",
             "part_of_speech": "adj"
           },
           {
             "french": "Tais-toi",
             "english": "shut up",
-            "georgian": "",
+            "georgian": "მოკეტე",
             "definition": "Une commande informelle ou une demande à quelqu'un de cesser de parler ou de se taire.",
             "part_of_speech": "v"
           },
           {
             "french": "la menace",
             "english": "threat",
-            "georgian": "",
+            "georgian": "მუქარა",
             "definition": "Une expression d'intention de nuire ou de causer des dommages, provoquant souvent de la peur ou de l'alarme.",
             "part_of_speech": "n"
           },
           {
             "french": "coupable",
             "english": "guilty",
-            "georgian": "",
+            "georgian": "დამნაშავე",
             "definition": "Responsable d'avoir commis une infraction, un acte répréhensible ou un crime.",
             "part_of_speech": "adj"
           },
           {
             "french": "la culpabilité",
             "english": "guilt",
-            "georgian": "",
+            "georgian": "ბრალი, დანაშაული",
             "definition": "L'état de responsabilité pour une faute ou une infraction, souvent accompagné de remords ou de regret.",
             "part_of_speech": "n"
           },
           {
             "french": "le complice",
             "english": "accomplice",
-            "georgian": "",
+            "georgian": "თანამონაწილე (დანაშაულისა)",
             "definition": "Une personne qui aide ou participe à un acte criminel ou répréhensible avec une autre personne.",
             "part_of_speech": "n"
           },
           {
             "french": "l'allusion (f)",
             "english": "allusion",
-            "georgian": "",
+            "georgian": "გადაკრული სიტყვა, გადაკვრით ხსენება",
             "definition": "Une référence indirecte ou une suggestion à quelque chose, souvent sans la mentionner explicitement.",
             "part_of_speech": "n"
           },
           {
             "french": "la liberté",
             "english": "freedom",
-            "georgian": "",
+            "georgian": "თავისუფლება",
             "definition": "L'état de ne pas être soumis à l'oppression, aux restrictions ou aux limitations.",
             "part_of_speech": "n"
           },
           {
             "french": "le procureur",
             "english": "prosecutor",
-            "georgian": "",
+            "georgian": "ბრალმდებელი, პროკურორი",
             "definition": "Un représentant légal qui initie et mène des poursuites judiciaires contre un accusé au nom du gouvernement ou d'un plaignant.",
             "part_of_speech": "n"
           },
           {
             "french": "cruel",
             "english": "cruel",
-            "georgian": "",
+            "georgian": "სასტიკი",
             "definition": "Causer intentionnellement de la douleur, de la souffrance ou des dommages à autrui, souvent sans pitié.",
             "part_of_speech": "adj"
           },
           {
             "french": "la vague",
             "english": "wave",
-            "georgian": "",
+            "georgian": "ტალღა",
             "definition": "Une perturbation ou une oscillation qui se propage dans l'espace ou la matière, souvent sous forme d'ondes d'eau ou d'ondes sonores.",
             "part_of_speech": "n"
           },
           {
             "french": "la réjouissance",
             "english": "rejoicing",
-            "georgian": "",
+            "georgian": "მხიარულება",
             "definition": "Un état de bonheur et de célébration, souvent exprimé ouvertement et joyeusement.",
             "part_of_speech": "n"
           },
           {
             "french": "mêlé",
             "english": "mixed",
-            "georgian": "",
+            "georgian": "შერეული",
             "definition": "Combiné ou mélangé à partir de divers éléments ou sources.",
             "part_of_speech": "adj"
           },
           {
             "french": "le cliquetis",
             "english": "clinking",
-            "georgian": "",
+            "georgian": "ჩხაკუნი",
             "definition": "Une série de sons nets, aigus et répétitifs, souvent produits par des objets qui s'entrechoquent.",
             "part_of_speech": "n"
           },
           {
             "french": "l'arme (f)",
             "english": "weapon",
-            "georgian": "",
+            "georgian": "იარაღი",
             "definition": "Un instrument ou un dispositif conçu pour être utilisé dans le combat, l'attaque ou la défense.",
             "part_of_speech": "n"
           },
           {
             "french": "le brouhaha",
             "english": "hubbub",
-            "georgian": "",
+            "georgian": "ყაყანი, ხმაური, ჟრიამული",
             "definition": "Une situation bruyante et chaotique avec de nombreuses personnes qui parlent ou font du bruit en même temps.",
             "part_of_speech": "n"
           },
           {
             "french": "le commissaire",
             "english": "commissioner",
-            "georgian": "",
+            "georgian": "საგანგებო რწმუნებული",
             "definition": "Un officiel ou une personne responsable d'un département, d'une organisation ou d'une tâche particulière.",
             "part_of_speech": "n"
           },
           {
             "french": "le soldat",
             "english": "soldier",
-            "georgian": "",
+            "georgian": "ჯარისკაცი",
             "definition": "Une personne qui sert dans une armée, généralement formée pour le combat et la guerre.",
             "part_of_speech": "n"
           },
           {
             "french": "la voix",
             "english": "voice",
-            "georgian": "",
+            "georgian": "ხმა",
             "definition": "Le son produit par les cordes vocales chez les humains et les animaux, utilisé pour parler, chanter ou faire des bruits.",
             "part_of_speech": "n"
           },
           {
             "french": "l'erreur (f)",
             "english": "error",
-            "georgian": "",
+            "georgian": "შეცდომა",
             "definition": "Une erreur ou un écart par rapport à la justesse ou à la précision.",
             "part_of_speech": "n"
           },
           {
             "french": "le mandat",
             "english": "mandate",
-            "georgian": "",
+            "georgian": "ნებართვა, დავალება",
             "definition": "Un ordre ou une commission officielle pour faire quelque chose, souvent délivré par un gouvernement ou une autorité.",
             "part_of_speech": "n"
           },
           {
             "french": "le mandat d’arrêt",
             "english": "arrest warrant",
-            "georgian": "",
+            "georgian": "დაპატიმრების ორდერი",
             "definition": "Un document légal émis par un tribunal autorisant l'arrestation d'une personne suspectée d'avoir commis un crime.",
             "part_of_speech": "n"
           },
           {
             "french": "parmi",
             "english": "among",
-            "georgian": "",
+            "georgian": "შორის, შუა",
             "definition": "Indique le fait de faire partie d'un groupe, d'un ensemble ou d'une catégorie.",
             "part_of_speech": "prep"
           },

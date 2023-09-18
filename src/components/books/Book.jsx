@@ -11,11 +11,11 @@ import TooltipComponent from "../vocabulary/vocabularyTopics/Text/TooltipCompone
 import { handleMouseEnter } from "../Utility/utils";
 import VerbsInText from "../vocabulary/verbsinText/VerbsInText";
 import BookVocabulary from "./bookVocabulary/BookVocabulary";
-const tooltipContent = {
-  french: "avoir",
-  english: "have",
-  georgian: "ქონა, ყოლა",
-  definition: "Posséder ou détenir quelque chose.",
+const DefaultooltipContent = {
+  french: "Verb pas trouver",
+  english: "Verb is missing",
+  georgian: "ზმნა ვერ მოიძებნა",
+  definition: "definition pas trouver.",
   part_of_speech: "v",
 };
 const Book = () => {
@@ -36,8 +36,34 @@ const Book = () => {
   const [selectedChapter, setSelectedChapter] = useState(0);
   const [selectedWord, setSelectedWord] = useState("");
   const vocabulary = chapters && chapters[selectedChapter].chapterVocabulary;
-  // console.log("chapters", chapters);
-  // console.log("vocabulary", vocabulary);
+  const verbDetails = selectedBook && selectedBook?.verbs;
+  // console.log("verbDetails", verbDetails);
+  const verbsFormMapping =
+    selectedBook &&
+    selectedBook?.chapters &&
+    selectedBook?.chapters[selectedChapter].verbFormMapping;
+  // console.log("verbFormMapping", verbsFormMapping);
+
+  const verbMappingWithDetails = {};
+
+  for (const key in verbsFormMapping) {
+    if (verbsFormMapping.hasOwnProperty(key)) {
+      const verbForm = key;
+      const verbInfinitive = verbsFormMapping[key];
+
+      // Find the corresponding verb detail
+      const verbDetail = verbDetails.find(
+        (detail) => detail.french === verbInfinitive
+      );
+
+      if (verbDetail) {
+        // Add the verb detail to the mapping
+        verbMappingWithDetails[verbForm] = verbDetail;
+      }
+    }
+  }
+
+  // console.log("verbMappingWithDetails", verbMappingWithDetails);
 
   const vocabularyTranslations = {};
   vocabulary &&
@@ -73,17 +99,17 @@ const Book = () => {
   if (!selectedBook) {
     return <p>Book not found.</p>;
   }
-  const verbsFormMapping =
-    selectedBook &&
-    selectedBook?.chapters &&
-    selectedBook?.chapters[selectedChapter].verbFormMapping;
+
+  // console.log("verbsFormMapping", verbsFormMapping);
   const textVerbs =
     selectedBook &&
     selectedBook?.chapters &&
     selectedBook?.chapters[selectedChapter].textVerbs;
 
   const verbs = (verbsFormMapping && Object.values(verbsFormMapping)) || [];
+  // console.log("verbs", verbs);
   const uniqueVerbs = [...new Set(verbs)];
+  // console.log("uniqueVerbs", uniqueVerbs);
 
   const formatChapterText = (text) => {
     return text.replace(/—/g, "\n-");
@@ -125,6 +151,14 @@ const Book = () => {
                 const isInVocabulary = isWordInVocabulary(cleanedWord);
 
                 const isTextVerb = textVerbs.includes(cleanedWord);
+                // console.log("isTextVerbs", isTextVerb);
+
+                const isTextVerbsWord =
+                  isTextVerb && verbsFormMapping[cleanWord];
+
+                const tooltipContent = isTextVerb
+                  ? verbMappingWithDetails[cleanedWord]
+                  : "";
 
                 const handleMouseEnter = (wordIndex) => {
                   if (isTextVerb) {
@@ -168,7 +202,11 @@ const Book = () => {
                           hoveredWordIndex === index && ( // Conditionally render based on the hovered word index
                             <TooltipComponent
                               id={`verb-tooltip-${index}`}
-                              tooltipContent={tooltipContent}
+                              tooltipContent={
+                                tooltipContent
+                                  ? tooltipContent
+                                  : DefaultooltipContent
+                              }
                               conjugated={word}
                               index={index}
                             />
@@ -316,13 +354,15 @@ const VocabularyWord = styled.span`
 `;
 const TooltipComponentBox = styled.span`
   position: absolute;
-  /* background-color: ${(props) => props.theme.highlight3}; */
+  width: 180px;
 
-  top: -430%;
-  left: -40%;
-  border-radius: 12px;
+  /* outline: 1px solid blue; */
+  background-color: ${(props) => props.theme.highlight3};
+  top: -480%;
+  left: -30%;
+  /* display: flex; */
   text-align: center;
-  border: 1px solid red;
+  border-radius: 8px;
 `;
 const BottomPart = styled.div`
   display: flex;
@@ -345,6 +385,9 @@ const VocabularyBox = styled.span`
   /* border: 1px solid red; */
 
   display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  margin-right: auto;
   flex-direction: column;
   /* align-items: center; */
 `;

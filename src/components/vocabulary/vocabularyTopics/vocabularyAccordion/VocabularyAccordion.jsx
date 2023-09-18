@@ -126,7 +126,7 @@ const AccordionHeader = styled.div`
   padding: 1rem;
   margin: 0.5rem auto;
   /* margin-right: auto; */
-  width: 92%;
+  width: 94%;
   outline: 1px solid ${(props) => props.theme.highlight4};
   /* outline: 2px solid blue; */
 
@@ -139,18 +139,11 @@ const AccordionHeader = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.tertiaryBackground};
   }
-  @media (min-width: 769px) and (max-width: 920px) {
-    max-width: 91%;
-    margin-left: -0.6rem;
-    /* outline: 2px solid blue; */
-  }
-  @media (min-width: 751px) and (max-width: 768px) {
-    margin-left: -0.3rem;
-    max-width: 99%;
-  }
-  @media (min-width: 577px) and (max-width: 750px) {
+
+  @media (min-width: 577px) and (max-width: 920px) {
+    margin-left: -0.5rem;
     flex-direction: column;
-    width: 90%;
+    max-width: 95%;
   }
 
   @media (min-width: 360px) and (max-width: 576px) {
@@ -167,7 +160,7 @@ const AccordionHeader = styled.div`
   }
   @media (max-width: 321px) {
     /* outline: 2px solid red; */
-    width: 80%;
+    width: 70%;
     flex-wrap: wrap;
     font-size: ${({ theme }) => theme.extraSmall};
   }
@@ -188,13 +181,18 @@ const FrenchWord = styled.p`
   &::after {
     content: " :";
   }
-  @media (min-width: 577px) and (max-width: 767px) {
+
+  @media (min-width: 769px) and (max-width: 919px) {
+    font-size: ${({ theme }) => theme.mediumSmall};
+    width: 35%;
+  }
+  @media (min-width: 577px) and (max-width: 768px) {
     font-size: ${({ theme }) => theme.mediumSmall};
   }
   @media (max-width: 577px) {
     font-size: ${({ theme }) => theme.small};
     margin-left: 0.2rem;
-    width: 50%;
+    width: 49%;
   }
   @media (max-width: 364px) {
     margin-left: 0;
@@ -213,11 +211,19 @@ const SecondLanguageWord = styled.span`
   width: 35%;
   /* border: 1px solid grey; */
 
+  @media (min-width: 769px) and (max-width: 919px) {
+    font-size: ${({ theme }) => theme.mediumSmall};
+    width: 40%;
+  }
+  @media (min-width: 577px) and (max-width: 768px) {
+    font-size: ${({ theme }) => theme.mediumSmall};
+    width: 45%;
+  }
   @media (max-width: 577px) {
     overflow-x: auto; /* Use 'auto' instead of 'scroll' */
     font-size: ${({ theme }) => theme.extraSmall};
     margin-left: 0.5rem;
-    width: 60%;
+    width: 48%;
     /* outline: 1px solid red; */
   }
   @media (max-width: 364px) {
