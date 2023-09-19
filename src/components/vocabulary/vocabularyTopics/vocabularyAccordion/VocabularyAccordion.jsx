@@ -43,7 +43,6 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
                 isActive={isActiveStates[index]}
               >
                 <Listen />
-                {/* <img src={ListenImg} alt="ListenImg" /> */}
               </ListenIcon>
 
               <AddToFlashcards

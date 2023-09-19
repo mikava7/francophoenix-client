@@ -74,7 +74,7 @@ const Home = () => {
           isLoadingvocabularyTopit={isLoadingvocabularyTopic}
         />
       </Section> */}
-      <SentenceBuilderEx />
+      {/* <SentenceBuilderEx /> */}
 
       <Section>
         <TopOfCarousel>

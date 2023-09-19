@@ -18,7 +18,7 @@ export const optionsDataFr = [
     ],
     buttonLabel: "Apprendre",
     buttonColor: "#67330A",
-    link: "grammar",
+    link: "vocabulary",
   },
   {
     title: " Découverte de la littérature française.",
@@ -34,20 +34,20 @@ export const optionsDataFr = [
     buttonColor: "#00384A",
     link: "/reading-zone/french-easy-reading",
   },
-  {
-    title: " Jouer Avec Le Français",
-    description:
-      "Améliorez vos compétences linguistiques en jouant à des jeux amusants et éducatifs qui vous aideront à maîtriser le français tout en vous amusant. Profitez de :",
-    listItems: [
-      " Quiz interactifs",
-      " Jeux de mots",
-      " Exercices de dictée",
-      " Activités ludiques",
-    ],
-    buttonLabel: "Jouer",
-    buttonColor: "#2B4700",
-    link: "/games",
-  },
+  // {
+  //   title: " Jouer Avec Le Français",
+  //   description:
+  //     "Améliorez vos compétences linguistiques en jouant à des jeux amusants et éducatifs qui vous aideront à maîtriser le français tout en vous amusant. Profitez de :",
+  //   listItems: [
+  //     " Quiz interactifs",
+  //     " Jeux de mots",
+  //     " Exercices de dictée",
+  //     " Activités ludiques",
+  //   ],
+  //   buttonLabel: "Jouer",
+  //   buttonColor: "#2B4700",
+  //   link: "/games",
+  // },
 ];
 
 export const optionsDataEng = [
@@ -67,7 +67,7 @@ export const optionsDataEng = [
     listItems: ["A vast vocabulary by topic", "Everyday communication"],
     buttonLabel: "Learn",
     buttonColor: "#67330A",
-    link: "grammar",
+    link: "vocabulary/vocabulary-topics",
   },
   {
     title: " Discover French Literature",
@@ -83,20 +83,20 @@ export const optionsDataEng = [
     buttonColor: "#00384A",
     link: "/reading-zone/french-easy-reading",
   },
-  {
-    title: " Play with French",
-    description:
-      "Improve your language skills by playing fun and educational games that will help you master French while having fun. Enjoy:",
-    listItems: [
-      "Interactive quizzes",
-      "Word games",
-      "Dictation exercises",
-      "Fun activities",
-    ],
-    buttonLabel: "Play",
-    buttonColor: "#2B4700",
-    link: "/games",
-  },
+  // {
+  //   title: " Play with French",
+  //   description:
+  //     "Improve your language skills by playing fun and educational games that will help you master French while having fun. Enjoy:",
+  //   listItems: [
+  //     "Interactive quizzes",
+  //     "Word games",
+  //     "Dictation exercises",
+  //     "Fun activities",
+  //   ],
+  //   buttonLabel: "Play",
+  //   buttonColor: "#2B4700",
+  //   link: "/games",
+  // },
 ];
 export const optionsDataGeo = [
   {
@@ -118,34 +118,34 @@ export const optionsDataGeo = [
     ],
     buttonLabel: "ისწავლე",
     buttonColor: "#67330A",
-    link: "grammar",
+    link: "vocabulary/vocabulary-topics",
   },
   {
-    title: " Discover French Literature",
+    title: " ფრანგული",
     description:
-      "Dive into the treasures of classic and contemporary French literature, exploring different difficulty levels starting from level A1. Discover:",
+      "ფრანგი კლასიკოსების და თანამედროვე ავტორების საუკეთესო ნამუშევრები, როგორც ორიგინალურ ასევე ადაპტირებული სახით. ",
     listItems: [
-      "50 literary classics",
-      "35 contemporary works",
-      "20 adaptations",
-      "100 articles",
+      "50 კლასიკური წიგნი",
+      "35 თანამედრვე ავტორი",
+      "20 ადაპტირებული",
+      "100 + სტატია",
     ],
-    buttonLabel: "Read",
+    buttonLabel: "წაიკითხე",
     buttonColor: "#00384A",
     link: "/reading-zone/french-easy-reading",
   },
-  {
-    title: " Play with French",
-    description:
-      "Improve your language skills by playing fun and educational games that will help you master French while having fun. Enjoy:",
-    listItems: [
-      "Interactive quizzes",
-      "Word games",
-      "Dictation exercises",
-      "Fun activities",
-    ],
-    buttonLabel: "Play",
-    buttonColor: "#2B4700",
-    link: "/games",
-  },
+  // {
+  //   title: " Play with French",
+  //   description:
+  //     "Improve your language skills by playing fun and educational games that will help you master French while having fun. Enjoy:",
+  //   listItems: [
+  //     "Interactive quizzes",
+  //     "Word games",
+  //     "Dictation exercises",
+  //     "Fun activities",
+  //   ],
+  //   buttonLabel: "Play",
+  //   buttonColor: "#2B4700",
+  //   link: "/games",
+  // },
 ];

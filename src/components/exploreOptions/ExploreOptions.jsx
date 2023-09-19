@@ -12,7 +12,7 @@ const ExploreOptions = () => {
 
   const dataToRender =
     i18n.language === "fr"
-      ? optionsDataFr
+      ? optionsDataGeo
       : i18n.language === "ka"
       ? optionsDataGeo
       : optionsDataEng;
@@ -113,7 +113,8 @@ export const CardBox = styled.div`
   width: 335px;
   p {
     text-indent: 20px;
-    text-align: center;
+    text-align: left;
+    font-size: 1.1rem;
   }
   h3 {
     text-align: center;

@@ -196,7 +196,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   return (
     <ExerciseArticleContainer>
       <BothGenderWordsContainer>
-        <h2>{t("Les noms à double genre")}</h2>
+        <p>{bothGenderWords.length > 0 && t("Les noms à double genre")}</p>
         <ul>
           {bothGenderWords.map((word, index) => (
             <li key={index}>{word}</li>
@@ -468,9 +468,11 @@ const BothGenderWordsContainer = styled.div`
   background-color: ${(props) => props.theme.secondaryBackground};
   max-width: 100%;
 
-  h2 {
+  p {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    text-align: center;
+    padding: 1rem;
   }
 
   ul {

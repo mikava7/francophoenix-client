@@ -6,10 +6,15 @@ import { generateQuizQuestions } from "../../generateQuizQuestions";
 import QuizModal from "../modal/QuizModal";
 import { BackgroundOverlay } from "../../vocabularyStyles/styles";
 import Timer from "./Timer";
+import Listen from "../../../Listen";
+import { ListenIcon } from "../../../../Styles/globalStyles";
+import useListenWord from "../../../../hooks/useListenWord";
 const VocabularyQuiz = ({ french, english, georgian }) => {
   // const currentQuestionRef = useRef(null);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
+  const { handleListen, isActiveStates } = useListenWord();
+
   const [showModal, setShowModal] = useState(false);
   const secondLanguage = isGeorgian ? georgian : english;
 
@@ -58,7 +63,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
         );
         if (nextQuestion) {
           // Calculate the scroll position, considering the navbar height
-          const navbarHeight = 100;
+          const navbarHeight = 20;
           // console.log("navbarHeight", navbarHeight);
           const scrollPosition =
             nextQuestion.getBoundingClientRect().top +
@@ -180,7 +185,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
       // console.log("length in else.", currentQuestionIndex);
 
       setDemonstrativeMode(false);
-      console.log("demonstrativeMode in else.", demonstrativeMode);
+      // console.log("demonstrativeMode in else.", demonstrativeMode);
 
       setShowModal(true);
     }
@@ -222,7 +227,15 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
               <Timer initialTime={3} />
             )}
 
-            <h2>{quizItem.question}</h2>
+            <h2>
+              {quizItem.question}
+              <ListenIcon
+                onClick={handleListen(quizItem.question)}
+                isActive={isActiveStates[questionIndex]}
+              >
+                <Listen />
+              </ListenIcon>{" "}
+            </h2>
             <ul>
               {quizItem.options.map((option, optionIndex) => (
                 <QuizOption
@@ -299,6 +312,7 @@ const QuizQuestionBox = styled.div`
     padding: 1rem;
     border-radius: 1rem;
     margin-left: -0.5rem;
+    gap: 1rem;
   }
 
   ul {
