@@ -19,7 +19,7 @@ import BookPage from "./components/books/Book";
 import Vocabularies from "./components/vocabulary/Vocabularies";
 import Vocabulary from "./components/vocabulary/vocabularyTopics/Vocabulary";
 import ExerciseArticle from "./components/vocabulary/vocabularyTopics/ExerciseArticle";
-import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/VocabularyQuiz";
+import VocabularyQuiz from "./components/vocabulary/vocabularyTopics/vocabularyQuiz/VocabularyQuiz";
 import Loading from "./components/loading/Loading";
 import A1Dialogues from "./components/dialogues/A1Dialogues";
 import DialoguePage from "./components/dialogues/dialogueTopics/DialoguePage/DialoguePage";

@@ -1,16 +1,27 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
-import { StyledButton, Button } from "../../../Styles/globalStyles";
+import { StyledButton, Button } from "../../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
-import { generateQuizQuestions } from "../generateQuizQuestions";
-import QuizModal from "./modal/QuizModal";
-import { BackgroundOverlay } from "../vocabularyStyles/styles";
+import { generateQuizQuestions } from "../../generateQuizQuestions";
+import QuizModal from "../modal/QuizModal";
+import { BackgroundOverlay } from "../../vocabularyStyles/styles";
+import Timer from "./Timer";
 const VocabularyQuiz = ({ french, english, georgian }) => {
   // const currentQuestionRef = useRef(null);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const [showModal, setShowModal] = useState(false);
   const secondLanguage = isGeorgian ? georgian : english;
+
+  const [isAutoAnswerPaused, setIsAutoAnswerPaused] = useState(false);
+  const [quizFinished, setQuizFinished] = useState(false);
+
+  const [demonstrativeMode, setDemonstrativeMode] = useState(false); // State to track demonstrative mode
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const toggleDemonstrativeMode = () => {
+    setDemonstrativeMode(!demonstrativeMode);
+  };
+
   const vocabularyQuizQuestions = useMemo(
     () => generateQuizQuestions(french, secondLanguage),
     [french, secondLanguage]
@@ -80,6 +91,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
       setScore(score + 1);
     }
   };
+
   const restartQuiz = () => {
     setSelectedAnswers({});
     setAnswered({});
@@ -122,6 +134,71 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
       );
     }
   );
+
+  const autoAnswerQuestion = async () => {
+    if (currentQuestionIndex < vocabularyQuizQuestions.length) {
+      // Delay for 3 seconds before automatically selecting the correct answer
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      if (!isAutoAnswerPaused) {
+        // Automatically select the correct answer
+        const correctAnswerIndex = vocabularyQuizQuestions[
+          currentQuestionIndex
+        ].options.indexOf(vocabularyQuizQuestions[currentQuestionIndex].answer);
+
+        handleOptionClick(currentQuestionIndex, correctAnswerIndex);
+
+        // Check if this is the last question
+        const isLastQuestion =
+          currentQuestionIndex === vocabularyQuizQuestions.length - 1;
+
+        // Move to the next question after a delay (if it's not the last question)
+        if (!isLastQuestion) {
+          setTimeout(() => {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+
+            // Trigger auto-answering for the next question
+            autoAnswerQuestion();
+          }, 1500); // Delay of 1.5 seconds
+        } else {
+          setTimeout(() => {
+            // Trigger auto-answering for the next question
+            setShowModal(true);
+
+            // After 2.5 seconds, refresh the page
+            setTimeout(() => {
+              window.location.reload();
+            }, 2500); // Delay of 2.5 seconds
+          }, 1500); // Delay of 1.5 seconds
+
+          // Optionally, you can stop the auto-answering here or perform any other desired action.
+        }
+      }
+    } else {
+      // Quiz is finished, set demonstrativeMode to false and showModal to true
+      // console.log("length in else.", vocabularyQuizQuestions.length);
+      // console.log("length in else.", currentQuestionIndex);
+
+      setDemonstrativeMode(false);
+      console.log("demonstrativeMode in else.", demonstrativeMode);
+
+      setShowModal(true);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      demonstrativeMode &&
+      currentQuestionIndex < vocabularyQuizQuestions.length
+    ) {
+      autoAnswerQuestion();
+    }
+    if (currentQuestionIndex === vocabularyQuizQuestions.length - 1) {
+      // This is the last question, stop auto-answering
+      setDemonstrativeMode(false);
+    }
+  }, [demonstrativeMode, currentQuestionIndex]);
+
   const maxScore = vocabularyQuizQuestions.length;
   const isQuizFinished = Object.keys(answered).length === maxScore;
 
@@ -133,11 +210,19 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
 
   return (
     <QuizContainer>
+      {/* <button onClick={toggleDemonstrativeMode}>
+        {demonstrativeMode
+          ? "Disable Demonstrative Mode"
+          : "Enable Demonstrative Mode"}
+      </button> */}
       <QuizItem>
         {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
-          <QuizQuestion key={questionIndex} id={`question-${questionIndex}`}>
-            <h2>{quizItem.question}</h2>
+          <QuizQuestionBox key={questionIndex} id={`question-${questionIndex}`}>
+            {demonstrativeMode && currentQuestionIndex === questionIndex && (
+              <Timer initialTime={3} />
+            )}
 
+            <h2>{quizItem.question}</h2>
             <ul>
               {quizItem.options.map((option, optionIndex) => (
                 <QuizOption
@@ -160,7 +245,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
               {" "}
               {t("Score")}: {score}/{vocabularyQuizQuestions.length}
             </Score>
-          </QuizQuestion>
+          </QuizQuestionBox>
         ))}
       </QuizItem>
       <RestartButton onClick={restartQuiz}> {t("Recommencer")}</RestartButton>
@@ -201,7 +286,7 @@ const QuizItem = styled.div`
   max-width: 500px;
 `;
 
-const QuizQuestion = styled.div`
+const QuizQuestionBox = styled.div`
   /* border: 2px solid wheat; */
   padding: 1rem;
   margin-top: 1rem;
@@ -213,6 +298,7 @@ const QuizQuestion = styled.div`
   h2 {
     padding: 1rem;
     border-radius: 1rem;
+    margin-left: -0.5rem;
   }
 
   ul {
@@ -277,3 +363,4 @@ const RestartButton = styled.button`
     color: ${(props) => props.theme.highlight2};
   }
 `;
+const TimerDisplay = styled.span``;

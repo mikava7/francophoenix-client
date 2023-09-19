@@ -61,10 +61,10 @@ const NavbarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) =>
-    props.isVisible ? props.theme.tertiaryText : "transparent"};
+    props.isVisible ? props.theme.highlight2 : "transparent"};
   color: white;
   transition: background-color 0.3s ease-in-out;
-  border-bottom: 3px solid ${(props) => props.theme.highligt1};
+  border-bottom: 3px solid ${(props) => props.theme.primaryText};
 `;
 
 const StyledUl = styled.ul`

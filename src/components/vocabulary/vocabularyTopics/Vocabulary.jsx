@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchVocabularyTopics } from "../../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
 import styled from "styled-components";
-import VocabularyQuiz from "./VocabularyQuiz";
+import VocabularyQuiz from "./vocabularyQuiz/VocabularyQuiz";
 import ExerciseArticle from "./ExerciseArticle";
 import VocabularyAccordion from "./vocabularyAccordion/VocabularyAccordion";
 import ChevronDown from "../../../../public/icons/chevron-down-24.png";

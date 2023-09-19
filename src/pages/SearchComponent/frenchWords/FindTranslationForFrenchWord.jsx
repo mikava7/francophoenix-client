@@ -159,14 +159,6 @@ const FindTranslationForFrenchWord = () => {
               isMultipleDefinitions={true}
             />
           </TranslatedWord>
-          {result.part_of_speech.includes("v") && (
-            <SearchResultApendix>
-              <span>this is a link to bachharelle Conjugation page</span>
-              <button onClick={() => redirectToBescherelle(result.french)}>
-                {result.french}
-              </button>
-            </SearchResultApendix>
-          )}
           <FlasCardBox>
             add to
             <AddToFlashcards
@@ -183,6 +175,16 @@ const FindTranslationForFrenchWord = () => {
               definition={definition[index]}
             />
           </FlasCardBox>
+          {result.part_of_speech.includes("v") && (
+            <SearchResultApendix>
+              <span>
+                {t("Ce lien mène à la page Bachharelle Conjugaison.")}
+              </span>
+              <button onClick={() => redirectToBescherelle(result.french)}>
+                {result.french}
+              </button>
+            </SearchResultApendix>
+          )}
         </WordCard>
       ))}
       {searchResults.length > 4 && !showAllResults && (
@@ -314,11 +316,7 @@ const ListenIcon = styled.div`
     transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
   }
 `;
-const AddToFavoritesBox = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
+
 ///////////////
 const WordCard = styled.div`
   max-width: 100%;
@@ -331,18 +329,22 @@ const WordCard = styled.div`
   position: relative;
   min-height: 3.5rem;
   border-radius: 0 0 0 12px;
-  max-width: 100%;
+  min-width: 85%;
   position: relative;
 `;
 
-const FlasCardBox = styled.div`
+const FlasCardBox = styled.span`
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 40%;
   font-size: 0.8rem;
-  right: 0;
-  /* border: 1px solid red; */
+  margin-left: auto;
+  margin-right: -1rem;
+
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid ${(props) => props.theme.primaryText};
+  padding-bottom: 0;
+  width: 30%;
 `;
 const TranslatedWord = styled.div`
   display: flex;

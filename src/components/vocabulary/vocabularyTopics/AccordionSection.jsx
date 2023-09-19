@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ExerciseArticle from "./ExerciseArticle";
 import TopicText from "./Text/TopicText";
-import VocabularyQuiz from "./VocabularyQuiz";
+import VocabularyQuiz from "./vocabularyQuiz/VocabularyQuiz";
 import RotatingChevron from "../../Utility/RotatingChevron";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
