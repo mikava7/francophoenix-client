@@ -106,16 +106,14 @@ const French = styled.div`
       ? "#830C24"
       : props.theme.primaryBackground};
   color: ${(props) =>
-    props.inputLanguage === "french"
-      ? props.theme.primaryBackground
-      : props.theme.primaryText};
+    props.inputLanguage === "french" ? "white" : props.theme.primaryText};
 
   padding: 0.5rem 2rem;
   border-radius: 12px;
   @media (max-width: 576px) {
     font-size: 1rem;
-    padding: 0.5rem 1rem;
-    width: 4.2rem;
+    padding: 0.4rem 0.8rem;
+    width: 4.4rem;
   }
   @media (max-width: 320px) {
     font-size: 1rem;
@@ -129,7 +127,5 @@ const SecondLanguage = styled(French)`
       ? props.theme.primaryBackground
       : "#830C24"};
   color: ${(props) =>
-    props.inputLanguage === "french"
-      ? props.theme.primaryText
-      : props.theme.primaryBackground};
+    props.inputLanguage === "french" ? props.theme.primaryText : "white"};
 `;

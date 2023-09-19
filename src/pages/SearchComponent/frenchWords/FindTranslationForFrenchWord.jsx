@@ -160,7 +160,7 @@ const FindTranslationForFrenchWord = () => {
             />
           </TranslatedWord>
           <FlasCardBox>
-            add to
+            {t("Ajouter à")}
             <AddToFlashcards
               word={
                 inputLanguage === "french"
@@ -370,6 +370,9 @@ const SearchResultApendix = styled.div`
     border: none;
     font-style: italic;
     position: relative;
+    background-color: ${(props) => props.theme.secondaryBackground};
+    color: ${(props) => props.theme.primaryText};
+
     cursor: pointer;
     &::after {
       content: "";
