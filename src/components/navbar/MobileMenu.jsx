@@ -15,7 +15,7 @@ import Localization from "../../localization/Localization";
 import ThemeToggle from "../themeToggle/themeToggle";
 const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const dispatch = useDispatch();
-
+  // console.log("t", t);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state.auth.auth) || {};
@@ -87,10 +87,10 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
             )}
           </UserMobile>
 
-          <MenuLink to="/grammar">
+          <MenuLink to="/grammar/basic-grammar-lessons">
             <li>{t("Grammaire")}</li>
           </MenuLink>
-          <MenuLink to="/vocabulary" onClick={closeMenu}>
+          <MenuLink to="/vocabulary/vocabulary-topics" onClick={closeMenu}>
             <li>{t("Vocabulaire")}</li>
           </MenuLink>
 
@@ -226,25 +226,6 @@ const MenuLink = styled(Link)`
   font-style: italic;
   position: relative;
   /* padding: 0.5rem; */
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0%;
-    padding-bottom: 0.1rem;
-    height: 1px;
-    background-color: ${(props) => props.theme.highlight4};
-    color: ${(props) => props.theme.primaryBackground};
-
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    opacity: 0.5;
-
-    width: calc(100% + 2px); /* Expand width to 100% on hover */
-  }
 `;
 const LastItem = styled.li`
   margin-top: 3rem;

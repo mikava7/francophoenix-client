@@ -13,7 +13,7 @@ const Localization = () => {
   return (
     <LenguageButtons>
       {" "}
-      <button onClick={() => handleLanguageChange("en")}> ddd🇺🇸</button>
+      <button onClick={() => handleLanguageChange("en")}> 🇺🇺🇸</button>
       <button onClick={() => handleLanguageChange("ka")}>🇬🇪 </button>
       <button onClick={handleDefaultLanguage}>🇫🇷</button>
     </LenguageButtons>

@@ -21,10 +21,10 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
         <StyledLogo to="/">Home</StyledLogo>
       </Logo>
       <StyledUl>
-        <StyledList to="/grammar" isGeorgian={isGeorgian}>
+        <StyledList to="/grammar/basic-grammar-lessons" isGeorgian={isGeorgian}>
           {t("Grammaire")}
         </StyledList>
-        <StyledList to="/vocabulary" isGeorgian={isGeorgian}>
+        <StyledList to="/vocabulary/vocabulary-topics" isGeorgian={isGeorgian}>
           {t("Vocabulaire")}
         </StyledList>
         <StyledList
@@ -65,6 +65,8 @@ const NavbarContainer = styled.div`
   color: white;
   transition: background-color 0.3s ease-in-out;
   border-bottom: 3px solid ${(props) => props.theme.primaryText};
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 `;
 
 const StyledUl = styled.ul`

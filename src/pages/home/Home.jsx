@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooksPreview } from "../../redux/slices/books/booksSlice";
 import { fetchVocabularyTopics } from "../../redux/slices/vocabularyTopics/vocabularyTopicSlice";
@@ -18,8 +18,41 @@ import { StyledLink } from "../../Styles/globalStyles";
 import Footer from "../footer/Footer";
 import ExploreOptions from "../../components/exploreOptions/ExploreOptions";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
+import LanguagePreference from "../../localization/LanguagePreference";
+
 const Home = () => {
-  const { t } = useTranslation();
+  const [showLanguagePopup, setShowLanguagePopup] = useState(true);
+  const [languageSelected, setLanguageSelected] = useState(false);
+  const [isLoadingLanguageSelection, setIsLoadingLanguageSelection] =
+    useState(true);
+
+  const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const hasLanguageSelected = localStorage.getItem("languageSelected");
+
+    if (hasLanguageSelected) {
+      // Language has been selected before
+      setShowLanguagePopup(false);
+      setLanguageSelected(true);
+    } else if (location.pathname === "/") {
+      // Language has not been selected, and this is the home page
+      setShowLanguagePopup(true);
+    }
+
+    setIsLoadingLanguageSelection(false);
+  }, [location]);
+
+  const handleLanguagePopupClose = (language) => {
+    setShowLanguagePopup(false);
+    console.log("language", language);
+    localStorage.setItem("languageSelected", language);
+    setLanguageSelected(true);
+    // Change the language in i18n immediately
+    i18n.changeLanguage(language);
+  };
+
   const dispatch = useDispatch();
   useScrollToTopOnRouteChange();
   const books = useSelector((state) => state.books.books);
@@ -30,51 +63,33 @@ const Home = () => {
   const isLoadingvocabularyTopic = useSelector(
     (state) => state.vocabularyTopics.isLoading
   );
+
   useEffect(() => {
     dispatch(fetchBooksPreview());
   }, []);
+
   useEffect(() => {
     dispatch(fetchVocabularyTopics());
   }, []);
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
+  if (isLoadingLanguageSelection) {
+    return <Loading />;
+  }
 
   return (
     <HomeContainer>
+      {showLanguagePopup && (
+        <BackgroundOverlay showoverlay={showLanguagePopup}>
+          <LanguagePreferenceBox>
+            {/* Pass handleLanguagePopupClose function */}
+            <LanguagePreference
+              handleLanguagePopupClose={handleLanguagePopupClose}
+            />
+          </LanguagePreferenceBox>
+        </BackgroundOverlay>
+      )}
       <FindTranslationForFrenchWord />
       <ExploreOptions />
-      {/* <WellcomeSection>
-        <TiTleMessage>{t("Bienvenue à Francophoenix")}</TiTleMessage>
-        <WellcomeCarousel wellcomeData={wellcomeData} />
-      </WellcomeSection> */}
-
-      {/* <QuizPictures /> */}
-
-      {/* <Section>
-        <TopOfCarousel>
-          <CarouselTitle>{t("Tous les livres")} </CarouselTitle>
-          <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
-        </TopOfCarousel>
-
-        <Carousel books={books} />
-      </Section>
-      <PickAndQuiz>
-        <PresentTense />
-      </PickAndQuiz> */}
-      {/* <Section>
-        <TopOfCarousel>
-          <CarouselTitle>{t("Vocabulaire thématique")} </CarouselTitle>
-          <SeeAllLink to="/vocabulary-topics">{t("Tout afficher")}</SeeAllLink>
-        </TopOfCarousel>
-
-        <VocabularyTopicCarousel
-          vocabularyTopic={vocabularyTopic}
-          isLoadingvocabularyTopit={isLoadingvocabularyTopic}
-        />
-      </Section> */}
-      {/* <SentenceBuilderEx /> */}
 
       <Section>
         <TopOfCarousel>
@@ -97,7 +112,8 @@ const HomeContainer = styled.section`
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
   max-width: 100%;
-  /* font-size: 1.8rem; */
+  position: relative;
+
   overflow-x: hidden;
   /* outline:1px solid green; */
   @media screen and (max-width: 576px) {
@@ -110,6 +126,16 @@ const HomeContainer = styled.section`
     margin: 0 0.6rem;
   }
 `;
+
+const LanguagePreferenceBox = styled.div`
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999; /* Ensure it's on top */
+`;
+
 const WellcomeSection = styled.div`
   max-height: 100%;
 `;
@@ -196,4 +222,16 @@ const SeeAllLink = styled(StyledLink)`
     margin: 0 0.3rem;
     font-size: 1.3rem;
   }
+`;
+export const BackgroundOverlay = styled.div`
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+  z-index: ${({ showoverlay }) => {
+    // console.log("showOverlay in BackgroundOverlay:", showoverlay); // Add this console log
+    return showoverlay ? 99 : -1;
+  }};
 `;
