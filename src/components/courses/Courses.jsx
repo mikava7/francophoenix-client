@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ExploreLink } from "../components/wellcome/WellcomeCarousel";
+import { ExploreLink } from "../wellcome/WellcomeCarousel";
 
 import Course from "./Course";
-import courseData from "../courseData";
+import courseData from "../../courseData";
 const Courses = () => {
   return (
     <CoursesWrapper>

@@ -121,7 +121,7 @@ export const optionsDataGeo = [
     link: "vocabulary/vocabulary-topics",
   },
   {
-    title: " ფრანგული",
+    title: " ფრანგული წიგნები",
     description:
       "ფრანგი კლასიკოსების და თანამედროვე ავტორების საუკეთესო ნამუშევრები, როგორც ორიგინალურ ასევე ადაპტირებული სახით. ",
     listItems: [

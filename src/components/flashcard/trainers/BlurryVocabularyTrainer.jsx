@@ -6,12 +6,16 @@ import {
   FlexContainer,
   Button,
   LightButton,
+  ListenIcon,
 } from "../../../Styles/globalStyles";
+import useListenWord from "../../../hooks/useListenWord";
+
 import { useTranslation } from "react-i18next";
-
+import Listen from "../../Listen";
 const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
-  const { t } = useTranslation();
+  const { handleListen, isActiveStates } = useListenWord();
 
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [timer, setTimer] = useState(4);
@@ -19,8 +23,8 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
   const [showPause, setShowPause] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  const word = selectedFlashcards.map((flashcard) => flashcard.word);
-  const translation = selectedFlashcards.map(
+  const word = selectedFlashcards?.map((flashcard) => flashcard.word);
+  const translation = selectedFlashcards?.map(
     (flashcard) => flashcard.secondLanguage
   );
 
@@ -78,7 +82,15 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
             <Word>
               <Timer>{timer}</Timer>
 
-              <span>{word[currentIndex]}</span>
+              <CurrentWord>
+                {word[currentIndex]}
+                <ListenIcon
+                  onClick={handleListen(word[currentIndex])} // Fixed
+                  isActive={isActiveStates[currentIndex]}
+                >
+                  <Listen />
+                </ListenIcon>
+              </CurrentWord>
             </Word>
             <TranslationBox style={{ filter: `blur(${blurLevel}px)` }}>
               <Translation>{translation[currentIndex]}</Translation>
@@ -129,6 +141,11 @@ const Word = styled.span`
   }
 `;
 
+const CurrentWord = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
 const TranslationBox = styled.div`
   width: 100%;
   height: 18rem;

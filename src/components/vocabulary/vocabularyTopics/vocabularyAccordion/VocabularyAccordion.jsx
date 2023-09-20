@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { useTranslation } from "react-i18next";
 import AddToFavorites from "../../../Utility/AddToFavorites";
 import AccordionExpendedContent from "./AccordionExpendedContent";
 import useListenWord from "../../../../hooks/useListenWord";
 import useScrollToTopOnRouteChange from "../../../../hooks/useScrollToTopOnRouteChange";
 import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
+import { useTranslation } from "react-i18next";
 import Listen from "../../../Listen";
 const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
   // console.log("definition in VocabularyAccordion", definition);

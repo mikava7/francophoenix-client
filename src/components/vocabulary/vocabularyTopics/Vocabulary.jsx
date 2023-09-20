@@ -18,6 +18,26 @@ const Vocabulary = () => {
   const dispatch = useDispatch();
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
   const isLoading = useSelector((state) => state.quizData.isLoading);
+
+  const words = vocabularyData?.words;
+
+  const french = vocabularyData?.words?.map((word) => word?.french);
+  const english = vocabularyData?.words?.map((word) => word?.english);
+  const georgian = vocabularyData?.words?.map((word) => word?.georgian);
+  const definition = vocabularyData?.words?.map((word) => word?.definition);
+
+  // Determine the second language based on the 'isEnglish' flag
+
+  const { t, i18n } = useTranslation();
+  const isGeorgian = i18n.language === "ka";
+  const secondLanguage = isGeorgian ? georgian : english;
+  const selectedFlashcards = words?.map((wordObject) => ({
+    word: wordObject?.french,
+    definition: wordObject?.definition,
+    secondLanguage: secondLanguage ? wordObject?.georgian : wordObject?.english,
+  }));
+
+  // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);
   useEffect(() => {
     if (topicId) {
       dispatch(fetchQuizData(topicId));
@@ -28,9 +48,6 @@ const Vocabulary = () => {
   const { vocabularyTopicId } = useParams();
   // console.log("vocabularyTopicId", vocabularyTopicId);
 
-  const { t, i18n } = useTranslation();
-  const isGeorgian = i18n.language === "ka";
-
   useEffect(() => {
     dispatch(fetchVocabularyTopics());
   }, [dispatch, vocabularyTopicId]);
@@ -38,16 +55,6 @@ const Vocabulary = () => {
   if (isLoading) {
     return <Loading />;
   }
-  // console.log("vocabularyData", vocabularyData);
-  const french = vocabularyData?.words?.map((word) => word?.french);
-  const english = vocabularyData?.words?.map((word) => word?.english);
-  const georgian = vocabularyData?.words?.map((word) => word?.georgian);
-  const definition = vocabularyData?.words?.map((word) => word?.definition);
-
-  // Determine the second language based on the 'isEnglish' flag
-  const secondLanguage = isGeorgian ? georgian : english;
-
-  // Determine the maximum length of both language arrays to ensure pairs are correctly displayed
 
   return (
     <VocabularyContainer>
@@ -62,6 +69,18 @@ const Vocabulary = () => {
         />
       </WordPairContainer>
       <TopicTextBox>
+        <AccordionSection
+          type={t("Blury Trainer")}
+          identifier="Blury Trainer"
+          isOpen={openComponent === "Blury Trainer"}
+          onToggle={() =>
+            setOpenComponent(
+              openComponent === "Blury Trainer" ? null : "Blury Trainer"
+            )
+          }
+          selectedFlashcards={selectedFlashcards}
+        />
+
         <AccordionSection
           type={t("Texte")}
           identifier="Texte"

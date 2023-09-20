@@ -18,8 +18,12 @@ const useListenWord = () => {
   }, []);
 
   // Handle word listening functionality
+  // Handle word listening functionality
   const handleListen = (word) => (event) => {
     event.stopPropagation();
+
+    // Extract the word before parentheses (if any)
+    const wordWithoutParentheses = word.split(" (")[0];
 
     // Find the index of the word in the isActiveStates array
     const index = isActiveStates.findIndex((state) => state.word === word);
@@ -46,8 +50,8 @@ const useListenWord = () => {
       );
     }, 1500);
 
-    // Call the speakWord function to read the word aloud
-    speakWord(word);
+    // Call the speakWord function to read the word without parentheses aloud
+    speakWord(wordWithoutParentheses);
   };
 
   // Function to speak the word using SpeechSynthesis API

@@ -16,7 +16,7 @@ const SideVocabularySection = ({
   isSubSectionOpen,
 }) => {
   const { t } = useTranslation();
-
+  console.log("vocabularyAspects", vocabularyAspects);
   return (
     <SidebarContainer>
       <SidbarTitle>

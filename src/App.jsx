@@ -8,7 +8,7 @@ import JaimeEtClaire from "./elementary/JaimeEtClaire";
 import IntermediatePage from "./Intermediate/IntermediatePage";
 import AdvancedPage from "./advanced/AdvancedPage";
 import Books from "./components/books/Books";
-import Courses from "./courses/Courses";
+import Courses from "./components/courses/Courses";
 import { GlobalStyle } from "./Styles/globalStyles";
 import Navbar from "./components/navbar/Navbar";
 import A2B1Books from "./components/books/A2_B1-Books/A2B1Books";

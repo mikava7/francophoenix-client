@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   fetchByAspect,
   fetchAspectList,
+  fetchGrammer,
 } from "../../redux/slices/grammer/grammerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../loading/Loading";
@@ -23,6 +24,8 @@ const Sidebar = () => {
   const subTopicsByAspect =
     useSelector((state) => state.grammer.topicsByAspect) || {};
   const aspectList = useSelector((state) => state.grammer.aspectList) || [];
+  const quizdata = useSelector((state) => state.grammer) || [];
+  console.log("quizdata", quizdata);
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 
@@ -48,8 +51,24 @@ const Sidebar = () => {
   const isSubSectionOpen = (subSectionTitle) => {
     return isSubSectionExpanded[subSectionTitle];
   };
-
+  useEffect(() => {
+    dispatch(fetchGrammer);
+  }, []);
   const uniqueValues = aspectList.map((aspect) => aspect.grammarAspect);
+  const sideBarItems = [
+    "Verbe",
+    "Nom",
+    "Adjectif",
+    "Adverbe",
+    "Pronom",
+    "Préposition",
+    "Conjonction",
+    "Interjection",
+  ];
+
+  // console.log("uniqueValues", uniqueValues);
+  // console.log("subTopicsByAspect", subTopicsByAspect);
+
   if (isLoading) {
     return <Loading />;
   }

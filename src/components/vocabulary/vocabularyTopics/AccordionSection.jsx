@@ -6,7 +6,7 @@ import RotatingChevron from "../../Utility/RotatingChevron";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { scrollToContainer } from "../../Utility/scrollToContainer";
-
+import BlurryVocabularyTrainer from "../../flashcard/trainers/BlurryVocabularyTrainer";
 const AccordionSection = ({
   type,
   isOpen,
@@ -16,11 +16,15 @@ const AccordionSection = ({
   english,
   georgian,
   identifier,
+  selectedFlashcards,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const SecondLanguage = i18n.language === "ka" ? georgian : english;
+  const words = vocabularyData?.words;
 
+  // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
@@ -38,6 +42,9 @@ const AccordionSection = ({
       </h2>
       {isOpen && (
         <SectionBox ref={sectionRef}>
+          {identifier === "Blury Trainer" && (
+            <BlurryVocabularyTrainer selectedFlashcards={selectedFlashcards} />
+          )}
           {identifier === "Texte" && (
             <TopicText
               text={vocabularyData?.text}

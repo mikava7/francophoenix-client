@@ -87,33 +87,25 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
             )}
           </UserMobile>
 
-          <li>
-            <MenuLink to="/grammar">{t("Grammaire")}</MenuLink>
-          </li>
-          <li>
-            <MenuLink to="/vocabulary" onClick={closeMenu}>
-              {t("Vocabulaire")}
-            </MenuLink>
-          </li>
-          <li>
-            <MenuLink
-              to="/reading-zone/french-easy-reading"
-              onClick={closeMenu}
-            >
-              {t("Livres")}
-            </MenuLink>
-          </li>
-          <li>
-            <MenuLink to="/dictionary" onClick={closeMenu}>
-              {t("Dictionnaire")}
-            </MenuLink>
-          </li>
-          <li>
-            <MenuLink to="/vocabulary/flashcards" onClick={closeMenu}>
-              {t("Entraîneur de cartes mémoire")}
-            </MenuLink>
-          </li>
-          <li></li>
+          <MenuLink to="/grammar">
+            <li>{t("Grammaire")}</li>
+          </MenuLink>
+          <MenuLink to="/vocabulary" onClick={closeMenu}>
+            <li>{t("Vocabulaire")}</li>
+          </MenuLink>
+
+          <MenuLink to="/reading-zone/french-easy-reading" onClick={closeMenu}>
+            <li>{t("Livres")}</li>
+          </MenuLink>
+
+          <MenuLink to="/dictionary" onClick={closeMenu}>
+            <li>{t("Dictionnaire")}</li>
+          </MenuLink>
+
+          <MenuLink to="/vocabulary/flashcards" onClick={closeMenu}>
+            <li>{t("Entraîneur de cartes mémoire")}</li>
+          </MenuLink>
+          <LastItem></LastItem>
         </MenuUl>
       </MenuToggle>
     </MenuContainer>
@@ -195,9 +187,9 @@ const MenuUl = styled.ul`
   width: 100vw;
   height: 100vh;
   box-shadow: 0 0 10px #85888c;
-  margin: -50px 0 0 -50px;
+  margin: -3rem 0 0 -50px;
   padding: 50px;
-  padding-top: 4rem;
+  padding-top: 5rem;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
 
@@ -206,17 +198,18 @@ const MenuUl = styled.ul`
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   li {
-    padding: 0.2rem 0;
+    padding: 0.4rem;
+
     transition-delay: 2s;
-    padding-left: 2rem;
-    margin: 0 1rem;
-    margin-top: 1rem;
+    margin: 1rem;
+
     max-width: 380px;
     outline: 2px solid ${(props) => props.theme.highlight4};
     background-color: ${(props) => props.theme.secondaryBackground};
     border-radius: 8px;
+
     &:last-child {
-      margin-bottom: 3rem;
+      /* margin-bottom: 3rem; */
       outline: 2px solid ${(props) => props.theme.highlight3};
     }
   }
@@ -226,10 +219,10 @@ const MenuLink = styled(Link)`
   color: ${(props) => props.theme.primaryText};
   opacity: 1;
   font-family: "work sans", sans serif;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-weight: 400;
   transition: 200ms;
-
+  /* border: 1px solid red; */
   font-style: italic;
   position: relative;
   /* padding: 0.5rem; */
@@ -239,8 +232,8 @@ const MenuLink = styled(Link)`
     bottom: -2px;
     left: 0;
     width: 0%;
-    padding-bottom: 2.5rem;
-    height: 6px;
+    padding-bottom: 0.1rem;
+    height: 1px;
     background-color: ${(props) => props.theme.highlight4};
     color: ${(props) => props.theme.primaryBackground};
 
@@ -253,14 +246,20 @@ const MenuLink = styled(Link)`
     width: calc(100% + 2px); /* Expand width to 100% on hover */
   }
 `;
+const LastItem = styled.li`
+  margin-top: 3rem;
+  height: 1rem;
+  background-color: ${(props) => props.theme.highlight4};
+`;
 
 const UserMobile = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background: ${(props) => props.theme.secondaryBackground};
-  /* outline: 2px solid red; */
+  outline: 2px solid red;
   margin: 0 1rem;
+  margin-bottom: 3rem;
 `;
 const UserMobileMenu = styled.div`
   outline: 6px solid ${(props) => props.theme.secondaryBackground};
@@ -271,8 +270,8 @@ const UserMobileMenu = styled.div`
   /* margin: 0 auto; */
   width: 17rem;
   height: 3rem;
-  padding: 0.4rem;
   margin-bottom: 1rem;
+  padding: 0.4rem;
   background: ${(props) => props.theme.tertiaryBackground};
   @media (max-width: 359px) {
     width: 12rem;

@@ -27,6 +27,9 @@ const SideGrammarSection = ({
   const { t } = useTranslation();
   const theme = useTheme();
   const arrowImage = theme === darkTheme ? ArrowRightLight : ArrowRight;
+  // console.log("uniqueValues in grammer", uniqueValues);
+  // console.log("subTopicsByAspect in grammer", subTopicsByAspect);
+
   return (
     <SidebarContainer>
       <SidbarTitle>
