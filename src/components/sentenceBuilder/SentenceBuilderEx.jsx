@@ -11,35 +11,54 @@ import styled, { css } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { scrollToContainer } from "../Utility/scrollToContainer";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
+import CategorySelect from "./CategorySelect";
+import { calculateNavbarHeight } from "./helpers";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
-  // console.log("sentenceData", sentenceData);
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
   useScrollToTopOnRouteChange();
-  // console.log("isActive in SentenceBuilderEx", isActive);
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const sentenceBuilders =
     useSelector((state) => state.sentences.sentences) || [];
   const [isSubmit, setIsSubmit] = useState(false);
-
   const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
   const [sentenceIndex, setSentenceIndex] = useState(0);
   const dataToRender = sentenceData || sentenceBuilders;
-
+  const filteredSentences = () => {
+    if (selectedCategory === "negative") {
+      return dataToRender.filter((sentenceObj) =>
+        sentenceObj.sentence.includes("pas")
+      );
+    } else if (selectedCategory === "interrogative") {
+      return dataToRender.filter((sentenceObj) =>
+        sentenceObj.sentence.includes("?")
+      );
+    } else if (selectedCategory === "simple") {
+      return dataToRender.filter((sentenceObj) => sentenceObj.words.length < 4);
+    } else {
+      return dataToRender;
+    }
+  };
   useEffect(() => {
     if (!sentenceData) {
       dispatch(fetchSentences());
     }
   }, [dispatch, sentenceData]);
 
+  // Filter sentences based on the selected category
+
   // Get the sentence for the currently active sentence
-  const sentence = dataToRender[sentenceIndex]?.sentence || "";
+  const sentence = filteredSentences()[sentenceIndex]?.sentence || "";
   // Get the words array for the currently active sentence
-  const words = dataToRender[sentenceIndex]?.words || [];
+  const words = filteredSentences()[sentenceIndex]?.words || [];
 
   const handleWordSelect = (index) => {
     setSelectedWords((prevSelectedWords) => {
@@ -57,15 +76,12 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
     });
   };
 
-  // console.log("selectedSentence", selectedSentence);
-  // console.log("sentence", sentence);
   const handleCheckAnswer = () => {
     const selectedSentence = selectedWords
       .map((index) => words[index])
       .join(" ")
       .trim();
 
-    // Normalize the sentence and selectedSentence by removing non-alphanumeric characters and converting to lowercase
     const normalizedSentence = sentence
       .replace(/[^a-zA-Z0-9]/g, "")
       .toLowerCase();
@@ -77,7 +93,6 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
 
     setIsCorrect(isEqual);
     setIsSubmit(true);
-
     setShowAnswers(true);
   };
 
@@ -90,56 +105,45 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   const handleNext = () => {
     setSelectedWords([]);
     setShowAnswers(false);
-    if (sentenceIndex + 1 < dataToRender.length) {
+    if (sentenceIndex + 1 < filteredSentences().length) {
       setSentenceIndex((prevIndex) => prevIndex + 1);
     }
   };
-
   useEffect(() => {
-    // Function to calculate navbar height based on viewport size
-    const calculateNavbarHeight = () => {
-      // Define your media query breakpoints here
-      const smallMobileBreakpoint = 376; // Adjust this as needed
+    calculateNavbarHeight(setNavbarHeight);
 
-      const mobileBreakpoint = 576; // Adjust this as needed
-      const tabletBreakpoint = 768; // Adjust this as needed
-      const laptopBreakpoint = 968; // Adjust this as needed
-
-      // Determine the navbar height based on viewport size
-      if (window.innerWidth < smallMobileBreakpoint) {
-        setNavbarHeight(6 * 16); //  Small Mobile navbar height
-      } else if (window.innerWidth < mobileBreakpoint) {
-        setNavbarHeight(7 * 16); // Mobile navbar height
-      } else if (window.innerWidth < tabletBreakpoint) {
-        setNavbarHeight(7 * 16); // Tablet navbar height
-      } else if (window.innerWidth < laptopBreakpoint) {
-        setNavbarHeight(10 * 16); // laptop navbar height
-      } else {
-        setNavbarHeight(13 * 16); // Default navbar height
-      }
+    const handleResize = () => {
+      calculateNavbarHeight(setNavbarHeight);
     };
 
-    // Initial calculation
-    calculateNavbarHeight();
+    window.addEventListener("resize", handleResize);
 
-    // Listen for window resize events to recalculate navbar height
-    window.addEventListener("resize", calculateNavbarHeight);
-
-    // Cleanup the event listener on component unmount
     return () => {
-      window.removeEventListener("resize", calculateNavbarHeight);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   useEffect(() => {
     if (isActive) {
-      // Use the scrollToContainer helper function
       scrollToContainer(buildBoxRef, navbarHeight);
     }
   }, [isActive, navbarHeight]);
-  const nextComponent = sentenceIndex === dataToRender.length - 1;
+
+  const nextComponent = sentenceIndex === filteredSentences().length - 1;
+
   return (
     <BuildBoxContainer ref={buildBoxRef}>
+      <Header>
+        <h4>{t("Construire la phrase")} </h4>
+        <span>
+          <h5>{t("Choisissez une catégorie")} </h5>
+          <CategorySelect
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </span>
+      </Header>
+
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
 
       <BuildBox>
@@ -323,4 +327,20 @@ export const BottomWord = styled.button`
 `;
 const Sentence = styled.p`
   display: none;
+`;
+const Header = styled.div`
+  /* display: flex; */
+  align-items: center;
+
+  gap: 1rem;
+  margin-bottom: 2rem;
+  /* height: 4rem; */
+  h4 {
+    text-align: center;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 `;

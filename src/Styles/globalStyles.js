@@ -406,6 +406,8 @@ export const TopicCard = styled.div`
   padding: 0 1rem;
   width: 335px;
   h3 {
+    /* width: 100%; */
+
     text-align: center;
     color: ${(props) => props.theme.primaryText};
 
@@ -425,6 +427,8 @@ export const TopicCard = styled.div`
     }
   }
   h4 {
+    text-align: left;
+
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"❔"' : '"❓"'};
@@ -437,6 +441,7 @@ export const TopicCard = styled.div`
     }
   }
   p {
+    text-align: left;
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};

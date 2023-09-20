@@ -16,11 +16,11 @@ const SideVocabularySection = ({
   isSubSectionOpen,
 }) => {
   const { t } = useTranslation();
-  console.log("vocabularyAspects", vocabularyAspects);
+  // console.log("vocabularyAspects", vocabularyAspects);
   return (
     <SidebarContainer>
       <SidbarTitle>
-        <SideBarLink to="/vocabulary">{t("Vocabulary")}</SideBarLink>
+        <SideBarLink to="/vocabulary">{t("Vocabulaire")}</SideBarLink>
       </SidbarTitle>
       {vocabularyAspects &&
         vocabularyAspects?.map((aspect, index) => {

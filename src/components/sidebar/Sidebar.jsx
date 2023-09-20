@@ -25,7 +25,7 @@ const Sidebar = () => {
     useSelector((state) => state.grammer.topicsByAspect) || {};
   const aspectList = useSelector((state) => state.grammer.aspectList) || [];
   const quizdata = useSelector((state) => state.grammer) || [];
-  console.log("quizdata", quizdata);
+  // console.log("quizdata", quizdata);
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 

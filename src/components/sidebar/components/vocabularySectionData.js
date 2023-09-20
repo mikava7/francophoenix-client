@@ -53,7 +53,7 @@ export const vocabularySectionData = {
       title: "Article Exercise",
       question: "Do you want to practice French word genders?",
       description: "Practice choosing the correct gender for French words.",
-      link: "/vocabulary/article-exercise",
+      link: "/vocabulary/exercise-article",
     },
     {
       title: "Verb Tense Exercise",
@@ -82,40 +82,42 @@ export const vocabularySectionData = {
   ],
   ka: [
     {
-      title: "Basic Vocabulary Topics",
-      question: "Do you want to learn the basics of vocabulary?",
-      description:
-        "Explore fundamental vocabulary lessons to build a strong foundation.",
+      title: "ლექსიკის ტოპიკები",
+      question:
+        "გინდა გაიმდიდრო ლექსიკის მარაგი? \nმაშინ ეს განყოფილება შენთვისაა.",
+      description: "ამ განყოფილებაში დაგხვდება ლექსიკის ყველა აუცილებელი თემა.",
       link: "/vocabulary/vocabulary-topics",
     },
     {
-      title: "Article Exercise",
-      question: "Do you want to practice French word genders?",
-      description: "Practice choosing the correct gender for French words.",
-      link: "/vocabulary/article-exercise",
+      title: "არტიკლის სავარჯიშო",
+      question:
+        "გერევა არსებითი სახელების სქესი? \nმაშინ ეს განყოფილება შენთვისაა.",
+      description: "ამ სავარჯიშოს საშუალებას მოგცემს გამოცადო შენი ცოდნა..",
+      link: "/vocabulary/exercise-article",
     },
     {
-      title: "Verb Tense Exercise",
-      question: "Do you want to practice verb tenses in French?",
-      description: "Practice choosing the correct verb tense forms in French.",
+      title: "ზმნების დროები",
+      question:
+        "გინდა დაუფლო ზმნების სწორ ხმარებას სხვადასხვა დროში?\nმაშინ ეს განყოფილება შენთვისაა.",
+      description:
+        "ამ სავარჯიშოს მიზანია დაგეხმაროს ზმნის სწორი ფორმის შერჩევაში სხადასხვა დროში.",
       link: "/vocabulary/verb-tense-exercise",
     },
     {
-      title: "Flashcards",
-      question: "Do you want to practice with flashcards?",
-      description: "Use flashcards to reinforce your vocabulary in French.",
+      title: "შენახული სიტყვები",
+      question:
+        "გინდა კარგად ისწავლო შენახული სიტყვები?\nმაშინ ეს განყოფილება შენთვისაა.",
+      description:
+        "ამ განყოფილებაში დაგხვდება სხვადასხვა სავარჯიშო არჩეული სიტყვების კარგად სასწავლად.",
       link: "/vocabulary/flashcards",
     },
+
     {
-      title: "Favorite Words",
-      question: "Do you want to see your favorite words?",
-      description: "View the list of your favorite words for review.",
-      link: "/vocabulary/favorite-words",
-    },
-    {
-      title: "Sentence Builder",
-      question: "Do you want to practice sentence construction?",
-      description: "Practice building sentences in French.",
+      title: "წინადების შედგენა",
+      question:
+        "გინდა ივარჯიშო წინადადების სწორად შედგენაში?\nმაშინ ეს განყოფილება შენთვისაა",
+      description:
+        "ამ სავარჯიშოში წინადადები არეულადაა მოცემული და შენი მიზანია სწორად დაალაგო ისინი.",
       link: "/vocabulary/sentence-builder",
     },
   ],
