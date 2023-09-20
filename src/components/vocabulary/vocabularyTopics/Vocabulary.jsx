@@ -30,11 +30,12 @@ const Vocabulary = () => {
 
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
+  // console.log("isGeorgian", isGeorgian);
   const secondLanguage = isGeorgian ? georgian : english;
   const selectedFlashcards = words?.map((wordObject) => ({
     word: wordObject?.french,
     definition: wordObject?.definition,
-    secondLanguage: secondLanguage ? wordObject?.georgian : wordObject?.english,
+    secondLanguage: isGeorgian ? wordObject.georgian : wordObject.english,
   }));
 
   // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);

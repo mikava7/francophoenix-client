@@ -12,10 +12,12 @@ import useListenWord from "../../../hooks/useListenWord";
 
 import { useTranslation } from "react-i18next";
 import Listen from "../../Listen";
+
 const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
   const { handleListen, isActiveStates } = useListenWord();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isGeorgian = i18n.language === "ka";
   const [currentIndex, setCurrentIndex] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [timer, setTimer] = useState(4);
@@ -23,11 +25,14 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
   const [showPause, setShowPause] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Add a state variable to track user's display choice
+  const [displayWord, setDisplayWord] = useState(true);
+
   const word = selectedFlashcards?.map((flashcard) => flashcard.word);
   const translation = selectedFlashcards?.map(
     (flashcard) => flashcard.secondLanguage
   );
-
+  // console.log("translation", translation);
   useEffect(() => {
     const interval = setInterval(() => {
       if (!showPause && !isPaused) {
@@ -64,6 +69,11 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
     setIsPaused(!isPaused);
   };
 
+  // Function to handle dropdown select change
+  const handleDisplayChange = (event) => {
+    setDisplayWord(event.target.value === "word");
+  };
+
   return (
     <Container>
       {showPause ? (
@@ -79,38 +89,77 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
       ) : (
         <>
           <WordBox>
+            <DisplaySelect onChange={handleDisplayChange}>
+              <option value="word">{t("Français")}</option>
+              <option value="translation">
+                {isGeorgian ? t("ქართული") : t("English")}
+              </option>
+            </DisplaySelect>
             <Word>
               <Timer>{timer}</Timer>
 
               <CurrentWord>
-                {word[currentIndex]}
                 <ListenIcon
-                  onClick={handleListen(word[currentIndex])} // Fixed
+                  onClick={handleListen(word[currentIndex])}
                   isActive={isActiveStates[currentIndex]}
                 >
                   <Listen />
                 </ListenIcon>
+                {displayWord ? word[currentIndex] : translation[currentIndex]}
               </CurrentWord>
             </Word>
             <TranslationBox style={{ filter: `blur(${blurLevel}px)` }}>
-              <Translation>{translation[currentIndex]}</Translation>
+              <Translation>
+                {displayWord ? translation[currentIndex] : word[currentIndex]}
+              </Translation>
             </TranslationBox>
           </WordBox>
+          <Button onClick={handlePause}>{isPaused ? "Resume" : "Pause"}</Button>
+
+          {/* Dropdown select to toggle between word and translation */}
         </>
       )}
-      <Button onClick={handlePause}>{isPaused ? "Resume" : "Pause"}</Button>
     </Container>
   );
 };
 
 export default BlurryVocabularyTrainer;
 
+// Styled components remain unchanged
+
+// Add a styled component for the dropdown select
+const DisplaySelect = styled.select`
+  margin-top: 1rem;
+  font-size: 1rem;
+  padding: 0.25rem;
+`;
 const Container = styled(FlexContainer)`
-  width: 99%;
   margin-top: 2rem;
   margin: 0 auto;
   overflow-x: hidden;
-  /* background: ${(props) => props.theme.secondaryBackground}; */
+  /* outline: 1px solid blue; */
+  align-self: center;
+  width: 370px;
+  @media (min-width: 416px) and (max-width: 541px) {
+    /* margin: 0; */
+    width: 360px;
+  }
+  @media (min-width: 394px) and (max-width: 415px) {
+    /* margin: 0; */
+    width: 345px;
+  }
+  @media (min-width: 360px) and (max-width: 393px) {
+    margin: 0;
+    width: 330px;
+  }
+  @media (min-width: 301px) and (max-width: 359px) {
+    width: 270px;
+    margin: 0;
+  }
+  @media (max-width: 300px) {
+    width: 240px;
+    margin: 0;
+  }
 `;
 
 const WordBox = styled.div`
@@ -134,6 +183,7 @@ const Word = styled.span`
   font-weight: bold;
   display: flex;
   align-items: center;
+  margin: 0 auto;
   justify-content: space-around;
   flex-direction: column;
   span {
@@ -144,16 +194,26 @@ const Word = styled.span`
 const CurrentWord = styled.span`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.21rem;
+  width: 90%;
+  padding: 0.2rem 0.4rem;
+  font-size: ${(props) => props.theme.extraLarge};
+  margin: 0 auto;
+  outline: 1px solid ${(props) => props.theme.highlight4};
+  background: ${(props) => props.theme.secondaryBackground};
+  justify-content: space-evenly;
 `;
 const TranslationBox = styled.div`
   width: 100%;
   height: 18rem;
+  border-radius: 50%;
+  /* margin: 1rem; */
   display: flex;
   flex-direction: column; /* Added this line */
   align-items: center;
   justify-content: center;
   background: ${(props) => props.theme.highlight2};
+  font-size: ${(props) => props.theme.medium};
 
   filter: ${(props) => `blur(${props.blurLevel}%)`}; /* Fix this line */
 `;
@@ -177,12 +237,15 @@ const PauseScreen = styled.div`
   align-items: center;
   justify-content: space-evenly;
   border: 2px solid black;
-  background: ${(props) => props.theme.tertiaryBackground};
+  background: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.text};
   font-size: 1.2rem;
   width: 100%;
+  outline: 1px solid red;
   height: 38rem;
   div {
+    text-align: center;
+    padding: 1rem;
     p {
       text-align: center;
       margin: 2rem;
@@ -194,5 +257,8 @@ const PauseScreen = styled.div`
   p {
     margin-bottom: 2rem;
     font-size: 2.2rem;
+  }
+  @media (min-width: 360px) and (max-width: 415px) {
+    width: 350px;
   }
 `;
