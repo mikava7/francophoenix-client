@@ -63,7 +63,9 @@ const GrammerTopicPage = () => {
         <h2>{t("Qu'est-ce que c'est ?")}</h2>
         {descriptionFr.map((description, index) => (
           <DescriptionBox key={index}>
-            <p>{description}</p>
+            {description.split("\n").map((text, i) => (
+              <p key={i}>{text}</p>
+            ))}
             <span>{secondLanguageDescription[index]}</span>
           </DescriptionBox>
         ))}

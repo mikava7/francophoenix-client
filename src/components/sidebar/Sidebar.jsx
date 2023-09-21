@@ -18,7 +18,7 @@ const Sidebar = () => {
 
   const allAspectsData =
     useSelector((state) => state.grammer.allAspectsData) || [];
-  console.log("allAspectsData", allAspectsData);
+  // console.log("allAspectsData", allAspectsData);
   // console.log("subTopicsByAspect", subTopicsByAspect);
 
   const isLoading = useSelector((state) => state.grammer.isLoading);
@@ -79,6 +79,7 @@ export const SideBarLink = styled(Link)`
 
 export const DropdownArrow = styled.span`
   margin-left: auto;
+  cursor: pointer;
 `;
 
 export const SidebarStyledUl = styled.div`

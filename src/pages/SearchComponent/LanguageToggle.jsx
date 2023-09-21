@@ -113,11 +113,11 @@ const French = styled.div`
   @media (max-width: 576px) {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
-    width: 4.4rem;
+    width: 5.2rem;
   }
   @media (max-width: 320px) {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    padding: 0.2rem 4rem;
   }
 `;
 const SecondLanguage = styled(French)`

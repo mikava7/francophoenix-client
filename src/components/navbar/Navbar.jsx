@@ -245,10 +245,13 @@ export const LocalizationContainer = styled.div`
   @media (max-width: 361px) {
     gap: 0.2rem;
 
-    & > :nth-child(2) {
+    & > :nth-child() {
       display: none;
     }
-    & > :nth-child(3) {
+    & > :nth-child(1) {
+      display: none;
+    }
+    & > :nth-child(4) 1
       display: none;
     }
   }

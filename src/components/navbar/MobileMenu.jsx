@@ -13,6 +13,15 @@ import { UserAvatar } from "../../pages/User/User";
 import userIcon from "../../icons/user-50.png";
 import Localization from "../../localization/Localization";
 import ThemeToggle from "../themeToggle/themeToggle";
+import { menuData } from "./menuData";
+import {
+  SubTopic,
+  SubTopicLink,
+  DropdownArrow,
+  SidebarStyledUl,
+} from "../sidebar/Sidebar";
+import ArrowRight from "../../../public/icons/arrow-to-right.png";
+
 const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const dispatch = useDispatch();
   // console.log("t", t);
@@ -21,7 +30,23 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const auth = useSelector((state) => state.auth.auth) || {};
   const id = auth.user?._id; // Use optional chaining to handle potential undefined values
   const username = auth.user?.username; // Use optional chaining to handle potential undefined values
+  const [isOpen, setIsOpen] = useState(false);
 
+  const [subCategoryOpen, setSubCategoryOpen] = useState({});
+
+  // Function to toggle the visibility of subcategories for a category
+  const toggleSubCategory = ({ e, categoryIndex }) => {
+    e.stopPropagation();
+
+    setSubCategoryOpen((prevState) => ({
+      ...prevState,
+      [categoryIndex]: !prevState[categoryIndex],
+    }));
+  };
+  const toggleSubItems = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
   // Function to close the menu
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -86,31 +111,40 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               </>
             )}
           </UserMobile>
-          <MenuLink to="/grammar/basic-grammar-lessons">
-            <li>{t("Grammaire")}</li>
-          </MenuLink>
-          <MenuLink to="/vocabulary/vocabulary-topics" onClick={closeMenu}>
-            <li>{t("Vocabulaire")}</li>
-          </MenuLink>
-          <MenuLink to="/reading-zone/french-easy-reading" onClick={closeMenu}>
-            <li>{t("Livres")}</li>
-          </MenuLink>
-          <MenuLink to="/dictionary" onClick={closeMenu}>
-            <li>{t("Dictionnaire")}</li>
-          </MenuLink>
-          <MenuLink to="/vocabulary/flashcards" onClick={closeMenu}>
-            <li>{t("Entraîneur de cartes mémoire")}</li>
-          </MenuLink>
-          <MenuLink to="/vocabulary/exercise-article" onClick={closeMenu}>
-            <li>{t("Exercice d'articles")}</li>
-          </MenuLink>
-          <MenuLink to="/vocabulary/verb-tense-exercise" onClick={closeMenu}>
-            <li>{t("Exercice de temps des verbes")}</li>
-          </MenuLink>
-          <MenuLink to="/vocabulary/sentence-builder" onClick={closeMenu}>
-            <li>{t("Construire des phrases")}</li>
-          </MenuLink>
-
+          <>
+            {menuData.map((menuItem, index) => (
+              <Category key={index}>
+                <div>
+                  <img src={ArrowRight} alt="ArrowRight" />
+                  <SubTopicLink to={menuItem.link}>
+                    {t(menuItem.title)}
+                  </SubTopicLink>
+                  {menuItem.subItems && menuItem.subItems.length > 0 && (
+                    <span
+                      onClick={(e) =>
+                        toggleSubCategory({ e, categoryIndex: index })
+                      }
+                    >
+                      {subCategoryOpen[index] ? "▲" : "▼"}
+                    </span>
+                  )}
+                </div>
+                {subCategoryOpen[index] &&
+                  menuItem.subItems &&
+                  menuItem.subItems.length > 0 && (
+                    <ul>
+                      {menuItem.subItems.map((subItem, subIndex) => (
+                        <SubTopic key={subIndex}>
+                          <SubTopicLink to={subItem.link}>
+                            {subItem.title}
+                          </SubTopicLink>
+                        </SubTopic>
+                      ))}
+                    </ul>
+                  )}
+              </Category>
+            ))}
+          </>
           <LastItem></LastItem>
         </MenuUl>
       </MenuToggle>
@@ -131,13 +165,14 @@ const MenuToggle = styled.div`
   position: relative;
   top: 5%;
   left: 8%;
+  /* color:red; */
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
 
   input {
     display: flex;
-    width: 40px;
+    width: 30px;
     height: 32px;
     position: absolute;
     cursor: pointer;
@@ -203,22 +238,6 @@ const MenuUl = styled.ul`
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  li {
-    padding: 0.4rem;
-
-    transition-delay: 2s;
-    margin: 1rem;
-
-    max-width: 380px;
-    outline: 2px solid ${(props) => props.theme.highlight4};
-    background-color: ${(props) => props.theme.secondaryBackground};
-    border-radius: 8px;
-
-    &:last-child {
-      /* margin-bottom: 3rem; */
-      outline: 2px solid ${(props) => props.theme.highlight3};
-    }
-  }
 `;
 const MenuLink = styled(Link)`
   text-decoration: none;
@@ -239,13 +258,13 @@ const LastItem = styled.li`
   background-color: ${(props) => props.theme.highlight4};
 `;
 
-const UserMobile = styled.li`
+const UserMobile = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background: ${(props) => props.theme.secondaryBackground};
-  outline: 2px solid red;
-  margin: 0 1rem;
+  /* outline: 2px solid red; */
+  /* margin: 0 1rem; */
   margin-bottom: 3rem;
 `;
 const UserMobileMenu = styled.div`
@@ -314,3 +333,26 @@ const UserImgAndName = styled.div`
   font-size: 1.2rem;
   /* overflow-x: hidden; */
 `;
+const Category = styled.div`
+  display: flex;
+  flex-direction: column;
+  div {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid ${(props) => props.theme.secondaryText};
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+`;
+const subCategory = styled(SubTopicLink)``;
