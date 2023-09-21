@@ -32,13 +32,12 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Check if the password is empty
-    if (password === "" || password.length < 4) {
-      // Set an error message for the password field
-      setPasswordError("Password cannot be empty");
-      passwordInputRef.current.focus();
-
-      return; // Don't proceed with the registration if the password is empty
+    console.log("password before if", password);
+    if (password === "" || password.length < 5) {
+      console.log("password in if", password);
+      // Display an error message to inform the user
+      alert(t("Le mot de passe doit comporter au moins 5 caractères"));
+      return; // Don't proceed with the registration if the password is invalid
     }
     // Create user data object
     const userData = {

@@ -93,7 +93,7 @@ const Home = () => {
 
       <Section>
         <TopOfCarousel>
-          <CarouselTitle>{t("Niveau A1")} </CarouselTitle>
+          <CarouselTitle>{t("Tous les livres")} </CarouselTitle>
           <SeeAllLink to="/books/level/a2-b1">{t("Tout afficher")}</SeeAllLink>
         </TopOfCarousel>
 
@@ -204,11 +204,13 @@ const CarouselTitle = styled.p`
   }
 `;
 
-const SeeAllLink = styled(StyledLink)`
+const SeeAllLink = styled(Link)`
   font-weight: bold;
-  font-size: 1.6rem;
-
-  color: ${(props) => props.theme.background};
+  font-size: 2rem;
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  color: white;
   &:hover {
     text-decoration: underline;
     text-decoration-color: ${(props) => props.theme.text};

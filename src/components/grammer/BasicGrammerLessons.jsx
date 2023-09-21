@@ -17,7 +17,7 @@ const BasicGrammerLessons = () => {
   const dispatch = useDispatch();
   const basicGrammerTopics =
     useSelector((state) => state.grammer.grammer) || [];
-  console.log("basicGrammerTopics", basicGrammerTopics);
+  // console.log("basicGrammerTopics",basicGrammerTopics)
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 
@@ -40,6 +40,7 @@ const BasicGrammerLessons = () => {
       {basicGrammerTopics &&
         basicGrammerTopics.map((topics) => {
           const { _id } = topics;
+          console.log("topics", topics);
           return (
             <StyledLink key={_id} to={`/grammar-basic/${_id}`}>
               <BasicGrammerTopic topics={topics} />

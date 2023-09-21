@@ -4,19 +4,18 @@ import styled from "styled-components";
 const BasicGrammerTopic = ({ topics }) => {
   const { i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  // console.log("topics in BasicGrammerTopic", topics);
-  if (!topics) {
+
+  if (!topics || !topics.title) {
     return null;
   }
 
-  const {
-    title: { titleFr, titleEng, titleGeo },
-  } = topics;
-  const secondLanguage = isGeorgian ? titleGeo : titleEng;
+  const secondLanguage = isGeorgian
+    ? topics.title.titleGeo
+    : topics.title.titleEng;
 
   return (
     <BasicGrammerContainer>
-      <h2>{titleFr}</h2>
+      <h2>{topics.title.titleFr}</h2>
       <h5>{secondLanguage}</h5>
     </BasicGrammerContainer>
   );

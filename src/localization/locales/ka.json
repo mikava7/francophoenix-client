@@ -111,5 +111,13 @@
   "Exercice de temps des verbes": "ზმნების დროები",
   "Construire des phrases": "წინადადების შედგენა",
   "Nom": "სახელი",
-  "Statut": "სტატუსი"
+  "Statut": "სტატუსი",
+  "Pseudonyme doit comporter au moins 3 caractères": "ფსევდონიმი უნდა შედგებოდეს სულ მცირე 3 სიმბოლოსგან",
+  "Le mot de passe doit comporter au moins 5 caractères": "პაროლი უნდა იყოს მინიმუმ 5 სიმბოლო",
+  "noun": "არსებითი სახელი",
+  "article": "არტიკლი",
+  "verb": "ზმნა",
+  "orthography": "ორთოგრაფია",
+  "phonology": "ფონოლოგია",
+  "Mémoriser des mots": "სიტყვების დამახსოვრება"
 }

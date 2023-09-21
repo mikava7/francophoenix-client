@@ -111,5 +111,8 @@
   "Exercice de temps des verbes": "Verb Tense Exercise",
   "Construire des phrases": "Sentence Builder",
   "Nom": "Name",
-  "Statut": "Status"
+  "Statut": "Status",
+  "Pseudonyme doit comporter au moins 3 caractères": "Username must be at least 3 characters long",
+  "Le mot de passe doit comporter au moins 5 caractères": "Password must be at least 5 characters long",
+  "Mémoriser des mots": "Memorizing words"
 }

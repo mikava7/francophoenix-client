@@ -42,7 +42,7 @@ const AccordionSection = ({
       </h2>
       {isOpen && (
         <SectionBox ref={sectionRef}>
-          {identifier === "Blury Trainer" && (
+          {identifier === "Mémoriser des mots" && (
             <BlurryVocabularyTrainer selectedFlashcards={selectedFlashcards} />
           )}
           {identifier === "Texte" && (

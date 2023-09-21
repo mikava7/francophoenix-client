@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import editIconBlue from "../../assets/icons/edit-32_blue.png";
 import editIconOrange from "../../assets/icons/edit-32_orange.png";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { FetchupdateUser } from "../../redux/slices/auth/userSlice";
+import { darkTheme } from "../../Styles/theme";
 const ProfilePage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const editIcon = theme === darkTheme ? editIconBlue : editIconOrange;
   const [newUsername, setNewUsername] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const auth = useSelector((state) => state.auth.auth) || {};
@@ -23,8 +27,15 @@ const ProfilePage = () => {
     }
   }, [user]);
   const handleEdit = () => {
-    console.log({ id, newUsername });
-    dispatch(FetchupdateUser({ id, newUsername }));
+    const trimmedNewUsername = newUsername.trim();
+    if (trimmedNewUsername.length < 3) {
+      // Display an error message to inform the user
+      alert(t("Pseudonyme doit comporter au moins 3 caractères"));
+      return;
+    }
+
+    console.log({ id, newUsername: trimmedNewUsername });
+    dispatch(FetchupdateUser({ id, newUsername: trimmedNewUsername }));
     setNewUsername("");
     setIsEditing(false);
   };
@@ -33,17 +44,17 @@ const ProfilePage = () => {
     <ProfileContainer>
       <ProfileHeader>
         <ProfileName>
-          <h3>{t("Nom")}</h3>
+          <h5>{t("Nom")}</h5>
           <p>
             {isEditing ? (
-              <input
+              <StyledInput
                 type="text"
-                placeholder="New userName"
+                placeholder="New username"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
               />
             ) : updatedUser ? (
-              updatedUser.username // Render updated username if available
+              updatedUser.username
             ) : (
               username
             )}
@@ -51,7 +62,7 @@ const ProfilePage = () => {
               <button onClick={handleEdit}>save</button>
             ) : (
               <EditIcon
-                src={editIconBlue}
+                src={editIcon}
                 alt="Edit Icon"
                 onClick={() => setIsEditing(true)}
               />
@@ -59,10 +70,16 @@ const ProfilePage = () => {
           </p>
         </ProfileName>
         {/* <ProfileEmail>{email}</ProfileEmail> */}
-        {t("Statut")}
-        <ProfileStatus>{role}</ProfileStatus>
+
+        <ProfileStatus>
+          {" "}
+          <span>{t("Statut")}:</span>
+          <span>{role}</span>
+        </ProfileStatus>
       </ProfileHeader>
-      <FlashcardLink to="/flashcards">Flashcard Words</FlashcardLink>
+      <FlashcardLink to="/vocabulary/flashcards">
+        {t("Entraîneur de cartes mémoire")}
+      </FlashcardLink>
     </ProfileContainer>
   );
 };
@@ -70,10 +87,13 @@ const ProfilePage = () => {
 export default ProfilePage;
 
 const ProfileContainer = styled.div`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
+  margin: 2rem;
   padding: 20px;
+  width: 350px;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px rgba(20, 12, 12, 0.2);
 `;
 
 const ProfileHeader = styled.div`
@@ -84,19 +104,29 @@ const ProfileHeader = styled.div`
 
 const ProfileName = styled.h2`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 24px;
+
+  gap: 1rem;
   margin-bottom: 10px;
+  h5 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    font-size: 1rem;
+    margin: 0;
+    &::after {
+      content: ":";
+    }
+  }
   p {
     display: flex;
-    /* gap: 1rem; */
-    /* align-items: center; */
   }
 `;
 
 const EditIcon = styled.img`
   width: 1rem;
+  height: 1rem;
+
   cursor: pointer;
 `;
 
@@ -108,12 +138,20 @@ const ProfileEmail = styled.p`
 const ProfileStatus = styled.p`
   font-size: 16px;
   margin-bottom: 20px;
+  gap: 1rem;
+  span {
+    margin-left: 0.5rem;
+    &:last-child {
+      font-weight: bold;
+    }
+  }
 `;
 
-const FlashcardLink = styled.a`
+const FlashcardLink = styled(Link)`
   display: block;
   text-align: center;
   background-color: #007bff;
+  cursor: pointer;
   color: #fff;
   padding: 10px;
   border-radius: 5px;
@@ -125,3 +163,4 @@ const FlashcardLink = styled.a`
     background-color: #0056b3;
   }
 `;
+const StyledInput = styled.input``;

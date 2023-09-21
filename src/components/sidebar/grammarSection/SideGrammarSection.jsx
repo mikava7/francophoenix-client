@@ -59,7 +59,7 @@ const SideGrammarSection = ({ allAspectsData }) => {
             <Section key={_id}>
               <TopicLink onClick={() => toggleSubSection(_id)}>
                 <SideBarLink to={`/grammar/${_id}`}>
-                  <span>{_id}</span>
+                  <span>{t(_id)}</span>
                 </SideBarLink>
 
                 <DropdownArrow>{isOpenAspect ? "▲" : "▼"}</DropdownArrow>
@@ -68,7 +68,7 @@ const SideGrammarSection = ({ allAspectsData }) => {
                 {titles?.map((title, subIndex) => (
                   <SubTopic key={subIndex}>
                     <img src={ArrowRight} alt="ArrowRight" />
-                    <SubTopicLink to={`/grammar-topics/${subtopics}`}>
+                    <SubTopicLink to={`/grammar-basic/${subtopics[subIndex]}`}>
                       {getTitleByLanguage(title)}
                     </SubTopicLink>
                   </SubTopic>

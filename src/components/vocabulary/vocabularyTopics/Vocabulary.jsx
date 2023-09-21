@@ -71,12 +71,14 @@ const Vocabulary = () => {
       </WordPairContainer>
       <TopicTextBox>
         <AccordionSection
-          type={t("Blury Trainer")}
-          identifier="Blury Trainer"
-          isOpen={openComponent === "Blury Trainer"}
+          type={t("Mémoriser des mots")}
+          identifier="Mémoriser des mots"
+          isOpen={openComponent === "Mémoriser des mots"}
           onToggle={() =>
             setOpenComponent(
-              openComponent === "Blury Trainer" ? null : "Blury Trainer"
+              openComponent === "Mémoriser des mots"
+                ? null
+                : "Mémoriser des mots"
             )
           }
           selectedFlashcards={selectedFlashcards}

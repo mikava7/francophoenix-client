@@ -93,7 +93,7 @@ const Login = () => {
         <FormButton type="submit" disabled={isLoading}>
           {isLoading ? `${t("Chargement")}...` : t("Connexion")}
         </FormButton>
-        <SocialButtons>
+        {/* <SocialButtons>
           <Faceebook>
             <img src={facebookIcon} alt="facebookIcon" />
             <span>Connect with Facebook</span>
@@ -101,7 +101,7 @@ const Login = () => {
           <Google>
             <img src={googeSingIn} alt="googleSignIn" />
           </Google>
-        </SocialButtons>
+        </SocialButtons> */}
         <FormContainerApendix>
           {" "}
           {t("Pas de compte?")}
