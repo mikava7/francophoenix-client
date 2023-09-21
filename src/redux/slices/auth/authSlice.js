@@ -1,10 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
+import Cookies from "js-cookie"; // Import the cookie library (e.g., js-cookie)
+const checkAuthStatus = () => {
+  const token = Cookies.get("authToken"); // Get the authentication token from a cookie
+
+  return {
+    isLoading: false,
+    error: null,
+    user: null,
+    isAuthenticated: !!token, // Check if the token exists
+  };
+};
+
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData) => {
     try {
       const response = await axiosInstance.post("/auth/login", userData);
+      console.log("response data in login slice", response.data);
+      const { accessToken } = response.data;
+      Cookies.set("authToken", accessToken);
+
       return response.data;
     } catch (error) {
       throw new Error(
@@ -17,8 +33,9 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk("auth/logoutUser", async (id) => {
   try {
     // Make a request to your backend logout endpoint
-    console.log("userId in slice", id);
+    // console.log("userId in slice", id);
     await axiosInstance.post("/auth/logout", { id });
+    Cookies.remove("authToken");
 
     // Clear the JWT token or user-related data from the client-side, if needed
 
@@ -27,13 +44,7 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async (id) => {
     throw error; // Let the error propagate to be handled by rejected action
   }
 });
-const initialState = {
-  isLoading: false,
-  error: null,
-  user: null,
-  isAuthenticated: false,
-};
-
+const initialState = checkAuthStatus();
 const authSlice = createSlice({
   name: "auth",
   initialState,
