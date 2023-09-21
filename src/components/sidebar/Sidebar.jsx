@@ -1,92 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import {
-  fetchByAspect,
-  fetchAspectList,
-  fetchGrammer,
-} from "../../redux/slices/grammer/grammerSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { fetchAllAspectsData } from "../../redux/slices/grammer/grammerSlice";
 import Loading from "../loading/Loading";
 import ErrorMessage from "../Utility/ErrorMessage";
+import { Link } from "react-router-dom";
 import SideGrammarSection from "./grammarSection/SideGrammarSection";
 import SideVocabularySection from "./vocabularySection/SideVocabularySection";
 import { vocabularySectionData } from "./components/vocabularySectionData";
+
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const [selectedSubSection, setSelectedSubSection] = useState(null);
-  const [selectedSubSectionTopics, setSelectedSubSectionTopics] = useState([]);
   const [isSubSectionExpanded, setIsSubSectionExpanded] = useState({});
 
-  const subTopicsByAspect =
-    useSelector((state) => state.grammer.topicsByAspect) || {};
-  const aspectList = useSelector((state) => state.grammer.aspectList) || [];
-  const quizdata = useSelector((state) => state.grammer) || [];
-  // console.log("quizdata", quizdata);
+  const allAspectsData =
+    useSelector((state) => state.grammer.allAspectsData) || [];
+  console.log("allAspectsData", allAspectsData);
+  // console.log("subTopicsByAspect", subTopicsByAspect);
+
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 
-  const fetchSubTopicsByAspect = (aspect) => {
-    dispatch(fetchByAspect(aspect)); // Dispatch the fetchByAspect action
-  };
   useEffect(() => {
-    dispatch(fetchAspectList());
-  }, []);
-
-  const toggleSubSection = (subSectionTitle) => {
-    if (!subTopicsByAspect[subSectionTitle]) {
-      // console.log(subSectionTitle);
-
-      dispatch(fetchSubTopicsByAspect(subSectionTitle));
-    }
-    setIsSubSectionExpanded((prevState) => ({
-      ...prevState,
-      [subSectionTitle]: !prevState[subSectionTitle],
-    }));
-  };
+    dispatch(fetchAllAspectsData());
+    // dispatch(fetchGrammer());
+  }, [dispatch]);
 
   const isSubSectionOpen = (subSectionTitle) => {
     return isSubSectionExpanded[subSectionTitle];
   };
-  useEffect(() => {
-    dispatch(fetchGrammer);
-  }, []);
-  const uniqueValues = aspectList.map((aspect) => aspect.grammarAspect);
-  const sideBarItems = [
-    "Verbe",
-    "Nom",
-    "Adjectif",
-    "Adverbe",
-    "Pronom",
-    "Préposition",
-    "Conjonction",
-    "Interjection",
-  ];
-
-  // console.log("uniqueValues", uniqueValues);
-  // console.log("subTopicsByAspect", subTopicsByAspect);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <ErrorMessage error={error} />;
-  }
   return (
     <>
       <SideGrammarSection
-        uniqueValues={uniqueValues}
-        subTopicsByAspect={subTopicsByAspect}
-        toggleSubSection={toggleSubSection}
-        isSubSectionOpen={isSubSectionOpen}
+        allAspectsData={allAspectsData}
+        isSubSectionOpen={isSubSectionOpen} // Pass isSubSectionOpen here
       />
+
       <SideVocabularySection
         vocabularyAspects={vocabularySectionData[i18n.language]}
-        toggleSubSection={toggleSubSection}
-        isSubSectionOpen={isSubSectionOpen}
+        isSubSectionExpanded={isSubSectionExpanded}
       />
     </>
   );
@@ -149,6 +104,7 @@ export const SubTopic = styled.li`
   cursor: pointer;
   position: relative;
   padding: 0.4rem 0.4rem 0 0.4rem;
+  max-width: 300px;
   img {
     max-width: 20px;
     max-height: 20px;

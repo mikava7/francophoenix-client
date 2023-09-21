@@ -17,6 +17,7 @@ const BasicGrammerLessons = () => {
   const dispatch = useDispatch();
   const basicGrammerTopics =
     useSelector((state) => state.grammer.grammer) || [];
+  console.log("basicGrammerTopics", basicGrammerTopics);
   const isLoading = useSelector((state) => state.grammer.isLoading);
   const error = useSelector((state) => state.grammer.error);
 

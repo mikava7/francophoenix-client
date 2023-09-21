@@ -28,12 +28,7 @@ export const vocabularySectionData = {
         "Utilisez des flashcards pour renforcer votre vocabulaire en français.",
       link: "/vocabulary/flashcards",
     },
-    {
-      title: "Mots favoris",
-      question: "Voulez-vous voir vos mots favoris ?",
-      description: "Consultez la liste de vos mots favoris pour les réviser.",
-      link: "/vocabulary/favorite-words",
-    },
+
     {
       title: "Construire des phrases",
       question: "Voulez-vous pratiquer la construction de phrases ?",
@@ -67,12 +62,7 @@ export const vocabularySectionData = {
       description: "Use flashcards to reinforce your vocabulary in French.",
       link: "/vocabulary/flashcards",
     },
-    {
-      title: "Favorite Words",
-      question: "Do you want to see your favorite words?",
-      description: "View the list of your favorite words for review.",
-      link: "/vocabulary/favorite-words",
-    },
+
     {
       title: "Sentence Builder",
       question: "Do you want to practice sentence construction?",
@@ -113,7 +103,7 @@ export const vocabularySectionData = {
     },
 
     {
-      title: "წინადების შედგენა",
+      title: "წინადადების შედგენა",
       question:
         "გინდა ივარჯიშო წინადადების სწორად შედგენაში?\nმაშინ ეს განყოფილება შენთვისაა",
       description:

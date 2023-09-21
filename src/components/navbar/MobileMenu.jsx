@@ -86,25 +86,31 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               </>
             )}
           </UserMobile>
-
           <MenuLink to="/grammar/basic-grammar-lessons">
             <li>{t("Grammaire")}</li>
           </MenuLink>
           <MenuLink to="/vocabulary/vocabulary-topics" onClick={closeMenu}>
             <li>{t("Vocabulaire")}</li>
           </MenuLink>
-
           <MenuLink to="/reading-zone/french-easy-reading" onClick={closeMenu}>
             <li>{t("Livres")}</li>
           </MenuLink>
-
           <MenuLink to="/dictionary" onClick={closeMenu}>
             <li>{t("Dictionnaire")}</li>
           </MenuLink>
-
           <MenuLink to="/vocabulary/flashcards" onClick={closeMenu}>
             <li>{t("Entraîneur de cartes mémoire")}</li>
           </MenuLink>
+          <MenuLink to="/vocabulary/exercise-article" onClick={closeMenu}>
+            <li>{t("Exercice d'articles")}</li>
+          </MenuLink>
+          <MenuLink to="/vocabulary/verb-tense-exercise" onClick={closeMenu}>
+            <li>{t("Exercice de temps des verbes")}</li>
+          </MenuLink>
+          <MenuLink to="/vocabulary/sentence-builder" onClick={closeMenu}>
+            <li>{t("Construire des phrases")}</li>
+          </MenuLink>
+
           <LastItem></LastItem>
         </MenuUl>
       </MenuToggle>

@@ -21,6 +21,22 @@ export const fetchGrammer = createAsyncThunk(
   }
 );
 
+export const fetchAllAspectsData = createAsyncThunk(
+  "grammer/fetchAllAspectsData",
+  async () => {
+    try {
+      const response = await axiosInstance.get("/grammar/getAllAspects");
+      const data = response.data;
+
+      // Save data to local storage
+      localStorage.setItem("grammerData", JSON.stringify(data));
+
+      return data;
+    } catch (error) {
+      throw Error("Failed to fetch grammer lessons");
+    }
+  }
+);
 export const fetchByAspect = createAsyncThunk(
   "grammer/fetchByAspect",
   async (aspect) => {
@@ -33,27 +49,13 @@ export const fetchByAspect = createAsyncThunk(
     }
   }
 );
-
-export const fetchAspectList = createAsyncThunk(
-  "grammer/fetchAspectList",
-  async () => {
-    try {
-      const response = await axiosInstance.get("/grammar/all-aspect");
-      return response.data;
-    } catch (error) {
-      throw Error("Failed to fetch grammer lessons");
-    }
-  }
-);
-
 const initialState = {
   quizData: [],
+  allAspectsData: loadFromLocalStorage() || [],
   topicsByAspect: {},
-  aspectList: [],
-
   isLoading: false,
   error: null,
-  grammer: loadFromLocalStorage() || [], // Load data from local storage
+  grammer: loadFromLocalStorage() || [],
 };
 
 const grammerSlice = createSlice({
@@ -85,14 +87,15 @@ const grammerSlice = createSlice({
       .addCase(fetchByAspect.rejected, (state, action) => {
         state.error = action.error.message;
       })
-      .addCase(fetchAspectList.pending, (state) => {
+
+      .addCase(fetchAllAspectsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchAspectList.fulfilled, (state, action) => {
-        state.aspectList = action.payload;
+      .addCase(fetchAllAspectsData.fulfilled, (state, action) => {
+        state.allAspectsData = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchAspectList.rejected, (state, action) => {
+      .addCase(fetchAllAspectsData.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

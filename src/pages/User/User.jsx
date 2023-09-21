@@ -15,6 +15,7 @@ const User = () => {
   const isLoading = useSelector((state) => state.auth.isLoading);
 
   const auth = useSelector((state) => state.auth.auth) || {};
+  console.log("auth", auth);
   const username = auth.user?.username; // Use optional chaining to handle potential undefined values
   const id = auth.user?._id; // Use optional chaining to handle potential undefined values
 
@@ -56,7 +57,7 @@ const User = () => {
             {isAuthenticated ? (
               <>
                 <DropdownItem>
-                  <StyledProfileLink to="/">
+                  <StyledProfileLink to="/profile-page">
                     {t("Profil")}
                     <UserAvatar>
                       {/* Display user avatar icon here */}

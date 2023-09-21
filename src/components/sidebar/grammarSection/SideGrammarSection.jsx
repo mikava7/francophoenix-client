@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   SidebarContainer,
@@ -18,42 +18,58 @@ import ArrowRightLight from "../../../../public/icons/arrow-to-right-light.png";
 
 import { useTheme } from "styled-components";
 
-const SideGrammarSection = ({
-  uniqueValues,
-  subTopicsByAspect,
-  toggleSubSection,
-  isSubSectionOpen,
-}) => {
-  const { t } = useTranslation();
+const SideGrammarSection = ({ allAspectsData }) => {
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const arrowImage = theme === darkTheme ? ArrowRightLight : ArrowRight;
-  // console.log("uniqueValues in grammer", uniqueValues);
-  // console.log("subTopicsByAspect in grammer", subTopicsByAspect);
+
+  const [isOpen, setIsOpen] = useState({});
+
+  const getTitleByLanguage = (titleObject) => {
+    switch (i18n.language) {
+      case "fr":
+        return titleObject.titleFr;
+      case "ka":
+        return titleObject.titleGeo;
+      case "en":
+        return titleObject.titleEng;
+      default:
+        return titleObject.titleFr; // Default to French
+    }
+  };
+
+  const toggleSubSection = (aspect) => {
+    setIsOpen((prevState) => ({
+      ...prevState,
+      [aspect]: !prevState[aspect],
+    }));
+  };
 
   return (
     <SidebarContainer>
       <SidbarTitle>
-        <SideBarLink to="/grammar">{t("Grammar")}</SideBarLink>
+        <SideBarLink to="/grammar">{t("Grammaire")}</SideBarLink>
       </SidbarTitle>
-      {uniqueValues &&
-        uniqueValues?.map((aspect, index) => {
+      {allAspectsData &&
+        allAspectsData.map((aspectData, index) => {
+          const { _id, titles, subtopics } = aspectData;
+          const isOpenAspect = isOpen[_id];
+
           return (
-            <Section key={index}>
-              <TopicLink onClick={() => toggleSubSection(aspect)}>
-                <SideBarLink to={`/grammar/${aspect}`}>
-                  <span>{aspect.toUpperCase()}</span>
+            <Section key={_id}>
+              <TopicLink onClick={() => toggleSubSection(_id)}>
+                <SideBarLink to={`/grammar/${_id}`}>
+                  <span>{_id}</span>
                 </SideBarLink>
 
-                <DropdownArrow>
-                  {isSubSectionOpen(aspect) ? "▲" : "▼"}
-                </DropdownArrow>
+                <DropdownArrow>{isOpenAspect ? "▲" : "▼"}</DropdownArrow>
               </TopicLink>
-              <SidebarStyledUl show={isSubSectionOpen(aspect)}>
-                {subTopicsByAspect[aspect]?.map((subTopic, subIndex) => (
+              <SidebarStyledUl show={isOpenAspect}>
+                {titles?.map((title, subIndex) => (
                   <SubTopic key={subIndex}>
                     <img src={ArrowRight} alt="ArrowRight" />
-                    <SubTopicLink to={`/grammar-topics/${subTopic._id}`}>
-                      {subTopic.title.titleFr}
+                    <SubTopicLink to={`/grammar-topics/${subtopics}`}>
+                      {getTitleByLanguage(title)}
                     </SubTopicLink>
                   </SubTopic>
                 ))}

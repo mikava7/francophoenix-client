@@ -42,7 +42,7 @@ import AspectTopicPage from "./components/grammer/AspectTopics/AspectTopicPage";
 import Layout from "./layout/Layout";
 import Register from "./pages/User/Register";
 import Login from "./pages/User/Login";
-
+import ProfilePage from "./pages/User/ProfilePage";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -68,6 +68,7 @@ function App() {
           <Route path="/books/level/b1-b2" element={<B1B2Books />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile-page" element={<ProfilePage />} />
 
           {/**8//////////////////////////////////////// */}
           <Route element={<Layout />}>
