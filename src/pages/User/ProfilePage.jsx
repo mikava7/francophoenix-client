@@ -7,6 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { FetchupdateUser } from "../../redux/slices/auth/userSlice";
 import { darkTheme } from "../../Styles/theme";
+import Logout from "../../components/Utility/Logout";
+import { logoutUser } from "../../redux/slices/auth/authSlice";
+
 const ProfilePage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -20,7 +23,6 @@ const ProfilePage = () => {
   const id = auth.user?._id; // Use optional chaining to handle potential undefined values
   const user = useSelector((state) => state.user.user);
   const updatedUser = user.updatedUser;
-
   useEffect(() => {
     if (user) {
       setNewUsername(user.username);
@@ -34,10 +36,15 @@ const ProfilePage = () => {
       return;
     }
 
-    console.log({ id, newUsername: trimmedNewUsername });
+    // console.log({ id, newUsername: trimmedNewUsername });
     dispatch(FetchupdateUser({ id, newUsername: trimmedNewUsername }));
     setNewUsername("");
     setIsEditing(false);
+  };
+
+  const handleLogout = () => {
+    // Dispatch the logout action
+    dispatch(logoutUser(id));
   };
   //   console.log("auth", auth);
   return (
@@ -77,6 +84,7 @@ const ProfilePage = () => {
           <span>{role}</span>
         </ProfileStatus>
       </ProfileHeader>
+      <Logout handleLogout={handleLogout} />
       <FlashcardLink to="/vocabulary/flashcards">
         {t("Entraîneur de cartes mémoire")}
       </FlashcardLink>

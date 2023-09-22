@@ -46,7 +46,7 @@ const Home = () => {
 
   const handleLanguagePopupClose = (language) => {
     setShowLanguagePopup(false);
-    console.log("language", language);
+    // console.log("language", language);
     localStorage.setItem("languageSelected", language);
     setLanguageSelected(true);
     // Change the language in i18n immediately
@@ -140,7 +140,8 @@ const WellcomeSection = styled.div`
   max-height: 100%;
 `;
 const Section = styled.div`
-  background-image: url("/icons/tex.avif");
+  background-image: url("src/assets/icons/tex.avif");
+
   background-repeat: repeat-x;
   margin: 0 2rem;
 

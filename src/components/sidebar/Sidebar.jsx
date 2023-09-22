@@ -34,14 +34,13 @@ const Sidebar = () => {
   };
   return (
     <>
-      <SideGrammarSection
-        allAspectsData={allAspectsData}
-        isSubSectionOpen={isSubSectionOpen} // Pass isSubSectionOpen here
-      />
-
       <SideVocabularySection
         vocabularyAspects={vocabularySectionData[i18n.language]}
         isSubSectionExpanded={isSubSectionExpanded}
+      />
+      <SideGrammarSection
+        allAspectsData={allAspectsData}
+        isSubSectionOpen={isSubSectionOpen} // Pass isSubSectionOpen here
       />
     </>
   );
@@ -106,6 +105,7 @@ export const SubTopic = styled.li`
   position: relative;
   padding: 0.4rem 0.4rem 0 0.4rem;
   max-width: 300px;
+
   img {
     max-width: 20px;
     max-height: 20px;

@@ -159,10 +159,10 @@ export const grammarTopicsDescriptions = {
   ],
   ka: [
     {
-      title: "Basic Grammar Lessons",
-      question: "Do you want to learn the basics of grammar?",
+      title: "გრამატიკის საბაზისო გაკვეთილები",
+      question: "გინდა დაიწყო გრამატიკის შესწავლა?",
       description:
-        "Explore fundamental grammar lessons to build a strong foundation.",
+        "მაშინ ეს განყოფილება შენთვისაა. აქ თავმოყრილია გრამატიკის საბაზისო თემები.",
       link: "/grammar/basic-grammar-lessons",
     },
     {

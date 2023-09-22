@@ -21,7 +21,7 @@ const ExploreOptions = () => {
 
   return (
     <ExploreOptionsContainer>
-      <Header>Parlez-vous français?</Header>
+      <Header>{t("Parlez-vous français?")}</Header>
       <CardContainer>
         {dataToRender.map((data) => {
           const {

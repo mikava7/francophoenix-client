@@ -18,8 +18,6 @@ const Vocabularies = () => {
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
 
-  // console.log("topicNames", topicNames);
-  // console.log("topicNames", topicNames);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
 
@@ -35,10 +33,11 @@ const Vocabularies = () => {
   }
   return (
     <VocabularyContainer>
+      <h1>{t("ფრანგული ლექსიკა")} </h1>
       {topicNames.map((topic) => (
         <LocalStyledLink to={`/vocabulary-topics/${topic._id}`} key={topic._id}>
           <TopicCardContainer>
-            <TopicImage src={topic.imageUrl} alt="Topic" />
+            <TopicImage src={topic.imageUrl} alt="French Vocabulary Topic" />
             <WordsCount>
               <TopicTitle>{topic.topic}</TopicTitle>
               <TopicSecondTitle>
@@ -60,12 +59,14 @@ export default Vocabularies;
 
 const VocabularyContainer = styled.ul`
   display: flex;
-  margin: 0 auto;
-  margin-top: 3rem;
   align-items: center;
-  width: 90%;
-  /* outline: 2px solid red; */
+
+  max-width: 100%;
+
   flex-wrap: wrap;
+  h1 {
+    margin: 0 auto;
+  }
 `;
 
 const LocalStyledLink = styled(Link)`
@@ -93,6 +94,7 @@ const TopicCardContainer = styled.div`
     outline: 2px solid ${(props) => props.theme.secondaryText};
     box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
     transform: scale(1.02);
+    outline: none;
   }
 
   @media (min-width: 768px) and (max-width: 920px) {
@@ -109,7 +111,10 @@ const TopicCardContainer = styled.div`
   }
 
   @media (max-width: 392px) {
+    display: flex;
+
     margin: 1rem auto;
+    padding: 0;
     max-width: 280px;
   }
   @media (max-width: 348px) {
@@ -117,7 +122,6 @@ const TopicCardContainer = styled.div`
     max-width: 240px;
   }
   @media (max-width: 313px) {
-    margin: 1rem auto;
     max-width: 210px;
   }
 `;
@@ -127,6 +131,7 @@ const TopicImage = styled.img`
   height: 50%; /* Adjust this value to set the desired image height */
   overflow: hidden;
   object-fit: cover;
+  background: white;
   margin-bottom: 8px;
   border-radius: 8px 8px 0 0;
 `;
@@ -134,6 +139,7 @@ const TopicImage = styled.img`
 const TopicTitle = styled.h3`
   /* font-size: 20px; */
   margin: 0;
+  padding: 0 0.4rem;
   line-height: ${(props) => props.theme.smallLineHeight};
   margin-bottom: 8px;
 `;

@@ -7,6 +7,7 @@ import userIcon from "../../icons/user-50.png";
 import { StyledLink, Button } from "../../Styles/globalStyles";
 import Loading from "../../components/loading/Loading";
 import { useTranslation } from "react-i18next";
+import Logout from "../../components/Utility/Logout";
 const User = () => {
   const { t } = useTranslation();
 
@@ -26,7 +27,6 @@ const User = () => {
   };
 
   const handleLogout = () => {
-    // Dispatch the logout action
     dispatch(logoutUser(id));
   };
   if (isLoading) {
@@ -65,9 +65,7 @@ const User = () => {
                     </UserAvatar>
                   </StyledProfileLink>
                 </DropdownItem>
-                <DropdownItem>
-                  <Button onClick={handleLogout}> {t("Se déconnecter")}</Button>
-                </DropdownItem>
+                <Logout handleLogout={handleLogout} />
               </>
             ) : (
               <>
@@ -138,10 +136,7 @@ const DropdownList = styled.ul`
 const DropdownItem = styled.li`
   padding: 10px;
   cursor: pointer;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
+  width: 100%;
 `;
 const StyledProfileLink = styled(StyledLink)`
   display: flex;

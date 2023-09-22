@@ -19,9 +19,10 @@ import {
   SubTopicLink,
   DropdownArrow,
   SidebarStyledUl,
+  SideBarLink,
 } from "../sidebar/Sidebar";
 import ArrowRight from "../../assets/icons/arrow-to-right.png";
-
+import Logout from "../Utility/Logout";
 const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const dispatch = useDispatch();
   // console.log("t", t);
@@ -77,8 +78,8 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
             </LocalAndThemeBox>
 
-            <UserMobileMenu>
-              <UserAvatar>
+            <div>
+              <DropdownItem>
                 {isAuthenticated ? (
                   <UserBox>
                     <UserImgAndName>
@@ -86,15 +87,12 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
 
                       {username}
                     </UserImgAndName>
-                    <button onClick={handleLogout}>
-                      {t("Se déconnecter")}
-                    </button>
                   </UserBox>
                 ) : (
                   t("Pas connecté")
                 )}
-              </UserAvatar>
-            </UserMobileMenu>
+              </DropdownItem>
+            </div>
             {!isAuthenticated && (
               <>
                 <MobileFormContainerApendix>
@@ -136,7 +134,7 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
                       {menuItem.subItems.map((subItem, subIndex) => (
                         <SubTopic key={subIndex}>
                           <SubTopicLink to={subItem.link}>
-                            {subItem.title}
+                            {t(subItem.title)}
                           </SubTopicLink>
                         </SubTopic>
                       ))}
@@ -145,6 +143,12 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
               </Category>
             ))}
           </>
+          {isAuthenticated && (
+            <LogoutConainer>
+              <Logout handleLogout={handleLogout} />
+            </LogoutConainer>
+          )}
+
           <LastItem></LastItem>
         </MenuUl>
       </MenuToggle>
@@ -268,47 +272,46 @@ const UserMobile = styled.div`
   margin-bottom: 3rem;
 `;
 const UserMobileMenu = styled.div`
-  outline: 6px solid ${(props) => props.theme.secondaryBackground};
+  /* outline: 6px solid ${(props) => props.theme.secondaryBackground};
   display: flex;
   align-items: center;
   justify-content: space-between;
   /* outline: 2px solid blue; */
   /* margin: 0 auto; */
-  width: 17rem;
+  /* width: 17rem;
   height: 3rem;
   margin-bottom: 1rem;
   padding: 0.4rem;
   background: ${(props) => props.theme.tertiaryBackground};
   @media (max-width: 359px) {
     width: 12rem;
-  }
+  } */
 `;
-const UserBox = styled.div`
-  width: 100%;
-  outline: 2px solid green;
-  background-color: ${(props) => props.theme.highlight4};
-
-  /* padding: 0.4rem 0.8rem; */
+const DropdownItem = styled.div`
+  padding: 1rem;
+  margin: 1rem;
+  width: 24rem;
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* outline: 1px solid red; */
-  img {
-    max-width: 2rem;
-    padding: 0.4rem;
-    border-radius: 50%;
-  }
-  button {
-    width: 8rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.4rem;
-    margin-left: 5rem;
-
-    background-color: ${(props) => props.theme.highlight4};
-
-    cursor: pointer;
-  }
+  background: ${(props) => props.theme.tertiaryBackground};
 `;
+
+const UserBox = styled.div`
+  width: 100%;
+  /* background: blue; */
+
+  display: flex;
+`;
+
+const UserImgAndName = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Add some space between the image and the username */
+  /* background: white; */
+`;
+
 const LocalAndThemeBox = styled.div`
   width: 18rem;
   display: flex;
@@ -318,21 +321,18 @@ const LocalAndThemeBox = styled.div`
 const MobileFormContainerApendix = styled(FormContainerApendix)`
   display: flex;
   flex-direction: column;
+  max-width: 25rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  background: ${(props) => props.theme.primaryBackground};
+  padding-bottom: 0.5rem;
+  padding: 0.5rem;
 `;
 const MobileSignLink = styled(SignLink)`
   margin-right: 2rem;
   margin-left: auto;
+`;
 
-  /* max-width: 100%; */
-  /* border: 2px solid red; */
-`;
-const UserImgAndName = styled.div`
-  max-width: 100%;
-  display: flex;
-  align-items: center;
-  font-size: 1.2rem;
-  /* overflow-x: hidden; */
-`;
 const Category = styled.div`
   display: flex;
   flex-direction: column;
@@ -340,6 +340,7 @@ const Category = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid ${(props) => props.theme.secondaryText};
+    max-width: 27rem;
   }
   ul {
     display: flex;
@@ -355,4 +356,11 @@ const Category = styled.div`
     cursor: pointer;
   }
 `;
-const subCategory = styled(SubTopicLink)``;
+
+const subCategory = styled(SubTopicLink)`
+  margin-left: -3rem;
+  border: 1px solid red;
+`;
+const LogoutConainer = styled.div`
+  margin-top: 2rem;
+`;

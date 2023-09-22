@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 const slideOut = keyframes`
   0% {
     transform: translateY(100%);
@@ -17,6 +17,7 @@ const slideOut = keyframes`
 `;
 
 const Carousel = ({ books }) => {
+  const { t } = useTranslation();
   const slidesToShow = () => {
     const containerWidth = window.innerWidth;
     if (containerWidth >= 1200) return 5;
@@ -65,7 +66,7 @@ const Carousel = ({ books }) => {
         <BookCard key={book._id}>
           <BookImage src={book.poster} alt={book.title} />
           <Link to={`books/${book._id}`}>
-            <ReadExtract>Read Extract</ReadExtract>
+            <ReadExtract>{t("Lire Extrait")}</ReadExtract>
           </Link>
         </BookCard>
       ))}
@@ -79,7 +80,7 @@ const ReadExtract = styled.span`
   bottom: 0;
   left: 0;
   right: 0;
-  background: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.highlight5};
   color: ${(props) => props.theme.background};
   padding: 8px;
   text-align: center;
