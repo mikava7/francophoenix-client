@@ -5,7 +5,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from "../../redux/slices/favorites/addToFavorite";
-import FavoriteIMG from "../../../public/icons/starFilled.png";
+import FavoriteIMG from "../../assets/icons/starFilled.png";
 import styled from "styled-components";
 
 const AddToFavorites = ({ word, secondLanguage, definition }) => {

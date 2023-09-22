@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 // import FrenchFlag from '../../public'
-import FrenchFlag from "../../public/icons/french-flag-48.png";
+import FrenchFlag from "../assets/icons/french-flag-48.png";
 
-import GeorgianFlag from "../../public/icons/georgia-48.png";
-import EnglishFlag from "../../public/icons/usa-flag-48.png";
+import GeorgianFlag from "../assets/icons/georgia-48.png";
+import EnglishFlag from "../assets/icons/usa-flag-48.png";
 const Localization = () => {
   const { i18n } = useTranslation();
 

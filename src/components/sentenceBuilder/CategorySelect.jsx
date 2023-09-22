@@ -7,7 +7,7 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
-  height: 3rem;
+  height: 2.8rem;
   outline: none;
 `;
 

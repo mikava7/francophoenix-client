@@ -5,7 +5,7 @@ import Loading from "../../../loading/Loading";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import ChevronDown from "../../../../../public/icons/chevron-down-24.png";
+import ChevronDown from "../../../../assets/icons/chevron-down-24.png";
 import Listen from "../../../Listen";
 import VocabularyPage from "../VocabularyPage/VocabularyPage";
 import DialoguePhrase from "../DialoguePhrase/DialoguePhrase";

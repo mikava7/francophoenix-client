@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/slices/auth/authSlice";
-import darkHamburgerIcon from "../../../public/icons/dark-hamburger-menu-64.png";
+// import darkHamburgerIcon from "../../../public/icons/dark-hamburger-menu-64.png";
+// import lightHamburgerIcon from "../../../public/icons/light-hamburger-menu-48.png";
 import User from "../../pages/User/User";
-import lightHamburgerIcon from "../../../public/icons/light-hamburger-menu-48.png";
 import { StyledLink, Button } from "../../Styles/globalStyles";
 import { Link } from "react-router-dom";
 import { Logo, StyledLogo, LocalizationContainer } from "./Navbar";
@@ -20,7 +20,7 @@ import {
   DropdownArrow,
   SidebarStyledUl,
 } from "../sidebar/Sidebar";
-import ArrowRight from "../../../public/icons/arrow-to-right.png";
+import ArrowRight from "../../assets/icons/arrow-to-right.png";
 
 const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const dispatch = useDispatch();

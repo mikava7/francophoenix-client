@@ -15,9 +15,9 @@ import QuizModal from "./modal/QuizModal";
 import { BackgroundOverlay } from "../vocabularyStyles/styles";
 
 const ExerciseArticle = ({ frenchWords }) => {
-  // console.log("frenchWords", frenchWords);
-  useScrollToTopOnRouteChange();
   const [showModal, setShowModal] = useState(false);
+
+  useScrollToTopOnRouteChange();
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
@@ -182,7 +182,8 @@ const ExerciseArticle = ({ frenchWords }) => {
   const filteredWords = filterWords(wordsToRender);
 
   const maxScore = filteredWords.length;
-  const isQuizFinished = Object.keys(selectedOptions).length === maxScore;
+  const isQuizFinished =
+    maxScore > 0 && Object.keys(selectedOptions).length === maxScore;
 
   useEffect(() => {
     if (isQuizFinished) {
@@ -193,6 +194,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <ExerciseArticleContainer>
       <BothGenderWordsContainer>

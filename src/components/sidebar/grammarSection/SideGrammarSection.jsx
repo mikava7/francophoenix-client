@@ -13,8 +13,8 @@ import {
 } from "../Sidebar";
 import { darkTheme, lightTheme } from "../../../Styles/theme";
 
-import ArrowRight from "../../../../public/icons/arrow-to-right.png";
-import ArrowRightLight from "../../../../public/icons/arrow-to-right-light.png";
+import ArrowRight from "../../../assets/icons/arrow-to-right.png";
+import ArrowRightLight from "../../../assets/icons/arrow-to-right-light.png";
 
 import { useTheme } from "styled-components";
 

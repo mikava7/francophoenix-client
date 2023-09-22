@@ -6,7 +6,7 @@ import styled from "styled-components";
 import VocabularyQuiz from "./vocabularyQuiz/VocabularyQuiz";
 import ExerciseArticle from "./ExerciseArticle";
 import VocabularyAccordion from "./vocabularyAccordion/VocabularyAccordion";
-import ChevronDown from "../../../../public/icons/chevron-down-24.png";
+import ChevronDown from "../../../assets/icons/chevron-down-24.png";
 import RotatingChevron from "../../Utility/RotatingChevron";
 import { useParams } from "react-router-dom";
 import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";

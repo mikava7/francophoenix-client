@@ -105,6 +105,8 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   const handleNext = () => {
     setSelectedWords([]);
     setShowAnswers(false);
+    setIsSubmit(false); // Reset isSubmit to false
+    setIsCorrect(false); // Reset isCorrect to false
     if (sentenceIndex + 1 < filteredSentences().length) {
       setSentenceIndex((prevIndex) => prevIndex + 1);
     }
@@ -245,7 +247,7 @@ export const BuildBox = styled.div`
   }
   @media (max-width: 362px) {
     overflow-x: scroll;
-    width: 250px;
+    width: 270px;
   }
   @media (max-width: 301px) {
     overflow-x: scroll;
@@ -276,8 +278,8 @@ export const TopWord = styled.span`
   text-align: center;
   display: flex;
   align-items: center;
-  background-color: ${(props) => props.theme.highlight3};
-  color: ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.facebookLogo};
+  color: white;
   border-bottom: 2px solid ${(props) => props.theme.flagFirst};
   /* overflow-x: scroll; */
   cursor: pointer;
@@ -333,10 +335,11 @@ const Header = styled.div`
   align-items: center;
 
   gap: 1rem;
-  margin-bottom: 2rem;
+  /* margin-bottom: 0.5rem; */
   /* height: 4rem; */
   h4 {
     text-align: center;
+    margin: 0;
   }
   span {
     display: flex;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import listen from "../assets/icons8-sound-50.png";
-import listenDark from "../../public/icons/sound-50_orange.png";
-import listen from "../../public/icons/sound-sky_blue.png";
+import listenDark from "../assets/icons/sound-50_orange.png";
+import listen from "../assets/icons/sound-sky_blue.png";
 
 import { darkTheme } from "../Styles/theme";
 import styled, { useTheme } from "styled-components";

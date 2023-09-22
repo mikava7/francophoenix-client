@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
-import ChevronDown from "../../../../../public/icons/chevron-down-24.png";
+import ChevronDown from "../../../../assets/icons/chevron-down-24.png";
 
 const DialoguePhrase = ({ phrases }) => {
   const { t, i18n } = useTranslation();

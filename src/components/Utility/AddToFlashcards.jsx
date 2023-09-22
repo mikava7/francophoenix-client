@@ -5,7 +5,7 @@ import {
   addToFlashcard,
   removeFromFlashcards,
 } from "../../redux/slices/fleshCards/fleshCardSlice";
-import FlashCardIcon from "../../../public/icons/flash-card.png";
+import FlashCardIcon from "../../assets/icons/flash-card.png";
 
 const AddToFlashcards = ({ word, secondLanguage, definition }) => {
   // console.log({ word, secondLanguage, definition });

@@ -6,8 +6,8 @@ import {
 } from "../../../redux/slices/dictionarySlice/dictionarySlice";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import SearchIcon from "../../../../public/icons/search-50.png";
-import ClearIcon from "../../../../public/icons/cross-24.png";
+import SearchIcon from "../../../assets/icons/search-50.png";
+import ClearIcon from "../../../assets/icons/cross-24.png";
 import useListenWord from "../../../hooks/useListenWord";
 import AddToFavorites from "../../../components/Utility/AddToFavorites";
 import DefinitionToggle from "../../../components/dialogues/dialogueTopics/VocabularyPage/DefinitionToggle";

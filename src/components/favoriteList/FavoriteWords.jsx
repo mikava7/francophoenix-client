@@ -6,7 +6,7 @@ import {
   clearFavorites,
 } from "../../redux/slices/favorites/addToFavorite";
 import styled from "styled-components";
-import FavoriteIMG from "../../../public/icons/starFilled.png";
+import FavoriteIMG from "../../assets/icons/starFilled.png";
 import { useTranslation } from "react-i18next";
 // import ListenImg from "../../../public/icons/sound-50.png";
 import useListenWord from "../../hooks/useListenWord";

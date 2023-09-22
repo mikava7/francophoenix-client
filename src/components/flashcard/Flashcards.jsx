@@ -6,7 +6,7 @@ import {
 } from "../../redux/slices/fleshCards/fleshCardSlice";
 
 import styled from "styled-components";
-import FlashcardIcon from "../../../public/icons/flash-card.png";
+import FlashcardIcon from "../../assets/icons/flash-card.png";
 import NoWordsMessage from "../Utility/NoWordsMessage";
 import useListenWord from "../../hooks/useListenWord";
 import Listen from "../Listen";
