@@ -1,4 +1,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/frangge/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp index.html $DEPLOYPATH
