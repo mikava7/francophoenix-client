@@ -1,42 +1,47 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import GeorgianFlag from "../assets/icons/georgia-48.png";
-import EnglishFlag from "../assets/icons/usa-flag-48.png";
+
+import TargetLanguageSelection from "./TargetLanguageSelection";
+import { supportedLanguages } from "./supportedLanguages";
 const LanguagePreference = ({ handleLanguagePopupClose }) => {
   const { t, i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState(
-    localStorage.getItem("languageSelected") || ""
+  const [selectedNativeLanguage, setSelectedNativeLanguage] = useState(
+    localStorage.getItem("nativeLanguageSelected") || ""
   );
 
-  const handleLanguageSelection = (language) => {
+  const handleNativeLanguageSelection = (language) => {
     i18n.changeLanguage(language);
-    setSelectedLanguage(language);
+    setSelectedNativeLanguage(language);
   };
 
-  if (selectedLanguage) {
-    // If a language is selected, you can render something else or nothing here.
-    return null;
+  if (selectedNativeLanguage) {
+    // If a native language is selected, proceed to select the target language.
+    return (
+      <TargetLanguageSelection
+        selectedNativeLanguage={selectedNativeLanguage}
+        onTargetLanguageSelected={handleLanguagePopupClose}
+      />
+    );
   }
 
   return (
     <LanguagePreferenceContainer>
-      <h2>{t("Choisissez votre langue")}</h2>
-
-      <button onClick={() => handleLanguagePopupClose("en")}>
-        {t("English")}
-        <img src={EnglishFlag} alt="EnglishFlag" />
-      </button>
-      <button onClick={() => handleLanguagePopupClose("ka")}>
-        {t("ქართული")}
-        <img src={GeorgianFlag} alt="GeorgianFlag" />
-      </button>
+      <h2>{t("Choisissez votre langue native")}</h2>
+      {supportedLanguages.map((language) => (
+        <button
+          key={language.code}
+          onClick={() => handleNativeLanguageSelection(language.code)}
+        >
+          {t(language.name)}
+          <img src={language.icon} alt={`${language.code}Flag`} />
+        </button>
+      ))}
     </LanguagePreferenceContainer>
   );
 };
-
 export default LanguagePreference;
-const LanguagePreferenceContainer = styled.div`
+export const LanguagePreferenceContainer = styled.div`
   min-width: 300px;
   max-width: 500px;
   height: 20rem;

@@ -1,57 +1,85 @@
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-// import FrenchFlag from '../../public'
-import FrenchFlag from "../assets/icons/french-flag-48.png";
+import { supportedLanguages } from "./supportedLanguages";
 
-import GeorgianFlag from "../assets/icons/georgia-48.png";
-import EnglishFlag from "../assets/icons/usa-flag-48.png";
 const Localization = () => {
   const { i18n } = useTranslation();
 
-  const handleLanguageChange = (language) => {
+  const nativeLanguage = localStorage.getItem("nativeLanguageSelected");
+  const targetLanguage = localStorage.getItem("targetLanguageSelected");
+  console.log("nativeLanguage", nativeLanguage);
+  console.log("targetLanguage", targetLanguage);
+
+  const handleLanguageChange = (language, type, e) => {
+    e.stopPropagation();
+
     i18n.changeLanguage(language);
+    localStorage.setItem(`${type}LanguageSelected`, language);
   };
-  const handleDefaultLanguage = () => {
-    const defaultLanguage = "fr"; // Replace with your default language code
-    i18n.changeLanguage(defaultLanguage);
-  };
-  const isGeorgian = i18n.language === "ka";
+  // &&
+  // Filter the list of supported languages to exclude the selected languages
+  const availableNativeLanguages = supportedLanguages.filter(
+    (language) => language.code !== nativeLanguage
+  );
+  console.log("NativeLanguages", availableNativeLanguages);
+  const availableTargetLanguages = supportedLanguages.filter(
+    (language) => language.code !== targetLanguage
+  );
+  console.log("TargetLanguages", availableTargetLanguages);
   return (
-    <LenguageButtons>
-      {" "}
-      <button onClick={handleDefaultLanguage}>
-        {" "}
-        <img src={FrenchFlag} alt="FrenchFlag" />{" "}
-      </button>
-      {isGeorgian ? (
-        <button onClick={() => handleLanguageChange("en")}>
-          {" "}
-          <img src={EnglishFlag} alt="EnglishFlag" />{" "}
-        </button>
-      ) : (
-        <button onClick={() => handleLanguageChange("ka")}>
-          <img src={GeorgianFlag} alt="GeorgianFlag" />
-        </button>
-      )}
-    </LenguageButtons>
+    <LanguageDropdowns>
+      <LanguageDropdown>
+        <h2>main language</h2>
+
+        <select
+          onChange={(e) => handleLanguageChange(e.target.value, "native", e)}
+          value={nativeLanguage}
+        >
+          {availableNativeLanguages.map((language) => (
+            <option key={language.code} value={language.code}>
+              {language.name}
+            </option>
+          ))}
+        </select>
+      </LanguageDropdown>
+      <LanguageDropdown>
+        <h2>Target language</h2>
+        <select
+          onChange={(e) => handleLanguageChange(e.target.value, "target", e)}
+          value={targetLanguage}
+        >
+          {availableTargetLanguages.map((language) => (
+            <option key={language.code} value={language.code}>
+              {language.name}
+            </option>
+          ))}
+        </select>
+      </LanguageDropdown>
+    </LanguageDropdowns>
   );
 };
-const LenguageButtons = styled.div`
+
+const LanguageDropdowns = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 200px;
+`;
 
-  /* flex-direction: column; */
-
-  button {
+const LanguageDropdown = styled.div`
+  cursor: pointer;
+  padding: 1rem;
+  select {
     font-size: 1.3rem;
+    padding: 1rem;
     border: none;
-    background: none;
     cursor: pointer;
     &:hover {
-      transform: scale(1.2);
+      transform: scale(1.05);
     }
     img {
       width: 2.2rem;
     }
   }
 `;
+
 export default Localization;

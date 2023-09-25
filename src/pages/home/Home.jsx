@@ -47,7 +47,7 @@ const Home = () => {
   const handleLanguagePopupClose = (language) => {
     setShowLanguagePopup(false);
     // console.log("language", language);
-    localStorage.setItem("languageSelected", language);
+    localStorage.setItem("nativeLanguageSelected", language);
     setLanguageSelected(true);
     // Change the language in i18n immediately
     i18n.changeLanguage(language);

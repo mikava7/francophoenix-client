@@ -13,6 +13,7 @@ import { fetchQuizData } from "../../../redux/slices/quizPictures/quizPictures";
 import TopicText from "./Text/TopicText";
 import Loading from "../../loading/Loading";
 import AccordionSection from "./AccordionSection";
+import { supportedLanguages } from "../../../localization/supportedLanguages";
 const Vocabulary = () => {
   const { topicId } = useParams();
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const Vocabulary = () => {
   const isLoading = useSelector((state) => state.quizData.isLoading);
 
   const words = vocabularyData?.words;
-
   const french = vocabularyData?.words?.map((word) => word?.french);
   const english = vocabularyData?.words?.map((word) => word?.english);
   const georgian = vocabularyData?.words?.map((word) => word?.georgian);
@@ -37,8 +37,35 @@ const Vocabulary = () => {
     definition: wordObject?.definition,
     secondLanguage: isGeorgian ? wordObject.georgian : wordObject.english,
   }));
+  const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
+  const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
 
-  // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);
+  // Define the mapping of language codes to object properties
+  const languagePropertyMap = {
+    fr: "french",
+    en: "english",
+    ka: "georgian",
+    // Add more mappings as needed
+  };
+
+  // Determine the target language property based on the selected language code
+  const targetLanguageProperty = languagePropertyMap[targetLanguageCode];
+  const targetLanguageArray = vocabularyData?.words?.map(
+    (word) => word?.[targetLanguageProperty]
+  );
+
+  // Determine the native language property based on the selected language code
+  const nativeLanguageProperty = languagePropertyMap[nativeLanguageCode];
+  const nativeLanguageArray = vocabularyData?.words?.map(
+    (word) => word?.[nativeLanguageProperty]
+  );
+
+  // console.log("targetLanguageProperty", targetLanguageProperty);
+  // console.log("targetLanguageArray", targetLanguageArray);
+  console.log("nativeLanguageCode", nativeLanguageCode);
+
+  console.log("nativeLanguageProperty", nativeLanguageProperty);
+  console.log("nativeLanguageArray", nativeLanguageArray);
   useEffect(() => {
     if (topicId) {
       dispatch(fetchQuizData(topicId));
@@ -64,8 +91,8 @@ const Vocabulary = () => {
       </WordCount>
       <WordPairContainer>
         <VocabularyAccordion
-          frenchWords={french}
-          secondLanguage={secondLanguage}
+          wordsInTargetLanguage={targetLanguageArray}
+          secondLanguage={nativeLanguageArray}
           definition={definition}
         />
       </WordPairContainer>

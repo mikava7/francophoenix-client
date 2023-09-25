@@ -13,7 +13,10 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const isScrolled = useScrollHandler();
-
+  const [showLanguages, setShowLanguages] = useState(false);
+  const toggleShowLangauges = () => {
+    setShowLanguages((prevState) => !prevState);
+  };
   return (
     <NavbarContainer isVisible={isScrolled}>
       <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
@@ -38,9 +41,15 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
           {t("Dictionnaire")}
         </StyledList>
       </StyledUl>
-
+      <div onClick={toggleShowLangauges} style={{ cursor: "pointer" }}>
+        choose languages
+        {showLanguages && (
+          <LocalizationBox>
+            <Localization />
+          </LocalizationBox>
+        )}
+      </div>
       <LocalizationContainer>
-        <Localization />
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <User />
       </LocalizationContainer>
@@ -251,8 +260,17 @@ export const LocalizationContainer = styled.div`
     & > :nth-child(1) {
       display: none;
     }
-    & > :nth-child(4) 1
+    & > :nth-child(4) {
       display: none;
     }
   }
+`;
+const LocalizationBox = styled.div`
+  background: ${(props) => props.theme.highlight4};
+  margin: 0 auto;
+  position: absolute;
+  width: 500px;
+  top: 80px; /* 60px (navbar height) + 20px (additional space) */
+  left: 50%;
+  transform: translateX(-50%);
 `;

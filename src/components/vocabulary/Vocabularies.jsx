@@ -11,19 +11,21 @@ import styled from "styled-components";
 import { fetchTopicNames } from "../../redux/slices/quizPictures/quizPictures";
 import { useTranslation } from "react-i18next";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
+
+import { supportedLanguages } from "../../localization/supportedLanguages";
 const Vocabularies = () => {
   useScrollToTopOnRouteChange();
 
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
-
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
 
   const handleCategoryChange = (topicId) => {
     setSelectedTopicId(topicId);
   };
+
   useEffect(() => {
     dispatch(fetchTopicNames());
   }, [dispatch]);
@@ -31,26 +33,53 @@ const Vocabularies = () => {
   if (isLoading) {
     return <Loading />;
   }
+
+  const nativeLanguageCode = i18n.language;
+  const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
+
+  const getTopicTitleInLanguage = (topic, languageCode) => {
+    const language = supportedLanguages.find(
+      (lang) => lang.code === languageCode
+    );
+
+    if (language) {
+      switch (languageCode) {
+        case "fr":
+          return topic.topic;
+        case "en":
+          return topic.topicEng;
+        case "ka":
+          return topic.topicGeo;
+        // Add more cases for other languages as needed
+        default:
+          return topic.topic; // Default to the topic name if language is not found
+      }
+    }
+
+    return topic.topic; // Default to the topic name if language is not found
+  };
+
   return (
     <VocabularyContainer>
-      <h1>{t("ფრანგული ლექსიკა")} </h1>
       {topicNames.map((topic) => (
         <LocalStyledLink to={`/vocabulary-topics/${topic._id}`} key={topic._id}>
           <TopicCardContainer>
-            <TopicImage src={topic.imageUrl} alt="French Vocabulary Topic" />
+            <TopicImage src={topic.imageUrl} alt="Vocabulary Topic" />
             <WordsCount>
-              <TopicTitle>{topic.topic}</TopicTitle>
+              {getTopicTitleInLanguage(topic, targetLanguageCode)}{" "}
               <TopicSecondTitle>
-                {i18n.language === "ka" ? topic.topicGeo : topic.topicEng}
+                {getTopicTitleInLanguage(topic, nativeLanguageCode)}{" "}
+                {/* Modify this line */}
               </TopicSecondTitle>
             </WordsCount>{" "}
             <TopicDesription>
-              <span>{t("Nombre de Mots")}</span>
+              <span>{t("Number of Words")}</span>
               <strong>{topic.wordsCount}</strong>
             </TopicDesription>
           </TopicCardContainer>
         </LocalStyledLink>
       ))}
+      {/* ... */}
     </VocabularyContainer>
   );
 };

@@ -8,15 +8,19 @@ import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import Listen from "../../../Listen";
-const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
-  // console.log("definition in VocabularyAccordion", definition);
+const VocabularyAccordion = ({
+  wordsInTargetLanguage,
+  secondLanguage,
+  definition,
+}) => {
+  console.log({ wordsInTargetLanguage, secondLanguage, definition });
   useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const [expandedIndex, setExpandedIndex] = useState(null);
   // console.log("frenchWords", frenchWords);
 
   const [isActiveState, setIsActiveState] = useState(
-    frenchWords?.map(() => false)
+    wordsInTargetLanguage?.map(() => false)
   );
 
   const { handleListen, isActiveStates } = useListenWord();
@@ -27,7 +31,7 @@ const VocabularyAccordion = ({ frenchWords, secondLanguage, definition }) => {
 
   return (
     <AccordionContaner>
-      {frenchWords?.map((word, index) => (
+      {wordsInTargetLanguage?.map((word, index) => (
         <AccordionItem key={index}>
           <AccordionHeader>
             <Words>
