@@ -9,8 +9,8 @@ import Timer from "./Timer";
 import Listen from "../../../Listen";
 import { ListenIcon } from "../../../../Styles/globalStyles";
 import useListenWord from "../../../../hooks/useListenWord";
-const VocabularyQuiz = ({ wordsInTargetLanguage, secondLanguage }) => {
-  // const currentQuestionRef = useRef(null);
+const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
+  const french = wordsInTargetLanguage;
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const { handleListen, isActiveStates } = useListenWord();
@@ -213,7 +213,6 @@ const VocabularyQuiz = ({ wordsInTargetLanguage, secondLanguage }) => {
       setShowModal(true);
     }
   }, [isQuizFinished]);
-  const speed = 0.9;
 
   return (
     <QuizContainer>
@@ -232,11 +231,7 @@ const VocabularyQuiz = ({ wordsInTargetLanguage, secondLanguage }) => {
             <h2>
               {quizItem.question}
               <ListenIcon
-                onClick={handleListen(
-                  quizItem.question,
-                  targetLanguageCode,
-                  speed
-                )}
+                onClick={handleListen(quizItem.question, targetLanguageCode)}
                 isActive={isActiveStates[questionIndex]}
               >
                 <Listen />

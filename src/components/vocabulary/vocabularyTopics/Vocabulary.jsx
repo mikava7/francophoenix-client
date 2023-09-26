@@ -69,7 +69,6 @@ const Vocabulary = () => {
   const [openComponent, setOpenComponent] = useState(null);
 
   const { vocabularyTopicId } = useParams();
-  // console.log("vocabularyTopicId", vocabularyTopicId);
 
   useEffect(() => {
     dispatch(fetchVocabularyTopics());
@@ -90,7 +89,6 @@ const Vocabulary = () => {
           wordsInTargetLanguage={targetLanguageArray}
           secondLanguage={nativeLanguageArray}
           definition={definition}
-          targetLanguageCode={targetLanguageCode}
         />
       </WordPairContainer>
       <TopicTextBox>
@@ -139,8 +137,8 @@ const Vocabulary = () => {
               openComponent === "Questionnaire" ? null : "Questionnaire"
             )
           }
-          wordsInTargetLanguage={targetLanguageArray}
           secondLanguage={nativeLanguageArray}
+          wordsInTargetLanguage={targetLanguageArray}
         />
       </TopicTextBox>
     </VocabularyContainer>

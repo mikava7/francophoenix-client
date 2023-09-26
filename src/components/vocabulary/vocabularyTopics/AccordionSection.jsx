@@ -18,6 +18,7 @@ const AccordionSection = ({
   selectedFlashcards,
   wordsInTargetLanguage,
   secondLanguage,
+  english,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
@@ -25,7 +26,7 @@ const AccordionSection = ({
 
   const words = vocabularyData?.words;
 
-  // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);
+  // console.log({ wordsInTargetLanguage, french });
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
@@ -62,6 +63,7 @@ const AccordionSection = ({
             <VocabularyQuiz
               wordsInTargetLanguage={wordsInTargetLanguage}
               secondLanguage={secondLanguage}
+              french={french}
             />
           )}
         </SectionBox>

@@ -44,7 +44,7 @@ const VocabularyAccordion = ({
             </Words>
             <IconsWrapper>
               <ListenIcon
-                onClick={handleListen(word, targetLanguageCode)}
+                onClick={handleListen(word)}
                 isActive={isActiveStates[index]}
               >
                 <Listen />

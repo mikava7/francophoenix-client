@@ -1,22 +1,30 @@
-export const generateQuizQuestions = (french, secondLanguage) => {
-  // console.log("french in generateQuizQuestions", french);
+export const generateQuizQuestions = (
+  wordsInTargetLanguage,
+  secondLanguage
+) => {
+  // console.log(
+  //   "wordsInTargetLanguage in generateQuizQuestions",
+  //   wordsInTargetLanguage
+  // );
+  // console.log("secondLanguage in generateQuizQuestions", secondLanguage);
+
   const quizQuestions = [];
   const usedWords = new Set();
 
-  // Generate a random number within the range of the French vocabulary array
+  // Generate a random number within the range of the target language vocabulary array
   const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
 
-  while (quizQuestions.length < french.length) {
-    const questionIndex = getRandomIndex(french);
-    const questionWord = french[questionIndex];
+  while (quizQuestions.length < wordsInTargetLanguage.length) {
+    const questionIndex = getRandomIndex(wordsInTargetLanguage);
+    const questionWord = wordsInTargetLanguage[questionIndex];
 
     // Skip if the word has already been used as a question
     if (usedWords.has(questionWord)) continue;
 
-    const frenchIndex = questionIndex;
-    const answerWord = secondLanguage[frenchIndex];
+    const targetLanguageIndex = questionIndex;
+    const answerWord = secondLanguage[targetLanguageIndex];
 
-    // Generate three random incorrect options by choosing random words from the language array
+    // Generate three random incorrect options by choosing random words from the second language array
     const incorrectOptions = [];
     while (incorrectOptions.length < 3) {
       const randomWord = secondLanguage[getRandomIndex(secondLanguage)];
