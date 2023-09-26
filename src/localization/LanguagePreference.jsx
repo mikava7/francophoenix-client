@@ -27,7 +27,8 @@ const LanguagePreference = ({ handleLanguagePopupClose }) => {
 
   return (
     <LanguagePreferenceContainer>
-      <h2>{t("Choisissez votre langue native")}</h2>
+      <h3>I speak</h3>
+
       {supportedLanguages.map((language) => (
         <button
           key={language.code}

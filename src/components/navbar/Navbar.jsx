@@ -17,9 +17,18 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
   const toggleShowLangauges = () => {
     setShowLanguages((prevState) => !prevState);
   };
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <NavbarContainer isVisible={isScrolled}>
-      <MobileMenu isDarkMode={isDarkMode} toggleTheme={toggleTheme} t={t} />
+      <MobileMenu
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+        t={t}
+        handleMenuClick={handleMenuClick}
+      />
       <Logo>
         <StyledLogo to="/">Home</StyledLogo>
       </Logo>
@@ -41,14 +50,17 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
           {t("Dictionnaire")}
         </StyledList>
       </StyledUl>
-      <div onClick={toggleShowLangauges} style={{ cursor: "pointer" }}>
-        choose languages
+      <LocalOnNavbar
+        onClick={toggleShowLangauges}
+        style={{ cursor: "pointer" }}
+      >
+        {t("Langues")}
         {showLanguages && (
           <LocalizationBox>
             <Localization />
           </LocalizationBox>
         )}
-      </div>
+      </LocalOnNavbar>
       <LocalizationContainer>
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <User />
@@ -265,12 +277,15 @@ export const LocalizationContainer = styled.div`
     }
   }
 `;
+const LocalOnNavbar = styled.div`
+  color: ${(props) => props.theme.primaryText};
+`;
 const LocalizationBox = styled.div`
-  background: ${(props) => props.theme.highlight4};
+  /* background: ${(props) => props.theme.highlight4}; */
   margin: 0 auto;
   position: absolute;
   width: 500px;
-  top: 80px; /* 60px (navbar height) + 20px (additional space) */
-  left: 50%;
+  top: 70px; /* 60px (navbar height) + 20px (additional space) */
+  left: 70%;
   transform: translateX(-50%);
 `;

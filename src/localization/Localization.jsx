@@ -14,6 +14,8 @@ const Localization = () => {
   const handleLanguageChange = (language, type) => {
     i18n.changeLanguage(language);
     localStorage.setItem(`${type}LanguageSelected`, language);
+    setShowSpeakLanguages(false);
+    setShowLearnLanguages(false);
   };
 
   const availableNativeLanguages = supportedLanguages.filter(
@@ -93,13 +95,14 @@ const Localization = () => {
 
 const LocalizationContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 420px;
+  justify-content: space-around;
+  align-items: center;
+  width: 480px;
   background: ${(props) => props.theme.secondaryBackground};
   /* outline: 2px solid ${(props) => props.theme.highlight2}; */
   box-shadow: ${(props) => props.theme.localizationBoxShadow};
-  @media (max-width: 555px) {
-    width: 60vw;
+  @media (max-width: 855px) {
+    width: 90%;
     flex-direction: column;
     margin: 0 auto;
     padding-left: 1rem;
@@ -117,7 +120,7 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 200px;
+  width: 230px;
 `;
 
 const LanguageList = styled.div`
@@ -177,7 +180,7 @@ const NativeTitle = styled.h5`
 const TargetTitle = styled.h5`
   margin-left: 0.4rem;
   &::before {
-    content: " -";
+    content: " - ";
   }
 `;
 export default Localization;

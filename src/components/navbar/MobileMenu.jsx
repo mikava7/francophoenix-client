@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/slices/auth/authSlice";
@@ -23,7 +23,7 @@ import {
 } from "../sidebar/Sidebar";
 import ArrowRight from "../../assets/icons/arrow-to-right.png";
 import Logout from "../Utility/Logout";
-const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
+const MobileMenu = ({ isDarkMode, t, toggleTheme, handleMenuClick }) => {
   const dispatch = useDispatch();
   // console.log("t", t);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,6 +52,17 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  useEffect(() => {
+    // Add an event listener to the document body
+    document.body.addEventListener("click", closeMenu);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.body.removeEventListener("click", closeMenu);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
+
   const handleLogout = (e) => {
     e.stopPropagation();
 
@@ -60,7 +71,7 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
   };
   return (
     <MenuContainer class="content">
-      <MenuToggle id="menuToggle">
+      <MenuToggle id="menuToggle" onClick={(e) => handleMenuClick(e)}>
         <input
           type="checkbox"
           checked={isMenuOpen}
@@ -72,13 +83,18 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
         <MenuUl>
           <UserMobile>
-            <StyledLogo to="/">Francophoenix</StyledLogo>
+            <TopPart>
+              <StyledLogo to="/">Francophoenix</StyledLogo>
+              <LocalAndThemeBox>
+                <ThemeToggle
+                  toggleTheme={toggleTheme}
+                  isDarkMode={isDarkMode}
+                />
+              </LocalAndThemeBox>
+            </TopPart>
             <Localization />
-            <LocalAndThemeBox>
-              <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-            </LocalAndThemeBox>
 
-            <div>
+            <AuthDiv>
               <DropdownItem>
                 {isAuthenticated ? (
                   <UserBox>
@@ -92,7 +108,7 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
                   t("Pas connecté")
                 )}
               </DropdownItem>
-            </div>
+            </AuthDiv>
             {!isAuthenticated && (
               <>
                 <MobileFormContainerApendix>
@@ -113,18 +129,17 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
             {menuData.map((menuItem, index) => (
               <Category key={index}>
                 <div>
-                  <img src={ArrowRight} alt="ArrowRight" />
                   <SubTopicLink to={menuItem.link}>
                     {t(menuItem.title)}
                   </SubTopicLink>
                   {menuItem.subItems && menuItem.subItems.length > 0 && (
-                    <span
+                    <ArrowBox
                       onClick={(e) =>
                         toggleSubCategory({ e, categoryIndex: index })
                       }
                     >
                       {subCategoryOpen[index] ? "▲" : "▼"}
-                    </span>
+                    </ArrowBox>
                   )}
                 </div>
                 {subCategoryOpen[index] &&
@@ -241,7 +256,7 @@ const MenuUl = styled.ul`
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   @media (max-width: 555px) {
     width: 70vw;
   }
@@ -258,7 +273,7 @@ const UserMobile = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   background: ${(props) => props.theme.secondaryBackground};
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   padding: 1rem;
   margin-bottom: 3rem;
   width: 100%;
@@ -279,15 +294,22 @@ const UserMobileMenu = styled.div`
     width: 12rem;
   } */
 `;
+const TopPart = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const AuthDiv = styled.div`
+  max-width: 100%;
+`;
 const DropdownItem = styled.div`
   padding: 1rem;
   margin: 1rem;
-  width: 24rem;
+  max-width: 100%;
   /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${(props) => props.theme.tertiaryBackground};
+  background: ${(props) => props.theme.primaryBackground};
 `;
 
 const UserBox = styled.div`
@@ -346,6 +368,8 @@ const Category = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+    background-color: transparent;
+    margin-left: auto;
   }
 `;
 
@@ -355,4 +379,7 @@ const subCategory = styled(SubTopicLink)`
 `;
 const LogoutConainer = styled.div`
   margin-top: 2rem;
+`;
+const ArrowBox = styled.span`
+  /* padding: 1rem; */
 `;
