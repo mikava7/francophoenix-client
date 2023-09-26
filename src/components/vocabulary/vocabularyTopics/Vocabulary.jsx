@@ -139,6 +139,7 @@ const Vocabulary = () => {
           }
           secondLanguage={nativeLanguageArray}
           wordsInTargetLanguage={targetLanguageArray}
+          french={french}
         />
       </TopicTextBox>
     </VocabularyContainer>

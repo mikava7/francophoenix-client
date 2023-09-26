@@ -14,7 +14,7 @@ export const generateQuizQuestions = (
   // Generate a random number within the range of the target language vocabulary array
   const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
 
-  while (quizQuestions.length < wordsInTargetLanguage.length) {
+  while (quizQuestions?.length < wordsInTargetLanguage?.length) {
     const questionIndex = getRandomIndex(wordsInTargetLanguage);
     const questionWord = wordsInTargetLanguage[questionIndex];
 
