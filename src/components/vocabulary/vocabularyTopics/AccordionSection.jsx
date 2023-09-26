@@ -63,7 +63,6 @@ const AccordionSection = ({
             <VocabularyQuiz
               wordsInTargetLanguage={wordsInTargetLanguage}
               secondLanguage={secondLanguage}
-              french={french}
             />
           )}
         </SectionBox>
