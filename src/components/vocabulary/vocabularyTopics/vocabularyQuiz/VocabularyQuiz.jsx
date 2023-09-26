@@ -10,7 +10,6 @@ import Listen from "../../../Listen";
 import { ListenIcon } from "../../../../Styles/globalStyles";
 import useListenWord from "../../../../hooks/useListenWord";
 const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
-  const french = wordsInTargetLanguage;
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const { handleListen, isActiveStates } = useListenWord();
