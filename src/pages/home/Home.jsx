@@ -30,7 +30,7 @@ const Home = () => {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const hasLanguageSelected = localStorage.getItem("languageSelected");
+    const hasLanguageSelected = localStorage.getItem("nativeLanguageSelected");
 
     if (hasLanguageSelected) {
       // Language has been selected before

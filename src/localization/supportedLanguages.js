@@ -5,5 +5,6 @@ export const supportedLanguages = [
   { code: "en", name: "English", icon: EnglishFlag },
   { code: "ka", name: "ქართული", icon: GeorgianFlag },
   { code: "fr", name: "Français", icon: FrenchFlag },
+
   // Add more languages as needed
 ];

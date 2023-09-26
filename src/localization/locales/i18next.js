@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 import enTranslation from "./en.json";
 import kaTranslation from "./ka.json";
 
-const userLanguagePreference = localStorage.getItem("languageSelected");
+const userLanguagePreference = localStorage.getItem("nativeLanguageSelected");
 
 i18n.use(initReactI18next).init({
   resources: {

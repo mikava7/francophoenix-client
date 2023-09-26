@@ -14,6 +14,7 @@ import TopicText from "./Text/TopicText";
 import Loading from "../../loading/Loading";
 import AccordionSection from "./AccordionSection";
 import { supportedLanguages } from "../../../localization/supportedLanguages";
+import Localization from "../../../localization/Localization";
 const Vocabulary = () => {
   const { topicId } = useParams();
   const dispatch = useDispatch();
@@ -62,10 +63,10 @@ const Vocabulary = () => {
 
   // console.log("targetLanguageProperty", targetLanguageProperty);
   // console.log("targetLanguageArray", targetLanguageArray);
-  console.log("nativeLanguageCode", nativeLanguageCode);
+  // console.log("nativeLanguageCode", nativeLanguageCode);
 
-  console.log("nativeLanguageProperty", nativeLanguageProperty);
-  console.log("nativeLanguageArray", nativeLanguageArray);
+  // console.log("nativeLanguageProperty", nativeLanguageProperty);
+  // console.log("nativeLanguageArray", nativeLanguageArray);
   useEffect(() => {
     if (topicId) {
       dispatch(fetchQuizData(topicId));
@@ -86,6 +87,7 @@ const Vocabulary = () => {
 
   return (
     <VocabularyContainer>
+      <Localization />
       <WordCount>
         {t("Les mots")} <b>{french && french?.length}</b>
       </WordCount>

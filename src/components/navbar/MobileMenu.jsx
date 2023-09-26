@@ -70,11 +70,11 @@ const MobileMenu = ({ isDarkMode, t, toggleTheme }) => {
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
         <span style={{ background: isDarkMode ? "#ffffff" : "#000000" }}></span>
-        <MenuUl onClick={closeMenu}>
+        <MenuUl>
           <UserMobile>
             <StyledLogo to="/">Francophoenix</StyledLogo>
+            <Localization />
             <LocalAndThemeBox>
-              <Localization />
               <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
             </LocalAndThemeBox>
 
@@ -173,7 +173,6 @@ const MenuToggle = styled.div`
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
-
   input {
     display: flex;
     width: 30px;
@@ -229,7 +228,7 @@ const MenuUl = styled.ul`
   padding: 0;
   list-style-type: none;
   position: absolute;
-  width: 100vw;
+  width: 50vw;
   height: 100vh;
   box-shadow: 0 0 10px #85888c;
   margin: -3rem 0 0 -50px;
@@ -242,20 +241,12 @@ const MenuUl = styled.ul`
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  outline: 1px solid red;
+  @media (max-width: 555px) {
+    width: 70vw;
+  }
 `;
-const MenuLink = styled(Link)`
-  text-decoration: none;
-  color: ${(props) => props.theme.primaryText};
-  opacity: 1;
-  font-family: "work sans", sans serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  transition: 200ms;
-  /* border: 1px solid red; */
-  font-style: italic;
-  position: relative;
-  /* padding: 0.5rem; */
-`;
+
 const LastItem = styled.li`
   margin-top: 3rem;
   height: 1rem;
@@ -267,9 +258,10 @@ const UserMobile = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   background: ${(props) => props.theme.secondaryBackground};
-  /* outline: 2px solid red; */
-  /* margin: 0 1rem; */
+  outline: 1px solid red;
+  padding: 1rem;
   margin-bottom: 3rem;
+  width: 100%;
 `;
 const UserMobileMenu = styled.div`
   /* outline: 6px solid ${(props) => props.theme.secondaryBackground};

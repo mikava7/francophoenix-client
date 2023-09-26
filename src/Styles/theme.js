@@ -8,6 +8,9 @@ export const darkTheme = {
   buttonBack: "F3C699",
   formBoxShadow: "-3px -3px 7px #404040, 2px 2px 5px rgba(200, 200, 200, 0.5)",
   inputBoxShadow: "inset 2px 2px 5px #EFEFEF, inset -5px -5px 10px #FCFCFC",
+  localizationBoxShadow:
+    "inset 2px 2px 5px #EFEFEF, inset -2px -2px 5px #FCFCFC",
+
   vocabularyBack: "#ffffec",
   flagFirst: "#1e1e1e",
   flagSecond: "#fdda24",
@@ -77,6 +80,9 @@ export const lightTheme = {
 
   formBoxShadow: "-3px -3px 7px #e8e8e8, 2px 2px 5px rgba(200, 200, 200, 0.5)",
   inputBoxShadow: "inset 2px 2px 5px #FCFCFC, inset -5px -5px 10px #737373",
+  localizationBoxShadow:
+    "inset 2px 2px 5px #FCFCFC, inset -2px -2px 5px #737373",
+
   vocabularyBack: "#ffffdd",
 
   flagFirst: "#0055A4",
