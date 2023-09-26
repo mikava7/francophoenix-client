@@ -213,7 +213,7 @@ const VocabularyQuiz = ({ wordsInTargetLanguage, secondLanguage }) => {
       setShowModal(true);
     }
   }, [isQuizFinished]);
-  const speed = 0.6;
+  const speed = 0.9;
 
   return (
     <QuizContainer>
