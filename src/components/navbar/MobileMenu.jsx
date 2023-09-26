@@ -297,6 +297,12 @@ const UserMobileMenu = styled.div`
 const TopPart = styled.div`
   display: flex;
   align-items: center;
+  @media (max-width: 300px) {
+    width: 100%;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-left: 1rem;
+  }
 `;
 const AuthDiv = styled.div`
   max-width: 100%;

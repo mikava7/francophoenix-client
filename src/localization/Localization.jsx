@@ -107,6 +107,12 @@ const LocalizationContainer = styled.div`
     margin: 0 auto;
     padding-left: 1rem;
   }
+  @media (max-width: 300px) {
+    width: 90%;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-left: 1rem;
+  }
 `;
 
 const LanguageDropdown = styled.div`
@@ -121,6 +127,12 @@ const Title = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 230px;
+  @media (max-width: 300px) {
+    width: 90%;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-left: 1rem;
+  }
 `;
 
 const LanguageList = styled.div`

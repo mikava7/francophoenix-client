@@ -9,14 +9,15 @@ import Timer from "./Timer";
 import Listen from "../../../Listen";
 import { ListenIcon } from "../../../../Styles/globalStyles";
 import useListenWord from "../../../../hooks/useListenWord";
-const VocabularyQuiz = ({ french, english, georgian }) => {
+const VocabularyQuiz = ({ wordsInTargetLanguage, secondLanguage }) => {
   // const currentQuestionRef = useRef(null);
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const { handleListen, isActiveStates } = useListenWord();
+  const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
+  const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
 
   const [showModal, setShowModal] = useState(false);
-  const secondLanguage = isGeorgian ? georgian : english;
 
   const [isAutoAnswerPaused, setIsAutoAnswerPaused] = useState(false);
   const [quizFinished, setQuizFinished] = useState(false);
@@ -28,8 +29,8 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
   };
 
   const vocabularyQuizQuestions = useMemo(
-    () => generateQuizQuestions(french, secondLanguage),
-    [french, secondLanguage]
+    () => generateQuizQuestions(wordsInTargetLanguage, secondLanguage),
+    [wordsInTargetLanguage, secondLanguage]
   );
   // console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
   ///////////////////////////////////////////////////////////
@@ -212,6 +213,7 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
       setShowModal(true);
     }
   }, [isQuizFinished]);
+  const speed = 0.6;
 
   return (
     <QuizContainer>
@@ -230,7 +232,11 @@ const VocabularyQuiz = ({ french, english, georgian }) => {
             <h2>
               {quizItem.question}
               <ListenIcon
-                onClick={handleListen(quizItem.question)}
+                onClick={handleListen(
+                  quizItem.question,
+                  targetLanguageCode,
+                  speed
+                )}
                 isActive={isActiveStates[questionIndex]}
               >
                 <Listen />

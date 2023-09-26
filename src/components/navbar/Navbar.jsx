@@ -50,17 +50,7 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
           {t("Dictionnaire")}
         </StyledList>
       </StyledUl>
-      <LocalOnNavbar
-        onClick={toggleShowLangauges}
-        style={{ cursor: "pointer" }}
-      >
-        {t("Langues")}
-        {showLanguages && (
-          <LocalizationBox>
-            <Localization />
-          </LocalizationBox>
-        )}
-      </LocalOnNavbar>
+
       <LocalizationContainer>
         <ThemeToggle toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <User />
@@ -82,8 +72,8 @@ const NavbarContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) =>
-    props.isVisible ? props.theme.highlight2 : "transparent"};
-  color: white;
+    props.isVisible ? props.theme.tertiaryBackground : "transparent"};
+  /* color: ${(props) => props.theme.primaryBackground}; */
   transition: background-color 0.3s ease-in-out;
   border-bottom: 3px solid ${(props) => props.theme.primaryText};
   padding-left: 0.4rem;
@@ -276,16 +266,4 @@ export const LocalizationContainer = styled.div`
       display: none;
     }
   }
-`;
-const LocalOnNavbar = styled.div`
-  color: ${(props) => props.theme.primaryText};
-`;
-const LocalizationBox = styled.div`
-  /* background: ${(props) => props.theme.highlight4}; */
-  margin: 0 auto;
-  position: absolute;
-  width: 500px;
-  top: 70px; /* 60px (navbar height) + 20px (additional space) */
-  left: 70%;
-  transform: translateX(-50%);
 `;

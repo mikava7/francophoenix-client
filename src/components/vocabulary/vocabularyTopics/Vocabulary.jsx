@@ -61,12 +61,6 @@ const Vocabulary = () => {
     (word) => word?.[nativeLanguageProperty]
   );
 
-  // console.log("targetLanguageProperty", targetLanguageProperty);
-  // console.log("targetLanguageArray", targetLanguageArray);
-  // console.log("nativeLanguageCode", nativeLanguageCode);
-
-  // console.log("nativeLanguageProperty", nativeLanguageProperty);
-  // console.log("nativeLanguageArray", nativeLanguageArray);
   useEffect(() => {
     if (topicId) {
       dispatch(fetchQuizData(topicId));
@@ -96,6 +90,7 @@ const Vocabulary = () => {
           wordsInTargetLanguage={targetLanguageArray}
           secondLanguage={nativeLanguageArray}
           definition={definition}
+          targetLanguageCode={targetLanguageCode}
         />
       </WordPairContainer>
       <TopicTextBox>
@@ -144,9 +139,8 @@ const Vocabulary = () => {
               openComponent === "Questionnaire" ? null : "Questionnaire"
             )
           }
-          english={english}
-          georgian={georgian}
-          french={french}
+          wordsInTargetLanguage={targetLanguageArray}
+          secondLanguage={nativeLanguageArray}
         />
       </TopicTextBox>
     </VocabularyContainer>

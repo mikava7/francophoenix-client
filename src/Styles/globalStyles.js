@@ -483,6 +483,7 @@ export const StyledLink = styled(Link)`
   position: relative;
   transition: 0.8s all linear;
   padding: 0.5rem;
+
   &:hover {
     color: ${(props) => props.theme.tertiaryText};
   }

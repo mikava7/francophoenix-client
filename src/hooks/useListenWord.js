@@ -18,12 +18,14 @@ const useListenWord = () => {
   }, []);
 
   // Handle word listening functionality
-  // Handle word listening functionality
-  const handleListen = (word) => (event) => {
+  const handleListen = (word, targetLanguageCode, speed) => (event) => {
     event.stopPropagation();
-
+    // console.log("targetLanguage in handle listen", targetLanguageCode);
     // Extract the word before parentheses (if any)
     const wordWithoutParentheses = word.split(" (")[0];
+
+    // Call the speakWord function to read the word without parentheses aloud
+    speakWord(wordWithoutParentheses, targetLanguageCode, speed);
 
     // Find the index of the word in the isActiveStates array
     const index = isActiveStates.findIndex((state) => state.word === word);
@@ -49,15 +51,15 @@ const useListenWord = () => {
         prevStates.map((state) => ({ ...state, isActive: false }))
       );
     }, 1500);
-
-    // Call the speakWord function to read the word without parentheses aloud
-    speakWord(wordWithoutParentheses);
   };
 
   // Function to speak the word using SpeechSynthesis API
-  const speakWord = (word) => {
+  const speakWord = (word, targetLanguageCode, speed) => {
     const speechUtterance = new SpeechSynthesisUtterance(word);
-    speechUtterance.lang = "fr-FR"; // Set the language for the speech
+    speechUtterance.lang = targetLanguageCode;
+    speechUtterance.rate = parseFloat(speed) || 1;
+
+    console.log("speed", speed);
     window.speechSynthesis.speak(speechUtterance);
   };
 

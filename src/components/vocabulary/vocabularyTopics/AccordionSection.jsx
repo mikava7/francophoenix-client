@@ -13,15 +13,16 @@ const AccordionSection = ({
   onToggle,
   french,
   vocabularyData,
-  english,
-  georgian,
+
   identifier,
   selectedFlashcards,
+  wordsInTargetLanguage,
+  secondLanguage,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
   const { t, i18n } = useTranslation();
-  const SecondLanguage = i18n.language === "ka" ? georgian : english;
+
   const words = vocabularyData?.words;
 
   // console.log("selectedFlashcards in AccordionSection", selectedFlashcards);
@@ -59,9 +60,8 @@ const AccordionSection = ({
           )}
           {identifier === "Questionnaire" && (
             <VocabularyQuiz
-              french={french}
-              english={english}
-              georgian={georgian}
+              wordsInTargetLanguage={wordsInTargetLanguage}
+              secondLanguage={secondLanguage}
             />
           )}
         </SectionBox>

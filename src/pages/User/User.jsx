@@ -70,10 +70,10 @@ const User = () => {
             ) : (
               <>
                 <DropdownItem>
-                  <StyledLink to="/register">{t("Inscription")}</StyledLink>
+                  <StyledLink to="/login">{t("Connexion")}</StyledLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <StyledLink to="/login">{t("Connexion")}</StyledLink>
+                  <StyledLink to="/register">{t("Inscription")}</StyledLink>
                 </DropdownItem>
               </>
             )}
@@ -114,9 +114,10 @@ const DropdownButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 18px;
+  color: ${(props) => props.theme.primaryText};
 `;
 
-const DropdownContent = styled.div`
+export const DropdownContent = styled.div`
   position: relative;
 `;
 
@@ -124,7 +125,9 @@ const DropdownList = styled.ul`
   position: absolute;
   top: 30px;
   right: 50%;
-  background-color: white;
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
+
   border: 1px solid #ccc;
   border-radius: 5px;
   list-style: none;
@@ -134,13 +137,13 @@ const DropdownList = styled.ul`
 `;
 
 const DropdownItem = styled.li`
-  padding: 10px;
   cursor: pointer;
   width: 100%;
+  color: red;
 `;
 const StyledProfileLink = styled(StyledLink)`
   display: flex;
-  background-color: #e0fcdb;
+
   gap: 2rem;
   cursor: pointer;
 `;
@@ -152,8 +155,8 @@ export const UserAvatar = styled.div`
   width: 140px;
   /* outline: 1px solid blue; */
   font-size: 0.8rem;
-  background-color: ${(props) => props.theme.tertiaryBackground};
-
+  background-color: ${(props) => props.theme.primaryBackground};
+  padding: 0.1rem;
   @media (max-width: 520px) {
     width: 100px;
 
