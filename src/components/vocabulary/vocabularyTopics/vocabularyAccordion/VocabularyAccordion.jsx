@@ -12,7 +12,6 @@ const VocabularyAccordion = ({
   wordsInTargetLanguage,
   secondLanguage,
   definition,
-  targetLanguageCode,
 }) => {
   console.log({ wordsInTargetLanguage, secondLanguage, definition });
   useScrollToTopOnRouteChange();
@@ -29,6 +28,7 @@ const VocabularyAccordion = ({
   const toggleAccordion = (index) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+  const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
 
   return (
     <AccordionContaner>
@@ -44,7 +44,7 @@ const VocabularyAccordion = ({
             </Words>
             <IconsWrapper>
               <ListenIcon
-                onClick={handleListen(word)}
+                onClick={handleListen(word, targetLanguageCode)}
                 isActive={isActiveStates[index]}
               >
                 <Listen />

@@ -73,6 +73,7 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
   const handleDisplayChange = (event) => {
     setDisplayWord(event.target.value === "word");
   };
+  const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
 
   return (
     <Container>
@@ -100,7 +101,7 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
 
               <CurrentWord>
                 <ListenIcon
-                  onClick={handleListen(word[currentIndex])}
+                  onClick={handleListen(word[currentIndex], targetLanguageCode)}
                   isActive={isActiveStates[currentIndex]}
                 >
                   <Listen />

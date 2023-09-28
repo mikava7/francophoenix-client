@@ -56,7 +56,7 @@ const useListenWord = () => {
   // Function to speak the word using SpeechSynthesis API
   const speakWord = (word, targetLanguageCode) => {
     const speechUtterance = new SpeechSynthesisUtterance(word);
-    speechUtterance.lang = targetLanguageCode;
+    speechUtterance.lang = targetLanguageCode || "fr-FR";
     window.speechSynthesis.speak(speechUtterance);
   };
 
