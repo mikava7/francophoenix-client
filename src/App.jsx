@@ -50,7 +50,6 @@ function App() {
     setIsDarkMode((prevMode) => !prevMode);
   };
   const theme = isDarkMode ? darkTheme : lightTheme;
-
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
@@ -60,7 +59,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />
-          {/* <Route path="/intermediate" element={<IntermediatePage />} /> */}
+          <Route path="/intermediate" element={<IntermediatePage />} />
           <Route path="/advanced" element={<AdvancedPage />} />
           <Route path="/book-display" element={<BookDetails />} />
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
