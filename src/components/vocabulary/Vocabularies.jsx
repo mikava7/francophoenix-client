@@ -21,7 +21,15 @@ const Vocabularies = () => {
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [showOptions, setShowOptions] = useState(false);
 
+  const categories = [
+    ...new Set(topicNames.map((item) => JSON.stringify(item.category))),
+  ].map((item) => JSON.parse(item));
+
+  // const types = [...new Set(topicNames.map((topic) => topic.type))];
+  // console.log("types", types);
   const handleCategoryChange = (topicId) => {
     setSelectedTopicId(topicId);
   };
@@ -30,13 +38,20 @@ const Vocabularies = () => {
     dispatch(fetchTopicNames());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  const nativeLanguageCode = i18n.language;
   const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
+  const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
+  const filteredTopics = selectedCategory
+    ? topicNames.filter((topic) => {
+        const categoryKey = `category${
+          nativeLanguageCode.charAt(0).toUpperCase() +
+          nativeLanguageCode.slice(1)
+        }`;
 
+        return topic.category[categoryKey] === selectedCategory;
+      })
+    : topicNames;
+
+  // console.log("nativeLanguageCode", nativeLanguageCode);
   const getTopicTitleInLanguage = (topic, languageCode) => {
     const language = supportedLanguages.find(
       (lang) => lang.code === languageCode
@@ -58,29 +73,84 @@ const Vocabularies = () => {
 
     return topic.topic; // Default to the topic name if language is not found
   };
+  const handleSelectClick = () => {
+    setShowOptions(!showOptions); // Toggle options on select click
+  };
+  const handleOptionClick = (category) => {
+    const categoryKey = `category${
+      nativeLanguageCode.charAt(0).toUpperCase() + nativeLanguageCode.slice(1)
+    }`;
 
+    setSelectedCategory(category[categoryKey] || category.categoryEn);
+    setShowOptions(false); // Close options when an option is selected
+  };
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
-    <VocabularyContainer>
-      {topicNames.map((topic) => (
-        <LocalStyledLink to={`/vocabulary-topics/${topic._id}`} key={topic._id}>
-          <TopicCardContainer>
-            <TopicImage src={topic.imageUrl} alt="Vocabulary Topic" />
-            <WordsCount>
-              {getTopicTitleInLanguage(topic, targetLanguageCode)}{" "}
-              <TopicSecondTitle>
-                {getTopicTitleInLanguage(topic, nativeLanguageCode)}{" "}
-                {/* Modify this line */}
-              </TopicSecondTitle>
-            </WordsCount>{" "}
-            <TopicDesription>
-              <span>{t("Number of Words")}</span>
-              <strong>{topic.wordsCount}</strong>
-            </TopicDesription>
-          </TopicCardContainer>
-        </LocalStyledLink>
-      ))}
-      {/* ... */}
-    </VocabularyContainer>
+    <div>
+      <StyledSelectContainer>
+        <StyledCustomSelect onClick={handleSelectClick}>
+          {selectedCategory || "All"}
+          <CustomDropdownArrow />
+        </StyledCustomSelect>
+        <CustomOptionContainer showOptions={showOptions}>
+          {categories.map((category) => (
+            <CustomOption
+              key={category.categoryFr}
+              value={category.categoryEn}
+              onClick={() => handleOptionClick(category)}
+            >
+              {
+                category[
+                  `category${
+                    nativeLanguageCode.charAt(0).toUpperCase() +
+                    nativeLanguageCode.slice(1)
+                  }`
+                ]
+              }
+            </CustomOption>
+          ))}
+        </CustomOptionContainer>
+      </StyledSelectContainer>
+
+      <VocabularyContainer>
+        {filteredTopics.map((topic) => (
+          <LocalStyledLink
+            to={`/vocabulary-topics/${topic._id}`}
+            key={topic._id}
+          >
+            <TopicCardContainer>
+              <TopicImage src={topic.imageUrl} alt="Vocabulary Topic" />
+              <WordsCount>
+                <TopicTitle>
+                  {getTopicTitleInLanguage(topic, targetLanguageCode)}{" "}
+                </TopicTitle>
+                <TopicSecondTitle>
+                  {getTopicTitleInLanguage(topic, nativeLanguageCode)}{" "}
+                  {/* Modify this line */}
+                </TopicSecondTitle>
+              </WordsCount>{" "}
+              <TopicDesription>
+                <span>{t("Nombre de mots")}</span>
+                <strong>{topic.wordsCount}</strong>
+              </TopicDesription>
+              <TopicType>
+                {
+                  topic.type[
+                    `type${
+                      nativeLanguageCode.charAt(0).toUpperCase() +
+                      nativeLanguageCode.slice(1)
+                    }`
+                  ]
+                }
+              </TopicType>
+            </TopicCardContainer>
+          </LocalStyledLink>
+        ))}
+        {/* ... */}
+      </VocabularyContainer>
+    </div>
   );
 };
 
@@ -108,6 +178,8 @@ const LocalStyledLink = styled(Link)`
 `;
 const TopicCardContainer = styled.div`
   border-radius: 0.5rem;
+  position: relative;
+
   display: flex;
   height: 320px;
   width: 300px;
@@ -171,9 +243,13 @@ const TopicTitle = styled.h3`
   padding: 0 0.4rem;
   line-height: ${(props) => props.theme.smallLineHeight};
   margin-bottom: 8px;
+  /* hyphens: auto; */
+  /* To allow long words to break and wrap */
+  word-wrap: break-word;
 `;
 const TopicSecondTitle = styled(TopicTitle)`
   font-size: ${(props) => props.theme.small};
+  word-wrap: break-word;
 `;
 
 const WordsCount = styled.p`
@@ -199,5 +275,72 @@ const TopicDesription = styled.h4`
     font-weight: bold;
     color: ${(props) => props.theme.secondaryText};
     border-bottom: 2px solid ${(props) => props.theme.secondaryText};
+  }
+`;
+const TopicType = styled.span`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200px;
+  height: 30px;
+  background-color: ${(props) => props.theme.highlight4};
+  color: ${(props) => props.theme.primaryText};
+  text-align: center;
+  padding: 4px;
+  border-radius: 8px 8px 0 0;
+  transform: translate(13%, -50%) rotate(-90deg);
+  font-weight: bold;
+`;
+
+const StyledSelectContainer = styled.div`
+  position: relative;
+  width: 300px;
+  margin-right: 3rem;
+  margin-left: auto;
+`;
+
+const StyledCustomSelect = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid ${(props) => props.theme.highlight4};
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
+  cursor: pointer;
+`;
+
+const CustomDropdownArrow = styled.div`
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid ${(props) => props.theme.primaryBackground};
+`;
+
+const CustomOptionContainer = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 1%;
+  width: 105%;
+  background-color: ${(props) => props.theme.primaryBackground};
+  border: 1px solid ${(props) => props.theme.highlight4};
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1;
+  display: ${(props) =>
+    props.showOptions ? "block" : "none"}; /* Show/hide options */
+`;
+
+const CustomOption = styled.div`
+  padding: 10px;
+  color: ${(props) => props.theme.primaryText};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.highlight4};
   }
 `;
