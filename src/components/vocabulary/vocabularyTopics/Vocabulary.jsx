@@ -116,18 +116,23 @@ const Vocabulary = () => {
           vocabularyData={vocabularyData}
           french={french}
         />
-        <AccordionSection
-          type={t("Genre des noms")}
-          identifier="Genre des noms"
-          isOpen={openComponent === "Genre des noms"}
-          onToggle={() =>
-            setOpenComponent(
-              openComponent === "Genre des noms" ? null : "Genre des noms"
-            )
-          }
-          french={french}
-        />
-
+        {vocabularyData && vocabularyData.type && (
+          <>
+            {vocabularyData.type.some((t) => t.typeEn === "noun") && (
+              <AccordionSection
+                type={t("Genre des noms")}
+                identifier="Genre des noms"
+                isOpen={openComponent === "Genre des noms"}
+                onToggle={() =>
+                  setOpenComponent(
+                    openComponent === "Genre des noms" ? null : "Genre des noms"
+                  )
+                }
+                french={french}
+              />
+            )}
+          </>
+        )}
         <AccordionSection
           type={t("Questionnaire")}
           identifier="Questionnaire"

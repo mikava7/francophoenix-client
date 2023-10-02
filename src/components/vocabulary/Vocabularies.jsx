@@ -136,14 +136,15 @@ const Vocabularies = () => {
                 <strong>{topic.wordsCount}</strong>
               </TopicDesription>
               <TopicType>
-                {
+                {(topic &&
+                  topic.type &&
                   topic.type[
                     `type${
-                      nativeLanguageCode.charAt(0).toUpperCase() +
-                      nativeLanguageCode.slice(1)
+                      nativeLanguageCode?.charAt(0).toUpperCase() +
+                      nativeLanguageCode?.slice(1)
                     }`
-                  ]
-                }
+                  ]) ||
+                  "Default Value"}
               </TopicType>
             </TopicCardContainer>
           </LocalStyledLink>
