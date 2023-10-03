@@ -64,7 +64,7 @@ function App() {
           <Route path="/book-display" element={<BookDetails />} />
           <Route path="/books/level/a1-a2" element={<A1A2Books />} />
           <Route path="/books/level/a2-b1" element={<A2B1Books />} />
-          {/* <Route path="/books/level/b1-b2" element={<B1B2Books />} /> */}
+          <Route path="/books/level/b1-b2" element={<B1B2Books />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile-page" element={<ProfilePage />} />
