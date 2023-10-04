@@ -113,7 +113,7 @@ Error generating stack: `+o.message+`
     transform: translateY(0);
     opacity: 1;
   }
-`,tL=({books:e})=>{const{t}=q(),n=()=>{const i=window.innerWidth;return i>=1200?5:i>=992?4:i>=768?3:1},r={dots:!0,infinite:!0,speed:500,slidesToShow:n(),slidesToScroll:1,responsive:[{breakpoint:1200,settings:{slidesToShow:n()}},{breakpoint:992,settings:{slidesToShow:n()}},{breakpoint:768,settings:{slidesToShow:n()}},{breakpoint:0,settings:{slidesToShow:1}}]};return l.jsx(FT,{...r,children:e.map(i=>l.jsxs(nL,{children:[l.jsx(rL,{src:i.poster,alt:i.title}),l.jsx(Oe,{to:`books/${i._id}`,children:l.jsx(Jv,{children:t("Lire Extrait")})})]},i._id))})},Jv=p.span`
+`,tL=({books:e})=>{const{t}=q(),n=()=>{const i=window.innerWidth;return i>=1200?5:i>=992?4:i>=768?3:1},r={dots:!0,infinite:!0,speed:500,slidesToShow:n(),slidesToScroll:1,responsive:[{breakpoint:1200,settings:{slidesToShow:n()}},{breakpoint:992,settings:{slidesToShow:n()}},{breakpoint:768,settings:{slidesToShow:n()}},{breakpoint:0,settings:{slidesToShow:1}}]};return l.jsx(FT,{...r,children:e.map(i=>l.jsxs(nL,{children:[l.jsx(rL,{src:i.poster,alt:i.title}),l.jsx(Oe,{to:`reading-zone/french-easy-reading/${i._id}`,children:l.jsx(Jv,{children:t("Lire Extrait")})})]},i._id))})},Jv=p.span`
   display: none;
   position: absolute;
   bottom: 0;
@@ -3030,8 +3030,8 @@ h3{
   position: absolute;
   top: 30px;
   right: 50%;
-  background-color: ${e=>e.theme.primaryText};
-  color: ${e=>e.theme.primaryBackground};
+  background-color: ${e=>e.theme.primaryBackground};
+  /* color: ${e=>e.theme.primaryBackground}; */
 
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -5891,7 +5891,7 @@ Le festival de Cannes rassemble, comme chaque année, les stars du cinéma et to
   &:before {
     content: "- ";
   }
-`;const Bz=()=>{Ue(),S.useState(null);const e=ne(),t=W(i=>i.grammer.grammer)||[],n=W(i=>i.grammer.isLoading),r=W(i=>i.grammer.error);return S.useEffect(()=>{e(Qs())},[e]),n?l.jsx(Be,{}):r?l.jsx(To,{error:r}):l.jsxs(Iz,{children:[t&&t.map(i=>{const{_id:o}=i;return console.log("topics",i),l.jsx(Hn,{to:`/grammar-basic/${o}`,children:l.jsx(Lz,{topics:i})},o)}),l.jsx("div",{})," "]})},Iz=p.div`
+`;const Bz=()=>{Ue(),S.useState(null);const e=ne(),t=W(i=>i.grammer.grammer)||[],n=W(i=>i.grammer.isLoading),r=W(i=>i.grammer.error);return S.useEffect(()=>{e(Qs())},[e]),n?l.jsx(Be,{}):r?l.jsx(To,{error:r}):l.jsxs(Iz,{children:[t&&t.map(i=>{const{_id:o}=i;return l.jsx(Hn,{to:`/grammar-basic/${o}`,children:l.jsx(Lz,{topics:i})},o)}),l.jsx("div",{})," "]})},Iz=p.div`
   display: flex;
   /* overflow-x: hidden; */
   align-items: center;

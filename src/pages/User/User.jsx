@@ -125,8 +125,8 @@ const DropdownList = styled.ul`
   position: absolute;
   top: 30px;
   right: 50%;
-  background-color: ${(props) => props.theme.primaryText};
-  color: ${(props) => props.theme.primaryBackground};
+  background-color: ${(props) => props.theme.primaryBackground};
+  /* color: ${(props) => props.theme.primaryBackground}; */
 
   border: 1px solid #ccc;
   border-radius: 5px;

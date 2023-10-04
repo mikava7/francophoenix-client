@@ -40,7 +40,7 @@ const BasicGrammerLessons = () => {
       {basicGrammerTopics &&
         basicGrammerTopics.map((topics) => {
           const { _id } = topics;
-          console.log("topics", topics);
+          // console.log("topics", topics);
           return (
             <StyledLink key={_id} to={`/grammar-basic/${_id}`}>
               <BasicGrammerTopic topics={topics} />

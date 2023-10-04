@@ -65,7 +65,7 @@ const Carousel = ({ books }) => {
       {books.map((book) => (
         <BookCard key={book._id}>
           <BookImage src={book.poster} alt={book.title} />
-          <Link to={`books/${book._id}`}>
+          <Link to={`reading-zone/french-easy-reading/${book._id}`}>
             <ReadExtract>{t("Lire Extrait")}</ReadExtract>
           </Link>
         </BookCard>
