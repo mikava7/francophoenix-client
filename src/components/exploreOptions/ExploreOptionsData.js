@@ -1,14 +1,5 @@
 export const optionsDataFr = [
   {
-    title: " Approndre Le Français",
-    description:
-      "Débutez votre parcours d'apprentissage du français, explorez les bases de la grammaire",
-    listItems: [" Les fondamentaux de la grammaire"],
-    buttonLabel: "Apprendre",
-    buttonColor: "#67330A",
-    link: "grammar",
-  },
-  {
     title: " Améliorez votre vocabulaire",
     description:
       "Débutez votre parcours d'apprentissage du français, explorez  du vocabulaire et de la communication,  Venez découvrir :",
@@ -18,8 +9,18 @@ export const optionsDataFr = [
     ],
     buttonLabel: "Apprendre",
     buttonColor: "#67330A",
-    link: "vocabulary",
+    link: "vocabulary/vocabulary-topics",
   },
+  {
+    title: " Approndre Le Français",
+    description:
+      "Débutez votre parcours d'apprentissage du français, explorez les bases de la grammaire",
+    listItems: [" Les fondamentaux de la grammaire"],
+    buttonLabel: "Apprendre",
+    buttonColor: "#67330A",
+    link: "grammar",
+  },
+
   {
     title: " Découverte de la littérature française.",
     description:
@@ -52,15 +53,6 @@ export const optionsDataFr = [
 
 export const optionsDataEng = [
   {
-    title: "   Learn French",
-    description:
-      "Begin your journey of learning French, explore the basics of grammar, vocabulary, and communication, and progress towards mastery. Come and discover:",
-    listItems: ["Grammar fundamentals", "Advanced learning"],
-    buttonLabel: "Learn",
-    buttonColor: "#67330A",
-    link: "grammar",
-  },
-  {
     title: " Improve Your Vocabulary",
     description:
       "Begin your journey of learning French, explore the basics of grammar, vocabulary, and communication, and progress towards mastery. Come and discover:",
@@ -69,6 +61,16 @@ export const optionsDataEng = [
     buttonColor: "#67330A",
     link: "vocabulary/vocabulary-topics",
   },
+  {
+    title: "   Learn French",
+    description:
+      "Begin your journey of learning French, explore the basics of grammar, vocabulary, and communication, and progress towards mastery. Come and discover:",
+    listItems: ["Grammar fundamentals", "Advanced learning"],
+    buttonLabel: "Learn",
+    buttonColor: "#67330A",
+    link: "grammar",
+  },
+
   {
     title: " Discover French Literature",
     description:
@@ -100,6 +102,18 @@ export const optionsDataEng = [
 ];
 export const optionsDataGeo = [
   {
+    title: " გაიუმჯობესე ლექსიკის დონე",
+    description:
+      "გაიუმჯობესე ლექსიკა, ნახე ჩვენი ლექსიკის სექცია, სადაც დაგხვდება:",
+    listItems: [
+      "ლექსიკა თემების მიხედვით",
+      "ყოველდღიური საკომუნიკაციო ფრაზები",
+    ],
+    buttonLabel: "ნახე",
+    buttonColor: "#67330A",
+    link: "vocabulary/vocabulary-topics",
+  },
+  {
     title: "  ისწავლე ფრანგული",
     description:
       "დაიწყე ფრანგულის სწავლა, ჩვენი საბაზისო გრამატიკის სექციიდან :",
@@ -108,18 +122,7 @@ export const optionsDataGeo = [
     buttonColor: "#67330A",
     link: "grammar",
   },
-  {
-    title: " გაიუმჯობესე ლექსიკის დონე",
-    description:
-      "გაიუმჯობესე ლექსიკა, ნახე ჩვენი ლექსიკის სექცია, სადაც დაგხვდება:",
-    listItems: [
-      "ლექსიკა თემების მიხედვით",
-      "ყოველდღიური საკომუნიკაციო ფრაზები",
-    ],
-    buttonLabel: "ისწავლე",
-    buttonColor: "#67330A",
-    link: "vocabulary/vocabulary-topics",
-  },
+
   {
     title: " ფრანგული წიგნები",
     description:

@@ -40,7 +40,7 @@ const Vocabulary = () => {
   }));
   const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
   const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
-
+  console.log(vocabularyData);
   // Define the mapping of language codes to object properties
   const languagePropertyMap = {
     fr: "french",
@@ -48,13 +48,24 @@ const Vocabulary = () => {
     ka: "georgian",
     // Add more mappings as needed
   };
+  const titleLanguagePropertyMap = {
+    fr: "topic",
+    en: "topicEng",
+    ka: "topicGeo",
+  };
 
   // Determine the target language property based on the selected language code
   const targetLanguageProperty = languagePropertyMap[targetLanguageCode];
   const targetLanguageArray = vocabularyData?.words?.map(
     (word) => word?.[targetLanguageProperty]
   );
+  const targetedTitleProperty = titleLanguagePropertyMap[targetLanguageCode];
+  const targetedTitle = vocabularyData
+    ? vocabularyData[targetedTitleProperty]
+    : undefined;
+  console.log("targetedTitle", targetedTitle);
 
+  console.log("vocabularyData", vocabularyData);
   // Determine the native language property based on the selected language code
   const nativeLanguageProperty = languagePropertyMap[nativeLanguageCode];
   const nativeLanguageArray = vocabularyData?.words?.map(
@@ -84,6 +95,7 @@ const Vocabulary = () => {
       <WordCount>
         {t("Les mots")} <b>{french && french?.length}</b>
       </WordCount>
+      <h1>{targetedTitle}</h1>
       <WordPairContainer>
         <VocabularyAccordion
           wordsInTargetLanguage={targetLanguageArray}

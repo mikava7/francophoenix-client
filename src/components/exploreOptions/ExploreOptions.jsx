@@ -36,7 +36,7 @@ const ExploreOptions = () => {
           return (
             <CardBox key={title}>
               <CardTilte>{title.toUpperCase()}</CardTilte>
-              <p>{description}</p>
+              {/* <p>{description}</p> */}
               <List>
                 {listItems.map((item, index) => (
                   <li key={index}>{item}</li>

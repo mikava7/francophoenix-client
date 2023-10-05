@@ -13,7 +13,7 @@ const VocabularyAccordion = ({
   secondLanguage,
   definition,
 }) => {
-  console.log({ wordsInTargetLanguage, secondLanguage, definition });
+  // console.log({ wordsInTargetLanguage, secondLanguage, definition });
   useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const [expandedIndex, setExpandedIndex] = useState(null);
