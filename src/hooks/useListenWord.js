@@ -20,9 +20,11 @@ const useListenWord = () => {
   // Handle word listening functionality
   const handleListen = (word, targetLanguageCode) => (event) => {
     event.stopPropagation();
-    // console.log("targetLanguage in handle listen", targetLanguageCode);
-    // Extract the word before parentheses (if any)
-    const wordWithoutParentheses = word.split(" (")[0];
+    // Split the word based on both open and close parentheses
+    const parts = word.split(/[()]/);
+
+    // Get the first part of the split, which is the word without parentheses
+    const wordWithoutParentheses = parts[0];
 
     // Call the speakWord function to read the word without parentheses aloud
     speakWord(wordWithoutParentheses, targetLanguageCode);

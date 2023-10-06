@@ -43,6 +43,7 @@ import Layout from "./layout/Layout";
 import Register from "./pages/User/Register";
 import Login from "./pages/User/Login";
 import ProfilePage from "./pages/User/ProfilePage";
+import RegistrationForm from "./pages/User/Register2";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -56,6 +57,8 @@ function App() {
         <GlobalStyle />
         <Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
         <Routes>
+          <Route path="/RegistrationForm" element={<RegistrationForm />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/beginner" element={<JaimeEtClaire />} />

@@ -119,8 +119,13 @@
   "Mémoriser des mots": "Memorizing words",
   "Lire Extrait": "Read Extract",
   "Parlez-vous français?": "Do you speak French?",
-  "ფრანგული ლექსიკა": "French vocabulary",
+  "Vocabulaire français": "French vocabulary",
   "Je parle": "I Speak",
   "J'apprends": "I Learn",
-  "Langues": "Languages"
+  "Langues": "Languages",
+  "adjectif": "adjective",
+
+  "preposition": "preposition",
+  "conversation": "conversation",
+  "adverb": "adverbe"
 }
