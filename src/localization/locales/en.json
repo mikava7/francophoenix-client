@@ -112,7 +112,6 @@
   "Exercice d'articles": "Article Exercise",
   "Exercice de temps des verbes": "Verb Tense Exercise",
   "Construire des phrases": "Sentence Builder",
-  "Nom": "Name",
   "Statut": "Status",
   "Pseudonyme doit comporter au moins 3 caractères": "Username must be at least 3 characters long",
   "Le mot de passe doit comporter au moins 5 caractères": "Password must be at least 5 characters long",
@@ -123,9 +122,14 @@
   "Je parle": "I Speak",
   "J'apprends": "I Learn",
   "Langues": "Languages",
-  "adjectif": "adjective",
 
+  "Nom": "Name",
+
+  "adjectif": "adjective",
   "preposition": "preposition",
   "conversation": "conversation",
-  "adverb": "adverbe"
+  "adverb": "adverbe",
+  "nom": "noun",
+  "verbe": "verb",
+  "orthographie": "orthography"
 }

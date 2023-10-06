@@ -4,12 +4,41 @@ export const menuData = [
     link: "/grammar/basic-grammar-lessons",
     subItems: [
       {
-        title: "Sub-Item 1",
-        link: "/sub-item-1",
+        title: "nom",
+        link: "/grammar/noun",
       },
       {
-        title: "Sub-Item 2",
-        link: "/sub-item-2",
+        title: "verbe",
+        link: "/grammar/verb",
+      },
+      {
+        title: "adjectif",
+        link: "/grammar/adjectif",
+      },
+      {
+        title: "preposition",
+        link: "/grammar/adverb",
+      },
+      {
+        title: "adverb",
+        link: "/grammar/adverb",
+      },
+
+      {
+        title: "conversation",
+        link: "/grammar/conversation",
+      },
+      {
+        title: "article",
+        link: "/grammar/article",
+      },
+      {
+        title: "orthographie",
+        link: "/grammar/orthography",
+      },
+      {
+        title: "phonology",
+        link: "/grammar/phonology",
       },
       // Add more sub-items as needed
     ],
@@ -31,7 +60,7 @@ export const menuData = [
         link: "/vocabulary/verb-tense-exercise",
       },
       {
-        title: "vocabulary/sentence-builder",
+        title: "Construire la phrase",
         link: "/vocabulary/exercise-article",
       },
     ],
