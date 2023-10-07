@@ -8,11 +8,11 @@ export const BookCardLayout = styled.div`
   perspective: 31.3rem;
   overflow: hidden;
   color: ${(props) => props.theme.primaryText};
-
+  /* padding: 1rem; */
   background-color: ${(props) => props.theme.tertiaryBackground};
   box-shadow: 2.3rem 2.3rem 3.1rem 0.9rem
     ${(props) => props.theme.tertiaryBackground};
-  outline: 1px solid ${(props) => props.theme.highlight1};
+  /* outline: 1px solid ${(props) => props.theme.highlight1}; */
 `;
 export const Actions = styled.div`
   position: fixed;
@@ -32,7 +32,7 @@ export const Preface = styled.div`
   height: 28rem;
   padding: 3rem;
   transition: transform 0.7s ease-in-out;
-  background: ${(props) => props.theme.primaryBackground};
+  background: ${(props) => props.theme.tertiaryText};
   transform: translateY(
     ${(props) => (props.showDescription ? "-9.8rem" : "0")}
   );
@@ -44,7 +44,7 @@ export const BookCover = styled.div`
   left: -52.5%;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
-  background: ${(props) => props.theme.secondaryBackground};
+  background: ${(props) => props.theme.tertiaryBackground};
   transform-style: preserve-3d;
   transform-origin: 50% 60%;
   transition: transform 0.7s ease-in-out;
@@ -83,3 +83,4 @@ export const Author = styled.h4`
   font-style: italic;
   margin-left: 2rem;
 `;
+export const Description = styled.p``;

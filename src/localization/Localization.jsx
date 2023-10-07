@@ -102,7 +102,7 @@ const LocalizationContainer = styled.div`
   /* outline: 2px solid ${(props) => props.theme.highlight2}; */
   box-shadow: ${(props) => props.theme.localizationBoxShadow};
   @media (max-width: 855px) {
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     margin: 0 auto;
     padding-left: 1rem;
@@ -119,6 +119,8 @@ const LanguageDropdown = styled.div`
   cursor: pointer;
   padding: 0.2rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -127,7 +129,8 @@ const Title = styled.div`
   align-items: center;
   justify-content: space-evenly;
   width: 230px;
-  @media (max-width: 300px) {
+
+  @media (max-width: 320px) {
     width: 90%;
     flex-direction: column;
     margin: 0 auto;
@@ -148,6 +151,8 @@ const LanguageList = styled.div`
   align-items: flex-start;
   width: 100%;
   margin-top: 4px;
+  /* border: 1px solid red; */
+
   button {
     background: none;
     border: none;
@@ -176,11 +181,17 @@ const SelectedLanguage = styled.div`
   font-size: 1rem;
   outline: 1px solid ${(props) => props.theme.highlight4};
   color: ${(props) => props.theme.primaryBackground};
-  color: ${(props) => props.theme.secondaryText};
+  background: ${(props) => props.theme.secondaryText};
+  order: 1;
+  margin-left: auto;
+  width: 7rem;
 
   img {
     width: 1.8rem;
     margin-right: 0.2rem;
+  }
+  @media (max-width: 540px) {
+    order: 2;
   }
 `;
 const NativeTitle = styled.h5`
@@ -191,8 +202,19 @@ const NativeTitle = styled.h5`
 `;
 const TargetTitle = styled.h5`
   margin-left: 0.4rem;
+  order: 2;
+
   &::before {
     content: " - ";
+  }
+  @media (max-width: 540px) {
+    order: 1;
+    &::before {
+      content: " ";
+    }
+    &::after {
+      content: " - ";
+    }
   }
 `;
 export default Localization;

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   // baseURL: "https://frang.ge/api",
-  baseURL: "https://francophoenix.onrender.com",
+  // baseURL: "https://francophoenix.onrender.com",
 
   baseURL: "http://localhost:5500",
 });

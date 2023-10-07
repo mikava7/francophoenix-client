@@ -74,11 +74,9 @@ const BookList = styled.ul`
   display: flex;
   /* outline: 1px solid blue; */
   overflow-x: hidden;
-
   max-width: 100%;
 
-  flex-wrap: wrap; //when i comment this line then all books are in one line horizontally. if i add this line then one by one vertically. why?
-  list-style: none;
+  flex-wrap: wrap;
   padding: 0;
 `;
 
@@ -88,7 +86,7 @@ const BookItem = styled.li`
   overflow-x: hidden;
   /* width: 100%; */
   /* outline: 1px solid yellow; */
-  /* margin: 0 1rem; */
+  margin: 1rem;
 `;
 const StyledLink = styled(Link)`
   overflow-x: hidden;

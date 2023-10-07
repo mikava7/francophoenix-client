@@ -12,6 +12,7 @@ import {
   BookSide,
   Title,
   Author,
+  Description,
 } from "./style-bookDisplay";
 const BookDetails = ({ books, description }) => {
   const [doubleTap, setDoubleTap] = useState(false);
@@ -55,7 +56,7 @@ const BookDetails = ({ books, description }) => {
         <Title>{books.title}</Title>
 
         <Author>by {books.author}</Author>
-        <p>{description}</p>
+        <Description>{description}</Description>
       </Preface>
     </BookCardLayout>
   );
