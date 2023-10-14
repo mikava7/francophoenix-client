@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { scrollToContainer } from "../../Utility/scrollToContainer";
 import BlurryVocabularyTrainer from "../../flashcard/trainers/BlurryVocabularyTrainer";
+import WordJumble from "../../flashcard/trainers/wordTrainer/WordJumble";
 const AccordionSection = ({
   type,
   isOpen,
@@ -65,6 +66,9 @@ const AccordionSection = ({
               secondLanguage={secondLanguage}
               french={french}
             />
+          )}
+          {identifier === "Tapez le mot" && (
+            <WordJumble selectedFlashcards={selectedFlashcards} />
           )}
         </SectionBox>
       )}

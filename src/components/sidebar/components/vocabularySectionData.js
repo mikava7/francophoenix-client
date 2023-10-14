@@ -8,12 +8,20 @@ export const vocabularySectionData = {
       link: "/vocabulary/vocabulary-topics",
     },
     {
+      title: "Verbes",
+      question: "Voulez-vous explorer les verbes en français ?",
+      description:
+        "Apprenez la conjugaison et l'utilisation des verbes en français.",
+      link: "/verbs",
+    },
+    {
       title: "Exercice d'articles",
       question: "Voulez-vous pratiquer les genres des mots français ?",
       description:
         "Entraînez-vous à choisir le genre correct des mots en français.",
       link: "/vocabulary/exercise-article",
     },
+
     {
       title: "Exercice de temps des verbes",
       question: "Voulez-vous pratiquer les temps des verbes en français ?",
@@ -43,6 +51,12 @@ export const vocabularySectionData = {
       description:
         "Explore fundamental vocabulary lessons to build a strong foundation.",
       link: "/vocabulary/vocabulary-topics",
+    },
+    {
+      title: "Verbs",
+      question: "Do you want to explore French verbs?",
+      description: "Learn about verb conjugation and usage in French.",
+      link: "/verbs",
     },
     {
       title: "Article Exercise",
@@ -78,6 +92,13 @@ export const vocabularySectionData = {
       description: "ამ განყოფილებაში დაგხვდება ლექსიკის ყველა აუცილებელი თემა.",
       link: "/vocabulary/vocabulary-topics",
     },
+    {
+      title: "ზმნები",
+      question: "გსურს ისწავლო ფრანგული ზმნების უღლება ?",
+      description: "მაშინ ეს სექცია შენთვისაა.",
+      link: "/verbs",
+    },
+
     {
       title: "არტიკლის სავარჯიშო",
       question:

@@ -29,10 +29,25 @@ export const fetchSelectedTense = createAsyncThunk(
     }
   }
 );
+
+export const getAllVerbs = createAsyncThunk(
+  "verbTenses/getAllVerbs",
+  async () => {
+    try {
+      const response = await axiosInstance.get("/verbs");
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw Error("Failed to fetch verb list");
+    }
+  }
+);
 const initialState = {
   selectedTenseCache: {}, // Initialize an empty cache object
   selectedTense: [],
   tenseNames: [],
+  verbs: [],
   isLoading: false,
   error: null,
 };
@@ -71,6 +86,17 @@ const verbTensesSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchSelectedTense.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+
+      .addCase(getAllVerbs.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllVerbs.fulfilled, (state, action) => {
+        state.verbs = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(getAllVerbs.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

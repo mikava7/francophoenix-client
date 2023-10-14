@@ -5,7 +5,7 @@ import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
 
 const WordJumble = ({ selectedFlashcards }) => {
-  console.log("selectedFlashcards", selectedFlashcards);
+  // console.log("selectedFlashcards", selectedFlashcards);
   const { handleListen, isActiveStates } = useListenWord();
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
@@ -33,10 +33,10 @@ const WordJumble = ({ selectedFlashcards }) => {
     ) {
       const flashcard = selectedFlashcards[currentFlashcardIndex];
       const lettersAndSpaces = flashcard.split(""); // Split by each character (including spaces)
-      console.log("lettersAndSpaces", lettersAndSpaces);
+      // console.log("lettersAndSpaces", lettersAndSpaces);
 
       setOriginalWord(flashcard);
-      console.log("flashcard", flashcard);
+      // console.log("flashcard", flashcard);
 
       lettersAndSpaces.sort(() => Math.random() - 0.5);
 
@@ -86,6 +86,7 @@ const WordJumble = ({ selectedFlashcards }) => {
       <PlayButton onClick={handleListen(currentFlashcard)}>
         Play the word
       </PlayButton>
+      <Score>words in section: {selectedFlashcards.length}</Score>
       <BuildBox>
         <JumbleBox>
           {/* Display jumbled letters */}
@@ -114,10 +115,14 @@ const WordJumble = ({ selectedFlashcards }) => {
         </LetterBox>
       </BuildBox>
 
-      {isAllLettersSelected && !isCorrect && <div>Incorrect! Try again.</div>}
+      {isAllLettersSelected && !isCorrect && (
+        <WrongNotification>Incorrect! Try again.</WrongNotification>
+      )}
       {isCorrect && (
         <div>
-          Correct! You assembled the word.
+          <CorrectNotification>
+            Correct! You assembled the word.
+          </CorrectNotification>
           {currentFlashcardIndex < selectedFlashcards.length - 1 && (
             <Button onClick={handleNext}>Next</Button>
           )}
@@ -141,6 +146,7 @@ const BuildBoxContainer = styled.section`
   justify-content: center;
   margin: 0 auto;
   width: 390px;
+  max-width: 90%;
   min-height: 600px;
   margin: 1rem auto;
   background: #0055a4dd;
@@ -151,7 +157,7 @@ const BuildBoxContainer = styled.section`
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
-    max-width: 370px;
+    max-width: 330px;
   }
 `;
 const BuildBox = styled.div`
@@ -172,6 +178,9 @@ const JumbleBox = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 576px) {
+    min-width: 300px;
+  }
 `;
 
 const LetterButton = styled.button`
@@ -222,4 +231,17 @@ const RestartButton = styled(Button)`
     background-color: #ff4e07;
     color: #f1f7fcdd;
   }
+`;
+const CorrectNotification = styled.span`
+  font-weight: bold;
+  color: #f1f7fcdd;
+`;
+const WrongNotification = styled(CorrectNotification)`
+  color: red;
+`;
+const Score = styled.span`
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 `;

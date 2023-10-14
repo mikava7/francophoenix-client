@@ -16,7 +16,7 @@ const TooltipComponent = ({ tooltipContent, index, conjugated, id }) => {
   // console.log("tooltipContent", tooltipContent);
   const { t, i18n } = useTranslation();
   const { definition, english, georgian, french } = tooltipContent;
-  console.log({ definition, english, georgian, french });
+  // console.log({ definition, english, georgian, french });
   const { handleListen, isActiveStates } = useListenWord();
   const [showWord, setShowWord] = useState(false);
 

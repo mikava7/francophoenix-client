@@ -73,4 +73,8 @@ export const menuData = [
     title: "Dictionnaire",
     link: "/dictionary",
   },
+  {
+    title: "Verbes",
+    link: "/verbs",
+  },
 ];

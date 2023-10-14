@@ -208,7 +208,7 @@ const QuestionContainer = styled.div`
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
-    max-width: 370px;
+    max-width: 360px;
   }
 `;
 const QuestionBox = styled.div`
@@ -224,7 +224,7 @@ const QuestionBox = styled.div`
   margin: 0.3rem 1rem;
   margin-top: 1rem;
 
-  width: 360px;
+  max-width: 300px;
   @media (min-width: 576px) and (max-width: 766px) {
     flex-direction: column;
   }
@@ -240,16 +240,16 @@ const getOptionBackgroundColor = (props) => {
 
   if (isUserAnswer && isShowAnswers) {
     if (isQuestionCorrectAnswer) {
-      return "green"; // selected correct
+      return "#4CAF50";
     } else {
-      return "red"; // selected wrong
+      return "#F44336";
     }
   } else if (isUserAnswer) {
-    return "violet"; // selected
+    return "#a89eaa"; // Purple (selected)
   } else if (isShowAnswers && props["data-allanswerscorrect"] === "true") {
-    return "green"; // all answers correct
+    return "#4CAF50"; // Green (all answers correct)
   } else {
-    return props.theme.secondaryBackground;
+    return props.theme.secondaryBackground; // Use your theme's secondary background color
   }
 };
 
@@ -302,6 +302,7 @@ const Score = styled.span`
   padding: 0.5rem;
   background: #7bb5f8;
   margin-left: auto;
+  margin-right: 1rem;
 `;
 const FinalScore = styled.div`
   display: flex;

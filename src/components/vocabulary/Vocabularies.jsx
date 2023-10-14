@@ -291,6 +291,10 @@ const TopicType = styled.span`
   border-radius: 8px 8px 0 0;
   transform: translate(13%, -50%) rotate(-90deg);
   font-weight: bold;
+  @media (max-width: 392px) {
+    height: 25px;
+    left: 48%;
+  }
 `;
 
 const StyledSelectContainer = styled.div`

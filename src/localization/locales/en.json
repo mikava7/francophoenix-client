@@ -124,12 +124,16 @@
   "Langues": "Languages",
 
   "Nom": "Name",
-
+  "Verbes": "Verbs",
   "adjectif": "adjective",
   "preposition": "preposition",
   "conversation": "conversation",
   "adverb": "adverbe",
   "nom": "noun",
   "verbe": "verb",
-  "orthographie": "orthography"
+  "orthographie": "orthography",
+  "À propos": "About",
+  "Contact": "Contact",
+  "Dialogues": "Dialogues",
+  "Tapez le mot":"Type the word"
 }

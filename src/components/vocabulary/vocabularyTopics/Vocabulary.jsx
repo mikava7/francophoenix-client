@@ -15,6 +15,7 @@ import Loading from "../../loading/Loading";
 import AccordionSection from "./AccordionSection";
 import { supportedLanguages } from "../../../localization/supportedLanguages";
 import Localization from "../../../localization/Localization";
+import WordJumble from "../../flashcard/trainers/wordTrainer/WordJumble";
 const Vocabulary = () => {
   const { topicId } = useParams();
   const dispatch = useDispatch();
@@ -158,7 +159,21 @@ const Vocabulary = () => {
           wordsInTargetLanguage={targetLanguageArray}
           french={french}
         />
+        <AccordionSection
+          type={t("Tapez le mot")}
+          identifier="Tapez le mot"
+          isOpen={openComponent === "Tapez le mot"}
+          onToggle={() =>
+            setOpenComponent(
+              openComponent === "Tapez le mot" ? null : "Tapez le mot"
+            )
+          }
+          secondLanguage={nativeLanguageArray}
+          wordsInTargetLanguage={targetLanguageArray}
+          selectedFlashcards={french}
+        />
       </TopicTextBox>
+      {/* <WordJumble selectedFlashcards={french} /> */}
     </VocabularyContainer>
   );
 };

@@ -44,6 +44,7 @@ import Register from "./pages/User/Register";
 import Login from "./pages/User/Login";
 import ProfilePage from "./pages/User/ProfilePage";
 import RegistrationForm from "./pages/User/Register2";
+import Verbs from "./components/verbs/Verbs";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -140,6 +141,8 @@ function App() {
               path="/Content-Coming-Soon"
               element={<ContentComingSoon />}
             />
+            <Route path="/verbs" element={<Verbs />} />
+
             <Route path="/verbs/:verb" element={<VerbConjugation />} />
           </Route>
           {/**8//////////////////////////////////////// */}
