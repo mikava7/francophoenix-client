@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
+import RotatingChevron from "../Utility/RotatingChevron";
 const CategoryDropdown = ({ topic, selectedCategory, onCategoryChange }) => {
-  {
-    console.log("selectedCategory in CategoryDropdown", selectedCategory);
-  }
   return (
     <CategoryDropdownContainer>
       <SelectWrapper>
+        <ChevronBox>
+          <RotatingChevron />
+        </ChevronBox>
         <StyledSelect value={selectedCategory} onChange={onCategoryChange}>
           {topic.map((topicName, index) => (
             <option key={index} value={topicName}>
@@ -29,38 +29,36 @@ const CategoryDropdownContainer = styled.div`
   justify-content: center;
   width: 100%;
   margin-bottom: 2rem;
+  overflow: auto;
 `;
 
 const SelectWrapper = styled.div`
   position: relative;
+  max-height: inherit; /* The dropdown's max height will be determined by its parent */
 `;
+
 const StyledSelect = styled.select`
   text-align: center;
   width: 100%;
   padding: 1rem;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
-  border-bottom: 3px solid ${(props) => props.theme.flagAddon};
+  border-bottom: 5px solid ${(props) => props.theme.highlight3};
   appearance: none;
-  background-color: ${(props) => props.theme.flagFirst};
-  color: ${(props) => props.theme.flagAddon};
-  &::after {
-    content: "\u25BC"; /* Unicode character for a downward-pointing arrow */
-    position: absolute;
-    top: 45%;
-    right: 1rem;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-    background-color: ${(props) => props.theme.flagAddon};
-    color: ${(props) => props.theme.flagFirst};
-    cursor: pointer;
-  }
+  background-color: ${(props) => props.theme.highlight4};
+  color: ${(props) => props.theme.primaryBacground};
+  max-height: 300px;
+  overflow: hidden;
+  content: "\u25BC";
   option {
     cursor: pointer;
-    font-size: 1.3rem;
-
-    border-bottom: 2px solid red;
+    font-size: 1rem;
     font-weight: bold;
   }
+`;
+const ChevronBox = styled.span`
+  position: absolute;
+  top: 20%;
+  right: 10%;
 `;

@@ -34,7 +34,10 @@ const ExerciseArticle = ({ frenchWords }) => {
     useSelector((state) => state.quizData.currentTopic.words) || [];
   // console.log("frenchWords in ExerciseArticle", frenchWords);
   const isLoading = useSelector((state) => state.quizData.isLoading);
-  const topic = topicNames.map((topic) => topic.topic);
+  const topic = topicNames
+    .filter((topic) => topic.type && topic.type.typeFr === "nom")
+    .map((topic) => topic.topic);
+  // console.log("topics", topics);
   const [selectedCategory, setSelectedCategory] = useState(topic[0]);
 
   const ownFrenchWords = quizData.map((words) => words.french);
@@ -46,8 +49,8 @@ const ExerciseArticle = ({ frenchWords }) => {
     setTopicIndex(selectedCategoryIndex);
 
     setScore(0);
-    setCurrentWordIndex(0);
-    setQuizStarted(true);
+    // setCurrentWordIndex(0);
+    // setQuizStarted(true);
   };
 
   useEffect(() => {
@@ -75,6 +78,7 @@ const ExerciseArticle = ({ frenchWords }) => {
     const startsWithLa = word.toLowerCase().startsWith("la ");
     const startsWithLe = word.toLowerCase().startsWith("le ");
     const startsWithL = word.toLowerCase().startsWith("l'");
+
     // console.log("startsWithL", startsWithL);
     if (startsWithLa && selectedOption === "la") {
       return true;
@@ -152,6 +156,9 @@ const ExerciseArticle = ({ frenchWords }) => {
 
   const wordsToRender = frenchWords ? frenchWords : ownFrenchWords;
 
+  // Define the words that are allowed (start with "le," "la," or "l'")
+  const allowedPrefixes = ["le", "la", "l'"];
+
   const bothGenderWords = wordsToRender
     .filter((word) => word.startsWith("le/la ") || word.includes("(m./f.)"))
     .map((word) => {
@@ -165,12 +172,15 @@ const ExerciseArticle = ({ frenchWords }) => {
 
   const filterWords = (wordsToRender) => {
     return wordsToRender.filter((word) => {
-      const includesMF = word.includes("(m./f.)");
-      const startsWithLes = word.toLowerCase().startsWith("les ");
-      const startsWithLeLa = word.toLowerCase().startsWith("le/la");
-      return !startsWithLes && !includesMF && !startsWithLeLa;
+      const lowercaseWord = word.replace(/,$/, "").toLowerCase(); // Trim trailing commas
+      return (
+        lowercaseWord.startsWith("le ") ||
+        lowercaseWord.startsWith("la ") ||
+        lowercaseWord.startsWith("l'")
+      );
     });
   };
+
   const isAllCorrect = wordsToRender.every((quizItem, questionIndex) => {
     const selectedOptionIndex = setSelectedOptions[questionIndex];
     return (
@@ -180,6 +190,7 @@ const ExerciseArticle = ({ frenchWords }) => {
   });
 
   const filteredWords = filterWords(wordsToRender);
+  // console.log("filteredWords", filteredWords);
 
   const maxScore = filteredWords.length;
   const isQuizFinished =
