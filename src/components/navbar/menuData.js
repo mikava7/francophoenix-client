@@ -61,7 +61,7 @@ export const menuData = [
       },
       {
         title: "Construire la phrase",
-        link: "/vocabulary/exercise-article",
+        link: "/vocabulary/sentence-builder",
       },
     ],
   },

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 import { darkTheme } from "../../../Styles/theme";
 import { useTranslation } from "react-i18next";
-import { useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPictures";
 import Loading from "../../loading/Loading";
@@ -41,6 +41,10 @@ const VerbConjugation = () => {
   }
   return (
     <VerbContainer>
+      <p>
+        <Link to="/verbs/verb-tense-list">verb tense</Link>
+      </p>
+
       <VerbHeader>
         <h1>{verb?.charAt(0).toUpperCase() + verb?.slice(1)}</h1>
         <h3>{isGeorgian ? verbGeo : verbEng}</h3>

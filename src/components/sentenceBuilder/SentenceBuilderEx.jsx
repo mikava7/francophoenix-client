@@ -14,6 +14,7 @@ import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange
 import CategorySelect from "./CategorySelect";
 import { calculateNavbarHeight } from "./helpers";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
+  // console.log("sentenceData", sentenceData);
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -147,7 +148,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
       </Header>
 
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-
+      {sentenceData.length}
       <BuildBox>
         <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
           {selectedWords.map((wordIndex, index) => (
@@ -284,16 +285,16 @@ export const TopWord = styled.span`
   /* overflow-x: scroll; */
   cursor: pointer;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin: 0.5rem;
   padding: 0.2rem;
-  height: 2.8rem;
+  height: 2rem;
   border-radius: 4px;
   @media (min-width: 393px) and (max-width: 576px) {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   @media (max-width: 392px) {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 0.4rem;
     padding: 0.2rem;
     /* outline: 1px solid blue; */
@@ -311,10 +312,10 @@ export const BottomWord = styled.button`
   display: flex;
   cursor: pointer;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   margin: 0.5rem;
   padding: 0.2rem;
-  height: 3rem;
+  height: 2rem;
   border-radius: 4px;
   max-width: 100%;
   border: none;
@@ -324,7 +325,7 @@ export const BottomWord = styled.button`
     margin: 0.4rem;
     padding: 0.2rem;
     /* outline: 1px solid blue; */
-    height: 2.6rem;
+    height: 2rem;
   }
 `;
 const Sentence = styled.p`

@@ -95,10 +95,12 @@ const TopicText = ({
         ?.replace(" (m.)", "") // Remove "(f.)" if present
   );
   // console.log("cleanedVocabulary", cleanedVocabulary);
-  const filteredSentenceData = sentenceData.filter(
-    (item) => item.words.length <= 7
+  const filteredSentenceData = sentenceData?.filter(
+    (item) => item?.words.length <= 12
   );
-  // console.log(filteredSentenceData);
+  // console.log("filteredSentenceData", filteredSentenceData);
+  // console.log("sentenceData", sentenceData);
+
   return (
     <TopicTextContainer>
       <VerbsInTextBox>

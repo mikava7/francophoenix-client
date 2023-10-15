@@ -64,9 +64,9 @@ const Vocabulary = () => {
   const targetedTitle = vocabularyData
     ? vocabularyData[targetedTitleProperty]
     : undefined;
-  console.log("targetedTitle", targetedTitle);
+  // console.log("targetedTitle", targetedTitle);
 
-  console.log("vocabularyData", vocabularyData);
+  // console.log("vocabularyData", vocabularyData);
   // Determine the native language property based on the selected language code
   const nativeLanguageProperty = languagePropertyMap[nativeLanguageCode];
   const nativeLanguageArray = vocabularyData?.words?.map(

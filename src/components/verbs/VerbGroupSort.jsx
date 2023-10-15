@@ -1,6 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
+const VerbGroupSort = ({ onFilterChange, selectedGroup, verbGroup }) => {
+  const handleFilterSelect = (e) => {
+    const selectedGroup = e.target.value;
+    onFilterChange(selectedGroup);
+  };
+
+  return (
+    <SelectContainer>
+      <SelectDropdown onChange={handleFilterSelect} value={selectedGroup}>
+        {verbGroup.map((group) => (
+          <option key={group} value={group}>
+            {group}
+          </option>
+        ))}
+      </SelectDropdown>
+    </SelectContainer>
+  );
+};
+
+export default VerbGroupSort;
 const SelectContainer = styled.div`
   display: flex;
   align-items: center;
@@ -43,24 +63,3 @@ const SelectDropdown = styled.select`
     color: ${(props) => props.theme.text};
   }
 `;
-
-const VerbGroupSort = ({ onFilterChange, selectedGroup, verbGroup }) => {
-  const handleFilterSelect = (e) => {
-    const selectedGroup = e.target.value;
-    onFilterChange(selectedGroup);
-  };
-
-  return (
-    <SelectContainer>
-      <SelectDropdown onChange={handleFilterSelect} value={selectedGroup}>
-        {verbGroup.map((group) => (
-          <option key={group} value={group}>
-            {group}
-          </option>
-        ))}
-      </SelectDropdown>
-    </SelectContainer>
-  );
-};
-
-export default VerbGroupSort;

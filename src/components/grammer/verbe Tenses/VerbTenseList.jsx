@@ -1,18 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTenseNames } from "../../../redux/slices/verbeTenses/verbeTenses";
+import { fetchTenses } from "../../../redux/slices/verbeTenses/verbeTenses";
 import Loading from "../../loading/Loading";
 import styled from "styled-components";
 import { Button } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
-const VerbTenseList = ({ onTenseClick }) => {
+import TenseDescription from "../../verbs/tenses/TenseDescription";
+
+const VerbTenseList = () => {
   const dispatch = useDispatch();
-  const tenseNames = useSelector((state) => state.verbTenses.tenseNames) || [];
+  const tenses = useSelector((state) => state.verbTenses.tenses) || [];
   const isLoading = useSelector((state) => state.verbTenses.isLoading);
   const { t } = useTranslation();
+
+  // State to keep track of the selected tense name
+  const [selectedTenseId, setSelectedTenseId] = useState(null);
+
   useEffect(() => {
-    dispatch(fetchTenseNames());
+    dispatch(fetchTenses());
   }, [dispatch]);
+
+  const tenseNames = tenses.map((tense) => tense.name);
+
+  const handleTenseClick = (tenseId) => {
+    setSelectedTenseId(tenseId);
+  };
+  const selectedTense = tenses.find((tense) => tense._id === selectedTenseId);
 
   if (isLoading) {
     return <Loading />;
@@ -22,19 +35,20 @@ const VerbTenseList = ({ onTenseClick }) => {
     <TensesNameContainer>
       <h2>{t("Les temps")}</h2>
       <ul>
-        {tenseNames.map((tense) => (
+        {tenses.map((tense) => (
           <li key={tense._id}>
-            <TenseButton onClick={() => onTenseClick(tense._id)}>
-              {tense.tense}
+            <TenseButton onClick={() => handleTenseClick(tense._id)}>
+              {tense.name}
             </TenseButton>
           </li>
         ))}
       </ul>
+      {selectedTense && <TenseDescription tenseData={selectedTense} />}
     </TensesNameContainer>
   );
 };
-
 export default VerbTenseList;
+
 const TensesNameContainer = styled.div`
   flex-direction: column;
   display: flex;
@@ -50,6 +64,7 @@ const TensesNameContainer = styled.div`
     }
   }
 `;
+
 const TenseButton = styled(Button)`
   width: auto;
 `;

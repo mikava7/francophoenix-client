@@ -45,6 +45,7 @@ import Login from "./pages/User/Login";
 import ProfilePage from "./pages/User/ProfilePage";
 import RegistrationForm from "./pages/User/Register2";
 import Verbs from "./components/verbs/Verbs";
+import VerbTenseList from "./components/grammer/verbe Tenses/VerbTenseList";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -142,6 +143,7 @@ function App() {
               element={<ContentComingSoon />}
             />
             <Route path="/verbs" element={<Verbs />} />
+            <Route path="/verbs/verb-tense-list" element={<VerbTenseList />} />
 
             <Route path="/verbs/:verb" element={<VerbConjugation />} />
           </Route>

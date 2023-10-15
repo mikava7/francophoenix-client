@@ -1,20 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
-export const fetchTenseNames = createAsyncThunk(
-  "tenseNames/fetchTenseNames",
-  async () => {
-    try {
-      const response = await axiosInstance.get(
-        "/grammer/basic-verb-tenses/names"
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw Error("Failed to fetch words");
-    }
+export const fetchTenses = createAsyncThunk("tenses/fetchTenses", async () => {
+  try {
+    const response = await axiosInstance.get("/grammer/basic-verb-tenses");
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw Error("Failed to fetch words");
   }
-);
+});
 export const fetchSelectedTense = createAsyncThunk(
   "selectedTense/fetchVerbDetails",
   async (id) => {
@@ -46,7 +41,7 @@ export const getAllVerbs = createAsyncThunk(
 const initialState = {
   selectedTenseCache: {}, // Initialize an empty cache object
   selectedTense: [],
-  tenseNames: [],
+  tenses: [],
   verbs: [],
   isLoading: false,
   error: null,
@@ -59,14 +54,14 @@ const verbTensesSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(fetchTenseNames.pending, (state) => {
+      .addCase(fetchTenses.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchTenseNames.fulfilled, (state, action) => {
-        state.tenseNames = action.payload;
+      .addCase(fetchTenses.fulfilled, (state, action) => {
+        state.tenses = action.payload;
         state.isLoading = false;
       })
-      .addCase(fetchTenseNames.rejected, (state, action) => {
+      .addCase(fetchTenses.rejected, (state, action) => {
         state.error = action.error.message;
       })
       .addCase(fetchSelectedTense.pending, (state) => {
