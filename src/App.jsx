@@ -135,9 +135,7 @@ function App() {
               path="/vocabulary/sentence-builder"
               element={<SentenceBuilderEx />}
             />
-
             <Route path="/games" element={<Games />} />
-
             <Route
               path="/Content-Coming-Soon"
               element={<ContentComingSoon />}
