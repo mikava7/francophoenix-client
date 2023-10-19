@@ -5,21 +5,31 @@ const useListenWord = () => {
 
   // Use useEffect to handle voice changes
   useEffect(() => {
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length === 0) {
-      window.speechSynthesis.addEventListener("voiceschanged", () => {
-        const updatedVoices = window.speechSynthesis.getVoices();
-        if (updatedVoices.length > 0) {
-          // Handle voice changes, if necessary
-          // For example, you can set a default voice for speech synthesis
-        }
-      });
+    function handleVoicesChanged() {
+      const updatedVoices = window.speechSynthesis.getVoices();
+      if (updatedVoices.length > 0) {
+        // Handle voice changes, if necessary
+        // For example, you can set a default voice for speech synthesis
+      }
+    }
+
+    // Check if the browser supports the 'speechSynthesis' and 'getVoices' API
+    if ("speechSynthesis" in window && "getVoices" in window.speechSynthesis) {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length === 0) {
+        // Add the 'voiceschanged' event listener
+        window.speechSynthesis.addEventListener(
+          "voiceschanged",
+          handleVoicesChanged
+        );
+      }
     }
   }, []);
 
   // Handle word listening functionality
   const handleListen = (word, targetLanguageCode) => (event) => {
     event.stopPropagation();
+    console.log("word", word);
     // Split the word based on both open and close parentheses
     const parts = word.split(/[()]/);
 
@@ -56,10 +66,13 @@ const useListenWord = () => {
   };
 
   // Function to speak the word using SpeechSynthesis API
+  // Function to speak the word using SpeechSynthesis API
   const speakWord = (word, targetLanguageCode) => {
-    const speechUtterance = new SpeechSynthesisUtterance(word);
-    speechUtterance.lang = targetLanguageCode || "fr-FR";
-    window.speechSynthesis.speak(speechUtterance);
+    if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
+      const speechUtterance = new SpeechSynthesisUtterance(word);
+      speechUtterance.lang = targetLanguageCode || "fr-FR";
+      window.speechSynthesis.speak(speechUtterance);
+    }
   };
 
   // Return the necessary functions and state for word listening

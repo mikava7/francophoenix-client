@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+
 import { supportedLanguages } from "./supportedLanguages";
-import { LanguagePreferenceContainer } from "./LanguagePreference";
+import {
+  LanguagePreferenceContainer,
+  LanguageButton,
+  Title,
+} from "./LanguagePreference";
 const TargetLanguageSelection = ({
   selectedNativeLanguage,
   onTargetLanguageSelected,
+  t,
 }) => {
   const [selectedTargetLanguage, setSelectedTargetLanguage] = useState(
     localStorage.getItem("targetLanguageSelected") || ""
@@ -26,20 +33,25 @@ const TargetLanguageSelection = ({
 
   return (
     <LanguagePreferenceContainer>
-      <h2>Choose the language you want to learn</h2>
+      <Title>{t("Choisissez une langue à apprendre")} </Title>
+
       {supportedLanguages
         .filter((language) => language.code !== selectedNativeLanguage)
         .map((language) => (
-          <button
+          <LanguageButton
             key={language.code}
             onClick={() => handleTargetLanguageSelection(language.code)}
           >
             {language.name}
-            <img src={language.icon} alt={`${language.code}Flag`} />
-          </button>
+            <LanguageFlag src={language.icon} alt={`${language.code}Flag`} />
+          </LanguageButton>
         ))}
     </LanguagePreferenceContainer>
   );
 };
 
 export default TargetLanguageSelection;
+const LanguageFlag = styled.img`
+  width: 24px;
+  height: 24px;
+`;

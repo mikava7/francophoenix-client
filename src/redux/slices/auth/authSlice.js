@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk(
   async (userData) => {
     try {
       const response = await axiosInstance.post("/auth/login", userData);
-      console.log("response data in login slice", response.data);
+      // console.log("response data in login slice", response.data);
       const { accessToken } = response.data;
       Cookies.set("authToken", accessToken);
 
