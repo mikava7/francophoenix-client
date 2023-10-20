@@ -132,7 +132,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
     }
   }, [isActive, navbarHeight]);
 
-  const nextComponent = sentenceIndex === filteredSentences().length - 1;
+  const nextComponent = sentenceIndex === filteredSentences()?.length - 1;
 
   return (
     <BuildBoxContainer ref={buildBoxRef}>
@@ -148,7 +148,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
       </Header>
 
       <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-      {sentenceData.length}
+      {sentenceData?.length}
       <BuildBox>
         <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
           {selectedWords.map((wordIndex, index) => (
@@ -159,7 +159,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
         </TopBox>
         <BottomBox>
           {words &&
-            words.map((word, index) => (
+            words?.map((word, index) => (
               <BottomWord
                 isSelected={selectedWords.includes(index)}
                 key={index}

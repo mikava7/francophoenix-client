@@ -87,7 +87,6 @@
   "Verbes utilisés dans le texte": "Verbes used in the text",
   "Suivant": "Next",
   "Réessayer": "Retry",
-  "Soumettre": "Submit",
   "Genre des noms": "Gender of nouns",
   "Questionnaire": "Quiz",
   "Texte": "Text",
@@ -137,5 +136,8 @@
   "Dialogues": "Dialogues",
   "Tapez le mot": "Type the word",
   "Les temps": "Tenses",
-  "Choisissez une langue à apprendre": "Pick a language to learn"
+  "Choisissez une langue à apprendre": "Pick a language to learn",
+  "Soumettre": "Submit",
+  "Choisissez un verbe": "Choose a verb",
+  "Sélectionnez un temps": "Select a Tense"
 }

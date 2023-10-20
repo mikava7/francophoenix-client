@@ -46,6 +46,7 @@ import ProfilePage from "./pages/User/ProfilePage";
 import RegistrationForm from "./pages/User/Register2";
 import Verbs from "./components/verbs/Verbs";
 import VerbTenseList from "./components/grammer/verbe Tenses/VerbTenseList";
+import VerbTenseExercise from "./components/verbs/presentTense/VerbTenseExercise";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -153,6 +154,7 @@ function App() {
             element={<DialoguePage />}
           />
           <Route path="/quiz-pictures" element={<QuizPictures />} />
+          <Route path="/VerbTenseExercise" element={<VerbTenseExercise />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>

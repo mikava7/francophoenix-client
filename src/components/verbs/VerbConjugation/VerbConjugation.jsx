@@ -41,9 +41,7 @@ const VerbConjugation = () => {
   }
   return (
     <VerbContainer>
-      <p>
-        <Link to="/verbs/verb-tense-list">verb tense</Link>
-      </p>
+      <StyledLink to="/verbs/verb-tense-list">verb tense</StyledLink>
 
       <VerbHeader>
         <h1>{verb?.charAt(0).toUpperCase() + verb?.slice(1)}</h1>
@@ -117,6 +115,15 @@ const TenseList = styled.div`
   justify-content: center;
   align-items: space-between;
   width: 100%;
+`;
+const StyledLink = styled(Link)`
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #258ff3;
+  &:hover {
+    color: #258ff3;
+  }
 `;
 
 const TenseListItem = styled.div`

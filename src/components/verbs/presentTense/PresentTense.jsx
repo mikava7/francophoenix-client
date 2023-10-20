@@ -4,12 +4,17 @@ import { fetchPresentTense } from "../../../redux/slices/verbeTenses/presentTens
 import Loading from "../../loading/Loading";
 import styled from "styled-components";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
-const PresentTense = () => {
+import { useTranslation } from "react-i18next";
+import {
+  fetchVerbList,
+  getVerbExercises,
+} from "../../../redux/slices/verbeTenses/verbExerciseSlice";
+
+const PresentTense = ({ presentTenseVerbe }) => {
   useScrollToTopOnRouteChange();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-  const presentTenseVerbe =
-    useSelector((state) => state.presentTense.presentTense.presentTenseVerbs) ||
-    [];
+
   const isLoading = useSelector((state) => state.presentTense.isLoading);
   const error = useSelector((state) => state.presentTense.error);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -24,6 +29,17 @@ const PresentTense = () => {
   const [showSubmitButton, setShowSubmitButton] = useState(true);
   const [showRetryButton, setShowRetryButton] = useState(false);
 
+  const shuffleArray = (array) => {
+    const shuffledArray = [...array];
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
   useEffect(() => {
     dispatch(fetchPresentTense());
   }, [dispatch]);
@@ -135,12 +151,15 @@ const PresentTense = () => {
   return (
     <QuestionContainer>
       <Score>
-        Score: {currentScore}/{presentTenseVerbe.length}
+        Score: {currentScore}/{presentTenseVerbe?.length}
       </Score>
       {currentQuestions.map((question, index) => {
         const underscoreIndex = question.sentence.indexOf("_");
         const beforeUnderscore = question.sentence.slice(0, underscoreIndex);
         const afterUnderscore = question.sentence.slice(underscoreIndex + 5);
+
+        const shuffledWords = shuffleArray(question.words);
+
         return (
           <QuestionBox key={index}>
             {index + 1 + questionIndex}: {beforeUnderscore}
@@ -167,29 +186,43 @@ const PresentTense = () => {
       <ButtonContainer>
         {/* Render different buttons based on the state */}
         {showSubmitButton && (
-          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
         )}
         {showAnswers && !allAnswersCorrect && hasNextSet && (
           <>
             {showRetryButton ? (
-              <SubmitButton onClick={handleRetry}>Retry</SubmitButton>
+              <>
+                <SubmitButton onClick={handleRetry}>
+                  {t("Recommencer")}
+                </SubmitButton>
+                <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
+              </>
             ) : (
-              <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+              <>
+                <SubmitButton onClick={handleSubmit}>
+                  {t("Soumettre")}
+                </SubmitButton>
+                {/* <NextButton onClick={handleNext}>{t("Suivant")}</NextButton> */}
+              </>
             )}
           </>
         )}
-        <NextButton onClick={handleNext}>Next</NextButton>
+        {/* {console.log("allAnswersCorrect", allAnswersCorrect)} */}
+        {allAnswersCorrect && (
+          <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
+        )}
         {showAnswers && !allAnswersCorrect && !hasNextSet && (
           <FinalScore>
-            Your final score is: {currentScore}
-            <RestartButton onClick={handleRestart}>Restart</RestartButton>
+            {t("Score")}: {currentScore}
+            <RestartButton onClick={handleRestart}>
+              {t("Redémarrer")}
+            </RestartButton>
           </FinalScore>
         )}
       </ButtonContainer>
     </QuestionContainer>
   );
 };
-
 export default PresentTense;
 
 const QuestionContainer = styled.div`
@@ -204,11 +237,21 @@ const QuestionContainer = styled.div`
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
+  /* outline: 1px solid red; */
+
   color: ${(props) => props.theme.primaryText};
-  @media (max-width: 576px) {
+  @media (min-width: 394px) and (max-width: 576px) {
     display: flex;
     flex-direction: column;
-    max-width: 360px;
+
+    width: 100%;
+  }
+  @media (max-width: 394px) {
+    width: 90%;
+    margin: 0 auto;
+  }
+  @media (max-width: 301px) {
+    width: 100%;
   }
 `;
 const QuestionBox = styled.div`
@@ -222,15 +265,20 @@ const QuestionBox = styled.div`
   border-radius: 0.5rem;
   letter-spacing: 0.2px;
   margin: 0.3rem 1rem;
-  margin-top: 1rem;
-
-  max-width: 300px;
+  /* margin-top: 1rem; */
+  width: 300px;
   @media (min-width: 576px) and (max-width: 766px) {
     flex-direction: column;
   }
 
-  @media (max-width: 576px) {
-    width: 320px;
+  @media (min-width: 394px) and (max-width: 576px) {
+    width: 290px;
+  }
+  @media (max-width: 394px) {
+    width: 270px;
+  }
+  @media (max-width: 301px) {
+    width: 200px;
   }
 `;
 const getOptionBackgroundColor = (props) => {
@@ -281,7 +329,7 @@ export const SubmitButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  margin: 1rem auto;
+  margin: 0 auto;
   text-align: center;
   padding: 0.5rem 1rem;
   border-radius: 12px;
@@ -291,11 +339,21 @@ export const SubmitButton = styled.button`
   background: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   cursor: pointer;
   &:hover {
     background: ${(props) => props.theme.primaryText};
     color: ${(props) => props.theme.primaryBackground};
+  }
+
+  @media (min-width: 394px) and (max-width: 576px) {
+    width: 8rem;
+  }
+  @media (min-width: 301px) and (max-width: 394px) {
+    width: 7rem;
+  }
+  @media (max-width: 301px) {
+    width: 6rem;
   }
 `;
 const Score = styled.span`
@@ -307,31 +365,31 @@ const Score = styled.span`
 const FinalScore = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  background: #7bb5f8;
+  padding: 0.4rem;
+  /* background-color: ${(props) => props.theme.highlight1}; */
   font-size: 1.2rem;
   border-radius: 8px 8px 0 0;
+  margin-bottom: 2rem;
 `;
 const ButtonContainer = styled.div`
   display: flex;
-  margin-top: 3rem;
+  margin-top: 0.4rem;
   gap: 1rem;
 `;
 const RestartButton = styled.button`
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
   text-align: center;
   width: 10rem;
   font-size: 1.2rem;
-  background-color: #0055a4;
-  color: #ffffff;
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
   cursor: pointer;
   border: 2px solid #000c18;
   border-radius: 6px;
 
   &:hover {
-    background-color: #ffffff;
-    color: #0055a4;
+    background-color: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 export const NextButton = styled(SubmitButton)`

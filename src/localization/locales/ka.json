@@ -20,7 +20,7 @@
   "Inscrivez-vous": "დარეგისტრირდი",
   "Pas connecté": "არ ხართ შესული",
   "Profil": "პროფილი",
-
+  "Réessayez": "თავიდან სცადე",
   "Mot de passe oublié?": "Დაგავიწყდათ პაროლი?",
   "Mot de passe": "პაროლი",
   "Pseudonyme": "ფსევდონიმი",
@@ -86,7 +86,7 @@
   "Verbes utilisés dans le texte": "ტექსტში გამოყენებული ზმნები",
   "Suivant": "შემდეგი",
   "Réessayer": "თავიდან სცადე",
-  "Soumettre": "Submit",
+  "Soumettre": "დასტური",
   "Genre des noms": "არსებითი სახელების სქესი",
   "Questionnaire": "ტესტი",
   "Texte": "ტექსტი",
@@ -133,12 +133,13 @@
   "nom": "არსებითი სახელი",
   "verbe": "ზმნა",
   "Verbes": "Ზმნები",
-
   "orthographie": "ორთოგრაფია",
   "À propos": "ჩვენს შესახებ",
   "Contact": "კონტაქტი",
   "Dialogues": "დიალოგები",
   "Tapez le mot": "დაწერე სიტყვა",
   "Les temps": "დროები",
-  "Choisissez une langue à apprendre": "რომელი ენის სწავლა გინდა?"
+  "Choisissez une langue à apprendre": "რომელი ენის სწავლა გინდა?",
+  "Choisissez un verbe": "აირჩიეთ ზმნა",
+  "Sélectionnez un temps": "აირჩიეთ დრო"
 }
