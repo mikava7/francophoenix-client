@@ -239,7 +239,7 @@ const TopicImage = styled.img`
 `;
 
 const TopicTitle = styled.h3`
-  /* font-size: 20px; */
+  font-size: 20px;
   margin: 0;
   padding: 0 0.4rem;
   line-height: ${(props) => props.theme.smallLineHeight};

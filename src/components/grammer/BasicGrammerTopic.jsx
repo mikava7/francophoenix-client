@@ -15,7 +15,7 @@ const BasicGrammerTopic = ({ topics }) => {
 
   return (
     <BasicGrammerContainer>
-      <h2>{topics.title.titleFr}</h2>
+      <h3>{topics.title.titleFr}</h3>
       <h5>{secondLanguage}</h5>
     </BasicGrammerContainer>
   );
@@ -36,6 +36,7 @@ const BasicGrammerContainer = styled.div`
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.secondaryText};
+  overflow-y: hidden;
   &:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);

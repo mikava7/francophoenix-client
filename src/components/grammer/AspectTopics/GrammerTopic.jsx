@@ -30,17 +30,17 @@ const BasicGrammerContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  border: 2px solid grey;
   width: 350px;
   border-radius: 12px;
-  outline: 1px solid grey;
-  border-bottom: 3px solid black;
-  border-right: 3px solid black;
+  outline: 1px solid ${(props) => props.theme.secondaryText};
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.pimaryText};
   &:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    outline: none;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
   }
 `;
