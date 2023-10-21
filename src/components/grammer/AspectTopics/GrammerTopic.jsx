@@ -26,11 +26,12 @@ const GrammerTopic = ({ topics }) => {
 
 export default GrammerTopic;
 
-const BasicGrammerContainer = styled.div`
+export const BasicGrammerContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   width: 350px;
+  height: 250px;
   border-radius: 12px;
   outline: 1px solid ${(props) => props.theme.secondaryText};
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -38,7 +39,7 @@ const BasicGrammerContainer = styled.div`
   color: ${(props) => props.theme.pimaryText};
   &:hover {
     transform: scale(1.02);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
     outline: none;
     border-bottom: 3px solid black;
     border-right: 3px solid black;

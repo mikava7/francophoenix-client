@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import useListenWord from "../../../../hooks/useListenWord";
 import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
+import { FaVolumeUp } from "react-icons/fa"; // Import the play icon
 
 const WordJumble = ({ selectedFlashcards }) => {
   // console.log("selectedFlashcards", selectedFlashcards);
@@ -84,9 +85,9 @@ const WordJumble = ({ selectedFlashcards }) => {
     <BuildBoxContainer>
       {/* Play button for listening to the word */}
       <PlayButton onClick={handleListen(currentFlashcard)}>
-        Play the word
+        <FaVolumeUp /> Listen
       </PlayButton>
-      <Score>words in section: {selectedFlashcards.length}</Score>
+      <Score>words in section: {selectedFlashcards?.length}</Score>
       <BuildBox>
         <JumbleBox>
           {/* Display jumbled letters */}
@@ -208,9 +209,21 @@ const LetterBox = styled(JumbleBox)`
   background-color: #0055a4dd;
 `;
 const PlayButton = styled(Button)`
-  color: white;
-  background-color: #023668dd;
+  color: ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.primaryBackground};
   margin: 1rem;
+  display: flex;
+  align-items: center; // Center the icon and text
+  gap: 8px; // Spacing between icon and text
+  padding: 0.5rem;
+  transition: transform 0.3s ease, background-color 0.3 ease;
+
+  // Add hover effect
+  &:hover {
+    transform: scale(1.01);
+    color: ${(props) => props.theme.primaryBackground};
+    background-color: ${(props) => props.theme.primaryText};
+  }
 `;
 const Congratulations = styled.div`
   display: flex;
@@ -226,7 +239,7 @@ const Congratulations = styled.div`
 `;
 const RestartButton = styled(Button)`
   background-color: #f1f7fcdd;
-  color: #ff4e07;
+  color: ${(props) => props.theme.wrongback};
   &:hover {
     background-color: #ff4e07;
     color: #f1f7fcdd;

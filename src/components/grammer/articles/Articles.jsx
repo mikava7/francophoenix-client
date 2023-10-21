@@ -38,7 +38,6 @@ const Articles = () => {
         aspectToRender?.map((topic) => (
           <StyledLink key={topic._id} to={`/grammar-topics/${topic._id}`}>
             <GrammerTopic topics={topic} />{" "}
-            {/* Adjust the prop name as needed */}
           </StyledLink>
         ))}
     </div>

@@ -81,10 +81,14 @@ const VerbConjugation = () => {
   }
   return (
     <VerbContainer>
-      <StyledLink to="/verbs/verb-tense-list">verb tense</StyledLink>
+      <StyledLink to="/verbs/verb-tense-list">
+        {t("Présentation des temps des verbes")}
+      </StyledLink>
 
       {exercise && typeof exercise !== "string" && (
-        <h3 onClick={toggleExercise}>show exercise</h3>
+        <ExerciseTag onClick={toggleExercise}>
+          {t("Afficher l'exercice")}
+        </ExerciseTag>
       )}
       {selectedTenseData && selectedTenseData?.length > 0 && showExercise && (
         <>
@@ -178,9 +182,11 @@ const TenseList = styled.div`
 const StyledLink = styled(Link)`
   font-size: 24px;
   font-weight: bold;
-  text-decoration: none;
-  color: #258ff3;
+  color: #258ff383;
+  transition: all 0.3s ease; /* Add a transition here */
+
   &:hover {
+    transform: scale(1.03);
     color: #258ff3;
   }
 `;
@@ -230,4 +236,13 @@ const FirstLanguageBox = styled.div`
   justify-content: space-between;
   border-top: 1px solid ${(props) => props.theme.highlight1};
   padding-top: 0.4rem;
+`;
+
+const ExerciseTag = styled.p`
+  color: ${(props) => props.theme.secondaryText};
+  transition: all 0.3s ease; /* Add a transition here */
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.primaryText};
+  }
 `;

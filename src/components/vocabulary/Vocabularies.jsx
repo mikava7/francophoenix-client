@@ -180,7 +180,6 @@ const LocalStyledLink = styled(Link)`
 const TopicCardContainer = styled.div`
   border-radius: 0.5rem;
   position: relative;
-
   display: flex;
   height: 320px;
   width: 300px;
@@ -192,6 +191,8 @@ const TopicCardContainer = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   margin: 1rem auto;
   margin: 1rem;
+  transition: all 0.3s ease; /* Add a transition here */
+
   &:hover {
     outline: 2px solid ${(props) => props.theme.secondaryText};
     box-shadow: 4px 8px 10px rgba(32, 31, 31, 0.5);
