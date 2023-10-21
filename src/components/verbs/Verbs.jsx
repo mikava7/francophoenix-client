@@ -16,6 +16,7 @@ const Verbs = () => {
   const [selectedGroup, setSelectedGroup] = useState("all");
   const [filteredVerbs, setFilteredVerbs] = useState([]);
 
+  // console.log(verbs);
   useEffect(() => {
     dispatch(getAllVerbs());
   }, []);
@@ -148,7 +149,7 @@ const StyledLink = styled(Link)`
 const SearchContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   @media (max-width: 550px) {
     flex-direction: column;
@@ -184,7 +185,7 @@ const InputContainer = styled.div`
   /* width: 80%; */
   box-shadow: 0 2px 4px rgba(155, 161, 119, 0.637);
   border-radius: 50px;
-  border: 1px solid #ccc;
+  border: 1px solid #302828;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
   background-color: ${(props) => props.theme.text};

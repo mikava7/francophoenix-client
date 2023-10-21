@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 const VerbTenseExercise = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [selectedVerb, setSelectedVerb] = useState("avoir");
+  const [selectedVerb, setSelectedVerb] = useState("être");
   const [selectedTense, setSelectedTense] = useState("present");
   const [selectedTenseData, setSelectedTenseData] = useState([]);
 
@@ -93,7 +93,7 @@ const Container = styled.div`
   align-items: flex-start;
 `;
 
-const SelectContainer = styled.div`
+export const SelectContainer = styled.div`
   margin: 20px;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@ const SelectContainer = styled.div`
   }
 `;
 
-const SelectStyled = styled.select`
+export const SelectStyled = styled.select`
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;

@@ -120,7 +120,7 @@ function App() {
             />
             <Route
               path="/vocabulary/verb-tense-exercise"
-              element={<PresentTense />}
+              element={<VerbTenseExercise />}
             />
             <Route path="/vocabulary/Flashcards" element={<Flashcards />} />
 

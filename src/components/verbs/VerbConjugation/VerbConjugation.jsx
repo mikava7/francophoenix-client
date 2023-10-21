@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 import { darkTheme } from "../../../Styles/theme";
 import { useTranslation } from "react-i18next";
@@ -7,10 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPictures";
 import Loading from "../../loading/Loading";
 import useListenWord from "../../../hooks/useListenWord";
+import PresentTense from "../presentTense/PresentTense";
 // import ListenImg from "../../../../public/icons/sound-50.png";
 // import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
 import Listen from "../../Listen";
 import { ListenIcon } from "../../../Styles/globalStyles";
+import { tenseList } from "./tenseList";
+import {
+  SelectContainer,
+  SelectStyled,
+} from "../presentTense/VerbTenseExercise";
+
 const VerbConjugation = () => {
   const theme = useTheme();
 
@@ -24,17 +31,50 @@ const VerbConjugation = () => {
   const dispatch = useDispatch();
   const conjugationData =
     useSelector((state) => state.quizData.selectedVerbDetails) || [];
+
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const error = useSelector((state) => state.quizData.error);
+  const [showExercise, setShowExercise] = useState(false);
+  const [selectedTense, setSelectedTense] = useState("present");
+
+  let exercise = null;
+
+  if (conjugationData && typeof conjugationData.exercise === "object") {
+    exercise = conjugationData.exercise.tenses[selectedTense];
+  } else if (conjugationData && typeof conjugationData.exercise === "string") {
+    exercise = conjugationData.exercise;
+  } else {
+    // Handle other cases or provide a default value for exercise
+  }
+
+  // console.log("exercise", conjugationData);
+  const [selectedTenseData, setSelectedTenseData] = useState([]);
+
+  const toggleExercise = () => {
+    setShowExercise((prevState) => !prevState);
+    setSelectedTenseData(exercise);
+
+    setSelectedTense(tenseList[0]);
+  };
+  const handleTenseChange = (event) => {
+    const selectedTenseName = event.target.value;
+    // console.log("selectedTenseName", selectedTenseName);
+    setSelectedTense(selectedTenseName);
+
+    if (selectedTenseName && exercise) {
+      setSelectedTenseData(
+        conjugationData?.exercise?.tenses[selectedTenseName] || []
+      );
+    }
+  };
   useEffect(() => {
     dispatch(fetchVerbDetails(verbFromParams));
+
+    // console.log("fetched");
   }, [dispatch]);
-  // if (!conjugationData) {
-  //   // Data hasn't arrived yet, return a loading state or something else
-  //   return <p>Loading...</p>;
-  // }
+
   const { verb, verbEng, verbGeo, forms } = conjugationData;
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   if (isLoading) {
     return <Loading />;
@@ -43,6 +83,25 @@ const VerbConjugation = () => {
     <VerbContainer>
       <StyledLink to="/verbs/verb-tense-list">verb tense</StyledLink>
 
+      {exercise && typeof exercise !== "string" && (
+        <h3 onClick={toggleExercise}>show exercise</h3>
+      )}
+      {selectedTenseData && selectedTenseData?.length > 0 && showExercise && (
+        <>
+          <SelectContainer>
+            <label>{t("Sélectionnez un temps")}:</label>
+            <SelectStyled onChange={handleTenseChange} value={selectedTense}>
+              {tenseList &&
+                tenseList.map((tenseName) => (
+                  <option key={tenseName} value={tenseName}>
+                    {tenseName}
+                  </option>
+                ))}
+            </SelectStyled>
+          </SelectContainer>
+          <PresentTense presentTenseVerbe={selectedTenseData} />
+        </>
+      )}
       <VerbHeader>
         <h1>{verb?.charAt(0).toUpperCase() + verb?.slice(1)}</h1>
         <h3>{isGeorgian ? verbGeo : verbEng}</h3>
