@@ -234,6 +234,7 @@ const Congratulations = styled.div`
   p {
     padding: 0.3rem 0.6rem;
     letter-spacing: 1.4px;
+    letter-spacing: 1.4px;
     margin-bottom: 1rem;
   }
 `;

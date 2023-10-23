@@ -14,7 +14,7 @@ const VerbTenseExercise = () => {
   const [selectedVerb, setSelectedVerb] = useState("être");
   const [selectedTense, setSelectedTense] = useState("present");
   const [selectedTenseData, setSelectedTenseData] = useState([]);
-
+  const [currentTenseIndex, setCurrentTenseIndex] = useState(0);
   const listOfVerb =
     useSelector((state) => state.verbExercise.listOfVerb) || [];
   const exercises = useSelector((state) => state.verbExercise.verbEecercise);
@@ -32,6 +32,15 @@ const VerbTenseExercise = () => {
     if (selectedTenseName && exercises && exercises.tenses) {
       setSelectedTenseData(exercises.tenses[selectedTenseName] || []);
     }
+  };
+
+  const handleNextTenseSelect = () => {
+    // Update the selected tense index
+    setCurrentTenseIndex((prevIndex) => prevIndex + 1);
+
+    // Get the new selected tense data based on the updated index
+    const newSelectedTenseData = exercises.tenses[currentTenseIndex + 1];
+    setSelectedTenseData(newSelectedTenseData);
   };
 
   const handleVerbChange = (event) => {
@@ -79,7 +88,10 @@ const VerbTenseExercise = () => {
       </SelectContainer>
 
       {selectedTenseData?.length > 0 && (
-        <PresentTense presentTenseVerbe={selectedTenseData} />
+        <PresentTense
+          presentTenseVerbe={selectedTenseData}
+          handleChooseNextTense={handleNextTenseSelect}
+        />
       )}
     </Container>
   );

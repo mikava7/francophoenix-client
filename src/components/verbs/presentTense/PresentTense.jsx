@@ -10,7 +10,7 @@ import {
   getVerbExercises,
 } from "../../../redux/slices/verbeTenses/verbExerciseSlice";
 
-const PresentTense = ({ presentTenseVerbe }) => {
+const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
   useScrollToTopOnRouteChange();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -26,30 +26,32 @@ const PresentTense = ({ presentTenseVerbe }) => {
   const [showAnswers, setShowAnswers] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [hasNextSet, setHasNextSet] = useState(true);
-  const [showSubmitButton, setShowSubmitButton] = useState(true);
+  const [showSubmitButton, setShowSubmitButton] = useState(false);
   const [showRetryButton, setShowRetryButton] = useState(false);
+  const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
+    useState([]);
+  const [answered, setAnswered] = useState(
+    Array(currentQuestions.length).fill(false)
+  );
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); // Initialize with false
 
-  const shuffleArray = (array) => {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
-  };
+  console.log("answers", answers);
+  console.log("showSubmitButton", showSubmitButton);
+
   useEffect(() => {
     dispatch(fetchPresentTense());
   }, [dispatch]);
 
   useEffect(() => {
-    // Check if presentTenseVerbe is fetched
+    // Check if all questions are answered
+    const areAllQuestionsAnswered = answered.every((answer) => answer);
+    setAllQuestionsAnswered(areAllQuestionsAnswered);
+  }, [answered]);
+
+  useEffect(() => {
     if (presentTenseVerbe.length > 0) {
-      // Update the currentQuestions state when questionIndex changes
       setCurrentQuestions(
-        presentTenseVerbe.slice(questionIndex, questionIndex + 5)
+        presentTenseVerbe.slice(questionIndex, questionIndex + 1)
       );
     }
   }, [questionIndex, presentTenseVerbe]);
@@ -62,79 +64,57 @@ const PresentTense = ({ presentTenseVerbe }) => {
 
   const handleSubmit = () => {
     // Check if all questions are answered before proceeding
-    if (
-      currentQuestions.every(
-        (question, index) => answers[index + questionIndex] !== ""
-      )
-    ) {
-      const areAllAnswersCorrect = currentQuestions.every((question, index) => {
-        return answers[index + questionIndex] === question.correctAnswer;
+    if (answers.every((answer) => answer !== "")) {
+      const newScore = answers.reduce((count, answer, index) => {
+        return answer === presentTenseVerbe[index].correctAnswer
+          ? count + 1
+          : count;
+      }, 0);
+
+      setCurrentScore(newScore);
+
+      const areAllAnswersCorrect = answers.every((answer, index) => {
+        return answer === presentTenseVerbe[index].correctAnswer;
       });
 
-      // Update the allAnswersCorrect state
       setAllAnswersCorrect(areAllAnswersCorrect);
+
+      // Update the `answered` state for all questions
+      setAnswered(Array(presentTenseVerbe.length).fill(true));
+
+      // Calculate the incorrectly answered questions
+      const incorrectAnswers = presentTenseVerbe.filter(
+        (question, index) => answers[index] !== question.correctAnswer
+      );
+
+      setIncorrectlyAnsweredQuestions(incorrectAnswers);
 
       // Show the correct and incorrect answers
       setShowAnswers(true);
 
-      // Calculate the number of correct answers
-      const correctAnswersCount = currentQuestions.reduce(
-        (count, question, index) => {
-          return answers[index + questionIndex] === question.correctAnswer
-            ? count + 1
-            : count;
-        },
-        0
-      );
-
-      // Update the score based on the number of correct answers
-      setCurrentScore((prevScore) => prevScore + correctAnswersCount);
-
       // Show the Retry and Next buttons
-      setShowSubmitButton(false);
       setShowRetryButton(!areAllAnswersCorrect);
     }
   };
 
+  console.log({ questionIndex, presentTenseVerbe });
+  console.log(presentTenseVerbe.length);
+
   const handleNext = () => {
     // Show the next set of questions after clicking Next
-    if (questionIndex + 5 >= presentTenseVerbe.length) {
-      // No more sets of questions, show the final score
-      setHasNextSet(false);
-    } else {
-      setQuestionIndex((prevIndex) => prevIndex + 5);
-      setShowAnswers(false);
+    if (questionIndex + 1 === presentTenseVerbe.length) {
       setShowSubmitButton(true);
-      setShowRetryButton(false);
-      setAnswers(Array(presentTenseVerbe.length).fill("")); // Reset answers to empty array
+      setHasNextSet(false);
+    } else if (answers[questionIndex]) {
+      setQuestionIndex((prevIndex) => prevIndex + 1);
+      setShowAnswers(false);
+      setShowSubmitButton(false);
     }
-  };
-
-  const handleRetry = () => {
-    // Reset the state to allow the user to retry the questions
-    setShowAnswers(false);
-    setShowSubmitButton(true);
-    setShowRetryButton(false);
-    setAnswers(Array(presentTenseVerbe.length).fill(""));
-
-    // Calculate the number of correct answers in the current set
-    const correctAnswersCount = currentQuestions.reduce(
-      (count, question, index) => {
-        return answers[index + questionIndex] === question.correctAnswer
-          ? count + 1
-          : count;
-      },
-      0
-    );
-
-    // Deduct the score of the current set from the total score
-    setCurrentScore((prevScore) => prevScore - correctAnswersCount);
   };
 
   const handleRestart = () => {
     setQuestionIndex(0);
     setAnswers(Array(presentTenseVerbe.length).fill(""));
-    setAllAnswersCorrect(false);
     setShowAnswers(false);
     setCurrentScore(0);
     setHasNextSet(true);
@@ -158,8 +138,6 @@ const PresentTense = ({ presentTenseVerbe }) => {
         const beforeUnderscore = question.sentence.slice(0, underscoreIndex);
         const afterUnderscore = question.sentence.slice(underscoreIndex + 5);
 
-        const shuffledWords = shuffleArray(question.words);
-
         return (
           <QuestionBox key={index}>
             {index + 1 + questionIndex}: {beforeUnderscore}
@@ -174,6 +152,7 @@ const PresentTense = ({ presentTenseVerbe }) => {
                     showAnswers && answers[index + questionIndex] === word
                   }
                   data-allanswerscorrect={allAnswersCorrect}
+                  disabled={answered[index + questionIndex]}
                 >
                   {word}
                 </WordOption>
@@ -184,33 +163,6 @@ const PresentTense = ({ presentTenseVerbe }) => {
         );
       })}
       <ButtonContainer>
-        {/* Render different buttons based on the state */}
-        {showSubmitButton && (
-          <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
-        )}
-        {showAnswers && !allAnswersCorrect && hasNextSet && (
-          <>
-            {showRetryButton ? (
-              <>
-                <SubmitButton onClick={handleRetry}>
-                  {t("Recommencer")}
-                </SubmitButton>
-                <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
-              </>
-            ) : (
-              <>
-                <SubmitButton onClick={handleSubmit}>
-                  {t("Soumettre")}
-                </SubmitButton>
-                {/* <NextButton onClick={handleNext}>{t("Suivant")}</NextButton> */}
-              </>
-            )}
-          </>
-        )}
-        {/* {console.log("allAnswersCorrect", allAnswersCorrect)} */}
-        {allAnswersCorrect && (
-          <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
-        )}
         {showAnswers && !allAnswersCorrect && !hasNextSet && (
           <FinalScore>
             {t("Score")}: {currentScore}
@@ -218,6 +170,18 @@ const PresentTense = ({ presentTenseVerbe }) => {
               {t("Redémarrer")}
             </RestartButton>
           </FinalScore>
+        )}
+        {showSubmitButton ? (
+          <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
+        ) : (
+          <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
+        )}
+        {allQuestionsAnswered && (
+          <div>
+            <RestartButton onClick={handleChooseNextTense}>
+              Choose Next Tense
+            </RestartButton>
+          </div>
         )}
       </ButtonContainer>
     </QuestionContainer>
@@ -311,6 +275,7 @@ const WordOption = styled.button`
   background-color: ${(props) => {
     return getOptionBackgroundColor(props);
   }};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 
   &:first-child {
     margin-right: 0.3rem;
