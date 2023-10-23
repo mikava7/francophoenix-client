@@ -27,6 +27,8 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
   const [currentScore, setCurrentScore] = useState(0);
   const [hasNextSet, setHasNextSet] = useState(true);
   const [showSubmitButton, setShowSubmitButton] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const [showRetryButton, setShowRetryButton] = useState(false);
   const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
     useState([]);
@@ -35,18 +37,15 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
   );
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); // Initialize with false
 
-  console.log("answers", answers);
-  console.log("showSubmitButton", showSubmitButton);
-
   useEffect(() => {
     dispatch(fetchPresentTense());
   }, [dispatch]);
 
-  useEffect(() => {
-    // Check if all questions are answered
-    const areAllQuestionsAnswered = answered.every((answer) => answer);
-    setAllQuestionsAnswered(areAllQuestionsAnswered);
-  }, [answered]);
+  // useEffect(() => {
+  //   // Check if all questions are answered
+  //   const areAllQuestionsAnswered = answered.every((answer) => answer);
+  //   setAllQuestionsAnswered(areAllQuestionsAnswered);
+  // }, [answered]);
 
   useEffect(() => {
     if (presentTenseVerbe.length > 0) {
@@ -78,9 +77,10 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
       });
 
       setAllAnswersCorrect(areAllAnswersCorrect);
-
+      setSubmitted(true);
       // Update the `answered` state for all questions
       setAnswered(Array(presentTenseVerbe.length).fill(true));
+      setQuestionIndex(0);
 
       // Calculate the incorrectly answered questions
       const incorrectAnswers = presentTenseVerbe.filter(
@@ -117,7 +117,9 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
     setAnswers(Array(presentTenseVerbe.length).fill(""));
     setShowAnswers(false);
     setCurrentScore(0);
-    setHasNextSet(true);
+    setSubmitted(false);
+    setShowSubmitButton(false);
+    setAnswered(Array(presentTenseVerbe.length).fill(false)); // Reset the answered state
   };
 
   if (isLoading) {
@@ -184,9 +186,57 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
           </div>
         )}
       </ButtonContainer>
+      {submitted && (
+        <div>
+          {presentTenseVerbe.map((question, index) => {
+            const isAnswerCorrect = answers[index] === question.correctAnswer;
+            const userAnswer = answers[index];
+            const correctAnswer = question.correctAnswer;
+            const underscoreIndex = question.sentence.indexOf("_");
+            const beforeUnderscore = question.sentence.slice(
+              0,
+              underscoreIndex
+            );
+            const afterUnderscore = question.sentence.slice(
+              underscoreIndex + 5
+            );
+
+            // Determine the CSS class for the entire sentence
+            const sentenceClass = isAnswerCorrect ? "correct" : "incorrect";
+
+            return (
+              <QuestionBox key={index}>
+                {index + 1 + questionIndex}:{" "}
+                <span className={sentenceClass}>
+                  {beforeUnderscore}
+                  {question.words.map((word, wordIndex) => (
+                    <WordOption
+                      key={wordIndex}
+                      onClick={() => handleOptionSelect(index, word)}
+                      data-questioncorrectanswer={
+                        question.correctAnswer === word
+                      }
+                      data-usersanswer={answers[index + questionIndex]}
+                      data-showanswers={
+                        showAnswers && answers[index + questionIndex] === word
+                      }
+                      data-allanswerscorrect={allAnswersCorrect}
+                      disabled={answered[index + questionIndex]}
+                    >
+                      {word}
+                    </WordOption>
+                  ))}
+                  {afterUnderscore}
+                </span>
+              </QuestionBox>
+            );
+          })}
+        </div>
+      )}
     </QuestionContainer>
   );
 };
+
 export default PresentTense;
 
 const QuestionContainer = styled.div`
