@@ -9,12 +9,18 @@ import {
   fetchVerbList,
   getVerbExercises,
 } from "../../../redux/slices/verbeTenses/verbExerciseSlice";
-
-const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
+import { useParams } from "react-router-dom";
+import axios from "../../../redux/api/axiosInstance";
+import { calculateTensePercentage } from "../helper";
+const PresentTense = ({ presentTenseVerbe, tense }) => {
   useScrollToTopOnRouteChange();
+  const exerciseType = PresentTense.name;
+  const { verb } = useParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  console.log("auth", auth);
+  const userId = auth._id;
   const isLoading = useSelector((state) => state.presentTense.isLoading);
   const error = useSelector((state) => state.presentTense.error);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -29,23 +35,17 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
   const [showSubmitButton, setShowSubmitButton] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const [showRetryButton, setShowRetryButton] = useState(false);
   const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
     useState([]);
+  // console.log(incorrectlyAnsweredQuestions);
   const [answered, setAnswered] = useState(
     Array(currentQuestions.length).fill(false)
   );
-  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false); // Initialize with false
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
 
   useEffect(() => {
     dispatch(fetchPresentTense());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   // Check if all questions are answered
-  //   const areAllQuestionsAnswered = answered.every((answer) => answer);
-  //   setAllQuestionsAnswered(areAllQuestionsAnswered);
-  // }, [answered]);
 
   useEffect(() => {
     if (presentTenseVerbe.length > 0) {
@@ -59,6 +59,32 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
     const updatedAnswers = [...answers];
     updatedAnswers[index + questionIndex] = word;
     setAnswers(updatedAnswers);
+  };
+
+  const submitTensePercentage = async (
+    userId,
+    verb,
+    tense,
+    exerciseType,
+    tensePercentage
+  ) => {
+    try {
+      if (userId) {
+        const response = await axios.post("/verbs/progress", {
+          userId,
+          verb,
+          tense,
+          exerciseType,
+          percentage: tensePercentage,
+        });
+
+        console.log("Tense percentage submitted successfully", response.data);
+      } else {
+        console.error("User is not logged in. Tense percentage not submitted.");
+      }
+    } catch (error) {
+      console.error("Error submitting tense percentage", error);
+    }
   };
 
   const handleSubmit = () => {
@@ -91,14 +117,14 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
 
       // Show the correct and incorrect answers
       setShowAnswers(true);
-
-      // Show the Retry and Next buttons
-      setShowRetryButton(!areAllAnswersCorrect);
+      const tensePercentage = calculateTensePercentage(
+        presentTenseVerbe,
+        answers
+      );
+      console.log("Tense Percentage:", tensePercentage);
+      submitTensePercentage(userId, verb, tense, exerciseType, tensePercentage);
     }
   };
-
-  console.log({ questionIndex, presentTenseVerbe });
-  console.log(presentTenseVerbe.length);
 
   const handleNext = () => {
     // Show the next set of questions after clicking Next
@@ -119,7 +145,7 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
     setCurrentScore(0);
     setSubmitted(false);
     setShowSubmitButton(false);
-    setAnswered(Array(presentTenseVerbe.length).fill(false)); // Reset the answered state
+    setAnswered(Array(presentTenseVerbe.length).fill(false));
   };
 
   if (isLoading) {
@@ -133,7 +159,7 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
   return (
     <QuestionContainer>
       <Score>
-        Score: {currentScore}/{presentTenseVerbe?.length}
+        {t("Score")}: {currentScore}/{presentTenseVerbe?.length}
       </Score>
       {currentQuestions.map((question, index) => {
         const underscoreIndex = question.sentence.indexOf("_");
@@ -167,25 +193,21 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
       <ButtonContainer>
         {showAnswers && !allAnswersCorrect && !hasNextSet && (
           <FinalScore>
-            {t("Score")}: {currentScore}
-            <RestartButton onClick={handleRestart}>
-              {t("Redémarrer")}
-            </RestartButton>
+            {t("Score")}: {currentScore}/{presentTenseVerbe?.length}
+            <div>
+              <span>{t("Choisissez le temps suivant ou")}:</span>
+              <button onClick={handleRestart}>{t("Réessayer")}</button>
+            </div>
           </FinalScore>
         )}
-        {showSubmitButton ? (
+        {showSubmitButton && !submitted && (
           <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
-        ) : (
+        )}
+        {!submitted && !showSubmitButton && (
           <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
         )}
-        {allQuestionsAnswered && (
-          <div>
-            <RestartButton onClick={handleChooseNextTense}>
-              Choose Next Tense
-            </RestartButton>
-          </div>
-        )}
       </ButtonContainer>
+
       {submitted && (
         <div>
           {presentTenseVerbe.map((question, index) => {
@@ -201,13 +223,10 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
               underscoreIndex + 5
             );
 
-            // Determine the CSS class for the entire sentence
-            const sentenceClass = isAnswerCorrect ? "correct" : "incorrect";
-
             return (
               <QuestionBox key={index}>
                 {index + 1 + questionIndex}:{" "}
-                <span className={sentenceClass}>
+                <span>
                   {beforeUnderscore}
                   {question.words.map((word, wordIndex) => (
                     <WordOption
@@ -228,6 +247,11 @@ const PresentTense = ({ presentTenseVerbe, handleChooseNextTense }) => {
                   ))}
                   {afterUnderscore}
                 </span>
+                {!isAnswerCorrect && (
+                  <CorrectAnswer>
+                    {t("Correct Answer")}: {correctAnswer}
+                  </CorrectAnswer>
+                )}
               </QuestionBox>
             );
           })}
@@ -333,10 +357,11 @@ const WordOption = styled.button`
   }
   &:last-child {
     margin-right: 0.3rem;
+    margin-left: 0.3rem;
   }
   &:hover {
-    transform: scale(1.1);
-    color: rgb(40, 175, 253);
+    transform: ${(props) => (props.disabled ? "none" : "scale(1.04)")};
+    color: ${(props) => (props.disabled ? "none" : props.theme.primaryText)};
   }
 `;
 export const SubmitButton = styled.button`
@@ -378,13 +403,29 @@ const Score = styled.span`
   margin-right: 1rem;
 `;
 const FinalScore = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.4rem;
-  /* background-color: ${(props) => props.theme.highlight1}; */
-  font-size: 1.2rem;
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 2rem;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+
+  & div {
+    margin-top: 10px;
+
+    & span {
+      font-weight: bold;
+    }
+
+    & button {
+      background: ${(props) => props.theme.primaryText};
+      color: ${(props) => props.theme.primaryBackground};
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  }
 `;
 const ButtonContainer = styled.div`
   display: flex;
@@ -414,4 +455,14 @@ export const NextButton = styled(SubmitButton)`
     background: ${(props) => props.theme.primaryBackground};
     color: ${(props) => props.theme.primaryText};
   }
+`;
+const CorrectAnswer = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: ${(props) => props.theme.primaryText};
+  background-color: #4caf50; /* Green for correct answer */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.3rem;
 `;

@@ -34,15 +34,6 @@ const VerbTenseExercise = () => {
     }
   };
 
-  const handleNextTenseSelect = () => {
-    // Update the selected tense index
-    setCurrentTenseIndex((prevIndex) => prevIndex + 1);
-
-    // Get the new selected tense data based on the updated index
-    const newSelectedTenseData = exercises.tenses[currentTenseIndex + 1];
-    setSelectedTenseData(newSelectedTenseData);
-  };
-
   const handleVerbChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedVerb(selectedValue);
@@ -57,7 +48,6 @@ const VerbTenseExercise = () => {
   if (loading) {
     return <Loading />;
   }
-
   return (
     <Container>
       <SelectContainer>
@@ -88,10 +78,7 @@ const VerbTenseExercise = () => {
       </SelectContainer>
 
       {selectedTenseData?.length > 0 && (
-        <PresentTense
-          presentTenseVerbe={selectedTenseData}
-          handleChooseNextTense={handleNextTenseSelect}
-        />
+        <PresentTense presentTenseVerbe={selectedTenseData} />
       )}
     </Container>
   );

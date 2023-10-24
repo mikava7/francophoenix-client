@@ -21,6 +21,7 @@ import verbTensesReducer from "./slices/verbeTenses/verbeTenses";
 import userReducer from "./slices/auth/userSlice";
 import authReducer from "./slices/auth/authSlice";
 import verbExerciseSlice from "./slices/verbeTenses/verbExerciseSlice";
+import userProgressSlice from "./slices/userProgress/userProgressSlice";
 const store = configureStore({
   reducer: {
     dialogues: dialogueReducer,
@@ -46,6 +47,7 @@ const store = configureStore({
     user: userReducer,
     auth: authReducer,
     verbExercise: verbExerciseSlice,
+    userProgress: userProgressSlice,
   },
 });
 

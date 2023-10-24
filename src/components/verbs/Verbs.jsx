@@ -8,6 +8,8 @@ import SearchVerb from "./SearchVerb";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/icons/search-50.png";
 import ClearIcon from "../../assets/icons/cross-24.png";
+import ProgressBar from "../Utility/ProgressBar";
+import { fetchUserProgress } from "../../redux/slices/userProgress/userProgressSlice";
 const Verbs = () => {
   const dispatch = useDispatch();
   const verbs = useSelector((state) => state.verbTenses.verbs);
@@ -15,12 +17,27 @@ const Verbs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroup, setSelectedGroup] = useState("all");
   const [filteredVerbs, setFilteredVerbs] = useState([]);
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  const userProgressData =
+    useSelector((state) => state.userProgress.userProgressData) || {};
+  const userId = auth._id;
+  const verbsProgress = userProgressData?.userProgress?.verbs;
+  const verbsWithProgress = verbsProgress.map((verb) => ({
+    verb: verb.verb,
+    percentage: verb.totalPercentage,
+  }));
+  console.log("userProgressData", userProgressData);
+  console.log("verbsProgress", verbsProgress);
+  console.log("verbsWithProgress", verbsWithProgress);
 
-  // console.log(verbs);
   useEffect(() => {
     dispatch(getAllVerbs());
   }, []);
-
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserProgress(userId));
+    }
+  }, [userId]);
   useEffect(() => {
     if (verbs.length > 0) {
       setFilteredVerbs(verbs);
@@ -79,13 +96,25 @@ const Verbs = () => {
         <VerbsContainer>
           {filteredVerbs.map((verbObj) => {
             const { _id, verb, primary } = verbObj;
+
+            // Find the verb in verbsWithProgress array
+            const progressData = verbsWithProgress.find(
+              (item) => item.verb === verb
+            );
+
             return primary ? (
               <PrimaryVerbBox key={_id}>
                 <StyledLink to={`/verbs/${verb}`}>{verb}</StyledLink>
+                {progressData && (
+                  <ProgressBar progress={progressData.percentage} />
+                )}
               </PrimaryVerbBox>
             ) : (
               <VerbBox key={_id}>
                 <StyledLink to={`/verbs/${verb}`}>{verb}</StyledLink>
+                {progressData && (
+                  <ProgressBar progress={progressData.percentage} />
+                )}
               </VerbBox>
             );
           })}

@@ -9,6 +9,7 @@ const checkAuthStatus = () => {
     error: null,
     user: null,
     isAuthenticated: !!token, // Check if the token exists
+    userId: null,
   };
 };
 
@@ -59,6 +60,7 @@ const authSlice = createSlice({
         state.isLoading = false;
 
         state.isAuthenticated = true;
+        state.userId = action.payload._id;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.error = action.error.message;

@@ -103,7 +103,10 @@ const VerbConjugation = () => {
                 ))}
             </SelectStyled>
           </SelectContainer>
-          <PresentTense presentTenseVerbe={selectedTenseData} />
+          <PresentTense
+            presentTenseVerbe={selectedTenseData}
+            tense={selectedTense}
+          />
         </>
       )}
       <VerbHeader>
