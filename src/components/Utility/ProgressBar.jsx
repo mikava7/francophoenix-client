@@ -18,6 +18,7 @@ const ProgressFill = styled.div`
 `;
 
 const ProgressBar = ({ progress }) => {
+  console.log("progress", progress);
   return (
     <ProgressBarContainer>
       <ProgressFill progress={progress} />

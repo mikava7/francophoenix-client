@@ -22,10 +22,12 @@ const Verbs = () => {
     useSelector((state) => state.userProgress.userProgressData) || {};
   const userId = auth._id;
   const verbsProgress = userProgressData?.userProgress?.verbs;
-  const verbsWithProgress = verbsProgress.map((verb) => ({
-    verb: verb.verb,
-    percentage: verb.totalPercentage,
-  }));
+  const verbsWithProgress =
+    verbsProgress &&
+    verbsProgress?.map((verb) => ({
+      verb: verb.verb,
+      percentage: verb.totalPercentage,
+    }));
   console.log("userProgressData", userProgressData);
   console.log("verbsProgress", verbsProgress);
   console.log("verbsWithProgress", verbsWithProgress);
@@ -92,29 +94,26 @@ const Verbs = () => {
           />
         </InputContainer>
       </SearchContainer>
-      {filteredVerbs.length > 0 ? (
+      {filteredVerbs && filteredVerbs?.length > 0 ? (
         <VerbsContainer>
-          {filteredVerbs.map((verbObj) => {
+          {filteredVerbs?.map((verbObj) => {
             const { _id, verb, primary } = verbObj;
 
             // Find the verb in verbsWithProgress array
-            const progressData = verbsWithProgress.find(
-              (item) => item.verb === verb
-            );
+            const progressData =
+              verbsWithProgress &&
+              verbsWithProgress?.find((item) => item.verb === verb);
+            const progress = progressData ? progressData.percentage : 0.1;
 
             return primary ? (
               <PrimaryVerbBox key={_id}>
                 <StyledLink to={`/verbs/${verb}`}>{verb}</StyledLink>
-                {progressData && (
-                  <ProgressBar progress={progressData.percentage} />
-                )}
+                <ProgressBar progress={progress} />
               </PrimaryVerbBox>
             ) : (
               <VerbBox key={_id}>
                 <StyledLink to={`/verbs/${verb}`}>{verb}</StyledLink>
-                {progressData && (
-                  <ProgressBar progress={progressData.percentage} />
-                )}
+                <ProgressBar progress={progress} />
               </VerbBox>
             );
           })}
