@@ -1,251 +1,114 @@
-import { useState, useEffect } from "react";
-import styled, { useTheme } from "styled-components";
-import { darkTheme } from "../../../Styles/theme";
-import { useTranslation } from "react-i18next";
-import { Link, useParams, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchVerbDetails } from "../../../redux/slices/quizPictures/quizPictures";
-import Loading from "../../loading/Loading";
-import useListenWord from "../../../hooks/useListenWord";
-import PresentTense from "../presentTense/PresentTense";
-// import ListenImg from "../../../../public/icons/sound-50.png";
-// import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
-import Listen from "../../Listen";
-import { ListenIcon } from "../../../Styles/globalStyles";
-import { tenseList } from "./tenseList";
-import {
-  SelectContainer,
-  SelectStyled,
-} from "../presentTense/VerbTenseExercise";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
-const VerbConjugation = () => {
-  const theme = useTheme();
+const conjugationPairs = {
+  je: "suis",
+  tu: "es",
+  il: "est",
+  elle: "est",
+  nous: "sommes",
+  vous: "êtes",
+  ils: "sont",
+  elles: "sont",
+};
 
-  const { verb: verbFromParams } = useParams();
-  const { handleListen, isActiveStates } = useListenWord();
+const ConjugationExercise = () => {
+  const [shuffledPairs, setShuffledPairs] = useState([]);
+  const [selectedPairs, setSelectedPairs] = useState({});
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const conjugated = queryParams.get("conjugated");
-
-  const dispatch = useDispatch();
-  const conjugationData =
-    useSelector((state) => state.quizData.selectedVerbDetails) || [];
-
-  const isLoading = useSelector((state) => state.quizData.isLoading);
-  const error = useSelector((state) => state.quizData.error);
-  const [showExercise, setShowExercise] = useState(false);
-  const [selectedTense, setSelectedTense] = useState("present");
-
-  let exercise = null;
-
-  if (conjugationData && typeof conjugationData.exercise === "object") {
-    exercise = conjugationData.exercise.tenses[selectedTense];
-  } else if (conjugationData && typeof conjugationData.exercise === "string") {
-    exercise = conjugationData.exercise;
-  } else {
-    // Handle other cases or provide a default value for exercise
-  }
-
-  // console.log("exercise", conjugationData);
-  const [selectedTenseData, setSelectedTenseData] = useState([]);
-
-  const toggleExercise = () => {
-    setShowExercise((prevState) => !prevState);
-    setSelectedTenseData(exercise);
-
-    setSelectedTense(tenseList[0]);
-  };
-  const handleTenseChange = (event) => {
-    const selectedTenseName = event.target.value;
-    // console.log("selectedTenseName", selectedTenseName);
-    setSelectedTense(selectedTenseName);
-
-    if (selectedTenseName && exercise) {
-      setSelectedTenseData(
-        conjugationData?.exercise?.tenses[selectedTenseName] || []
-      );
-    }
-  };
   useEffect(() => {
-    dispatch(fetchVerbDetails(verbFromParams));
+    shufflePairs();
+  }, []);
 
-    // console.log("fetched");
-  }, [dispatch]);
+  const shufflePairs = () => {
+    const shuffled = Object.entries(conjugationPairs).sort(
+      () => Math.random() - 0.5
+    );
+    setShuffledPairs(shuffled);
+  };
 
-  const { verb, verbEng, verbGeo, forms } = conjugationData;
-  const { t, i18n } = useTranslation();
-  const isGeorgian = i18n.language === "ka";
-  if (isLoading) {
-    return <Loading />;
-  }
+  const handleSelect = (pronoun, conjugation) => {
+    const newSelectedPairs = { ...selectedPairs };
+
+    if (newSelectedPairs[pronoun] === conjugation) {
+      delete newSelectedPairs[pronoun];
+    } else {
+      newSelectedPairs[pronoun] = conjugation;
+    }
+
+    setSelectedPairs(newSelectedPairs);
+  };
+
+  const isPairSelected = (pronoun, conjugation) => {
+    return selectedPairs[pronoun] === conjugation;
+  };
+
   return (
-    <VerbContainer>
-      <StyledLink to="/verbs/verb-tense-list">
-        {t("Présentation des temps des verbes")}
-      </StyledLink>
-
-      {exercise && typeof exercise !== "string" && (
-        <ExerciseTag onClick={toggleExercise}>
-          {t("Afficher l'exercice")}
-        </ExerciseTag>
-      )}
-      {selectedTenseData && selectedTenseData?.length > 0 && showExercise && (
-        <>
-          <SelectContainer>
-            <label>{t("Sélectionnez un temps")}:</label>
-            <SelectStyled onChange={handleTenseChange} value={selectedTense}>
-              {tenseList &&
-                tenseList.map((tenseName) => (
-                  <option key={tenseName} value={tenseName}>
-                    {tenseName}
-                  </option>
-                ))}
-            </SelectStyled>
-          </SelectContainer>
-          <PresentTense
-            presentTenseVerbe={selectedTenseData}
-            tense={selectedTense}
-          />
-        </>
-      )}
-      <VerbHeader>
-        <h1>{verb?.charAt(0).toUpperCase() + verb?.slice(1)}</h1>
-        <h3>{isGeorgian ? verbGeo : verbEng}</h3>
-      </VerbHeader>
-
-      <TenseList>
-        {forms &&
-          Object?.entries(forms).map(([tense, tenseData]) => (
-            <TenseListItem key={tense}>
-              <h2>
-                {tense
-                  .replace(/([A-Z])/g, " $1")
-                  .replace(/^./, (str) => str.toUpperCase())}
-              </h2>
-
-              <TenseContent>
-                <ul>
-                  {tenseData?.map((tenseItem, index) => (
-                    <li key={index}>
-                      <FirstLanguageBox
-                        highlight={tenseItem?.french.includes(conjugated)}
-                      >
-                        <FirstLanguage>{tenseItem?.french}</FirstLanguage>{" "}
-                        <ListenIcon
-                          onClick={handleListen(tenseItem?.french)}
-                          isActive={isActiveStates[index]}
-                        >
-                          <Listen />
-                        </ListenIcon>
-                      </FirstLanguageBox>
-                      <SecondLanguage>
-                        {isGeorgian ? tenseItem?.georgian : tenseItem?.english}
-                      </SecondLanguage>
-                      {/* You can also add the Georgian translation here if needed */}
-                    </li>
-                  ))}
-                </ul>
-              </TenseContent>
-            </TenseListItem>
-          ))}
-      </TenseList>
-    </VerbContainer>
+    <Container>
+      <Column>
+        {shuffledPairs.map(([pronoun, conjugation], index) => (
+          <Pronoun
+            key={index}
+            onClick={() => handleSelect(pronoun, conjugation)}
+            selected={isPairSelected(pronoun, conjugation)}
+          >
+            {pronoun}
+          </Pronoun>
+        ))}
+      </Column>
+      <Column>
+        {shuffledPairs.map(([pronoun, conjugation], index) => (
+          <Conjugation
+            key={index}
+            onClick={() => handleSelect(pronoun, conjugation)}
+            selected={isPairSelected(pronoun, conjugation)}
+          >
+            {conjugation}
+          </Conjugation>
+        ))}
+      </Column>
+    </Container>
   );
 };
-export default VerbConjugation;
-const VerbContainer = styled.div`
-  display: flex;
-  flex-direction: column;
 
-  width: 100%;
-  /* outline: 1px solid yellow; */
-  height: auto;
-`;
+export default ConjugationExercise;
 
-const VerbHeader = styled.div`
-  margin-bottom: 1rem;
-  /* background-color: ${(props) => props.theme.tertiaryBackground}; */
-  h1 {
-    text-align: center;
-    &:before {
-      content: ${(props) =>
-        props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
-    }
-  }
-`;
-
-const TenseList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-between;
-  width: 100%;
-`;
-const StyledLink = styled(Link)`
-  font-size: 24px;
-  font-weight: bold;
-  color: #258ff383;
-  transition: all 0.3s ease; /* Add a transition here */
-
-  &:hover {
-    transform: scale(1.03);
-    color: #258ff3;
-  }
-`;
-
-const TenseListItem = styled.div`
-  margin-bottom: 1rem;
-  outline: 2px solid ${(props) => props.theme.secondaryText};
-  background-color: ${(props) => props.theme.secondaryBackground};
-  margin: 1rem;
-  width: 100%;
-
-  h2 {
-    background-color: ${(props) => props.theme.primaryBackground};
-    padding: 1rem;
-  }
-`;
-
-const TenseContent = styled.div`
-  /* margin: 1rem; */
-  ul {
-    list-style: none;
-    li {
-      width: 90%;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid ${(props) => props.theme.primaryText};
-    }
-  }
-`;
-const FirstLanguage = styled.p`
-  margin-bottom: 1rem;
-
-  &:before {
-    content: ${(props) =>
-      props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
-  }
-`;
-const SecondLanguage = styled.span`
-  margin-left: 2rem;
-  color: ${(props) => props.theme.secondaryText};
-  padding: 1rem;
-`;
-const FirstLanguageBox = styled.div`
-  background: ${(props) =>
-    props.highlight ? props.theme.highlight2 : "transparent"};
-
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid ${(props) => props.theme.highlight1};
-  padding-top: 0.4rem;
+  align-items: center;
 `;
 
-const ExerciseTag = styled.p`
-  color: ${(props) => props.theme.secondaryText};
-  transition: all 0.3s ease; /* Add a transition here */
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Pronoun = styled.div`
+  font-weight: bold;
   cursor: pointer;
+  background-color: ${(props) => (props.selected ? "#4CAF50" : "#f9f9f9")};
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  transition: background-color 0.3s;
   &:hover {
-    color: ${(props) => props.theme.primaryText};
+    background-color: #4caf50;
+  }
+`;
+
+const Conjugation = styled.div`
+  font-weight: bold;
+  cursor: pointer;
+  background-color: ${(props) => (props.selected ? "#4CAF50" : "#f9f9f9")};
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #4caf50;
   }
 `;
