@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { shuffleArray } from "../../Utility/utils";
 
 const conjugationPairs = {
   je: "suis",
@@ -13,60 +14,58 @@ const conjugationPairs = {
 };
 
 const ConjugationExercise = () => {
-  const [shuffledPairs, setShuffledPairs] = useState([]);
-  const [selectedPairs, setSelectedPairs] = useState({});
+  const [selectedPronoun, setSelectedPronoun] = useState("");
+  const [selectedConjugation, setSelectedConjugation] = useState("");
+  const [score, setScore] = useState(8); // Initialize score to 8
+
+  const handleSelectPronoun = (pronoun) => {
+    setSelectedPronoun(pronoun);
+  };
+
+  const handleSelectConjugation = (conjugation) => {
+    setSelectedConjugation(conjugation);
+    const isCorrect = conjugationPairs[selectedPronoun] === conjugation;
+    if (isCorrect) {
+      // If the pair is correct, decrement the score
+      setScore(score - 1);
+    }
+  };
+
+  const pronouns = Object.keys(conjugationPairs);
+  const conjugations = Object.values(conjugationPairs);
 
   useEffect(() => {
-    shufflePairs();
+    shuffleArray(conjugations);
+    shuffleArray(pronouns);
   }, []);
-
-  const shufflePairs = () => {
-    const shuffled = Object.entries(conjugationPairs).sort(
-      () => Math.random() - 0.5
-    );
-    setShuffledPairs(shuffled);
-  };
-
-  const handleSelect = (pronoun, conjugation) => {
-    const newSelectedPairs = { ...selectedPairs };
-
-    if (newSelectedPairs[pronoun] === conjugation) {
-      delete newSelectedPairs[pronoun];
-    } else {
-      newSelectedPairs[pronoun] = conjugation;
-    }
-
-    setSelectedPairs(newSelectedPairs);
-  };
-
-  const isPairSelected = (pronoun, conjugation) => {
-    return selectedPairs[pronoun] === conjugation;
-  };
 
   return (
     <Container>
       <Column>
-        {shuffledPairs.map(([pronoun, conjugation], index) => (
+        {pronouns.map((pronoun, index) => (
           <Pronoun
             key={index}
-            onClick={() => handleSelect(pronoun, conjugation)}
-            selected={isPairSelected(pronoun, conjugation)}
+            selected={selectedPronoun === pronoun}
+            selectedPronoun={selectedPronoun}
+            onClick={() => handleSelectPronoun(pronoun)}
           >
             {pronoun}
           </Pronoun>
         ))}
       </Column>
       <Column>
-        {shuffledPairs.map(([pronoun, conjugation], index) => (
+        {conjugations.map((conjugation, index) => (
           <Conjugation
             key={index}
-            onClick={() => handleSelect(pronoun, conjugation)}
-            selected={isPairSelected(pronoun, conjugation)}
+            selected={selectedConjugation === conjugation}
+            selectedPronoun={selectedPronoun}
+            onClick={() => handleSelectConjugation(conjugation)}
           >
             {conjugation}
           </Conjugation>
         ))}
       </Column>
+      <Score>{`Score: ${score}`}</Score>
     </Container>
   );
 };
@@ -88,7 +87,8 @@ const Column = styled.div`
 const Pronoun = styled.div`
   font-weight: bold;
   cursor: pointer;
-  background-color: ${(props) => (props.selected ? "#4CAF50" : "#f9f9f9")};
+  background-color: ${(props) =>
+    props.selected ? "orange" : props.selectedPronoun === "" ? "" : "red"};
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -102,7 +102,8 @@ const Pronoun = styled.div`
 const Conjugation = styled.div`
   font-weight: bold;
   cursor: pointer;
-  background-color: ${(props) => (props.selected ? "#4CAF50" : "#f9f9f9")};
+  background-color: ${(props) =>
+    props.selected ? "orange" : props.selectedPronoun === "" ? "" : "red"};
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -111,4 +112,7 @@ const Conjugation = styled.div`
   &:hover {
     background-color: #4caf50;
   }
+`;
+const Score = styled.div`
+  font-weight: bold;
 `;
