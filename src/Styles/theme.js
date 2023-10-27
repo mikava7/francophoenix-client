@@ -34,7 +34,8 @@ export const darkTheme = {
   highlight4: "#60c5d9", // sky blue highlight
   highlight5: "#ffffff",
 
-  correctBack: "#70ff41",
+  correctBack: "#184d07",
+
   wrongback: "#DC143C",
   facebookLogo: "#000000",
   facebookBack: "#3b5998",

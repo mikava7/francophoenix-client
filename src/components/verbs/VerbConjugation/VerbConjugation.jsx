@@ -2,37 +2,59 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { shuffleArray } from "../../Utility/utils";
 
-const conjugationPairs = {
-  je: "suis",
-  tu: "es",
-  il: "est",
-  elle: "est",
-  nous: "sommes",
-  vous: "êtes",
-  ils: "sont",
-  elles: "sont",
-};
+const conjugationPairs = [
+  { pronoun: "je", conjugation: "suis" },
+  { pronoun: "tu", conjugation: "es" },
+  { pronoun: "il", conjugation: "est" },
+  { pronoun: "elle", conjugation: "est" },
+  { pronoun: "nous", conjugation: "sommes" },
+  { pronoun: "vous", conjugation: "êtes" },
+  { pronoun: "ils", conjugation: "sont" },
+  { pronoun: "elles", conjugation: "sont" },
+];
 
 const ConjugationExercise = () => {
   const [selectedPronoun, setSelectedPronoun] = useState("");
   const [selectedConjugation, setSelectedConjugation] = useState("");
-  const [score, setScore] = useState(8); // Initialize score to 8
+  const [isCorrect, setIsCorect] = useState(false);
+  const [score, setScore] = useState(8);
+  const [selectedPair, setSelectedPair] = useState({
+    pronoun: "",
+    conjugation: "",
+  });
+  const [completedPairs, setCompletedPairs] = useState([]);
+  console.log({ selectedPronoun, selectedConjugation, selectedPair });
+  console.log("completedPairs", completedPairs);
 
-  const handleSelectPronoun = (pronoun) => {
+  const pronouns = conjugationPairs.map((pair) => pair.pronoun);
+  const conjugations = conjugationPairs.map((pair) => pair.conjugation);
+
+  const handleSelect = (pronoun, conjugation) => {
+    if (selectedPronoun === pronoun && selectedConjugation === conjugation) {
+      // The same pair has been selected again; do nothing
+      return;
+    }
+
     setSelectedPronoun(pronoun);
-  };
-
-  const handleSelectConjugation = (conjugation) => {
     setSelectedConjugation(conjugation);
-    const isCorrect = conjugationPairs[selectedPronoun] === conjugation;
-    if (isCorrect) {
-      // If the pair is correct, decrement the score
+    setSelectedPair({ pronoun, conjugation });
+
+    if (isPairCorrect(pronoun, conjugation)) {
+      setIsCorect(true);
+      setSelectedPronoun("");
+      setSelectedConjugation("");
+      setCompletedPairs([...completedPairs, { pronoun, conjugation }]);
+    } else {
       setScore(score - 1);
+      setIsCorect(false);
     }
   };
 
-  const pronouns = Object.keys(conjugationPairs);
-  const conjugations = Object.values(conjugationPairs);
+  const isPairCorrect = (pronoun, conjugation) => {
+    return conjugationPairs.some(
+      (pair) => pair.pronoun === pronoun && pair.conjugation === conjugation
+    );
+  };
 
   useEffect(() => {
     shuffleArray(conjugations);
@@ -46,8 +68,8 @@ const ConjugationExercise = () => {
           <Pronoun
             key={index}
             selected={selectedPronoun === pronoun}
-            selectedPronoun={selectedPronoun}
-            onClick={() => handleSelectPronoun(pronoun)}
+            onClick={() => handleSelect(pronoun, selectedConjugation)}
+            isCorrect={completedPairs.some((pair) => pair.pronoun === pronoun)}
           >
             {pronoun}
           </Pronoun>
@@ -58,8 +80,10 @@ const ConjugationExercise = () => {
           <Conjugation
             key={index}
             selected={selectedConjugation === conjugation}
-            selectedPronoun={selectedPronoun}
-            onClick={() => handleSelectConjugation(conjugation)}
+            onClick={() => handleSelect(selectedPronoun, conjugation)}
+            isCorrect={completedPairs.some(
+              (pair) => pair.conjugation === conjugation
+            )}
           >
             {conjugation}
           </Conjugation>
@@ -87,8 +111,11 @@ const Column = styled.div`
 const Pronoun = styled.div`
   font-weight: bold;
   cursor: pointer;
+  background-color: ${(props) => (props.selected ? "orange" : "")};
   background-color: ${(props) =>
-    props.selected ? "orange" : props.selectedPronoun === "" ? "" : "red"};
+    props.isCorrect ? props.theme.correctBack : ""};
+  color: ${(props) => (props.isCorrect ? props.theme.primaryText : "")};
+
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -102,8 +129,15 @@ const Pronoun = styled.div`
 const Conjugation = styled.div`
   font-weight: bold;
   cursor: pointer;
+  background-color: ${(props) => {
+    console.log(props.isCorrect);
+    props.isCorrect ? "green" : "";
+  }};
+  background-color: ${(props) => (props.selected ? "orange" : "")};
   background-color: ${(props) =>
-    props.selected ? "orange" : props.selectedPronoun === "" ? "" : "red"};
+    props.isCorrect ? props.theme.correctBack : ""};
+  color: ${(props) => (props.isCorrect ? props.theme.primaryText : "")};
+
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -113,6 +147,7 @@ const Conjugation = styled.div`
     background-color: #4caf50;
   }
 `;
+
 const Score = styled.div`
   font-weight: bold;
 `;
