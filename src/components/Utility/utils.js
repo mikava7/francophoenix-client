@@ -44,3 +44,16 @@ export const redirectToBescherelle = (verb) => {
 
 export const mapSearchResults = (searchResults, field) =>
   searchResults.map((result) => result[field]);
+
+// const frenchConjugations = [];
+
+// for (const tenseKey in forms) {
+//   const tense = forms[tenseKey];
+//   if (Array.isArray(tense)) {
+//     tense.forEach((item) => {
+//       if (item.french) {
+//         frenchConjugations.push(item.french);
+//       }
+//     });
+//   }
+// }

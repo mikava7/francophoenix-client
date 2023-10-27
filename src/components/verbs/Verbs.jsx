@@ -28,9 +28,9 @@ const Verbs = () => {
       verb: verb.verb,
       percentage: verb.totalPercentage,
     }));
-  console.log("userProgressData", userProgressData);
-  console.log("verbsProgress", verbsProgress);
-  console.log("verbsWithProgress", verbsWithProgress);
+  // console.log("userProgressData", userProgressData);
+  // console.log("verbsProgress", verbsProgress);
+  // console.log("verbsWithProgress", verbsWithProgress);
 
   useEffect(() => {
     dispatch(getAllVerbs());

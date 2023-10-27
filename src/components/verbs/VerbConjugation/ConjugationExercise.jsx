@@ -1,92 +1,123 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { shuffleArray } from "../../Utility/utils";
 
-const conjugationPairs = {
-  je: "suis",
-  tu: "es",
-  il: "est",
-  elle: "est",
-  nous: "sommes",
-  vous: "êtes",
-  ils: "sont",
-  elles: "sont",
-};
+const conjugationPairs = [
+  { pronoun: "je", conjugation: "suis" },
+  { pronoun: "tu", conjugation: "es" },
+  { pronoun: "il/elle", conjugation: "est" },
+  { pronoun: "nous", conjugation: "sommes" },
+  { pronoun: "vous", conjugation: "êtes" },
+  { pronoun: "ils/elles", conjugation: "sont" },
+];
 
-const ConjugationExercise = () => {
-  const [shuffledPairs, setShuffledPairs] = useState([]);
-  const [selectedPair, setSelectedPair] = useState(null);
+const ConjugationExercise = ({ frenchConjugations }) => {
+  console.log("frenchConjugations in ConjugationExercise", frenchConjugations);
+  const [pronounInputs, setPronounInputs] = useState({});
+  const [selectedConjugation, setSelectedConjugation] = useState("");
+  const [score, setScore] = useState(0);
+  const [completedPairs, setCompletedPairs] = useState({});
+
+  const pronouns = conjugationPairs.map((pair) => pair.pronoun);
+  const conjugations = conjugationPairs.map((pair) => pair.conjugation);
+
+  const handleInputChange = (pronoun, value) => {
+    setPronounInputs({ ...pronounInputs, [pronoun]: value });
+  };
+
+  const handleSubmit = () => {
+    let newScore = 0;
+    const newCompletedPairs = {};
+
+    for (const pronoun of pronouns) {
+      const correctConjugation = conjugationPairs.find(
+        (pair) => pair.pronoun === pronoun
+      ).conjugation;
+      const userConjugation = pronounInputs[pronoun];
+
+      if (!userConjugation) {
+        newScore -= 1; // User skipped input
+      } else if (userConjugation === correctConjugation) {
+        newScore += 1; // User's input is correct
+        newCompletedPairs[pronoun] = userConjugation;
+      } else {
+        newCompletedPairs[pronoun] = correctConjugation;
+      }
+    }
+
+    setScore(newScore);
+    setCompletedPairs(newCompletedPairs);
+    setSelectedConjugation(""); // Clear selected conjugation
+  };
 
   useEffect(() => {
-    shufflePairs();
+    shuffleArray(conjugations);
   }, []);
-
-  const shufflePairs = () => {
-    const shuffled = Object.entries(conjugationPairs)
-      .map(([pronoun, conjugation]) => ({ pronoun, conjugation }))
-      .sort(() => Math.random() - 0.5);
-    setShuffledPairs(shuffled);
-  };
-
-  const handleSelect = (pair) => {
-    if (!selectedPair) {
-      setSelectedPair(pair);
-    } else if (pair.pronoun !== selectedPair.pronoun) {
-      // If the selected pairs don't have the same subject pronoun
-      // Check if the conjugations match
-      if (pair.conjugation === selectedPair.conjugation) {
-        alert("Correct!"); // You can replace this with your own UI logic
-      } else {
-        alert("Incorrect!"); // You can replace this with your own UI logic
-      }
-      setSelectedPair(null);
-    }
-  };
 
   return (
     <Container>
-      {shuffledPairs.map((pair, index) => (
-        <Pair
-          key={index}
-          onClick={() => handleSelect(pair)}
-          selected={selectedPair && selectedPair.pronoun === pair.pronoun}
-        >
-          <Pronoun>{pair.pronoun}</Pronoun>
-          <Conjugation>{pair.conjugation}</Conjugation>
-        </Pair>
+      {pronouns.map((pronoun, index) => (
+        <PronounContainer key={index}>
+          <PronounLabel>{pronoun}</PronounLabel>
+          <Input
+            type="text"
+            value={pronounInputs[pronoun] || ""}
+            onChange={(e) => handleInputChange(pronoun, e.target.value)}
+            placeholder={completedPairs[pronoun] || ""}
+            isCorrect={completedPairs[pronoun] === pronounInputs[pronoun]}
+          />
+        </PronounContainer>
       ))}
+      <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+      <Score>{`Score: ${score} / 6`}</Score>
     </Container>
   );
 };
 
 export default ConjugationExercise;
+const Input = styled.input`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  background-color: ${(props) =>
+    props.isCorrect === true
+      ? props.theme.correctBack
+      : props.theme.primaryText};
+`;
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const Pair = styled.div`
+const PronounContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${(props) => (props.selected ? "#4CAF50" : "#f9f9f9")};
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  margin: 5px;
+`;
 
+const PronounLabel = styled.span`
+  font-weight: bold;
+  margin-right: 5px;
+`;
+
+const SubmitButton = styled.button`
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  color: #fff;
+  transition: background-color 0.3s;
   &:hover {
-    background-color: #4caf50;
+    background-color: #45a049;
   }
 `;
 
-const Pronoun = styled.div`
-  font-weight: bold;
-  margin-right: 10px;
-`;
-
-const Conjugation = styled.div`
+const Score = styled.div`
   font-weight: bold;
 `;
