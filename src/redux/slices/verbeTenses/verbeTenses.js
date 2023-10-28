@@ -70,12 +70,12 @@ const verbTensesSlice = createSlice({
 
       .addCase(fetchSelectedTense.fulfilled, (state, action) => {
         const { _id } = action.payload;
-        {
-          console.log("in Slice", action.payload);
-        }
-        {
-          console.log("id in Slice", _id);
-        }
+        // {
+        //   console.log("in Slice", action.payload);
+        // }
+        // {
+        //   console.log("id in Slice", _id);
+        // }
         state.selectedTenseCache[_id] = action.payload;
         state.selectedTense = action.payload;
         state.isLoading = false;

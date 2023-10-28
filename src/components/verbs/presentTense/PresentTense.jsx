@@ -19,7 +19,6 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state?.auth?.auth?.user) || {};
-  console.log("auth", auth);
   const userId = auth._id;
   const isLoading = useSelector((state) => state.presentTense.isLoading);
   const error = useSelector((state) => state.presentTense.error);

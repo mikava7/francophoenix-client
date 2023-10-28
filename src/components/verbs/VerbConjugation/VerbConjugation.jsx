@@ -12,12 +12,15 @@ import PresentTense from "../presentTense/PresentTense";
 // import ListenImgGold from "../../../../public/icons/sound-64-gold.png";
 import Listen from "../../Listen";
 import { ListenIcon } from "../../../Styles/globalStyles";
-import { tenseList } from "./tenseList";
 import {
   SelectContainer,
   SelectStyled,
 } from "../presentTense/VerbTenseExercise";
 import ConjugationExercise from "./ConjugationExercise";
+import VerbTenseList from "../../grammer/verbe Tenses/VerbTenseList";
+import { camelCaseToOriginal } from "./tenseList";
+import { fetchTenses } from "../../../redux/slices/verbeTenses/verbeTenses";
+import { Button } from "../../../Styles/globalStyles";
 const VerbConjugation = () => {
   const theme = useTheme();
 
@@ -34,18 +37,31 @@ const VerbConjugation = () => {
 
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const error = useSelector((state) => state.quizData.error);
+  const tenseList = useSelector((state) => state.verbTenses.tenses) || [];
+  // console.log("selectedTense in VerbConjugation", tenseList);
+
   const [showExercise, setShowExercise] = useState(false);
-  const [selectedTense, setSelectedTense] = useState("present");
+  const [selectedTense, setSelectedTense] = useState(tenseList[0]);
+  // console.log("selectedTense in VerbConjugation", selectedTense);
 
-  let exercise = null;
+  useEffect(() => {
+    dispatch(fetchTenses());
+    // handleTenseChange();
+  }, [dispatch]);
+  useEffect(() => {
+    let exercise = null;
 
-  if (conjugationData && typeof conjugationData.exercise === "object") {
-    exercise = conjugationData.exercise.tenses[selectedTense];
-  } else if (conjugationData && typeof conjugationData.exercise === "string") {
-    exercise = conjugationData.exercise;
-  } else {
-    // Handle other cases or provide a default value for exercise
-  }
+    if (conjugationData && typeof conjugationData.exercise === "object") {
+      exercise = conjugationData.exercise.tenses[selectedTense];
+    } else if (
+      conjugationData &&
+      typeof conjugationData.exercise === "string"
+    ) {
+      exercise = conjugationData.exercise;
+    } else {
+      // Handle other cases or provide a default value for exercise
+    }
+  }, [dispatch]);
 
   // console.log("exercise", conjugationData);
   const [selectedTenseData, setSelectedTenseData] = useState([]);
@@ -59,14 +75,20 @@ const VerbConjugation = () => {
   const handleTenseChange = (event) => {
     const selectedTenseName = event.target.value;
     // console.log("selectedTenseName", selectedTenseName);
-    setSelectedTense(selectedTenseName);
+    const selectedTenseObject = tenseList.find(
+      (tense) => tense.name === selectedTenseName
+    );
+    // console.log("selectedTenseObject", selectedTenseObject);
+
+    setSelectedTense(selectedTenseObject);
 
     if (selectedTenseName && exercise) {
       setSelectedTenseData(
-        conjugationData?.exercise?.tenses[selectedTenseName] || []
+        conjugationData?.exercise?.tenses[selectedTenseName.name] || []
       );
     }
   };
+
   useEffect(() => {
     dispatch(fetchVerbDetails(verbFromParams));
 
@@ -74,13 +96,12 @@ const VerbConjugation = () => {
   }, [dispatch]);
 
   const { verb, verbEng, verbGeo, forms } = conjugationData;
-  // console.log("forms:", forms);
+  console.log("forms", forms);
 
   const frenchConjugations = {};
 
   for (const tenseKey in forms) {
     const tense = forms[tenseKey];
-    // console.log("tense:", tense);
 
     if (Array.isArray(tense)) {
       frenchConjugations[tenseKey] = tense.map((item) => {
@@ -89,8 +110,6 @@ const VerbConjugation = () => {
     }
   }
 
-  // console.log("French Conjugations:", frenchConjugations);
-
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   if (isLoading) {
@@ -98,76 +117,67 @@ const VerbConjugation = () => {
   }
   return (
     <VerbContainer>
-      <ConjugationExercise frenchConjugations={frenchConjugations} />
-      <StyledLink to="/verbs/verb-tense-list">
-        {t("Présentation des temps des verbes")}
-      </StyledLink>
-
-      {exercise && typeof exercise !== "string" && (
-        <ExerciseTag onClick={toggleExercise}>
-          {t("Afficher l'exercice")}
-        </ExerciseTag>
-      )}
-      {selectedTenseData && selectedTenseData?.length > 0 && showExercise && (
-        <>
-          <SelectContainer>
-            <label>{t("Sélectionnez un temps")}:</label>
-            <SelectStyled onChange={handleTenseChange} value={selectedTense}>
-              {tenseList &&
-                tenseList.map((tenseName) => (
-                  <option key={tenseName} value={tenseName}>
-                    {tenseName}
-                  </option>
-                ))}
-            </SelectStyled>
-          </SelectContainer>
-          <PresentTense
-            presentTenseVerbe={selectedTenseData}
-            tense={selectedTense}
-          />
-        </>
-      )}
       <VerbHeader>
         <h1>{verb?.charAt(0).toUpperCase() + verb?.slice(1)}</h1>
         <h3>{isGeorgian ? verbGeo : verbEng}</h3>
       </VerbHeader>
 
-      <TenseList>
-        {forms &&
-          Object?.entries(forms).map(([tense, tenseData]) => (
-            <TenseListItem key={tense}>
-              <h2>
-                {tense
-                  .replace(/([A-Z])/g, " $1")
-                  .replace(/^./, (str) => str.toUpperCase())}
-              </h2>
+      <StyledSelect onChange={handleTenseChange} value={selectedTense?.name}>
+        {tenseList.map((tense) => (
+          <StyledOption key={tense.id} value={tense.name}>
+            {tense.name}
+          </StyledOption>
+        ))}
+      </StyledSelect>
+      <h1>{t("Aperçu des temps verbaux")}</h1>
+      <VerbTenseList selectedtense={selectedTense} />
 
-              <TenseContent>
-                <ul>
-                  {tenseData?.map((tenseItem, index) => (
-                    <li key={index}>
-                      <FirstLanguageBox
-                        highlight={tenseItem?.french.includes(conjugated)}
-                      >
-                        <FirstLanguage>{tenseItem?.french}</FirstLanguage>{" "}
-                        <ListenIcon
-                          onClick={handleListen(tenseItem?.french)}
-                          isActive={isActiveStates[index]}
-                        >
-                          <Listen />
-                        </ListenIcon>
-                      </FirstLanguageBox>
-                      <SecondLanguage>
-                        {isGeorgian ? tenseItem?.georgian : tenseItem?.english}
-                      </SecondLanguage>
-                      {/* You can also add the Georgian translation here if needed */}
-                    </li>
-                  ))}
-                </ul>
+      <TenseList>
+        <h1>{t("Conjugaison")}</h1>
+        {forms &&
+          forms[camelCaseToOriginal[selectedTense?.name]]?.map(
+            (tenseItem, index) => (
+              <TenseContent key={index}>
+                <li>
+                  {/* Display the conjugation data here */}
+                  <FirstLanguageBox
+                    highlight={tenseItem?.french.includes(conjugated)}
+                  >
+                    <FirstLanguage>{tenseItem?.french}</FirstLanguage>
+                    <ListenIcon
+                      onClick={handleListen(tenseItem?.french)}
+                      isActive={isActiveStates[index]}
+                    >
+                      <Listen />
+                    </ListenIcon>
+                  </FirstLanguageBox>
+                  <SecondLanguage>
+                    {isGeorgian ? tenseItem?.georgian : tenseItem?.english}
+                  </SecondLanguage>
+                </li>
               </TenseContent>
-            </TenseListItem>
-          ))}
+            )
+          )}
       </TenseList>
+
+      <ConjugationExercise frenchConjugations={frenchConjugations} />
+      <>
+        <SelectContainer>
+          <label>{t("Sélectionnez un temps")}:</label>
+          <SelectStyled onChange={handleTenseChange} value={selectedTense}>
+            {/* {tenseList &&
+              tenseList.map((tenseName) => (
+                <option key={tenseName} value={tenseName}>
+                  {tenseName}
+                </option>
+              ))} */}
+          </SelectStyled>
+        </SelectContainer>
+        <PresentTense
+          presentTenseVerbe={selectedTenseData}
+          tense={selectedTense}
+        />
+      </>
     </VerbContainer>
   );
 };
@@ -193,13 +203,6 @@ const VerbHeader = styled.div`
   }
 `;
 
-const TenseList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-between;
-  width: 100%;
-`;
 const StyledLink = styled(Link)`
   font-size: 24px;
   font-weight: bold;
@@ -223,38 +226,50 @@ const TenseListItem = styled.div`
     padding: 1rem;
   }
 `;
+const TenseList = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
 
 const TenseContent = styled.div`
-  /* margin: 1rem; */
+  display: flex;
+  flex-direction: column;
+
   ul {
     list-style: none;
-    li {
-      width: 90%;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid ${(props) => props.theme.primaryText};
-    }
+  }
+
+  li {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    margin: 0.1rem 0;
   }
 `;
+
 const FirstLanguage = styled.p`
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
   &:before {
     content: ${(props) =>
       props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
+    margin-right: 1rem;
   }
 `;
+
 const SecondLanguage = styled.span`
-  margin-left: 2rem;
   color: ${(props) => props.theme.secondaryText};
-  padding: 1rem;
+  margin-left: 5rem;
 `;
+
 const FirstLanguageBox = styled.div`
   background: ${(props) =>
     props.highlight ? props.theme.highlight2 : "transparent"};
-
+  border: 1px solid ${(props) => props.theme.highlight1};
+  padding: 1rem;
+  margin-top: 0.2rem;
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid ${(props) => props.theme.highlight1};
-  padding-top: 0.4rem;
+  align-items: center;
 `;
 
 const ExerciseTag = styled.p`
@@ -264,4 +279,22 @@ const ExerciseTag = styled.p`
   &:hover {
     color: ${(props) => props.theme.primaryText};
   }
+`;
+
+const StyledSelect = styled.select`
+  padding: 0.5rem;
+  font-size: 16px;
+  border: 2px solid ${(props) => props.theme.secondaryText};
+  border-radius: 5px;
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
+  width: 300px;
+  margin: auto;
+  margin-bottom: 1rem;
+  outline: none;
+`;
+
+const StyledOption = styled.option`
+  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryText};
 `;

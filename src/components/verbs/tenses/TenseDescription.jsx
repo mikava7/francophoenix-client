@@ -2,18 +2,23 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
-const TenseDescription = ({ tenseData }) => {
+const TenseDescription = ({ tenseData, selectedTense }) => {
   const { t, i18n } = useTranslation();
-
+  console.log(selectedTense);
   return (
     <Container>
-      {tenseData.data.map((tense, index) => (
-        <TenseCard key={index}>
-          <TenseTitle>{tense.french}</TenseTitle>
-          <TenseDescriptionText>
-            {i18n.language === "ka" ? tense.georgian : tense.english}
-          </TenseDescriptionText>
-          <ul>
+      {tenseData &&
+        tenseData?.data &&
+        tenseData?.data?.map((tense, index) => (
+          <TenseCard key={index}>
+            <TenseTitle>
+              <b>{selectedTense}</b>
+              {tense.french}
+            </TenseTitle>
+            <TenseDescriptionText>
+              {i18n.language === "ka" ? tense.georgian : tense.english}
+            </TenseDescriptionText>
+            {/* <ul>
             {tense.examples.map((example, exampleIndex) => (
               <ExampleItem key={exampleIndex}>
                 <ExampleText>{example.frenchExamp}</ExampleText>
@@ -24,9 +29,9 @@ const TenseDescription = ({ tenseData }) => {
                 </ExampleTextSecond>
               </ExampleItem>
             ))}
-          </ul>
-        </TenseCard>
-      ))}
+          </ul> */}
+          </TenseCard>
+        ))}
     </Container>
   );
 };
@@ -52,6 +57,12 @@ const TenseCard = styled.div`
 const TenseTitle = styled.p`
   font-size: 20px;
   margin: 0;
+  b {
+    margin-right: 0.4rem;
+    &:after {
+      content: ":";
+    }
+  }
 `;
 
 const TenseDescriptionText = styled.p`

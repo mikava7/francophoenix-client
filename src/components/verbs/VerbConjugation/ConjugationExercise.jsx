@@ -12,7 +12,6 @@ const conjugationPairs = [
 ];
 
 const ConjugationExercise = ({ frenchConjugations }) => {
-  console.log("frenchConjugations in ConjugationExercise", frenchConjugations);
   const [pronounInputs, setPronounInputs] = useState({});
   const [selectedConjugation, setSelectedConjugation] = useState("");
   const [score, setScore] = useState(0);
@@ -75,16 +74,6 @@ const ConjugationExercise = ({ frenchConjugations }) => {
 };
 
 export default ConjugationExercise;
-const Input = styled.input`
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5px;
-  background-color: ${(props) =>
-    props.isCorrect === true
-      ? props.theme.correctBack
-      : props.theme.primaryText};
-`;
 
 const Container = styled.div`
   display: flex;
@@ -101,6 +90,15 @@ const PronounContainer = styled.div`
 const PronounLabel = styled.span`
   font-weight: bold;
   margin-right: 5px;
+`;
+
+const Input = styled.input`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  background-color: ${(props) =>
+    props.isCorrect ? "#4caf50" : props.isCorrect === false ? "" : "white"};
 `;
 
 const SubmitButton = styled.button`

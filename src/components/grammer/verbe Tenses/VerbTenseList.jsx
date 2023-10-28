@@ -6,26 +6,24 @@ import styled from "styled-components";
 import { Button } from "../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import TenseDescription from "../../verbs/tenses/TenseDescription";
-
-const VerbTenseList = () => {
+import VerbConjugation from "../../verbs/VerbConjugation/VerbConjugation";
+const VerbTenseList = ({ selectedtense }) => {
+  // console.log("selectedtense in VerbTenseList", selectedtense);
   const dispatch = useDispatch();
-  const tenses = useSelector((state) => state.verbTenses.tenses) || [];
+
   const isLoading = useSelector((state) => state.verbTenses.isLoading);
   const { t } = useTranslation();
 
   // State to keep track of the selected tense name
-  const [selectedTenseId, setSelectedTenseId] = useState(null);
+  const [selectedTenseId, setSelectedTenseId] = useState(selectedtense?.id);
 
   useEffect(() => {
     dispatch(fetchTenses());
   }, [dispatch]);
 
-  const tenseNames = tenses.map((tense) => tense.name);
-
   const handleTenseClick = (tenseId) => {
     setSelectedTenseId(tenseId);
   };
-  const selectedTense = tenses.find((tense) => tense._id === selectedTenseId);
 
   if (isLoading) {
     return <Loading />;
@@ -33,17 +31,14 @@ const VerbTenseList = () => {
 
   return (
     <TensesNameContainer>
-      <h2>{t("Les temps")}</h2>
-      <ul>
-        {tenses.map((tense) => (
-          <li key={tense._id}>
-            <TenseButton onClick={() => handleTenseClick(tense._id)}>
-              {tense.name}
-            </TenseButton>
-          </li>
-        ))}
-      </ul>
-      {selectedTense && <TenseDescription tenseData={selectedTense} />}
+      {/* <h2>{t("Les temps")}</h2> */}
+
+      {selectedtense && (
+        <TenseDescription
+          tenseData={selectedtense}
+          selectedTense={selectedtense?.name}
+        />
+      )}
     </TensesNameContainer>
   );
 };
