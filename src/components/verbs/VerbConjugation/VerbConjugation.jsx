@@ -25,10 +25,7 @@ import VerbHeaderSection from "./VerbHeaderSection";
 import TenseSelectionSection from "./TenseSelectionSection";
 import CurrentTenseConjugation from "./CurrentTenseConjugation";
 const VerbConjugation = () => {
-  const theme = useTheme();
-
   const { verb: verbFromParams } = useParams();
-  const { handleListen, isActiveStates } = useListenWord();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -44,13 +41,30 @@ const VerbConjugation = () => {
   // console.log("selectedTense in VerbConjugation", tenseList);
 
   const [showExercise, setShowExercise] = useState(false);
+  const [currentSection, setCurrentSection] = useState(1);
+
   const [selectedTense, setSelectedTense] = useState(tenseList[0]);
+  const [tenseIndex, setTenseIndex] = useState(0);
+
   // console.log("selectedTense in VerbConjugation", selectedTense);
+
+  const handleNextSection = () => {
+    if (currentSection < 3) {
+      setCurrentSection(currentSection + 1);
+    } else {
+      // If we reach the end (Section 3), reset to Section 1
+      setCurrentSection(1);
+      // Optionally, you can update the selected tense here if needed
+      setTenseIndex((prevIndex) => (prevIndex + 1) % tenseList?.length);
+      setSelectedTense(tenseList[tenseIndex]);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchTenses());
     // handleTenseChange();
   }, [dispatch]);
+
   useEffect(() => {
     let exercise = null;
 
@@ -90,6 +104,14 @@ const VerbConjugation = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (selectedTense) {
+      setSelectedTenseData(
+        conjugationData?.exercise?.tenses[getSelectedTenseKey()] || []
+      );
+    }
+  }, []);
   // console.log("selectedTenseData", selectedTenseData);
 
   // console.log("selectedTenseData", selectedTenseData);
@@ -121,6 +143,7 @@ const VerbConjugation = () => {
 
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
+  console.log("selectedTenseData in parent", selectedTenseData);
   if (isLoading) {
     return <Loading />;
   }
@@ -132,15 +155,16 @@ const VerbConjugation = () => {
         verbEng={verbEng}
         isGeorgian={isGeorgian}
       />
-      <Section1>
-        <TenseSelectionSection
-          handleTenseChange={handleTenseChange}
-          tenseName={selectedTense?.name}
-          tenseList={tenseList}
-          t={t}
-        />
+      {currentSection === 1 && (
+        <Section1>
+          <TenseSelectionSection
+            handleTenseChange={handleTenseChange}
+            tenseName={selectedTense?.name}
+            tenseList={tenseList}
+            t={t}
+          />
 
-        {/* <StyledSelect onChange={handleTenseChange} value={selectedTense?.name}>
+          {/* <StyledSelect onChange={handleTenseChange} value={selectedTense?.name}>
         {tenseList.map((tense) => (
           <StyledOption key={tense.id} value={tense.name}>
             {tense.name}
@@ -148,32 +172,38 @@ const VerbConjugation = () => {
         ))}
       </StyledSelect> */}
 
-        <TenseOverview>
-          <h1>{t("Aperçu des temps verbaux")}</h1>
-          <VerbTenseList selectedtense={selectedTense} />
-        </TenseOverview>
+          <TenseOverview>
+            <h1>{t("Aperçu des temps verbaux")}</h1>
+            <VerbTenseList selectedtense={selectedTense} />
+          </TenseOverview>
 
-        <CurrentTenseConjugation
-          t={t}
-          forms={forms}
-          tenseName={selectedTense?.name}
-          camelCaseToOriginal={camelCaseToOriginal}
-          conjugated={conjugated}
-          isGeorgian={isGeorgian}
-        />
-      </Section1>
-      <Section2>
-        <ConjugationExercise
-          frenchConjugations={frenchConjugations[getSelectedTenseKey()]}
-          tense={selectedTense?.name}
-        />
-      </Section2>
-      <Section3>
-        <PresentTense
-          presentTenseVerbe={selectedTenseData}
-          tense={selectedTense?.name}
-        />
-      </Section3>
+          <CurrentTenseConjugation
+            t={t}
+            forms={forms}
+            tenseName={selectedTense?.name}
+            camelCaseToOriginal={camelCaseToOriginal}
+            conjugated={conjugated}
+            isGeorgian={isGeorgian}
+          />
+        </Section1>
+      )}
+      {currentSection === 2 && (
+        <Section2>
+          <ConjugationExercise
+            frenchConjugations={frenchConjugations[getSelectedTenseKey()]}
+            tense={selectedTense?.name}
+          />
+        </Section2>
+      )}
+      {currentSection === 3 && (
+        <Section3>
+          <PresentTense
+            presentTenseVerbe={selectedTenseData}
+            tense={selectedTense?.name}
+          />
+        </Section3>
+      )}
+      <Button onClick={handleNextSection}>Next</Button>
     </VerbContainer>
   );
 };

@@ -16,8 +16,8 @@ import { useParams } from "react-router-dom";
 import axios from "../../../redux/api/axiosInstance";
 import { calculateTensePercentage } from "../helper";
 const PresentTense = ({ presentTenseVerbe, tense }) => {
-  // console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
-  // console.log("tense in PresentTense", tense);
+  console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
+  console.log("tense in PresentTense", tense);
 
   useScrollToTopOnRouteChange();
   const exerciseType = PresentTense.name;
