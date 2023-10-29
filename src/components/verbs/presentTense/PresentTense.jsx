@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPresentTense } from "../../../redux/slices/verbeTenses/presentTenseSlice";
+import {
+  fetchPresentTense,
+  submitTensePercentage,
+} from "../../../redux/slices/verbeTenses/presentTenseSlice";
 import Loading from "../../loading/Loading";
 import styled from "styled-components";
 import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
@@ -13,13 +16,16 @@ import { useParams } from "react-router-dom";
 import axios from "../../../redux/api/axiosInstance";
 import { calculateTensePercentage } from "../helper";
 const PresentTense = ({ presentTenseVerbe, tense }) => {
+  // console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
+  // console.log("tense in PresentTense", tense);
+
   useScrollToTopOnRouteChange();
   const exerciseType = PresentTense.name;
   const { verb } = useParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state?.auth?.auth?.user) || {};
-  const userId = auth._id;
+  const userId = auth?._id;
   const isLoading = useSelector((state) => state.presentTense.isLoading);
   const error = useSelector((state) => state.presentTense.error);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -60,32 +66,6 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
     setAnswers(updatedAnswers);
   };
 
-  const submitTensePercentage = async (
-    userId,
-    verb,
-    tense,
-    exerciseType,
-    tensePercentage
-  ) => {
-    try {
-      if (userId) {
-        const response = await axios.post("/verbs/progress", {
-          userId,
-          verb,
-          tense,
-          exerciseType,
-          percentage: tensePercentage,
-        });
-
-        console.log("Tense percentage submitted successfully", response.data);
-      } else {
-        console.error("User is not logged in. Tense percentage not submitted.");
-      }
-    } catch (error) {
-      console.error("Error submitting tense percentage", error);
-    }
-  };
-
   const handleSubmit = () => {
     // Check if all questions are answered before proceeding
     if (answers.every((answer) => answer !== "")) {
@@ -120,8 +100,21 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
         presentTenseVerbe,
         answers
       );
-      console.log("Tense Percentage:", tensePercentage);
-      submitTensePercentage(userId, verb, tense, exerciseType, tensePercentage);
+      // console.log("Tense Percentage:", tensePercentage);
+      // submitTensePercentage(userId, verb, tense, exerciseType, tensePercentage);
+      // console.log("tensePercentage in component", tensePercentage);
+
+      if (userId && tensePercentage) {
+        dispatch(
+          submitTensePercentage({
+            userId,
+            verb,
+            tense,
+            exerciseType,
+            tensePercentage,
+          })
+        );
+      }
     }
   };
 

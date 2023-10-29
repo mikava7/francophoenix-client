@@ -150,13 +150,14 @@ const VerbCount = styled.span`
   }
 `;
 const VerbBox = styled.span`
-  padding: 0.2rem 0.4rem;
+  padding: 0.4rem 0.8rem;
   margin: 0.4rem;
   border-radius: 0.4rem;
   outline: 1px solid ${(props) => props.theme.highlight4};
   background: ${(props) => props.theme.secondaryBackground};
   cursor: pointer;
   transition: all 0.3s ease;
+  height: 3rem;
 
   &:hover {
     transform: scale(1.05);
@@ -169,6 +170,7 @@ const PrimaryVerbBox = styled(VerbBox)`
   background: ${(props) => props.theme.highlight4};
   outline: 1px solid ${(props) => props.theme.secondaryBackground};
   line-height: 1;
+  height: 3rem;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

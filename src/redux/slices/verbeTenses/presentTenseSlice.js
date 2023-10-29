@@ -13,7 +13,32 @@ export const fetchPresentTense = createAsyncThunk(
     }
   }
 );
+export const submitTensePercentage = createAsyncThunk(
+  "presentTense/submitTensePercentage",
+  async ({ userId, verb, tense, exerciseType, tensePercentage }) => {
+    console.log("tensePercentage in slice", tensePercentage);
+    try {
+      if (userId) {
+        const response = await axiosInstance.post("/verbs/progress", {
+          userId,
+          verb,
+          tense,
+          exerciseType,
+          percentage: tensePercentage,
+        });
 
+        console.log("Tense percentage submitted successfully", response.data);
+        return response.data;
+      } else {
+        console.error("User is not logged in. Tense percentage not submitted.");
+        throw new Error("User is not logged in.");
+      }
+    } catch (error) {
+      console.error("Error submitting tense percentage", error);
+      throw error;
+    }
+  }
+);
 const initialState = {
   presentTense: [],
   isLoading: false,
