@@ -10,8 +10,10 @@ import SearchIcon from "../../assets/icons/search-50.png";
 import ClearIcon from "../../assets/icons/cross-24.png";
 import ProgressBar from "../Utility/ProgressBar";
 import { fetchUserProgress } from "../../redux/slices/userProgress/userProgressSlice";
+
 const Verbs = () => {
   const dispatch = useDispatch();
+
   const verbs = useSelector((state) => state.verbTenses.verbs);
   const isLoading = useSelector((state) => state.isLoading);
   const [searchTerm, setSearchTerm] = useState("");

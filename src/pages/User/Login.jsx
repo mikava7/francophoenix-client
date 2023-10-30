@@ -27,17 +27,20 @@ import googeSingInLight from "../../icons/googleSignInLight.png";
 
 import { useTranslation } from "react-i18next";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
+import { useLocation } from "react-router-dom";
+
 const Login = () => {
   useScrollToTopOnRouteChange();
   const theme = useTheme();
-
+  const navigate = useNavigate();
+  const previousPath = sessionStorage.getItem("previousPath");
+  // console.log("previousPath", previousPath);
   const googeSingIn = theme === darkTheme ? googeSingInDark : googeSingInLight;
   const facebookIcon =
     theme === darkTheme ? facebookIconBlack : facebookIconBlue;
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const error = useSelector((state) => state.auth.error);
@@ -57,7 +60,11 @@ const Login = () => {
     try {
       // Dispatch the loginUser action
       await dispatch(loginUser(userData));
-      navigate("/"); // Navigate to the desired page
+      if (previousPath) {
+        navigate(previousPath);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.log("error", error);
     }

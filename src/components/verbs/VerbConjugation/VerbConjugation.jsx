@@ -25,6 +25,7 @@ import { Button } from "../../../Styles/globalStyles";
 import VerbHeaderSection from "./VerbHeaderSection";
 import TenseSelectionSection from "./TenseSelectionSection";
 import CurrentTenseConjugation from "./CurrentTenseConjugation";
+import LinkWithPreviousPath from "../../Utility/LinkWithPreviousPath";
 const VerbConjugation = () => {
   const { verb: verbFromParams } = useParams();
 
@@ -229,12 +230,14 @@ const VerbConjugation = () => {
             {t("Pas de compte?")}
             <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
             {t("Avez-vous déjà un compte?")}
-            <SignLink to="/login">{t("Connexion")}</SignLink>
+            <LinkWithPreviousPath to="/login">
+              {t("Connexion")}
+            </LinkWithPreviousPath>
           </div>
         </AuthLinks>
       )}
 
-      <Button onClick={handleNextSection}>{"Suivante"}</Button>
+      <Button onClick={handleNextSection}>{t("Suivante")}</Button>
     </VerbContainer>
   );
 };
