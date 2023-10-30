@@ -84,7 +84,9 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
 
   return (
     <Container>
-      {t("Exercice de conjugaison")}
+      <h3>{tense}</h3>
+      <p>{t("Exercice de conjugaison")}</p>
+      {t("Remplissez avec les formulaires de conjugaison corrects")}
       {pronouns.map((p, index) => (
         <PronounContainer key={index}>
           <PronounLabel>{p}</PronounLabel>
@@ -98,12 +100,12 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
           />
         </PronounContainer>
       ))}
-
-      <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
-      <SubmitButton onClick={restart}>Restart</SubmitButton>
-
-      <Score>{`Score: ${score.toFixed(1)} / 6`}</Score>
-      <Score>{`Tense Score: ${actualTenseScore.toFixed(1)}`}</Score>
+      <ButtonContainer>
+        <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
+        <SubmitButton onClick={restart}>{t("Recommencer")}</SubmitButton>
+      </ButtonContainer>
+      <Score>{`${t("Score")}: ${score.toFixed()} / 6`}</Score>
+      {/* <Score>{`Tense Score: ${actualTenseScore.toFixed(1)}`}</Score> */}
     </Container>
   );
 };
@@ -157,4 +159,7 @@ const SubmitButton = styled.button`
 
 const Score = styled.div`
   font-weight: bold;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
 `;

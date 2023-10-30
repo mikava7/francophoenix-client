@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 import { darkTheme } from "../../../Styles/theme";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import {
   SelectContainer,
   SelectStyled,
 } from "../presentTense/VerbTenseExercise";
+import { SignLink, FormContainerApendix } from "../../../pages/User/Register";
 import ConjugationExercise from "./ConjugationExercise";
 import VerbTenseList from "../../grammer/verbe Tenses/VerbTenseList";
 import { camelCaseToOriginal } from "./tenseList";
@@ -32,9 +33,11 @@ const VerbConjugation = () => {
   const conjugated = queryParams.get("conjugated");
 
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  const userId = auth?._id;
   const conjugationData =
     useSelector((state) => state.quizData.selectedVerbDetails) || [];
-
+  // console.log("conjugationData", conjugationData);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const error = useSelector((state) => state.quizData.error);
   const tenseList = useSelector((state) => state.verbTenses.tenses) || [];
@@ -43,22 +46,10 @@ const VerbConjugation = () => {
   const [showExercise, setShowExercise] = useState(false);
   const [currentSection, setCurrentSection] = useState(1);
 
-  const [selectedTense, setSelectedTense] = useState(tenseList[0]);
+  const [selectedTense, setSelectedTense] = useState(null);
+
   const [tenseIndex, setTenseIndex] = useState(0);
-
-  // console.log("selectedTense in VerbConjugation", selectedTense);
-
-  const handleNextSection = () => {
-    if (currentSection < 3) {
-      setCurrentSection(currentSection + 1);
-    } else {
-      // If we reach the end (Section 3), reset to Section 1
-      setCurrentSection(1);
-      // Optionally, you can update the selected tense here if needed
-      setTenseIndex((prevIndex) => (prevIndex + 1) % tenseList?.length);
-      setSelectedTense(tenseList[tenseIndex]);
-    }
-  };
+  const [selectedTenseData, setSelectedTenseData] = useState([]);
 
   useEffect(() => {
     dispatch(fetchTenses());
@@ -66,10 +57,42 @@ const VerbConjugation = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    let exercise = null;
+    setSelectedTense(tenseList[tenseIndex]);
+  }, [tenseList]);
+  // console.log("selectedTense in ", selectedTense);
 
+  useEffect(() => {
+    setSelectedTenseData(
+      conjugationData?.exercise?.tenses[
+        camelCaseToOriginal[selectedTense?.name]
+      ] || []
+    );
+  }, [tenseList]);
+  const handleNextSection = () => {
+    if (currentSection < 3) {
+      setCurrentSection(currentSection + 1);
+
+      // Use the updated tenseIndex to get the selected tense
+      // console.log("Selected Tense in handleNextSection:", nextTense.name);
+    } else if (currentSection === 3) {
+      // console.log("currentSection", currentSection);
+      setTenseIndex((prevIndex) => (prevIndex + 1) % tenseList?.length);
+
+      const nextTense = tenseList[tenseIndex];
+      setSelectedTense(nextTense);
+
+      // Now, trigger handleTenseChange with the new tense name
+      handleTenseChange(null, nextTense.name);
+      setCurrentSection(1);
+    } else {
+      setCurrentSection(1);
+    }
+  };
+
+  let exercise = null;
+  useEffect(() => {
     if (conjugationData && typeof conjugationData.exercise === "object") {
-      exercise = conjugationData.exercise.tenses[selectedTense];
+      exercise = conjugationData.exercise.tenses[getSelectedTenseKey()];
     } else if (
       conjugationData &&
       typeof conjugationData.exercise === "string"
@@ -78,9 +101,9 @@ const VerbConjugation = () => {
     } else {
       // Handle other cases or provide a default value for exercise
     }
-  }, [dispatch]);
-
-  const [selectedTenseData, setSelectedTenseData] = useState([]);
+  }, [tenseIndex]);
+  // console.log("exercise", exercise);
+  // console.log("selectedTense", selectedTense);
 
   const toggleExercise = () => {
     setShowExercise((prevState) => !prevState);
@@ -88,30 +111,25 @@ const VerbConjugation = () => {
 
     setSelectedTense(tenseList[0]);
   };
-  const handleTenseChange = (event) => {
-    const selectedTenseName = event.target.value;
-    // console.log("selectedTenseName222222", selectedTenseName);
-    const selectedTenseObject = tenseList.find(
-      (tense) => tense.name === selectedTenseName
-    );
-    // console.log("selectedTenseObject", selectedTenseObject);
+
+  const handleTenseChange = (event, nextTenseName) => {
+    let selectedTenseName;
+    let selectedTenseObject;
+    // console.log("nextTenseName", nextTenseName);
+    if (nextTenseName) {
+      selectedTenseObject = tenseList.find(
+        (tense) => tense.name === nextTenseName
+      );
+    } else {
+      selectedTenseName = event.target.value;
+      selectedTenseObject = tenseList.find(
+        (tense) => tense.name === selectedTenseName
+      );
+    }
 
     setSelectedTense(selectedTenseObject);
-
-    if (selectedTenseName) {
-      setSelectedTenseData(
-        conjugationData?.exercise?.tenses[getSelectedTenseKey()] || []
-      );
-    }
   };
 
-  useEffect(() => {
-    if (selectedTense) {
-      setSelectedTenseData(
-        conjugationData?.exercise?.tenses[getSelectedTenseKey()] || []
-      );
-    }
-  }, []);
   // console.log("selectedTenseData", selectedTenseData);
 
   // console.log("selectedTenseData", selectedTenseData);
@@ -138,12 +156,13 @@ const VerbConjugation = () => {
     }
   }
   const getSelectedTenseKey = () => {
+    // console.log("selectedTense in getSelectedTenseKey", selectedTense);
     return camelCaseToOriginal[selectedTense?.name];
   };
 
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
-  console.log("selectedTenseData in parent", selectedTenseData);
+  // console.log("selectedTenseData in parent", selectedTenseData);
   if (isLoading) {
     return <Loading />;
   }
@@ -159,18 +178,11 @@ const VerbConjugation = () => {
         <Section1>
           <TenseSelectionSection
             handleTenseChange={handleTenseChange}
-            tenseName={selectedTense?.name}
+            selectedTense={selectedTense}
             tenseList={tenseList}
+            tenseIndex={tenseIndex}
             t={t}
           />
-
-          {/* <StyledSelect onChange={handleTenseChange} value={selectedTense?.name}>
-        {tenseList.map((tense) => (
-          <StyledOption key={tense.id} value={tense.name}>
-            {tense.name}
-          </StyledOption>
-        ))}
-      </StyledSelect> */}
 
           <TenseOverview>
             <h1>{t("Aperçu des temps verbaux")}</h1>
@@ -187,23 +199,38 @@ const VerbConjugation = () => {
           />
         </Section1>
       )}
-      {currentSection === 2 && (
-        <Section2>
-          <ConjugationExercise
-            frenchConjugations={frenchConjugations[getSelectedTenseKey()]}
-            tense={selectedTense?.name}
-          />
-        </Section2>
+      {userId ? (
+        <React.Fragment>
+          {currentSection === 2 && (
+            <Section2>
+              <ConjugationExercise
+                frenchConjugations={frenchConjugations[getSelectedTenseKey()]}
+                tense={selectedTense?.name}
+              />
+            </Section2>
+          )}
+          {currentSection === 3 && (
+            <Section3>
+              <PresentTense
+                presentTenseVerbe={selectedTenseData}
+                tense={selectedTense?.name}
+              />
+            </Section3>
+          )}
+        </React.Fragment>
+      ) : (
+        <AuthLinks>
+          <h1>{t("Pour pouvoir utiliser l'exercice")} </h1>
+          <div>
+            {t("Pas de compte?")}
+            <SignLink to="/register">{t("Inscrivez-vous")} </SignLink>
+            {t("Avez-vous déjà un compte?")}
+            <SignLink to="/login">{t("Connexion")}</SignLink>
+          </div>
+        </AuthLinks>
       )}
-      {currentSection === 3 && (
-        <Section3>
-          <PresentTense
-            presentTenseVerbe={selectedTenseData}
-            tense={selectedTense?.name}
-          />
-        </Section3>
-      )}
-      <Button onClick={handleNextSection}>Next</Button>
+
+      <Button onClick={handleNextSection}>{t("Suivante")}</Button>
     </VerbContainer>
   );
 };
@@ -212,117 +239,37 @@ const VerbContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 100%;
+  max-width: 100%;
   /* outline: 1px solid yellow; */
   height: auto;
 `;
 const Section1 = styled.div`
-  outline: 1px solid red;
+  max-width: 100%;
+
+  /* outline: 1px solid red; */
 `;
 
 const Section2 = styled.div`
-  outline: 1px solid blue;
+  /* outline: 1px solid blue; */
+  max-width: 100%;
 `;
 
 const Section3 = styled.div`
-  outline: 1px solid green;
-`;
-const StyledLink = styled(Link)`
-  font-size: 24px;
-  font-weight: bold;
-  color: #258ff383;
-  transition: all 0.3s ease; /* Add a transition here */
-
-  &:hover {
-    transform: scale(1.03);
-    color: #258ff3;
-  }
-`;
-
-const TenseListItem = styled.div`
-  margin-bottom: 1rem;
-  outline: 2px solid ${(props) => props.theme.secondaryText};
-  background-color: ${(props) => props.theme.secondaryBackground};
-  margin: 1rem;
-  width: 100%;
-  h2 {
-    background-color: ${(props) => props.theme.primaryBackground};
-    padding: 1rem;
-  }
-`;
-const TenseList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const TenseContent = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  ul {
-    list-style: none;
-  }
-
-  li {
-    border-bottom: 1px solid #ccc;
-    padding: 1rem;
-    margin: 0.1rem 0;
-  }
-`;
-
-const FirstLanguage = styled.p`
-  margin-bottom: 0.2rem;
-  &:before {
-    content: ${(props) =>
-      props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
-    margin-right: 1rem;
-  }
-`;
-
-const SecondLanguage = styled.span`
-  color: ${(props) => props.theme.secondaryText};
-  margin-left: 5rem;
-`;
-
-const FirstLanguageBox = styled.div`
-  background: ${(props) =>
-    props.highlight ? props.theme.highlight2 : "transparent"};
-  border: 1px solid ${(props) => props.theme.highlight1};
-  padding: 1rem;
-  margin-top: 0.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ExerciseTag = styled.p`
-  color: ${(props) => props.theme.secondaryText};
-  transition: all 0.3s ease; /* Add a transition here */
-  cursor: pointer;
-  &:hover {
-    color: ${(props) => props.theme.primaryText};
-  }
-`;
-const StyledSelect = styled.select`
-  padding: 0.5rem;
-  font-size: 16px;
-  border: 2px solid ${(props) => props.theme.secondaryText};
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.primaryBackground};
-  color: ${(props) => props.theme.primaryText};
-  width: 300px;
-  margin: auto;
-  margin-bottom: 1rem;
-  outline: none;
-`;
-
-const StyledOption = styled.option`
-  background-color: ${(props) => props.theme.primaryBackground};
-  color: ${(props) => props.theme.primaryText};
+  /* outline: 1px solid green; */
+  max-width: 100%;
 `;
 
 const TenseOverview = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const AuthLinks = styled.div`
+  /* width: 90%; */
+  display: flex;
+  flex-direction: column;
+  div {
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid red;
+  }
 `;

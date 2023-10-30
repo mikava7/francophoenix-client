@@ -17,8 +17,13 @@ const ProgressFill = styled.div`
   height: 100%;
   border-radius: 10px;
   margin-bottom: 12px;
+  height: 4px;
 
-  background-color: #007bff; // You can set your desired color here
+  background-color: ${(props) => {
+    console.log(props);
+  }};
+  background-color: ${(props) => (props.progress ? "red" : "transparent")};
+
   width: ${(props) => props.progress}%;
 `;
 
@@ -28,11 +33,11 @@ const PercentSign = styled.div`
 `;
 
 const ProgressBar = ({ progress }) => {
-  console.log("progress", progress);
+  // console.log("progress", progress);
   const realProgress = progress > 0.1 ? progress : 0;
   return (
     <ProgressBarContainer>
-      <ProgressFill progress={progress} />
+      <ProgressBar progress={progress} />
       <PercentSign>{realProgress}%</PercentSign>
     </ProgressBarContainer>
   );

@@ -16,8 +16,8 @@ import { useParams } from "react-router-dom";
 import axios from "../../../redux/api/axiosInstance";
 import { calculateTensePercentage } from "../helper";
 const PresentTense = ({ presentTenseVerbe, tense }) => {
-  console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
-  console.log("tense in PresentTense", tense);
+  // console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
+  // console.log("tense in PresentTense", tense);
 
   useScrollToTopOnRouteChange();
   const exerciseType = PresentTense.name;
@@ -150,8 +150,9 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
 
   return (
     <QuestionContainer>
+      <h3>{tense}</h3>
       <Score>
-        {t("Score")}: {currentScore}/{presentTenseVerbe?.length}
+        {t("Questions")}: {presentTenseVerbe?.length}
       </Score>
       {currentQuestions.map((question, index) => {
         const underscoreIndex = question.sentence.indexOf("_");
@@ -241,7 +242,7 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
                 </span>
                 {!isAnswerCorrect && (
                   <CorrectAnswer>
-                    {t("Correct Answer")}: {correctAnswer}
+                    {t("Bonne réponse")}: {correctAnswer}
                   </CorrectAnswer>
                 )}
               </QuestionBox>

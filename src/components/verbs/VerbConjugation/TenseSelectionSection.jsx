@@ -5,8 +5,11 @@ const TenseSelectionSection = ({
   tenseList,
   selectedTense,
   handleTenseChange,
+  tenseIndex,
   t,
 }) => {
+  // console.log("selectedTense i", selectedTense);
+
   return (
     <>
       <SelectContainer>
