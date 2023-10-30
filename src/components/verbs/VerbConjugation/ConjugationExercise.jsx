@@ -101,8 +101,8 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
         </PronounContainer>
       ))}
       <ButtonContainer>
-        <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
         <SubmitButton onClick={restart}>{t("Recommencer")}</SubmitButton>
+        <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
       </ButtonContainer>
       <Score>{`${t("Score")}: ${score.toFixed()} / 6`}</Score>
       {/* <Score>{`Tense Score: ${actualTenseScore.toFixed(1)}`}</Score> */}
@@ -116,12 +116,26 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  /* outline: 1px solid red; */
 `;
+
+// const Index = styled.span`
+//   font-weight: bold;
+//   font-size: 1.1rem;
+//   &:after {
+//     content: ". ";
+//   }
+// `;
 
 const PronounContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 5px;
+  margin-right: auto;
+  margin-left: 3rem;
+  width: 270px;
 `;
 
 const PronounLabel = styled.span`
