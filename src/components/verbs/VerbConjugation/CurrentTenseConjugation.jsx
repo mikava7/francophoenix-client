@@ -57,9 +57,11 @@ const TenseContent = styled.div`
   }
 
   li {
+    background: ${(props) => props.theme.secondaryBackground};
+
     border-bottom: 1px solid #ccc;
     padding: 1rem;
-    margin: 0.1rem 0;
+    margin: 0.3rem 0;
   }
 `;
 
@@ -80,7 +82,8 @@ const SecondLanguage = styled.span`
 const FirstLanguageBox = styled.div`
   background: ${(props) =>
     props.highlight ? props.theme.highlight2 : "transparent"};
-  border: 1px solid ${(props) => props.theme.highlight1};
+  /* border: 1px solid ${(props) => props.theme.highlight1}; */
+
   padding: 1rem;
   margin-top: 0.2rem;
   display: flex;

@@ -67,11 +67,15 @@ const VerbConjugation = () => {
         camelCaseToOriginal[selectedTense?.name]
       ] || []
     );
-  }, [tenseList]);
+  }, [tenseIndex]);
   const handleNextSection = () => {
     if (currentSection < 3) {
       setCurrentSection(currentSection + 1);
-
+      setSelectedTenseData(
+        conjugationData?.exercise?.tenses[
+          camelCaseToOriginal[selectedTense?.name]
+        ] || []
+      );
       // Use the updated tenseIndex to get the selected tense
       // console.log("Selected Tense in handleNextSection:", nextTense.name);
     } else if (currentSection === 3) {
@@ -132,7 +136,7 @@ const VerbConjugation = () => {
 
   // console.log("selectedTenseData", selectedTenseData);
 
-  // console.log("selectedTenseData", selectedTenseData);
+  console.log("selectedTenseData", selectedTenseData);
   // console.log("conjugationData", conjugationData);
 
   useEffect(() => {
@@ -230,7 +234,7 @@ const VerbConjugation = () => {
         </AuthLinks>
       )}
 
-      <Button onClick={handleNextSection}>{t("Suivante")}</Button>
+      <Button onClick={handleNextSection}>{"Suivante"}</Button>
     </VerbContainer>
   );
 };

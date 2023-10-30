@@ -19,8 +19,8 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
   const [score, setScore] = useState(0);
   const [completedPairs, setCompletedPairs] = useState({});
   const [wrongAnswers, setWrongAnswers] = useState({});
-  const [actualTenseScore, setActualTenseScore] = useState(0); // Initialize with 0
-  // console.log("actualTenseScore", actualTenseScore);
+  const [actualTenseScore, setActualTenseScore] = useState(0);
+  console.log("actualTenseScore", actualTenseScore);
   const handleInputChange = (pronoun, value) => {
     setPronounInputs({ ...pronounInputs, [pronoun]: value });
   };
@@ -63,11 +63,12 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
       }
     }
 
-    const newActualTenseScore = (newScore / pronouns.length) * 5; // Calculate the tense score based on the number of correct answers
+    const tensePercentage = (newScore / pronouns.length) * 5;
+    console.log("newActualTenseScore", tensePercentage);
     setScore(newScore);
     setCompletedPairs(newCompletedPairs);
     setWrongAnswers(newWrongAnswers);
-    setActualTenseScore(newActualTenseScore);
+    setActualTenseScore(tensePercentage);
 
     if (userId) {
       dispatch(
@@ -76,7 +77,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
           verb,
           tense,
           exerciseType,
-          tensePercentage: actualTenseScore,
+          tensePercentage,
         })
       );
     }

@@ -167,8 +167,8 @@ const VerbBox = styled.span`
 const PrimaryVerbBox = styled(VerbBox)`
   font-size: 1.2rem;
   padding: 0.4rem 0.8rem;
-  background: ${(props) => props.theme.highlight4};
-  outline: 1px solid ${(props) => props.theme.secondaryBackground};
+  background: ${(props) => props.theme.highlight3};
+  outline: 1px solid ${(props) => props.theme.parimaryBackground};
   line-height: 1;
   height: 3rem;
 `;

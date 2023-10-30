@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ProgressBarContainer = styled.div`
-  width: 100%;
+  width: 50px;
   background-color: #ccc;
   height: 4px;
   border-radius: 5px;
@@ -20,6 +20,9 @@ const ProgressFill = styled.div`
   /* outline: 5px solid red; */
   background-color: #007bff; // You can set your desired color here
   width: ${(props) => props.progress}%;
+  width: ${(props) => {
+    console.log(props.progress);
+  }};
 `;
 
 const PercentSign = styled.div`
@@ -30,8 +33,8 @@ const PercentSign = styled.div`
 `;
 
 const ProgressBar = ({ progress }) => {
-  console.log("progress", progress);
-  const realProgress = progress > 0.1 ? progress : 0;
+  // console.log("progress", progress);
+  const realProgress = progress > 0.1 ? progress.toFixed(2) : 0;
   return (
     <ProgressBarContainer>
       <ProgressFill progress={realProgress} />

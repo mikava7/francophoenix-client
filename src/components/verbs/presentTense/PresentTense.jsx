@@ -396,7 +396,7 @@ const Score = styled.span`
   margin-right: 1rem;
 `;
 const FinalScore = styled.div`
-  background-color: #f0f0f0;
+  background-color: ${(props) => props.theme.tertiaryText};
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
