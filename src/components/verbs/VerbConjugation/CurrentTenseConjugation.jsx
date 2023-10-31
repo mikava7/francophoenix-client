@@ -45,7 +45,9 @@ export default CurrentTenseConjugation;
 const TenseList = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 1rem;
 `;
 
 const TenseContent = styled.div`

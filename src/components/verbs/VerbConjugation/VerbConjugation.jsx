@@ -38,6 +38,7 @@ const VerbConjugation = () => {
   const userId = auth?._id;
   const conjugationData =
     useSelector((state) => state.quizData.selectedVerbDetails) || [];
+
   // console.log("conjugationData", conjugationData);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const error = useSelector((state) => state.quizData.error);
@@ -64,11 +65,14 @@ const VerbConjugation = () => {
 
   useEffect(() => {
     setSelectedTenseData(
-      conjugationData?.exercise?.tenses[
-        camelCaseToOriginal[selectedTense?.name]
-      ] || []
+      typeof conjugationData?.exercise === "object"
+        ? conjugationData?.exercise?.tenses[
+            camelCaseToOriginal[selectedTense?.name]
+          ] || []
+        : {}
     );
   }, [tenseIndex]);
+
   const handleNextSection = () => {
     if (currentSection < 3) {
       setCurrentSection(currentSection + 1);
@@ -94,29 +98,6 @@ const VerbConjugation = () => {
     }
   };
 
-  let exercise = null;
-  useEffect(() => {
-    if (conjugationData && typeof conjugationData.exercise === "object") {
-      exercise = conjugationData.exercise.tenses[getSelectedTenseKey()];
-    } else if (
-      conjugationData &&
-      typeof conjugationData.exercise === "string"
-    ) {
-      exercise = conjugationData.exercise;
-    } else {
-      // Handle other cases or provide a default value for exercise
-    }
-  }, [tenseIndex]);
-  // console.log("exercise", exercise);
-  // console.log("selectedTense", selectedTense);
-
-  const toggleExercise = () => {
-    setShowExercise((prevState) => !prevState);
-    setSelectedTenseData(exercise);
-
-    setSelectedTense(tenseList[0]);
-  };
-
   const handleTenseChange = (event, nextTenseName) => {
     let selectedTenseName;
     let selectedTenseObject;
@@ -134,11 +115,6 @@ const VerbConjugation = () => {
 
     setSelectedTense(selectedTenseObject);
   };
-
-  // console.log("selectedTenseData", selectedTenseData);
-
-  console.log("selectedTenseData", selectedTenseData);
-  // console.log("conjugationData", conjugationData);
 
   useEffect(() => {
     dispatch(fetchVerbDetails(verbFromParams));
@@ -190,7 +166,7 @@ const VerbConjugation = () => {
           />
 
           <TenseOverview>
-            <h1>{t("Aperçu des temps verbaux")}</h1>
+            <h2>{t("Aperçu des temps verbaux")}</h2>
             <VerbTenseList selectedtense={selectedTense} />
           </TenseOverview>
 
@@ -237,7 +213,7 @@ const VerbConjugation = () => {
         </AuthLinks>
       )}
 
-      <Button onClick={handleNextSection}>{t("Suivante")}</Button>
+      <NextButton onClick={handleNextSection}>{t("Suivante")}</NextButton>
     </VerbContainer>
   );
 };
@@ -249,6 +225,10 @@ const VerbContainer = styled.div`
   max-width: 100%;
   /* outline: 1px solid yellow; */
   height: auto;
+`;
+const NextButton = styled(Button)`
+  background: ${(props) => props.theme.highlight4};
+  color: ${(props) => props.theme.primaryText};
 `;
 const Section1 = styled.div`
   max-width: 100%;
@@ -276,7 +256,8 @@ const AuthLinks = styled.div`
   flex-direction: column;
   div {
     display: flex;
-    flex-direction: column;
-    outline: 1px solid red;
+    gap: 1rem;
+    /* flex-direction: column;
+    outline: 1px solid red; */
   }
 `;

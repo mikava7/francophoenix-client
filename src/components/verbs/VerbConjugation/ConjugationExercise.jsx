@@ -20,7 +20,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
   const [completedPairs, setCompletedPairs] = useState({});
   const [wrongAnswers, setWrongAnswers] = useState({});
   const [actualTenseScore, setActualTenseScore] = useState(0);
-  console.log("actualTenseScore", actualTenseScore);
+  // console.log("actualTenseScore", actualTenseScore);
   const handleInputChange = (pronoun, value) => {
     setPronounInputs({ ...pronounInputs, [pronoun]: value });
   };
@@ -64,7 +64,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     }
 
     const tensePercentage = (newScore / pronouns.length) * 5;
-    console.log("newActualTenseScore", tensePercentage);
+    // console.log("newActualTenseScore", tensePercentage);
     setScore(newScore);
     setCompletedPairs(newCompletedPairs);
     setWrongAnswers(newWrongAnswers);
@@ -82,7 +82,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
       );
     }
   };
-
+  // console.log("frenchConjugations", frenchConjugations);
   return (
     <Container>
       <h3>{tense}</h3>

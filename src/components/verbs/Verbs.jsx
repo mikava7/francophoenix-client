@@ -10,10 +10,10 @@ import SearchIcon from "../../assets/icons/search-50.png";
 import ClearIcon from "../../assets/icons/cross-24.png";
 import ProgressBar from "../Utility/ProgressBar";
 import { fetchUserProgress } from "../../redux/slices/userProgress/userProgressSlice";
-
+import { useTranslation } from "react-i18next";
 const Verbs = () => {
   const dispatch = useDispatch();
-
+  const { t } = useTranslation();
   const verbs = useSelector((state) => state.verbTenses.verbs);
   const isLoading = useSelector((state) => state.isLoading);
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,7 +121,7 @@ const Verbs = () => {
           })}
         </VerbsContainer>
       ) : (
-        <NoVerbsFoundMessage>No verbs found.</NoVerbsFoundMessage>
+        <NoVerbsFoundMessage>{t("Aucun verbe trouvé.")}</NoVerbsFoundMessage>
       )}
     </VerbsContainer>
   );
@@ -159,7 +159,10 @@ const VerbBox = styled.span`
   background: ${(props) => props.theme.secondaryBackground};
   cursor: pointer;
   transition: all 0.3s ease;
-  height: 3rem;
+  height: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &:hover {
     transform: scale(1.05);
@@ -168,11 +171,10 @@ const VerbBox = styled.span`
 `;
 const PrimaryVerbBox = styled(VerbBox)`
   font-size: 1.2rem;
-  padding: 0.4rem 0.8rem;
   background: ${(props) => props.theme.highlight3};
   outline: 1px solid ${(props) => props.theme.parimaryBackground};
-  line-height: 1;
-  height: 3rem;
+  /* line-height: 1; */
+  height: 3.5rem;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none;

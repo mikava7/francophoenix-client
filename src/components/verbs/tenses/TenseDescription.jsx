@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const TenseDescription = ({ tenseData, selectedTense }) => {
   const { t, i18n } = useTranslation();
-  console.log(selectedTense);
+  // console.log(selectedTense);
   return (
     <Container>
       {tenseData &&
@@ -55,8 +55,11 @@ const TenseCard = styled.div`
 `;
 
 const TenseTitle = styled.p`
-  font-size: 20px;
+  font-size: ${(props) => props.theme.small};
   margin: 0;
+  @media (min-width: 541px) {
+    font-size: ${(props) => props.theme.mediumSmall};
+  }
   b {
     margin-right: 0.4rem;
     &:after {
@@ -66,8 +69,16 @@ const TenseTitle = styled.p`
 `;
 
 const TenseDescriptionText = styled.p`
-  font-size: 16px;
+  text-indent: 20px;
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+
+  border-top: 1px solid ${(props) => props.theme.tertiaryBackground};
+  font-size: ${(props) => props.theme.extraSmall};
   text-align: left;
+  @media (min-width: 541px) {
+    font-size: ${(props) => props.theme.small};
+  }
 `;
 
 const ExampleItem = styled.li`

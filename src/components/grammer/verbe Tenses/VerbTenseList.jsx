@@ -47,19 +47,4 @@ export default VerbTenseList;
 const TensesNameContainer = styled.div`
   flex-direction: column;
   display: flex;
-  ul {
-    list-style: none;
-    display: inline-flex;
-    flex-wrap: wrap;
-    li {
-      margin: 0.2rem;
-      button {
-        margin: 0.2rem;
-      }
-    }
-  }
-`;
-
-const TenseButton = styled(Button)`
-  width: auto;
 `;

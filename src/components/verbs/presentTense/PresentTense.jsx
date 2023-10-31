@@ -15,6 +15,7 @@ import {
 import { useParams } from "react-router-dom";
 import axios from "../../../redux/api/axiosInstance";
 import { calculateTensePercentage } from "../helper";
+import { CenteredMessageContent } from "../../../Styles/globalStyles";
 const PresentTense = ({ presentTenseVerbe, tense }) => {
   // console.log("presentTenseVerbe in PresentTense", presentTenseVerbe);
   // console.log("tense in PresentTense", tense);
@@ -149,64 +150,14 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
   }
 
   return (
-    <QuestionContainer>
-      <h3>{tense}</h3>
-      <Score>
-        {t("Questions")}: {presentTenseVerbe?.length}
-      </Score>
-      {currentQuestions.map((question, index) => {
-        const underscoreIndex = question.sentence.indexOf("_");
-        const beforeUnderscore = question.sentence.slice(0, underscoreIndex);
-        const afterUnderscore = question.sentence.slice(underscoreIndex + 5);
-
-        return (
-          <QuestionBox key={index}>
-            {index + 1 + questionIndex}: {beforeUnderscore}
-            <span>
-              {question.words.map((word, wordIndex) => (
-                <WordOption
-                  key={wordIndex}
-                  onClick={() => handleOptionSelect(index, word)}
-                  data-questioncorrectanswer={question.correctAnswer === word}
-                  data-usersanswer={answers[index + questionIndex]}
-                  data-showanswers={
-                    showAnswers && answers[index + questionIndex] === word
-                  }
-                  data-allanswerscorrect={allAnswersCorrect}
-                  disabled={answered[index + questionIndex]}
-                >
-                  {word}
-                </WordOption>
-              ))}
-              {afterUnderscore}
-            </span>
-          </QuestionBox>
-        );
-      })}
-      <ButtonContainer>
-        {showAnswers && !allAnswersCorrect && !hasNextSet && (
-          <FinalScore>
-            {t("Score")}: {currentScore}/{presentTenseVerbe?.length}
-            <div>
-              <span>{t("Choisissez le temps suivant ou")}:</span>
-              <button onClick={handleRestart}>{t("Réessayer")}</button>
-            </div>
-          </FinalScore>
-        )}
-        {showSubmitButton && !submitted && (
-          <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
-        )}
-        {!submitted && !showSubmitButton && (
-          <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
-        )}
-      </ButtonContainer>
-
-      {submitted && (
-        <div>
-          {presentTenseVerbe.map((question, index) => {
-            const isAnswerCorrect = answers[index] === question.correctAnswer;
-            const userAnswer = answers[index];
-            const correctAnswer = question.correctAnswer;
+    <>
+      {presentTenseVerbe.length > 0 ? (
+        <QuestionContainer>
+          <h3>{tense}</h3>
+          <Score>
+            {t("Questions")}: {presentTenseVerbe?.length}
+          </Score>
+          {currentQuestions.map((question, index) => {
             const underscoreIndex = question.sentence.indexOf("_");
             const beforeUnderscore = question.sentence.slice(
               0,
@@ -218,9 +169,8 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
 
             return (
               <QuestionBox key={index}>
-                {index + 1 + questionIndex}:{" "}
+                {index + 1 + questionIndex}: {beforeUnderscore}
                 <span>
-                  {beforeUnderscore}
                   {question.words.map((word, wordIndex) => (
                     <WordOption
                       key={wordIndex}
@@ -240,17 +190,87 @@ const PresentTense = ({ presentTenseVerbe, tense }) => {
                   ))}
                   {afterUnderscore}
                 </span>
-                {!isAnswerCorrect && (
-                  <CorrectAnswer>
-                    {t("Bonne réponse")}: {correctAnswer}
-                  </CorrectAnswer>
-                )}
               </QuestionBox>
             );
           })}
-        </div>
+          <ButtonContainer>
+            {showAnswers && !allAnswersCorrect && !hasNextSet && (
+              <FinalScore>
+                {t("Score")}: {currentScore}/{presentTenseVerbe?.length}
+                <div>
+                  <span>{t("Choisissez le temps suivant ou")}:</span>
+                  <button onClick={handleRestart}>{t("Réessayer")}</button>
+                </div>
+              </FinalScore>
+            )}
+            {showSubmitButton && !submitted && (
+              <SubmitButton onClick={handleSubmit}>
+                {t("Soumettre")}
+              </SubmitButton>
+            )}
+            {!submitted && !showSubmitButton && (
+              <NextButton onClick={handleNext}>{t("Suivant")}</NextButton>
+            )}
+          </ButtonContainer>
+
+          {submitted && (
+            <div>
+              {presentTenseVerbe.map((question, index) => {
+                const isAnswerCorrect =
+                  answers[index] === question.correctAnswer;
+                const userAnswer = answers[index];
+                const correctAnswer = question.correctAnswer;
+                const underscoreIndex = question.sentence.indexOf("_");
+                const beforeUnderscore = question.sentence.slice(
+                  0,
+                  underscoreIndex
+                );
+                const afterUnderscore = question.sentence.slice(
+                  underscoreIndex + 5
+                );
+
+                return (
+                  <QuestionBox key={index}>
+                    {index + 1 + questionIndex}:{" "}
+                    <span>
+                      {beforeUnderscore}
+                      {question.words.map((word, wordIndex) => (
+                        <WordOption
+                          key={wordIndex}
+                          onClick={() => handleOptionSelect(index, word)}
+                          data-questioncorrectanswer={
+                            question.correctAnswer === word
+                          }
+                          data-usersanswer={answers[index + questionIndex]}
+                          data-showanswers={
+                            showAnswers &&
+                            answers[index + questionIndex] === word
+                          }
+                          data-allanswerscorrect={allAnswersCorrect}
+                          disabled={answered[index + questionIndex]}
+                        >
+                          {word}
+                        </WordOption>
+                      ))}
+                      {afterUnderscore}
+                    </span>
+                    {!isAnswerCorrect && (
+                      <CorrectAnswer>
+                        {t("Bonne réponse")}: {correctAnswer}
+                      </CorrectAnswer>
+                    )}
+                  </QuestionBox>
+                );
+              })}
+            </div>
+          )}
+        </QuestionContainer>
+      ) : (
+        <CenteredMessageContent style={{ color: "red", fontWeight: "bold" }}>
+          {t("L'exercice sera bientôt ajouté")}
+        </CenteredMessageContent>
       )}
-    </QuestionContainer>
+    </>
   );
 };
 

@@ -12,6 +12,18 @@ export const optionsDataFr = [
     link: "vocabulary/vocabulary-topics",
   },
   {
+    title: "Améliorez votre conjugaison des verbes",
+    description:
+      "Boostez vos compétences linguistiques avec nos exercices de conjugaison. Nous introduisons régulièrement de nouveaux verbes pour vous aider à pratiquer.",
+    listItems: [
+      "Explorez une variété d'exercices.",
+      "Restez à jour avec les nouvelles additions de verbes.",
+    ],
+    buttonLabel: "Commencer la Conjugaison",
+    buttonColor: "#67330A",
+    link: "verbs",
+  },
+  {
     title: " Approndre Le Français",
     description:
       "Débutez votre parcours d'apprentissage du français, explorez les bases de la grammaire",
@@ -60,6 +72,18 @@ export const optionsDataEng = [
     buttonLabel: "Learn",
     buttonColor: "#67330A",
     link: "vocabulary/vocabulary-topics",
+  },
+  {
+    title: "Enhance Your Verb Conjugation",
+    description:
+      "Boost your language skills with our conjugation exercises. We regularly introduce new verbs to help you practice.",
+    listItems: [
+      "Explore a variety of exercises.",
+      "Stay updated with new verb additions.",
+    ],
+    buttonLabel: "Start Conjugating",
+    buttonColor: "#67330A",
+    link: "verbs",
   },
   {
     title: "   Learn French",
@@ -112,6 +136,18 @@ export const optionsDataGeo = [
     buttonLabel: "ნახე",
     buttonColor: "#67330A",
     link: "vocabulary/vocabulary-topics",
+  },
+  {
+    title: "ისწავლე ზმნების უღლება",
+    description:
+      "Boost your language skills with our conjugation exercises. We regularly introduce new verbs to help you practice.",
+    listItems: [
+      "აქ ნახავ სხვადასხვა სავარჯიშოებს",
+      "ახალი ზმნები ემატება რეგულარულად.",
+    ],
+    buttonLabel: "უღლება",
+    buttonColor: "#67330A",
+    link: "verbs",
   },
   {
     title: "  ისწავლე ფრანგული",
