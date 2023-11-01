@@ -6,7 +6,7 @@ const TenseDescription = ({ tenseData, selectedTense }) => {
   const { t, i18n } = useTranslation();
   // console.log(selectedTense);
   return (
-    <Container>
+    <TenseContainer>
       {tenseData &&
         tenseData?.data &&
         tenseData?.data?.map((tense, index) => (
@@ -32,15 +32,18 @@ const TenseDescription = ({ tenseData, selectedTense }) => {
           </ul> */}
           </TenseCard>
         ))}
-    </Container>
+    </TenseContainer>
   );
 };
 
-const Container = styled.div`
+export const TenseContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  max-width: 95%;
+  overflow-y: hidden;
+  /* margin: 0 1rem; */
 `;
 
 const TenseCard = styled.div`

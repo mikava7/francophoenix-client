@@ -222,7 +222,7 @@ const VerbContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  max-width: 100%;
+  max-width: 99%;
   /* outline: 1px solid yellow; */
   height: auto;
 `;
@@ -257,7 +257,6 @@ const AuthLinks = styled.div`
   div {
     display: flex;
     gap: 1rem;
-    /* flex-direction: column;
-    outline: 1px solid red; */
+    flex-direction: column;
   }
 `;

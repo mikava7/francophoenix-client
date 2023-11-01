@@ -57,3 +57,7 @@ export const mapSearchResults = (searchResults, field) =>
 //     });
 //   }
 // }
+
+export function normalizeString(input) {
+  return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}

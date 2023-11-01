@@ -4,12 +4,11 @@ import { submitTensePercentage } from "../../../redux/slices/verbeTenses/present
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-const pronouns = ["je", "tu", "il/elle", "nous", "vous", "ils/elles"];
+import unorm from "unorm";
 
 const ConjugationExercise = ({ frenchConjugations, tense }) => {
   const exerciseType = ConjugationExercise.name;
   const dispatch = useDispatch();
-  // console.log("exerciseType", exerciseType);
   const { t } = useTranslation();
   const { verb } = useParams();
 
@@ -20,7 +19,11 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
   const [completedPairs, setCompletedPairs] = useState({});
   const [wrongAnswers, setWrongAnswers] = useState({});
   const [actualTenseScore, setActualTenseScore] = useState(0);
-  // console.log("actualTenseScore", actualTenseScore);
+
+  const pronouns =
+    frenchConjugations &&
+    frenchConjugations.map((item) => item.french.split(" ")[0]);
+
   const handleInputChange = (pronoun, value) => {
     setPronounInputs({ ...pronounInputs, [pronoun]: value });
   };
@@ -44,6 +47,22 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     return match ? match.french.split(" ")[1] : "";
   };
 
+  const isCorrectConjugation = (userInput, correctConjugation) => {
+    // Normalize the user input and correct conjugation to handle accents and variations
+    const normalizedUserInput = normalizeString(userInput);
+    const normalizedCorrectConjugation = normalizeString(correctConjugation);
+
+    // Compare the normalized strings
+    return normalizedUserInput === normalizedCorrectConjugation;
+  };
+
+  const normalizeString = (str) => {
+    // Implement your string normalization logic here
+    // This could involve removing accents, handling variations, etc.
+    // For a basic example, you can use string replacement to remove accents:
+    return unorm.nfd(str).replace(/[\u0300-\u036f]/g, "");
+  };
+
   const handleSubmit = () => {
     let newScore = 0;
     const newCompletedPairs = {};
@@ -55,7 +74,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
 
       if (!userConjugation) {
         newWrongAnswers[pronoun] = correctConjugation;
-      } else if (userConjugation === correctConjugation) {
+      } else if (isCorrectConjugation(userConjugation, correctConjugation)) {
         newScore += 1;
         newCompletedPairs[pronoun] = userConjugation;
       } else {
@@ -64,7 +83,6 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     }
 
     const tensePercentage = (newScore / pronouns.length) * 5;
-    // console.log("newActualTenseScore", tensePercentage);
     setScore(newScore);
     setCompletedPairs(newCompletedPairs);
     setWrongAnswers(newWrongAnswers);
@@ -82,7 +100,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
       );
     }
   };
-  // console.log("frenchConjugations", frenchConjugations);
+
   return (
     <Container>
       <h3>{tense}</h3>
@@ -91,22 +109,30 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
       {pronouns.map((p, index) => (
         <PronounContainer key={index}>
           <PronounLabel>{p}</PronounLabel>
-          <Input
-            type="text"
-            value={pronounInputs[p] || ""}
-            onChange={(e) => handleInputChange(p, e.target.value)}
-            placeholder={completedPairs[p] || ""}
-            isCorrect={completedPairs[p] === getConjugation(p)}
-            iswrong={wrongAnswers[p]}
-          />
+          <VariationsContainer>
+            <Input
+              type="text"
+              value={pronounInputs[p] || ""}
+              onChange={(e) => handleInputChange(p, e.target.value)}
+              placeholder={completedPairs[p] || ""}
+              isCorrect={completedPairs[p] === getConjugation(p)}
+              isWrong={wrongAnswers[p]}
+            />
+            {wrongAnswers[p] && (
+              <CorrectVariation>
+                {" "}
+                {t("Bonne réponse")}: {getConjugation(p)}
+              </CorrectVariation>
+            )}
+          </VariationsContainer>
         </PronounContainer>
       ))}
+
       <ButtonContainer>
         <SubmitButton onClick={restart}>{t("Recommencer")}</SubmitButton>
         <SubmitButton onClick={handleSubmit}>{t("Soumettre")}</SubmitButton>
       </ButtonContainer>
       <Score>{`${t("Score")}: ${score.toFixed()} / 6`}</Score>
-      {/* <Score>{`Tense Score: ${actualTenseScore.toFixed(1)}`}</Score> */}
     </Container>
   );
 };
@@ -118,24 +144,19 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  /* outline: 1px solid red; */
+  margin: auto;
 `;
-
-// const Index = styled.span`
-//   font-weight: bold;
-//   font-size: 1.1rem;
-//   &:after {
-//     content: ". ";
-//   }
-// `;
 
 const PronounContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px;
-  margin-right: auto;
-  margin-left: 3rem;
+  position: relative;
+  outline: 1px solid red;
+  padding: 0.5rem;
+  height: 3.5rem;
+  background: ${(props) => props.theme.secondaryBackground};
   width: 270px;
 `;
 
@@ -148,13 +169,10 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  margin: 5px;
+  margin: 0 auto;
+
   background-color: ${(props) =>
-    props.isCorrect
-      ? "#4caf50"
-      : props.iswrong
-      ? "#ff5252" // Red background for wrong answers
-      : "white"};
+    props.isCorrect ? "#4caf50" : props.isWrong ? "#ff5252" : "white"};
 `;
 
 const SubmitButton = styled.button`
@@ -175,6 +193,24 @@ const SubmitButton = styled.button`
 const Score = styled.div`
   font-weight: bold;
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
+`;
+
+const VariationsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const CorrectVariation = styled.span`
+  width: 100%;
+  /* position: absolute;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%); */
+
+  margin-left: 2rem;
+  color: #4caf50;
 `;

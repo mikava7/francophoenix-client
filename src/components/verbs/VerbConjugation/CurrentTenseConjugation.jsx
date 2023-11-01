@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Listen from "../../Listen";
 import { ListenIcon } from "../../../Styles/globalStyles";
 import useListenWord from "../../../hooks/useListenWord";
+
 const CurrentTenseConjugation = ({
   camelCaseToOriginal,
   forms,
@@ -47,23 +48,30 @@ const TenseList = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  margin: 0 1rem;
+  margin: 0 0.4rem;
+  max-width: 90%;
 `;
 
 const TenseContent = styled.div`
   display: flex;
   flex-direction: column;
-
   ul {
     list-style: none;
   }
 
   li {
     background: ${(props) => props.theme.secondaryBackground};
+    border-radius: 0.5rem;
 
     border-bottom: 1px solid #ccc;
     padding: 1rem;
-    margin: 0.3rem 0;
+    /* margin: 0.3rem 1rem; */
+    width: 99%;
+    @media (min-width: 757px) {
+      width: 80%;
+      /* margin: 0.3rem 1rem; */
+      /* color: red; */
+    }
   }
 `;
 

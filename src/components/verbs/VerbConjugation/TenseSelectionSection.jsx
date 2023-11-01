@@ -33,7 +33,7 @@ const StyledSelect = styled.select`
   border-radius: 5px;
   background-color: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
-  width: 300px;
+  width: 280px;
   margin: auto;
   margin-bottom: 1rem;
   outline: none;
@@ -48,11 +48,13 @@ const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
   gap: 10px;
   background: ${(props) => props.theme.tertiaryBackground};
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  max-width: 330px;
   label {
     font-size: 18px;
   }
