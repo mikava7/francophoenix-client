@@ -3,7 +3,6 @@ export const GrammerTopicPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* outline: 2px solid black; */
 
   width: 99%;
 
@@ -32,6 +31,7 @@ export const DescriptionContainer = styled.div`
   border-bottom: 3px solid black;
 
   margin-bottom: 2rem;
+
   @media (min-width: 768px) and (max-width: 920px) {
     /* margin: 0 0.2rem; */
     width: 100%;
@@ -44,21 +44,36 @@ export const DescriptionBox = styled.div`
   margin-bottom: 1rem;
   width: 94%;
   padding: 0.5rem;
+
+  font-size: 1.1rem;
+
   p {
     text-indent: 1rem;
     margin-bottom: 1rem;
+    font-size: 1.1rem;
+
     padding: 0.5rem;
+    padding-left: 2rem;
+    border-bottom: 1px solid ${(props) => props.theme.tertiaryText};
 
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
     }
+
+    @media (max-width: 541px) {
+      font-size: 1.02rem;
+    }
   }
   span {
     text-indent: 1rem;
     margin-left: 2rem;
+    font-size: 1.05rem;
 
     color: ${(props) => props.theme.secondaryText};
+    @media (max-width: 541px) {
+      font-size: 1rem;
+    }
   }
   @media (min-width: 768px) and (max-width: 920px) {
     max-width: 88%;

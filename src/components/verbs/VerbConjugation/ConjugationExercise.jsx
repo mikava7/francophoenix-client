@@ -49,17 +49,17 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
 
   const isCorrectConjugation = (userInput, correctConjugation) => {
     // Normalize the user input and correct conjugation to handle accents and variations
-    const normalizedUserInput = normalizeString(userInput);
-    const normalizedCorrectConjugation = normalizeString(correctConjugation);
+    const normalizedUserInput = normalizeString(userInput.toLowerCase()); // Convert to lowercase
+    const normalizedCorrectConjugation = normalizeString(
+      correctConjugation.toLowerCase()
+    ); // Convert to lowercase
 
     // Compare the normalized strings
     return normalizedUserInput === normalizedCorrectConjugation;
   };
 
   const normalizeString = (str) => {
-    // Implement your string normalization logic here
-    // This could involve removing accents, handling variations, etc.
-    // For a basic example, you can use string replacement to remove accents:
+    // string replacement to remove accents
     return unorm.nfd(str).replace(/[\u0300-\u036f]/g, "");
   };
 
@@ -153,7 +153,7 @@ const PronounContainer = styled.div`
   justify-content: space-between;
   margin: 5px;
   position: relative;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   padding: 0.5rem;
   height: 3.5rem;
   background: ${(props) => props.theme.secondaryBackground};

@@ -24,19 +24,20 @@ export default VerbGroupSort;
 const SelectContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between; // This will create spacing between the two components
+  justify-content: space-between;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   padding: 4px;
   height: 2.5rem;
   width: 180px;
   box-shadow: 0 2px 4px rgba(155, 161, 119, 0.637);
-  /* border-radius: 50px; */
   border: 1px solid #ccc;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
-  background-color: ${(props) => props.theme.text};
-  cursor: pointer; // Add this for consistency
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryText};
+
+  cursor: pointer;
 
   &:hover,
   &.active {
@@ -51,15 +52,14 @@ const SelectDropdown = styled.select`
   font-size: 1.2rem;
   border: none;
   border-radius: 1rem;
-  background-color: ${(props) => props.theme.text};
-  color: ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryBackground};
   outline: none;
   cursor: pointer;
-  flex: 1; // Ensure the dropdown takes up the available space
-  margin-left: 0.5rem; // Adjust the margin as needed
-
+  flex: 1;
+  margin-left: 0.5rem;
   &:hover {
-    background-color: ${(props) => props.theme.background};
-    color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
   }
 `;

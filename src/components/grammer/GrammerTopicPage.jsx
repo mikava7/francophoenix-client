@@ -60,7 +60,7 @@ const GrammerTopicPage = () => {
         <h2>{titleFr}</h2>
       </TitleContainer>
       <DescriptionContainer>
-        <h2>{t("Qu'est-ce que c'est ?")}</h2>
+        {/* <h2>{t("Qu'est-ce que c'est ?")}</h2> */}
         {descriptionFr.map((description, index) => (
           <DescriptionBox key={index}>
             {description.split("\n").map((text, i) => (

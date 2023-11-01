@@ -222,7 +222,8 @@ const InputContainer = styled.div`
   border: 1px solid #302828;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
-  background-color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.primaryText};
+  overflow: hidden;
 
   &:hover,
   &.active {

@@ -22,7 +22,7 @@ const GrammarLanding = () => {
 
   return (
     <LandingCardContainer>
-      <h1>{t("Bienvenue dans la section Grammaire")}</h1>
+      {/* <h1>{t("Bienvenue dans la section Grammaire")}</h1> */}
       <CardDescription>
         {t(
           "Découvrez différents sujets de grammaire pour améliorer vos compétences linguistiques"

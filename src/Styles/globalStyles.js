@@ -407,7 +407,7 @@ export const TopicCard = styled.div`
   width: 335px;
   h3 {
     /* width: 100%; */
-
+    font-size: 1.1rem;
     text-align: center;
     color: ${(props) => props.theme.primaryText};
 
@@ -428,11 +428,12 @@ export const TopicCard = styled.div`
   }
   h4 {
     text-align: left;
+    font-size: 1rem;
 
-    &:before {
+    /* &:after {
       content: ${(props) =>
-        props.theme.background === "#000000" ? '"❔"' : '"❓"'};
-    }
+      props.theme.background === "#000000" ? '"❔"' : '"❓"'};
+    } */
     @media (max-width: 376px) {
       width: 89%;
     }
@@ -442,6 +443,8 @@ export const TopicCard = styled.div`
   }
   p {
     text-align: left;
+    font-size: 1rem;
+
     &:before {
       content: ${(props) =>
         props.theme.background === "#000000" ? '"🔸"' : '"🔹"'};
@@ -463,7 +466,7 @@ export const TopicCard = styled.div`
 export const CardDescription = styled.p`
   margin: 0 1.8rem;
   padding-right: 0;
-
+  font-size: 1.2rem;
   text-align: center;
 `;
 
