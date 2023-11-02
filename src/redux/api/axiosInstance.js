@@ -33,3 +33,15 @@ export default instance;
 // tenses
 // Conditionnel Present
 // Conditionnel Passe
+
+///
+// futurSimple;
+// conditionnelPresent;
+// conditionnelPasse;
+// plusQueParfait;
+// //
+// present;
+// passeCompose;
+// imparfait;
+// passeSimple;
+//

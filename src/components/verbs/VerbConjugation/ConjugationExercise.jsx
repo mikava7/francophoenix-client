@@ -43,19 +43,41 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
   const getConjugation = (pronoun) => {
     const match =
       frenchConjugations &&
-      frenchConjugations?.find((item) => item.french.startsWith(pronoun));
-    return match ? match.french.split(" ")[1] : "";
+      frenchConjugations.find((item) => item.french.startsWith(pronoun));
+
+    if (match) {
+      const conjugationParts = match.french.split(" ");
+      if (conjugationParts.length === 3) {
+        // console.log("conjugationParts 3", conjugationParts);
+        // console.log("conjugationParts 3 slice", conjugationParts.slice(1));
+
+        // If it's a three-word sentence, return the last two words
+        return conjugationParts.slice(1);
+      } else if (conjugationParts.length === 2) {
+        // console.log("conjugationParts 2", conjugationParts);
+
+        // If it's a two-word sentence, return the last word
+        return [conjugationParts[1]];
+      }
+    }
+
+    return [];
   };
 
   const isCorrectConjugation = (userInput, correctConjugation) => {
-    // Normalize the user input and correct conjugation to handle accents and variations
-    const normalizedUserInput = normalizeString(userInput.toLowerCase()); // Convert to lowercase
-    const normalizedCorrectConjugation = normalizeString(
-      correctConjugation.toLowerCase()
-    ); // Convert to lowercase
+    // Normalize the user input and correct conjugation parts
+    const normalizedUserInput = normalizeString(userInput.toLowerCase());
 
-    // Compare the normalized strings
-    return normalizedUserInput === normalizedCorrectConjugation;
+    // Normalize each part of the correct conjugation
+    const normalizedCorrectConjugation = correctConjugation.map((part) =>
+      normalizeString(part.toLowerCase())
+    );
+
+    // Convert the normalized correct conjugation to a string
+    const correctConjugationString = normalizedCorrectConjugation.join(" ");
+
+    // Check if the correct conjugation string includes the normalized user input
+    return correctConjugationString.includes(normalizedUserInput);
   };
 
   const normalizeString = (str) => {
@@ -71,6 +93,8 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     for (const pronoun of pronouns) {
       const correctConjugation = getConjugation(pronoun);
       const userConjugation = pronounInputs[pronoun];
+      // console.log("correctConjugation", correctConjugation);
+      // console.log("userConjugation", userConjugation);
 
       if (!userConjugation) {
         newWrongAnswers[pronoun] = correctConjugation;
@@ -115,13 +139,21 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
               value={pronounInputs[p] || ""}
               onChange={(e) => handleInputChange(p, e.target.value)}
               placeholder={completedPairs[p] || ""}
-              isCorrect={completedPairs[p] === getConjugation(p)}
+              isCorrect={
+                Array.isArray(completedPairs[p])
+                  ? completedPairs[p].join(" ") === getConjugation(p).join(" ")
+                  : completedPairs[p] === getConjugation(p).join(" ")
+              }
               isWrong={wrongAnswers[p]}
             />
+
             {wrongAnswers[p] && (
               <CorrectVariation>
                 {" "}
-                {t("Bonne réponse")}: {getConjugation(p)}
+                {t("Bonne réponse")}:{" "}
+                {getConjugation(p).length > 1
+                  ? getConjugation(p).join(" ")
+                  : getConjugation(p)[0]}
               </CorrectVariation>
             )}
           </VariationsContainer>
