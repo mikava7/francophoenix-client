@@ -222,7 +222,7 @@ const InputContainer = styled.div`
   border: 1px solid #302828;
   border-bottom: 2px solid grey;
   border-right: 2px solid grey;
-  background-color: ${(props) => props.theme.primaryText};
+  background-color: ${(props) => props.theme.tertiaryBackground};
   overflow: hidden;
 
   &:hover,
@@ -234,7 +234,7 @@ const InputContainer = styled.div`
   }
 `;
 const ClearSearch = styled.img`
-  background-color: transparent;
+  /* background-color: transparent; */
   border: none;
   width: 1.4rem;
   height: 1.4rem;

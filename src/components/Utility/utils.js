@@ -61,3 +61,29 @@ export const mapSearchResults = (searchResults, field) =>
 export function normalizeString(input) {
   return input.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
+///////////////
+// function convertTensesToSentences(presentTenseData) {
+//   if (!presentTenseData || !presentTenseData.length) {
+//     return []; // Handle empty data
+//   }
+
+//   // Iterate through the tenses and convert each object to a sentence
+//   const sentences = presentTenseData.map((tense) => {
+//     const sentence = tense.sentence;
+//     const correctAnswer = tense.correctAnswer;
+
+//     // Replace the placeholder ____ with the correct answer
+//     const modifiedSentence = sentence.replace("____", correctAnswer);
+
+//     return modifiedSentence;
+//   });
+
+//   return sentences;
+// }
+
+// // Call the function with your data
+// const newSentences = convertTensesToSentences(presentTenseVerbe);
+
+// // Now `newSentences` contains the transformed data
+// console.log("New Sentences", newSentences);

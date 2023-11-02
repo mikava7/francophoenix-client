@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import unorm from "unorm";
-
+import useScrollToTopOnRouteChange from "../../../hooks/useScrollToTopOnRouteChange";
 const ConjugationExercise = ({ frenchConjugations, tense }) => {
+  useScrollToTopOnRouteChange();
+
   const exerciseType = ConjugationExercise.name;
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -33,7 +35,7 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     setPronounInputs({});
     setWrongAnswers({});
     setScore(0);
-    setActualTenseScore(0); // Reset the actualTenseScore
+    setActualTenseScore(0);
   };
 
   useEffect(() => {
@@ -93,8 +95,6 @@ const ConjugationExercise = ({ frenchConjugations, tense }) => {
     for (const pronoun of pronouns) {
       const correctConjugation = getConjugation(pronoun);
       const userConjugation = pronounInputs[pronoun];
-      // console.log("correctConjugation", correctConjugation);
-      // console.log("userConjugation", userConjugation);
 
       if (!userConjugation) {
         newWrongAnswers[pronoun] = correctConjugation;

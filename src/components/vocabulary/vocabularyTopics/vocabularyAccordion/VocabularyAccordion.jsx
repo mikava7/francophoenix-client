@@ -8,10 +8,13 @@ import AddToFlashcards from "../../../Utility/AddToFlashcards";
 import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import Listen from "../../../Listen";
+import PDFVocabularyDocument from "../../../Utility/pdf/PDFDocument";
 const VocabularyAccordion = ({
   wordsInTargetLanguage,
   secondLanguage,
   definition,
+  targetedTitle,
+  nativeLanguageTitle,
 }) => {
   // console.log({ wordsInTargetLanguage, secondLanguage, definition });
   useScrollToTopOnRouteChange();
@@ -32,6 +35,15 @@ const VocabularyAccordion = ({
 
   return (
     <AccordionContaner>
+      <h4>
+        download pdf:
+        <PDFVocabularyDocument
+          wordsInTargetLanguage={wordsInTargetLanguage}
+          secondLanguage={secondLanguage}
+          targetedTitle={targetedTitle}
+          nativeLanguageTitle={nativeLanguageTitle}
+        />
+      </h4>
       {wordsInTargetLanguage?.map((word, index) => (
         <AccordionItem key={index}>
           <AccordionHeader>

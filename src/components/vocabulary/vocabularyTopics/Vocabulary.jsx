@@ -41,7 +41,7 @@ const Vocabulary = () => {
   }));
   const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
   const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
-  console.log(vocabularyData);
+  // console.log(vocabularyData);
   // Define the mapping of language codes to object properties
   const languagePropertyMap = {
     fr: "french",
@@ -72,6 +72,11 @@ const Vocabulary = () => {
   const nativeLanguageArray = vocabularyData?.words?.map(
     (word) => word?.[nativeLanguageProperty]
   );
+  const nativeLanguageTitle = vocabularyData
+    ? isGeorgian
+      ? vocabularyData.topicGeo
+      : vocabularyData.topicEng
+    : undefined;
 
   useEffect(() => {
     if (topicId) {
@@ -102,6 +107,8 @@ const Vocabulary = () => {
           wordsInTargetLanguage={targetLanguageArray}
           secondLanguage={nativeLanguageArray}
           definition={definition}
+          targetedTitle={targetedTitle}
+          nativeLanguageTitle={nativeLanguageTitle}
         />
       </WordPairContainer>
       <TopicTextBox>
