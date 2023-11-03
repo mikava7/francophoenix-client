@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import AddToFavorites from "../../../Utility/AddToFavorites";
 import AccordionExpendedContent from "./AccordionExpendedContent";
@@ -9,41 +9,74 @@ import { ListenIcon, ChevronIcon } from "../../../../Styles/globalStyles";
 import { useTranslation } from "react-i18next";
 import Listen from "../../../Listen";
 import PDFVocabularyDocument from "../../../Utility/pdf/PDFDocument";
+import { useSelector } from "react-redux";
+import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
 const VocabularyAccordion = ({
   wordsInTargetLanguage,
   secondLanguage,
   definition,
   targetedTitle,
   nativeLanguageTitle,
+  currentURL,
+  contentId,
 }) => {
-  // console.log({ wordsInTargetLanguage, secondLanguage, definition });
+  // Use custom hook for scroll behavior
   useScrollToTopOnRouteChange();
-  const { t } = useTranslation();
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  // console.log("frenchWords", frenchWords);
 
+  // Access translation function
+  const { t } = useTranslation();
+
+  // State to manage expanded accordion item
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  // Get user authentication status from Redux
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  const userId = auth?._id;
+
+  // State for tracking active items
   const [isActiveState, setIsActiveState] = useState(
     wordsInTargetLanguage?.map(() => false)
   );
 
+  // Custom hook for listening to word pronunciations
   const { handleListen, isActiveStates } = useListenWord();
 
+  // Function to toggle accordion items
   const toggleAccordion = (index) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  // Get the selected target language from local storage
   const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
 
   return (
     <AccordionContaner>
-      <h4>
-        download pdf:
-        <PDFVocabularyDocument
-          wordsInTargetLanguage={wordsInTargetLanguage}
-          secondLanguage={secondLanguage}
-          targetedTitle={targetedTitle}
-          nativeLanguageTitle={nativeLanguageTitle}
-        />
-      </h4>
+      <PDFLinkBox>
+        {t("Télécharger le PDF:")}
+        {userId ? (
+          // Display the download link if the user is logged in
+          <DownloadButton>
+            <PDFVocabularyDocument
+              wordsInTargetLanguage={wordsInTargetLanguage}
+              secondLanguage={secondLanguage}
+              targetedTitle={targetedTitle}
+              nativeLanguageTitle={nativeLanguageTitle}
+              currentURL={currentURL}
+              contentId={contentId}
+              userId={userId}
+            />
+          </DownloadButton>
+        ) : (
+          // Display a message or hide the link if the user is not logged in
+          <LoginMessage>
+            {t("Veuillez vous connecter pour télécharger.")}
+            <LinkWithPreviousPath to="/login">
+              {t("Connexion")}
+            </LinkWithPreviousPath>
+          </LoginMessage>
+        )}
+      </PDFLinkBox>
+
       {wordsInTargetLanguage?.map((word, index) => (
         <AccordionItem key={index}>
           <AccordionHeader>
@@ -120,6 +153,29 @@ const AccordionContaner = styled.div`
     overflow-x: hidden;
     width: 100%;
   }
+`;
+
+const PDFLinkBox = styled.div`
+  margin: 1rem;
+`;
+
+const DownloadButton = styled.button`
+  /* background: #434d68; */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #434d68;
+    transform: scale(1.05);
+  }
+`;
+const LoginMessage = styled.div`
+  // Add styling for the login message here
 `;
 const AccordionItem = styled.div`
   display: flex;

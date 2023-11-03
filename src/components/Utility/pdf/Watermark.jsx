@@ -6,10 +6,11 @@ const Watermark = () => {
     watermarkContainer: {
       position: "absolute",
       top: "40%",
-      left: "40%",
+      left: "22%",
       transform: "rotate(-45deg)",
       opacity: 0.3,
-      fontSize: 60,
+      fontSize: 80,
+      letterSpacing: "14px",
       color: "lightgray",
     },
   });

@@ -18,6 +18,8 @@ import Localization from "../../../localization/Localization";
 import WordJumble from "../../flashcard/trainers/wordTrainer/WordJumble";
 const Vocabulary = () => {
   const { topicId } = useParams();
+  const currentURL = window.location.href;
+  // console.log("currentURL", currentURL);
   const dispatch = useDispatch();
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
   const isLoading = useSelector((state) => state.quizData.isLoading);
@@ -64,7 +66,6 @@ const Vocabulary = () => {
   const targetedTitle = vocabularyData
     ? vocabularyData[targetedTitleProperty]
     : undefined;
-  // console.log("targetedTitle", targetedTitle);
 
   // console.log("vocabularyData", vocabularyData);
   // Determine the native language property based on the selected language code
@@ -77,6 +78,8 @@ const Vocabulary = () => {
       ? vocabularyData.topicGeo
       : vocabularyData.topicEng
     : undefined;
+
+  const contentId = vocabularyData && vocabularyData?._id;
 
   useEffect(() => {
     if (topicId) {
@@ -109,6 +112,8 @@ const Vocabulary = () => {
           definition={definition}
           targetedTitle={targetedTitle}
           nativeLanguageTitle={nativeLanguageTitle}
+          currentURL={currentURL}
+          contentId={contentId}
         />
       </WordPairContainer>
       <TopicTextBox>

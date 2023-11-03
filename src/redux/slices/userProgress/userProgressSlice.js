@@ -1,6 +1,6 @@
 // userProgressSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axois from "../../api/axiosInstance";
+import axios from "../../api/axiosInstance";
 // Define an initial state
 const initialState = {
   userProgressData: null,
@@ -15,7 +15,7 @@ export const fetchUserProgress = createAsyncThunk(
     //     console.log("userId in slice", userId);
     try {
       // Fetch user progress data from your API here
-      const response = await axois.get(`/verbs/${userId}`);
+      const response = await axios.get(`/verbs/${userId}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -23,7 +23,26 @@ export const fetchUserProgress = createAsyncThunk(
   }
 );
 
-// Create a slice
+export const trackDownload = createAsyncThunk(
+  "userProgress/trackDownload",
+  async ({ userId, contentId, section }) => {
+    // console.log("in slice", { userId, contentId, section });
+
+    try {
+      const response = await axios.post("/auth/progress/downloads", {
+        userId,
+        contentId,
+        section,
+      });
+      // console.log("submitted successfully", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting tense percentage", error);
+      throw error;
+    }
+  }
+);
+
 const userProgressSlice = createSlice({
   name: "userProgress",
   initialState,

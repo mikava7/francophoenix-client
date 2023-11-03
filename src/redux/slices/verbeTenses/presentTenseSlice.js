@@ -17,11 +17,11 @@ export const fetchPresentTense = createAsyncThunk(
 export const submitTensePercentage = createAsyncThunk(
   "presentTense/submitTensePercentage",
   async ({ userId, verb, tense, exerciseType, tensePercentage }) => {
-    console.log("tensePercentage in slice", tensePercentage);
-    console.log("verb in slice", verb);
-    console.log("tense in slice", tense);
-    console.log("userId in slice", userId);
-    console.log("exerciseType in slice", exerciseType);
+    // console.log("tensePercentage in slice", tensePercentage);
+    // console.log("verb in slice", verb);
+    // console.log("tense in slice", tense);
+    // console.log("userId in slice", userId);
+    // console.log("exerciseType in slice", exerciseType);
 
     try {
       if (userId) {
