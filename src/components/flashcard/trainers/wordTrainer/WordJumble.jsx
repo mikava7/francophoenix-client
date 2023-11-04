@@ -3,11 +3,16 @@ import { useTranslation } from "react-i18next";
 import useListenWord from "../../../../hooks/useListenWord";
 import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
-import { FaVolumeUp } from "react-icons/fa"; // Import the play icon
-
+import { FaVolumeUp } from "react-icons/fa";
+import {
+  SubmitButton,
+  NextButton,
+  RestartButton,
+} from "../../../verbs/presentTense/PresentTense";
+import { shuffleArray } from "../../../Utility/utils";
 const WordJumble = ({ selectedFlashcards }) => {
   const { handleListen, isActiveStates } = useListenWord();
-
+  const { t } = useTranslation();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
   const [jumbledLetters, setJumbledLetters] = useState([]);
@@ -16,13 +21,17 @@ const WordJumble = ({ selectedFlashcards }) => {
   const [availableLetters, setAvailableLetters] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const allWordsHandled = currentFlashcardIndex >= selectedFlashcards.length;
 
   useEffect(() => {
     if (
       selectedFlashcards.length > 0 &&
       currentFlashcardIndex < selectedFlashcards.length
     ) {
-      const flashcard = selectedFlashcards[currentFlashcardIndex];
+      const flashcard = selectedFlashcards[currentFlashcardIndex]
+        .replace(/\s*\(.*\)/, "")
+        .replace(/^(le\/la )/, "");
+
       const lettersAndSpaces = flashcard.split("");
 
       setOriginalWord(flashcard);
@@ -52,8 +61,8 @@ const WordJumble = ({ selectedFlashcards }) => {
   const handleCheck = () => {
     const word = jumbledLetters.join("");
     const correct = word === originalWord;
-    setIsCorrect(correct);
     setIsSubmitted(true);
+    setIsCorrect(correct);
   };
 
   const handleNext = () => {
@@ -61,14 +70,15 @@ const WordJumble = ({ selectedFlashcards }) => {
     setJumbledLetters([]);
     setIsCorrect(false);
     setIsSubmitted(false);
-    if (currentFlashcardIndex + 1 < selectedFlashcards.length) {
+    if (currentFlashcardIndex < selectedFlashcards.length) {
       setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
     }
   };
-
   const handleRestart = () => {
     setSelectedLetterIndices([]);
     setJumbledLetters([]);
+
+    // setAvailableLetters(shuffleArray(originalWord.split("")));
     setAvailableLetters(originalWord.split(""));
     setIsCorrect(false);
     setIsSubmitted(false);
@@ -78,9 +88,11 @@ const WordJumble = ({ selectedFlashcards }) => {
     <BuildBoxContainer>
       {/* Play button for listening to the word */}
       <PlayButton onClick={handleListen(currentFlashcard)}>
-        <FaVolumeUp /> Listen
+        <FaVolumeUp /> {t("Écouter")}
       </PlayButton>
-      <Score>words in section: {selectedFlashcards?.length}</Score>
+      <Score>
+        {t("Des mots")}: {selectedFlashcards?.length}
+      </Score>
       <BuildBox>
         <JumbleBox>
           {/* Display jumbled letters */}
@@ -90,7 +102,8 @@ const WordJumble = ({ selectedFlashcards }) => {
               onClick={() => handleJumbledLetterClick(index)}
               disabled={jumbledLetters.length >= originalWord.length}
               selected={true}
-              correct={isSubmitted && isCorrect}
+              correct={isCorrect}
+              submitted={isSubmitted}
             >
               {letter}
             </JumbleLetter>
@@ -109,17 +122,30 @@ const WordJumble = ({ selectedFlashcards }) => {
           ))}
         </LetterBox>
       </BuildBox>
-      <CheckButton onClick={handleCheck} disabled={isSubmitted}>
-        Check
-      </CheckButton>
-      {isSubmitted && isCorrect ? (
-        <CorrectNotification>
-          Correct! You assembled the word.
-        </CorrectNotification>
-      ) : isSubmitted ? (
-        <WrongNotification>Incorrect! Try again.</WrongNotification>
-      ) : null}
-      <RestartButton onClick={handleRestart}>Restart</RestartButton>
+      <ButtonContainer>
+        {isSubmitted && isCorrect ? (
+          <CorrectNotification>
+            {t("Correct !")}
+            <NextButton onClick={handleNext}>{t("Suivante")}</NextButton>
+          </CorrectNotification>
+        ) : isSubmitted ? (
+          <WrongNotification>
+            {t("C'est faux ! Essayer à nouveau.")}
+            <RestartButton onClick={handleRestart}>
+              {t("Recommencer")}
+            </RestartButton>
+          </WrongNotification>
+        ) : (
+          <SubmitButton onClick={handleCheck} disabled={isSubmitted}>
+            {t("Soumettre")}
+          </SubmitButton>
+        )}
+      </ButtonContainer>
+      {allWordsHandled && (
+        <FinalMessage>
+          {t("Toutes nos félicitations! Vous avez terminé tous les mots.")}
+        </FinalMessage>
+      )}
     </BuildBoxContainer>
   );
 };
@@ -131,19 +157,23 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 390px;
-  max-width: 90%;
-  min-height: 600px;
+  width: 333px;
+  /* max-width: 90%; */
+  min-height: 580px;
   margin: 1rem auto;
   background: ${(props) => props.theme.secondaryBackground};
-  -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
+  -webkit-box-shadow: 14px 25px 21px -19px rgba(8, 21, 32, 0.87);
+  -moz-box-shadow: 14px 25px 21px -19px rgba(16, 38, 58, 0.87);
+  box-shadow: 14px 25px 21px -19px rgba(16, 35, 53, 0.87);
   color: ${(props) => props.theme.secondaryText};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
-    max-width: 330px;
+    /* max-width: 100%; */
+  }
+
+  @media (max-width: 540px) {
+    min-height: 100vh; /* Set the minimum height to 100% viewport height on smaller screens */
   }
 `;
 const BuildBox = styled.div`
@@ -155,17 +185,17 @@ const BuildBox = styled.div`
 `;
 const JumbleBox = styled.div`
   background: ${(props) => props.theme.tertiaryBackground};
-  margin: 0 auto;
-  width: 100%;
-  min-width: 390px;
+  /* margin: 0 auto; */
+  width: 330px;
   height: 10rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   margin-top: 2rem;
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  /* outline: 1px solid red; */
   @media (max-width: 576px) {
-    min-width: 300px;
+    max-width: 329px;
   }
 `;
 
@@ -177,7 +207,7 @@ const LetterButton = styled.button`
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin: 0.5rem;
   padding: 0.5rem;
   height: 2.2rem;
@@ -186,21 +216,21 @@ const LetterButton = styled.button`
 `;
 
 const JumbleLetter = styled(LetterButton)`
-  /* border: ${(props) => (props.selected ? "1px solid blue" : "none")}; */
-
   color: ${(props) =>
     props.selected
       ? props.correct
         ? props.theme.primaryText
-        : props.theme.secondaryText
+        : props.theme.secondaryBackground
       : props.theme.primaryText};
 
   background-color: ${(props) =>
     props.selected
-      ? props.correct
-        ? props.theme.correctBack
-        : props.theme.wrongback
-      : "blue"};
+      ? props.submitted
+        ? props.correct
+          ? props.theme.correctBack
+          : props.theme.wrongback
+        : props.theme.tertiaryText
+      : "red"};
 `;
 const LetterBox = styled(JumbleBox)`
   width: 100%;
@@ -208,55 +238,58 @@ const LetterBox = styled(JumbleBox)`
   color: ${(props) => props.theme.tertiaryText};
   background: ${(props) => props.theme.tertiaryBackground};
 `;
-const PlayButton = styled(Button)`
+const PlayButton = styled.button`
   color: ${(props) => props.theme.primaryText};
   background-color: ${(props) => props.theme.primaryBackground};
   margin: 1rem;
   display: flex;
-  align-items: center; // Center the icon and text
-  gap: 8px; // Spacing between icon and text
-  padding: 0.5rem;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 1rem;
   transition: transform 0.3s ease, background-color 0.3 ease;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.02);
+    /* color: ${(props) => props.theme.primaryBackground};
+    background-color: ${(props) => props.theme.primaryText}; */
+  }
 
-  // Add hover effect
-  &:hover {
-    transform: scale(1.01);
-    color: ${(props) => props.theme.primaryBackground};
-    background-color: ${(props) => props.theme.primaryText};
+  @media (max-width: 540px) {
+    /* Update styles for mobile screens */
+    padding: 0.5rem; /* Adjust padding for smaller screens */
   }
 `;
-const Congratulations = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  background-color: ${(props) => props.theme.primaryBackground};
-  padding: 1rem;
-  p {
-    padding: 0.3rem 0.6rem;
-    letter-spacing: 1.4px;
-    letter-spacing: 1.4px;
-    margin-bottom: 1rem;
-  }
-`;
-const RestartButton = styled(Button)`
-  background-color: #f1f7fcdd;
-  color: ${(props) => props.theme.wrongback};
-  &:hover {
-    background-color: #ff4e07;
-    color: #f1f7fcdd;
-  }
-`;
+
 const CorrectNotification = styled.span`
   font-weight: bold;
-  color: #f1f7fcdd;
+  color: ${(props) => props.theme.highlight4};
+  text-align: center;
 `;
 const WrongNotification = styled(CorrectNotification)`
-  color: red;
+  color: ${(props) => props.theme.wrongback};
 `;
 const Score = styled.span`
   margin-left: auto;
   margin-right: 1rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 `;
-const CheckButton = styled.button``;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.4rem;
+  /* outline: 1px solid red; */
+  width: 100%;
+  height: 3rem;
+
+  /* gap: 1rem; */
+`;
+const FinalMessage = styled.div`
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: ${(props) => props.theme.primaryText};
+`;

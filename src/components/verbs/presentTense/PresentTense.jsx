@@ -387,7 +387,7 @@ export const SubmitButton = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 12px;
   width: 10rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 
   background: ${(props) => props.theme.primaryBackground};
   color: ${(props) => props.theme.primaryText};
@@ -400,12 +400,15 @@ export const SubmitButton = styled.button`
   }
 
   @media (min-width: 394px) and (max-width: 576px) {
+    font-size: 1.05rem;
     width: 8rem;
   }
   @media (min-width: 301px) and (max-width: 394px) {
     width: 7rem;
+    font-size: 1rem;
   }
   @media (max-width: 301px) {
+    font-size: 1rem;
     width: 6rem;
   }
 `;
@@ -445,11 +448,11 @@ const ButtonContainer = styled.div`
   margin-top: 0.4rem;
   gap: 1rem;
 `;
-const RestartButton = styled.button`
-  padding: 0.5rem 1rem;
+export const RestartButton = styled.button`
+  padding: 0.5rem;
   text-align: center;
   width: 10rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   background-color: ${(props) => props.theme.primaryText};
   color: ${(props) => props.theme.primaryBackground};
   cursor: pointer;
@@ -459,6 +462,11 @@ const RestartButton = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.primaryBackground};
     color: ${(props) => props.theme.primaryText};
+  }
+  @media (max-width: 451px) {
+    font-size: 1rem;
+    width: 8rem;
+    padding: 0.3rem;
   }
 `;
 export const NextButton = styled(SubmitButton)`

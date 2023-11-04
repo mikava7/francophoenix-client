@@ -31,7 +31,7 @@ const AccordionSection = ({
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
-      const navbarHeight = 12 * 16; // 3rem (adjust as needed)
+      const navbarHeight = 12; // 3rem (adjust as needed)
       const scrollOffset = navbarHeight;
       scrollToContainer(sectionRef, scrollOffset); // Use the helper function
     }
