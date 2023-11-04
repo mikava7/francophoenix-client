@@ -6,79 +6,72 @@ import styled from "styled-components";
 import { FaVolumeUp } from "react-icons/fa"; // Import the play icon
 
 const WordJumble = ({ selectedFlashcards }) => {
-  // console.log("selectedFlashcards", selectedFlashcards);
   const { handleListen, isActiveStates } = useListenWord();
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
-
-  // State for tracking selected letter indices
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
-
-  // State for tracking jumbled letters
   const [jumbledLetters, setJumbledLetters] = useState([]);
-
-  // State for tracking the original word
   const [originalWord, setOriginalWord] = useState("");
-
-  // State for tracking the current flashcard
   const [currentFlashcard, setCurrentFlashcard] = useState(null);
-
-  // State for tracking available letters
   const [availableLetters, setAvailableLetters] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Update flashcard data when selectedFlashcards or currentFlashcardIndex changes
   useEffect(() => {
     if (
       selectedFlashcards.length > 0 &&
       currentFlashcardIndex < selectedFlashcards.length
     ) {
       const flashcard = selectedFlashcards[currentFlashcardIndex];
-      const lettersAndSpaces = flashcard.split(""); // Split by each character (including spaces)
-      // console.log("lettersAndSpaces", lettersAndSpaces);
+      const lettersAndSpaces = flashcard.split("");
 
       setOriginalWord(flashcard);
-      // console.log("flashcard", flashcard);
 
       lettersAndSpaces.sort(() => Math.random() - 0.5);
 
       setAvailableLetters([...lettersAndSpaces]);
       setCurrentFlashcard(flashcard);
-      setJumbledLetters([]); // Reset jumbled letters
+      setJumbledLetters([]);
+      setIsCorrect(false);
+      setIsSubmitted(false);
     }
   }, [selectedFlashcards, currentFlashcardIndex]);
 
-  // Handle clicking on a letter button
-  // Handle clicking on a jumbled letter
   const handleJumbledLetterClick = (index) => {
     setSelectedLetterIndices(selectedLetterIndices.filter((i) => i !== index));
     setJumbledLetters(jumbledLetters.filter((_, i) => i !== index));
     setAvailableLetters([...availableLetters, jumbledLetters[index]]);
   };
 
-  // Handle clicking on an available letter
   const handleLetterClick = (index) => {
     setSelectedLetterIndices([...selectedLetterIndices, index]);
     setJumbledLetters([...jumbledLetters, availableLetters[index]]);
     setAvailableLetters(availableLetters.filter((_, i) => i !== index));
   };
 
-  // Handle restarting the game
-  const handleRestart = () => {
-    setSelectedLetterIndices([]);
-    setJumbledLetters([]);
-    setAvailableLetters(originalWord.split(""));
+  const handleCheck = () => {
+    const word = jumbledLetters.join("");
+    const correct = word === originalWord;
+    setIsCorrect(correct);
+    setIsSubmitted(true);
   };
-  // Check if the jumbled letters form the correct word
-  const isCorrect = jumbledLetters.join("") === originalWord;
-  const isAllLettersSelected =
-    selectedLetterIndices.length === originalWord.length;
 
   const handleNext = () => {
     setSelectedLetterIndices([]);
     setJumbledLetters([]);
+    setIsCorrect(false);
+    setIsSubmitted(false);
     if (currentFlashcardIndex + 1 < selectedFlashcards.length) {
       setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
     }
+  };
+
+  const handleRestart = () => {
+    setSelectedLetterIndices([]);
+    setJumbledLetters([]);
+    setAvailableLetters(originalWord.split(""));
+    setIsCorrect(false);
+    setIsSubmitted(false);
   };
 
   return (
@@ -97,6 +90,7 @@ const WordJumble = ({ selectedFlashcards }) => {
               onClick={() => handleJumbledLetterClick(index)}
               disabled={jumbledLetters.length >= originalWord.length}
               selected={true}
+              correct={isSubmitted && isCorrect}
             >
               {letter}
             </JumbleLetter>
@@ -115,26 +109,17 @@ const WordJumble = ({ selectedFlashcards }) => {
           ))}
         </LetterBox>
       </BuildBox>
-
-      {isAllLettersSelected && !isCorrect && (
+      <CheckButton onClick={handleCheck} disabled={isSubmitted}>
+        Check
+      </CheckButton>
+      {isSubmitted && isCorrect ? (
+        <CorrectNotification>
+          Correct! You assembled the word.
+        </CorrectNotification>
+      ) : isSubmitted ? (
         <WrongNotification>Incorrect! Try again.</WrongNotification>
-      )}
-      {isCorrect && (
-        <div>
-          <CorrectNotification>
-            Correct! You assembled the word.
-          </CorrectNotification>
-          {currentFlashcardIndex < selectedFlashcards.length - 1 && (
-            <Button onClick={handleNext}>Next</Button>
-          )}
-          {currentFlashcardIndex === selectedFlashcards.length - 1 && (
-            <Congratulations>
-              <p>Congratulations! You have completed all the words. </p>
-              <RestartButton onClick={handleRestart}>Restart</RestartButton>
-            </Congratulations>
-          )}
-        </div>
-      )}
+      ) : null}
+      <RestartButton onClick={handleRestart}>Restart</RestartButton>
     </BuildBoxContainer>
   );
 };
@@ -150,11 +135,11 @@ const BuildBoxContainer = styled.section`
   max-width: 90%;
   min-height: 600px;
   margin: 1rem auto;
-  background: #0055a4dd;
+  background: ${(props) => props.theme.secondaryBackground};
   -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  color: white;
+  color: ${(props) => props.theme.secondaryText};
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
@@ -169,7 +154,7 @@ const BuildBox = styled.div`
   align-items: center;
 `;
 const JumbleBox = styled.div`
-  background-color: #8ae8ff;
+  background: ${(props) => props.theme.tertiaryBackground};
   margin: 0 auto;
   width: 100%;
   min-width: 390px;
@@ -185,10 +170,13 @@ const JumbleBox = styled.div`
 `;
 
 const LetterButton = styled.button`
-  background-color: #8ae8ff;
+  background: ${(props) => props.theme.secondaryBackground};
+  color: ${(props) => props.theme.primaryText};
+
   display: flex;
   cursor: pointer;
   align-items: center;
+  justify-content: center;
   font-size: 2rem;
   margin: 0.5rem;
   padding: 0.5rem;
@@ -198,15 +186,27 @@ const LetterButton = styled.button`
 `;
 
 const JumbleLetter = styled(LetterButton)`
-  border: ${(props) => (props.selected ? "2px solid blue" : "none")};
-  color: ${(props) => (props.selected ? "#e2ebf3dd" : "#8ae8ff")};
-  background-color: ${(props) => (props.selected ? "#0055a4dd" : "none")};
+  /* border: ${(props) => (props.selected ? "1px solid blue" : "none")}; */
+
+  color: ${(props) =>
+    props.selected
+      ? props.correct
+        ? props.theme.primaryText
+        : props.theme.secondaryText
+      : props.theme.primaryText};
+
+  background-color: ${(props) =>
+    props.selected
+      ? props.correct
+        ? props.theme.correctBack
+        : props.theme.wrongback
+      : "blue"};
 `;
 const LetterBox = styled(JumbleBox)`
   width: 100%;
   height: 10rem;
-  color: black;
-  background-color: #0055a4dd;
+  color: ${(props) => props.theme.tertiaryText};
+  background: ${(props) => props.theme.tertiaryBackground};
 `;
 const PlayButton = styled(Button)`
   color: ${(props) => props.theme.primaryText};
@@ -229,7 +229,7 @@ const Congratulations = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  background-color: #023668dd;
+  background-color: ${(props) => props.theme.primaryBackground};
   padding: 1rem;
   p {
     padding: 0.3rem 0.6rem;
@@ -259,3 +259,4 @@ const Score = styled.span`
   font-size: 1.2rem;
   font-weight: bold;
 `;
+const CheckButton = styled.button``;

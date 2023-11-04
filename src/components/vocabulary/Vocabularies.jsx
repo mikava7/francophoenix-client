@@ -14,7 +14,7 @@ import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange
 
 import { supportedLanguages } from "../../localization/supportedLanguages";
 const Vocabularies = () => {
-  useScrollToTopOnRouteChange();
+  // useScrollToTopOnRouteChange();
 
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();

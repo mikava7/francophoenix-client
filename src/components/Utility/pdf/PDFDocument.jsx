@@ -22,11 +22,13 @@ const PDFVocabularyDocument = ({
   userId,
   contentId,
 }) => {
+  const [downloadStatus, setDownloadStatus] = useState("notStarted"); // Initialize as "notStarted"
+
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const section = "vocabulary";
   const handleDownload = () => {
-    console.log("dispatched", { userId, contentId, section });
+    // console.log("dispatched", { userId, contentId, section });
     if (userId) {
       dispatch(trackDownload({ userId, contentId, section }));
     }
@@ -48,7 +50,7 @@ const PDFVocabularyDocument = ({
       },
       text: {
         margin: 12,
-        fontSize: "14px",
+        fontSize: "17px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -94,13 +96,23 @@ const PDFVocabularyDocument = ({
       }
       fileName={`${targetedTitle}-${nativeLanguageTitle}.pdf`}
       style={styles.link}
-      onClick={handleDownload}
+      onClick={() => {
+        setDownloadStatus("loading"); // Set to "loading" when download starts
+        handleDownload();
+      }}
     >
       {({ blob, url, loading, error }) => {
         // console.log("PDF Download Link Status:", loading, error);
-        return loading
-          ? "Loading document..."
-          : `${targetedTitle}-${nativeLanguageTitle}.pdf`;
+        let result =
+          downloadStatus === "loading"
+            ? "Loading document..."
+            : `${nativeLanguageTitle}-${targetedTitle}.pdf`;
+
+        if (result.length > 20) {
+          result = result.slice(0, 17) + "..."; // Truncate and add ellipsis
+        }
+
+        return result;
       }}
     </PDFDownloadLink>
   );
