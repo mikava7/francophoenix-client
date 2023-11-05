@@ -18,6 +18,7 @@ import Listen from "../../../components/Listen";
 import { Link } from "react-router-dom";
 import { redirectToBescherelle } from "../../../components/Utility/utils";
 import { mapSearchResults } from "../../../components/Utility/utils";
+import ReportError from "../../../components/Utility/report/ReportError";
 const FindTranslationForFrenchWord = () => {
   useScrollToTopOnRouteChange();
   const { handleListen, isActiveStates } = useListenWord();
@@ -175,6 +176,9 @@ const FindTranslationForFrenchWord = () => {
               definition={definition[index]}
             />
           </FlasCardBox>
+          <ReportBox>
+            <ReportError contentId={result._id} />
+          </ReportBox>
           {result.part_of_speech.includes("v") && (
             <SearchResultApendix>
               <span>
@@ -389,4 +393,9 @@ const SearchResultApendix = styled.div`
       width: calc(100% - 2px); /* Expand width to 100% on hover */
     }
   }
+`;
+
+const ReportBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

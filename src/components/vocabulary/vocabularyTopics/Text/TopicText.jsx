@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import RotatingChevron from "../../../Utility/RotatingChevron";
 import VerbsInText from "../../verbsinText/VerbsInText";
-
+import ReportError from "../../../Utility/report/ReportError";
 import { mapSearchResults } from "../../../Utility/utils";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
@@ -27,9 +27,9 @@ const TopicText = ({
   vocabularyData,
 }) => {
   const { t, i18n } = useTranslation();
-
+  // console.log("verbFormMapping", vocabularyData);
   const verbDetails = vocabularyData.verbDetails;
-  // console.log({ verbFormMapping, verbDetails });
+
   const dispatch = useDispatch();
 
   const verbMappingWithDetails = {};
@@ -103,6 +103,7 @@ const TopicText = ({
 
   return (
     <TopicTextContainer>
+      <ReportError contentId={vocabularyData._id} />
       <VerbsInTextBox>
         <VerbsInText uniqueVerbs={uniqueVerbs} />
       </VerbsInTextBox>

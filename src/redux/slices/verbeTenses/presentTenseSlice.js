@@ -6,7 +6,7 @@ export const fetchPresentTense = createAsyncThunk(
   async () => {
     try {
       const response = await axiosInstance.get("/verbs/tenses/present");
-      console.log("response.data in fetchPresentTense", response.data);
+      // console.log("response.data in fetchPresentTense", response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -33,7 +33,7 @@ export const submitTensePercentage = createAsyncThunk(
           percentage: tensePercentage,
         });
 
-        console.log("Tense percentage submitted successfully", response.data);
+        // console.log("Tense percentage submitted successfully", response.data);
         return response.data;
       } else {
         console.error("User is not logged in. Tense percentage not submitted.");

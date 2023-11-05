@@ -4,6 +4,7 @@ import useListenWord from "../../../../hooks/useListenWord";
 import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
+
 import {
   SubmitButton,
   NextButton,
@@ -78,8 +79,8 @@ const WordJumble = ({ selectedFlashcards }) => {
     setSelectedLetterIndices([]);
     setJumbledLetters([]);
 
-    // setAvailableLetters(shuffleArray(originalWord.split("")));
-    setAvailableLetters(originalWord.split(""));
+    setAvailableLetters(shuffleArray(originalWord.split("")));
+    // setAvailableLetters(originalWord.split(""));
     setIsCorrect(false);
     setIsSubmitted(false);
   };
