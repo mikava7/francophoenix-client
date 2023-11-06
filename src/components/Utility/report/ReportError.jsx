@@ -71,7 +71,7 @@ const ReportError = ({ contentId }) => {
           </SubmitButton>
         </Form>
       )}
-      {responseMessage && <QuestionText>{responseMessage}</QuestionText>}
+      {responseMessage && <ResponseText>{responseMessage}</ResponseText>}
     </Container>
   );
 };
@@ -134,6 +134,9 @@ const SubmitButton = styled.button`
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+`;
+const ResponseText = styled(QuestionText)`
+  color: ${(props) => props.theme.wrongback};
 `;
 
 export default ReportError;
