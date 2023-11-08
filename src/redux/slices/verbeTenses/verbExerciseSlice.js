@@ -55,6 +55,9 @@ const verbExerciseSlice = createSlice({
       })
       .addCase(getVerbExercises.fulfilled, (state, action) => {
         state.verbEecercise = action.payload;
+        // {
+        //   console.log("action.payload", action.payload);
+        // }
         state.loading = false;
       })
       .addCase(getVerbExercises.rejected, (state, action) => {

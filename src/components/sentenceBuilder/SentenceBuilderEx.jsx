@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSentences } from "../../redux/slices/sentence builder/sentenceBuild";
 
 import useListenWord from "../../hooks/useListenWord";
-
+import { fetchPresentTense } from "../../redux/slices/verbeTenses/presentTenseSlice";
 import { NextButton } from "../verbs/presentTense/PresentTense";
 import { Button } from "../../Styles/globalStyles";
 import styled, { css } from "styled-components";
@@ -13,8 +13,13 @@ import { scrollToContainer } from "../Utility/scrollToContainer";
 import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange";
 import CategorySelect from "./CategorySelect";
 import { calculateNavbarHeight } from "./helpers";
+import Verbs from "../verbs/Verbs";
+import VerbSelect from "./VerbSelect";
+// import { convertTensesToSentences } from "../Utility/utils";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
-  // console.log("sentenceData", sentenceData);
+  console.log("sentenceData", sentenceData);
+  console.log("isActive", isActive);
+
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -27,6 +32,11 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   const dispatch = useDispatch();
   const sentenceBuilders =
     useSelector((state) => state.sentences.sentences) || [];
+  // console.log("sentenceBuilders", sentenceBuilders);
+
+  const presentTenseVerbe =
+    useSelector((state) => state.presentTense.presentTense) || [];
+
   const [isSubmit, setIsSubmit] = useState(false);
   const [selectedWords, setSelectedWords] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -51,6 +61,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   useEffect(() => {
     if (!sentenceData) {
       dispatch(fetchSentences());
+      dispatch(fetchPresentTense());
     }
   }, [dispatch, sentenceData]);
 
@@ -135,65 +146,68 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   const nextComponent = sentenceIndex === filteredSentences()?.length - 1;
 
   return (
-    <BuildBoxContainer ref={buildBoxRef}>
-      <Header>
-        <h4>{t("Construire la phrase")} </h4>
-        <span>
-          <h5>{t("Choisissez une catégorie")} </h5>
-          <CategorySelect
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-          />
-        </span>
-      </Header>
+    <>
+      <VerbSelect />
+      <BuildBoxContainer ref={buildBoxRef}>
+        <Header>
+          <h4>{t("Construire la phrase")} </h4>
+          <span>
+            <h5>{t("Choisissez une catégorie")} </h5>
+            <CategorySelect
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+            />
+          </span>
+        </Header>
 
-      <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-      {sentenceData?.length}
-      <BuildBox>
-        <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
-          {selectedWords.map((wordIndex, index) => (
-            <TopWord key={index} onClick={() => handleWordRemove(wordIndex)}>
-              {words[wordIndex]}
-            </TopWord>
-          ))}
-        </TopBox>
-        <BottomBox>
-          {words &&
-            words?.map((word, index) => (
-              <BottomWord
-                isSelected={selectedWords.includes(index)}
-                key={index}
-                onClick={() => handleWordSelect(index)}
-              >
-                {word}
-              </BottomWord>
+        <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
+        {sentenceData?.length}
+        <BuildBox>
+          <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
+            {selectedWords.map((wordIndex, index) => (
+              <TopWord key={index} onClick={() => handleWordRemove(wordIndex)}>
+                {words[wordIndex]}
+              </TopWord>
             ))}
-        </BottomBox>
-      </BuildBox>
-      <div>
-        {showAnswers ? (
-          isCorrect ? (
-            nextComponent ? (
-              <div onClick={handleNext}>
-                <Button>{t("Continue")}</Button>
-              </div>
+          </TopBox>
+          <BottomBox>
+            {words &&
+              words?.map((word, index) => (
+                <BottomWord
+                  isSelected={selectedWords.includes(index)}
+                  key={index}
+                  onClick={() => handleWordSelect(index)}
+                >
+                  {word}
+                </BottomWord>
+              ))}
+          </BottomBox>
+        </BuildBox>
+        <div>
+          {showAnswers ? (
+            isCorrect ? (
+              nextComponent ? (
+                <div onClick={handleNext}>
+                  <Button>{t("Continue")}</Button>
+                </div>
+              ) : (
+                <div onClick={handleNext}>
+                  <Button>{t("Suivant")}</Button>
+                </div>
+              )
             ) : (
-              <div onClick={handleNext}>
-                <Button>{t("Suivant")}</Button>
+              <div onClick={handleRetry}>
+                <Button>{t("Réessayer")}</Button>
               </div>
             )
           ) : (
-            <div onClick={handleRetry}>
-              <Button>{t("Réessayer")}</Button>
+            <div onClick={handleCheckAnswer}>
+              <Button>{t("Soumettre")}</Button>
             </div>
-          )
-        ) : (
-          <div onClick={handleCheckAnswer}>
-            <Button>{t("Soumettre")}</Button>
-          </div>
-        )}
-      </div>
-    </BuildBoxContainer>
+          )}
+        </div>
+      </BuildBoxContainer>
+    </>
   );
 };
 
