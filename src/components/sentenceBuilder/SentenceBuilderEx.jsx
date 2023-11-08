@@ -14,7 +14,7 @@ import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange
 import CategorySelect from "./CategorySelect";
 import { calculateNavbarHeight } from "./helpers";
 import Verbs from "../verbs/Verbs";
-import VerbSelect from "./VerbSelect";
+// import VerbSelect from "./VerbSelect";
 // import { convertTensesToSentences } from "../Utility/utils";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   console.log("sentenceData", sentenceData);
@@ -147,7 +147,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
 
   return (
     <>
-      <VerbSelect />
+      {/* <VerbSelect /> */}
       <BuildBoxContainer ref={buildBoxRef}>
         <Header>
           <h4>{t("Construire la phrase")} </h4>
@@ -218,28 +218,28 @@ const BuildBoxContainer = styled.section`
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  max-width: 390px;
-  /* justify-content: center; */
+
   margin: 0 auto;
-  /* max-width: 98%; */
-  /* outline: 1px solid red; */
 
-  /* margin: 0 0.3rem; */
+  /* outline: 1px solid blue; */
+  width: 320px;
 
-  -webkit-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  -moz-box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
-  box-shadow: 14px 25px 21px -19px rgba(0, 85, 164, 0.87);
+  -webkit-box-shadow: 14px 25px 21px -19px rgba(27, 45, 61, 0.87);
+  -moz-box-shadow: 14px 25px 21px -19px rgba(14, 29, 43, 0.87);
+  box-shadow: 14px 25px 21px -19px rgba(11, 18, 26, 0.87);
 
   background-color: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
   @media (min-width: 393px) and (max-width: 576px) {
+    width: 310px;
   }
   /* width: 100%; */
   @media (max-width: 392px) {
-    /* height: 92vh; */
+    width: 300px;
+    /* outline: 1px solid red; */
   }
   @media (max-width: 300px) {
-    /* width: 90%; */
+    width: 240px;
   }
 `;
 export const BuildBox = styled.div`

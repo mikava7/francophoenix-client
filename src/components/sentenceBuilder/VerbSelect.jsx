@@ -8,6 +8,8 @@ import {
 import Loading from "../loading/Loading";
 import styled from "styled-components"; // Import styled-components
 import { convertTensesToSentences } from "../Utility/utils";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   SelectContainer,
   SelectStyled,
@@ -18,6 +20,7 @@ import { shuffleArray } from "../Utility/utils";
 const VerbSelect = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
   const listOfVerb =
     useSelector((state) => state.verbExercise.listOfVerb) || [];
 
@@ -35,6 +38,15 @@ const VerbSelect = () => {
     dispatch(fetchVerbList());
   }, []);
 
+  const handleVerbChange = (event) => {
+    const selectedVerbId = event.target.value;
+
+    setSelectedVerb(selectedVerbId);
+    const verbToRender = listOfVerb.find((id) => id._id === selectedVerbId);
+
+    dispatch(getVerbExercises(verbToRender._id));
+  };
+
   const handleTenseChange = (event) => {
     const selectedTenseName = event.target.value;
 
@@ -45,46 +57,30 @@ const VerbSelect = () => {
     }
   };
 
-  const handleVerbChange = (event) => {
-    const selectedVerbId = event.target.value;
-
-    setSelectedVerb(selectedVerbId);
-    const verbToRender = listOfVerb.find((id) => id._id === selectedVerbId);
-
-    dispatch(getVerbExercises(verbToRender._id));
-  };
-
   const sentences =
     verbEecercise && convertTensesToSentences(verbEecercise?.tenses?.present);
-
-  let sentenceData = [
-    {
-      sentence: "",
-      words: [],
-    },
-  ];
-
   const handleBuilderData = (sentences) => {
     if (!sentences || !sentences.length) {
       return [];
     }
 
-    const words = sentences.map((sentence) => {
-      const sentenceWord = sentence.split(" ");
+    const sentenceData = sentences.map((sentence) => {
+      // Remove dots at the end of words
+      const cleanedSentence = sentence.replace(/\b\.\s*/g, "");
+      console.log("cleanedSentence", cleanedSentence);
+      const sentenceWord = cleanedSentence.split(" ");
       const shuffledWords = shuffleArray(sentenceWord);
-      sentenceData = {
-        sentence: sentence,
+      const id = uuidv4();
+      return {
+        sentence: cleanedSentence, // Use the cleaned sentence
         words: sentenceWord,
+        id: id,
       };
-
-      return sentenceData;
     });
+    return sentenceData;
   };
   const data = handleBuilderData(sentences);
-  console.log("sentences", sentences);
-  console.log("sentenceData", sentenceData);
 
-  console.log("data", data);
   if (isLoading) {
     return <Loading />;
   }
@@ -116,7 +112,7 @@ const VerbSelect = () => {
             ))}
         </SelectStyled>
       </SelectContainer>
-      {/* <SentenceBuilderEx sentenceData={sentences} isActive={true} /> */}
+      <SentenceBuilderEx sentenceData={data} isActive={true} />
     </VerbSelectContainer>
   );
 };
@@ -126,8 +122,7 @@ const VerbSelectContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
-  padding: 20px;
+  /* outline: 1px solid red; */
 `;
 
 const Label = styled.label`

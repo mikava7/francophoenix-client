@@ -87,36 +87,40 @@ const VerbTenseExercise = () => {
 export default VerbTenseExercise;
 
 const Container = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 1rem;
 `;
 
 export const SelectContainer = styled.div`
-  margin: 20px;
+  margin: 0.1rem 0.2rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: ${(props) => props.theme.tertiaryBackground};
-  padding: 10px;
+  justify-content: space-between;
+  /* background: ${(props) => props.theme.tertiaryBackground}; */
+  padding: 0.1rem 0.4rem;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 290px;
 
   label {
-    font-size: 18px;
+    font-size: 17px;
   }
 `;
 
 export const SelectStyled = styled.select`
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  /* border: 1px solid red; */
   border-radius: 5px;
   background-color: #f9f9f9;
   color: #333;
   transition: border 0.3s, background-color 0.3s;
-  width: 100%;
-  max-width: 300px; /* Adjust the width as needed */
+  width: 140px;
+  margin-left: 0.5rem;
+
   cursor: pointer;
 
   &:focus {

@@ -47,6 +47,7 @@ import RegistrationForm from "./pages/User/Register2";
 import Verbs from "./components/verbs/Verbs";
 import VerbTenseList from "./components/grammer/verbe Tenses/VerbTenseList";
 import VerbTenseExercise from "./components/verbs/presentTense/VerbTenseExercise";
+import VerbSelect from "./components/sentenceBuilder/VerbSelect";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -134,7 +135,7 @@ function App() {
             />
             <Route
               path="/vocabulary/sentence-builder"
-              element={<SentenceBuilderEx />}
+              element={<VerbSelect />}
             />
             <Route path="/games" element={<Games />} />
             <Route
