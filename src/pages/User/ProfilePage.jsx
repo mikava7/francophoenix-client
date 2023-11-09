@@ -66,7 +66,7 @@ const ProfilePage = () => {
               username
             )}
             {isEditing ? (
-              <button onClick={handleEdit}>save</button>
+              <SaveButton onClick={handleEdit}>save</SaveButton>
             ) : (
               <EditIcon
                 src={editIcon}
@@ -138,6 +138,12 @@ const EditIcon = styled.img`
   cursor: pointer;
 `;
 
+const SaveButton = styled.button`
+  padding: 0.4rem 0.8rem;
+  margin-left: 0.2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+`;
 const ProfileEmail = styled.p`
   font-size: 18px;
   margin-bottom: 10px;
