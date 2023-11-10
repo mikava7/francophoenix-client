@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <StyledLink to={"/"}>{t("Accueil")}</StyledLink>
-      <StyledLink to={"/"}>{t("Contact")}</StyledLink>
+      <StyledLink to={"/contact"}>{t("Contact")}</StyledLink>
       <StyledLink to="/courses">{t("Courses")}</StyledLink>
       <StyledLink to="/reading-zone/french-easy-reading">
         {t("Livres")}

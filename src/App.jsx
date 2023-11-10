@@ -48,6 +48,7 @@ import Verbs from "./components/verbs/Verbs";
 import VerbTenseList from "./components/grammer/verbe Tenses/VerbTenseList";
 import VerbTenseExercise from "./components/verbs/presentTense/VerbTenseExercise";
 import VerbSelect from "./components/sentenceBuilder/VerbSelect";
+import Contact from "./pages/contact/Contact";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -156,6 +157,7 @@ function App() {
           />
           <Route path="/quiz-pictures" element={<QuizPictures />} />
           <Route path="/VerbTenseExercise" element={<VerbTenseExercise />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </AppContainer>
     </ThemeProvider>
