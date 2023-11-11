@@ -14,11 +14,12 @@ import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange
 import CategorySelect from "./CategorySelect";
 import { calculateNavbarHeight } from "./helpers";
 import Verbs from "../verbs/Verbs";
+import SelectedTenseExercise from "../verbs/presentTense/SelectedTenseExercise";
 // import VerbSelect from "./VerbSelect";
 // import { convertTensesToSentences } from "../Utility/utils";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
-  console.log("sentenceData", sentenceData);
-  console.log("isActive", isActive);
+  // console.log("sentenceData", sentenceData);
+  // console.log("isActive", isActive);
 
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
@@ -147,6 +148,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
 
   return (
     <>
+      <SelectedTenseExercise />
       {/* <VerbSelect /> */}
       <BuildBoxContainer ref={buildBoxRef}>
         <Header>

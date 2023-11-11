@@ -8,6 +8,7 @@ import PresentTense from "./PresentTense";
 import styled from "styled-components";
 import Loading from "../../loading/Loading";
 import { useTranslation } from "react-i18next";
+
 const VerbTenseExercise = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
