@@ -5,7 +5,7 @@ import Loading from "../../loading/Loading";
 import { fetchVerbList } from "../../../redux/slices/verbeTenses/verbExerciseSlice";
 import styled from "styled-components";
 import { tenseList } from "../VerbConjugation/tenseList";
-import axios from "../../../redux/api/axiosInstance";
+import instance from "../../../redux/api/axiosInstance";
 
 const SelectedTenseExercise = () => {
   const { t } = useTranslation();
@@ -14,9 +14,9 @@ const SelectedTenseExercise = () => {
     useSelector((state) => state.verbExercise.listOfVerb) || [];
   const loading = useSelector((state) => state.verbExercise.loading);
 
-  const [selectedVerbs, setSelectedVerbs] = useState([]);
-  console.log("selectedVerbs", selectedVerbs);
-  console.log("listOfVerb", listOfVerb);
+  const [selectedVerbs, setSelectedVerbs] = useState(["avoir"]);
+  //   console.log("selectedVerbs", selectedVerbs);
+  //   console.log("listOfVerb", listOfVerb);
 
   const [exerciseLength, setExerciseLength] = useState(1);
   const [selectedTense, setSelectedTense] = useState("present");
@@ -51,10 +51,12 @@ const SelectedTenseExercise = () => {
         selectedVerbs,
       });
       // Make a POST request to your backend endpoint
-      const response = await axios.get("/verbs/check-your-knowledge", {
-        selectedTense,
-        sentencesLength: exerciseLength,
-        selectedVerbs,
+      const response = await instance.get("/verbs/check-your-knowledge", {
+        params: {
+          selectedTense,
+          sentencesLength: exerciseLength,
+          selectedVerbs,
+        },
       });
 
       // Handle the response as needed
