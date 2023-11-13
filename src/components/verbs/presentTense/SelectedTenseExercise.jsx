@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { tenseList } from "../VerbConjugation/tenseList";
 import instance from "../../../redux/api/axiosInstance";
 import SentenceBuilderEx from "../../sentenceBuilder/SentenceBuilderEx";
-import { shuffleArray } from "../../Utility/utils";
+import { shuffleArray, convertTensesToSentences } from "../../Utility/utils";
 const SelectedTenseExercise = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const SelectedTenseExercise = () => {
   const [selectedVerbs, setSelectedVerbs] = useState([
     "être",
     "avoir",
-    "être",
+    "faire",
     "aller",
     "dire",
   ]);
@@ -51,7 +51,7 @@ const SelectedTenseExercise = () => {
     try {
       // Check if selectedVerbs is an array
       if (!Array.isArray(selectedVerbs)) {
-        console.error("Selected verbs must be an array");
+        // console.error("Selected verbs must be an array");
         return;
       }
 
@@ -65,7 +65,8 @@ const SelectedTenseExercise = () => {
       });
 
       setSelectedTenseData(response.data.exercises);
-      console.log("selectedTenseData:", selectedTenseData);
+
+      // console.log("selectedTenseData:", selectedTenseData);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,12 +77,18 @@ const SelectedTenseExercise = () => {
     if (selectedTenseData && selectedTenseData.length > 0) {
       const flattenedSentences = selectedTenseData.flatMap((exercise) =>
         exercise.sentences.map((sentence) => {
-          const shuffledWords = sentence.sentence.split(" ");
+          // Replace "____" with the correct answer
+          const sentenceWithAnswer = convertTensesToSentences([sentence])[0];
+
+          const sentenceWithoutPeriods = sentenceWithAnswer.replace(/\./g, "");
+
+          // Split the sentence into an array of words
+          const shuffledWords = sentenceWithoutPeriods.split(" ");
           shuffleArray(shuffledWords);
 
           return {
             id: sentence.id,
-            sentence: sentence.sentence,
+            sentence: sentenceWithAnswer,
             words: shuffledWords,
           };
         })
@@ -92,7 +99,8 @@ const SelectedTenseExercise = () => {
       // Now you can use flattenedSentences as needed
     }
   }, [selectedTenseData]);
-  console.log("selectedTenseData:", selectedTenseData);
+
+  // console.log("selectedTenseData:", selectedTenseData);
 
   useEffect(() => {
     dispatch(fetchVerbList());
@@ -145,11 +153,9 @@ const SelectedTenseExercise = () => {
         </InputContainer>
         <Button onClick={handleSubmit}>Submit</Button>
       </Container>
-      <button onClick={() => setShowExercise((prevState) => !prevState)}>
-        show
-      </button>
+
       <div style={{ background: "red" }}>
-        {showExercise && (
+        {setsentenceData.length > 0 && (
           <SentenceBuilderEx isActive={true} sentenceData={sentenceData} />
         )}
       </div>
