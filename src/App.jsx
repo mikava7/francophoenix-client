@@ -49,6 +49,7 @@ import VerbTenseList from "./components/grammer/verbe Tenses/VerbTenseList";
 import VerbTenseExercise from "./components/verbs/presentTense/VerbTenseExercise";
 import VerbSelect from "./components/sentenceBuilder/VerbSelect";
 import Contact from "./pages/contact/Contact";
+import SelectedTenseExercise from "./components/verbs/presentTense/SelectedTenseExercise";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -138,6 +139,12 @@ function App() {
               path="/vocabulary/sentence-builder"
               element={<VerbSelect />}
             />
+
+            <Route
+              path="/SelectedTenseExercise"
+              element={<SelectedTenseExercise />}
+            />
+
             <Route path="/games" element={<Games />} />
             <Route
               path="/Content-Coming-Soon"

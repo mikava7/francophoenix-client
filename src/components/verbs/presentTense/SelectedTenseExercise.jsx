@@ -6,7 +6,8 @@ import { fetchVerbList } from "../../../redux/slices/verbeTenses/verbExerciseSli
 import styled from "styled-components";
 import { tenseList } from "../VerbConjugation/tenseList";
 import instance from "../../../redux/api/axiosInstance";
-
+import SentenceBuilderEx from "../../sentenceBuilder/SentenceBuilderEx";
+import { shuffleArray } from "../../Utility/utils";
 const SelectedTenseExercise = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -14,13 +15,21 @@ const SelectedTenseExercise = () => {
     useSelector((state) => state.verbExercise.listOfVerb) || [];
   const loading = useSelector((state) => state.verbExercise.loading);
 
-  const [selectedVerbs, setSelectedVerbs] = useState(["avoir"]);
+  const [selectedVerbs, setSelectedVerbs] = useState([
+    "être",
+    "avoir",
+    "être",
+    "aller",
+    "dire",
+  ]);
   //   console.log("selectedVerbs", selectedVerbs);
   //   console.log("listOfVerb", listOfVerb);
 
-  const [exerciseLength, setExerciseLength] = useState(1);
+  const [exerciseLength, setExerciseLength] = useState(2);
   const [selectedTense, setSelectedTense] = useState("present");
-
+  const [selectedTenseData, setSelectedTenseData] = useState([]);
+  const [sentenceData, setsentenceData] = useState([]);
+  const [showExercise, setShowExercise] = useState(false);
   const handleVerbs = (e) => {
     const verb = e.target.value;
 
@@ -45,11 +54,7 @@ const SelectedTenseExercise = () => {
         console.error("Selected verbs must be an array");
         return;
       }
-      console.log("Request data:", {
-        selectedTense,
-        sentencesLength: exerciseLength,
-        selectedVerbs,
-      });
+
       // Make a POST request to your backend endpoint
       const response = await instance.get("/verbs/check-your-knowledge", {
         params: {
@@ -59,12 +64,35 @@ const SelectedTenseExercise = () => {
         },
       });
 
-      // Handle the response as needed
-      console.log("Backend response:", response.data);
+      setSelectedTenseData(response.data.exercises);
+      console.log("selectedTenseData:", selectedTenseData);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  useEffect(() => {
+    // Perform the transformation once selectedTenseData is updated
+    if (selectedTenseData && selectedTenseData.length > 0) {
+      const flattenedSentences = selectedTenseData.flatMap((exercise) =>
+        exercise.sentences.map((sentence) => {
+          const shuffledWords = sentence.sentence.split(" ");
+          shuffleArray(shuffledWords);
+
+          return {
+            id: sentence.id,
+            sentence: sentence.sentence,
+            words: shuffledWords,
+          };
+        })
+      );
+
+      setsentenceData(flattenedSentences);
+
+      // Now you can use flattenedSentences as needed
+    }
+  }, [selectedTenseData]);
+  console.log("selectedTenseData:", selectedTenseData);
 
   useEffect(() => {
     dispatch(fetchVerbList());
@@ -75,47 +103,57 @@ const SelectedTenseExercise = () => {
   }
 
   return (
-    <Container>
-      <Title>{t("Select Verb Tenses")}</Title>
-      <CheckboxContainer>
-        {listOfVerb.map((verb) => (
-          <VerbItem
-            key={verb.verb}
-            selected={selectedVerbs.includes(verb.verb)}
-          >
-            <Checkbox
-              type="checkbox"
-              value={verb.verb}
-              onChange={handleVerbs}
-              checked={selectedVerbs.includes(verb.verb)}
-            />
-            {verb.verb}
-          </VerbItem>
-        ))}
-      </CheckboxContainer>
-
-      <DropdownContainer>
-        <Label>{t("Select a tense")}:</Label>
-        <SelectStyled onChange={handleTenseChange} value={selectedTense}>
-          {tenseList.map((tense) => (
-            <option key={tense.name} value={tense.name}>
-              {tense.name}
-            </option>
+    <>
+      <Container>
+        <Title>{t("Select Verb Tenses")}</Title>
+        <CheckboxContainer>
+          {listOfVerb.map((verb) => (
+            <VerbItem
+              key={verb.verb}
+              selected={selectedVerbs.includes(verb.verb)}
+            >
+              <Checkbox
+                type="checkbox"
+                value={verb.verb}
+                onChange={handleVerbs}
+                checked={selectedVerbs.includes(verb.verb)}
+              />
+              {verb.verb}
+            </VerbItem>
           ))}
-        </SelectStyled>
-      </DropdownContainer>
+        </CheckboxContainer>
 
-      <InputContainer>
-        <Label>{t("Choose the number of sentences")}</Label>
-        <NumberInput
-          type="number"
-          min="1"
-          value={exerciseLength}
-          onChange={(e) => setExerciseLength(e.target.value)}
-        />
-      </InputContainer>
-      <Button onClick={handleSubmit}>Submit</Button>
-    </Container>
+        <DropdownContainer>
+          <Label>{t("Select a tense")}:</Label>
+          <SelectStyled onChange={handleTenseChange} value={selectedTense}>
+            {tenseList.map((tense) => (
+              <option key={tense.name} value={tense.name}>
+                {tense.name}
+              </option>
+            ))}
+          </SelectStyled>
+        </DropdownContainer>
+
+        <InputContainer>
+          <Label>{t("Choose the number of sentences")}</Label>
+          <NumberInput
+            type="number"
+            min="1"
+            value={exerciseLength}
+            onChange={(e) => setExerciseLength(e.target.value)}
+          />
+        </InputContainer>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </Container>
+      <button onClick={() => setShowExercise((prevState) => !prevState)}>
+        show
+      </button>
+      <div style={{ background: "red" }}>
+        {showExercise && (
+          <SentenceBuilderEx isActive={true} sentenceData={sentenceData} />
+        )}
+      </div>
+    </>
   );
 };
 
