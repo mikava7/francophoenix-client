@@ -30,6 +30,7 @@ const SelectedTenseExercise = () => {
   const [selectedTenseData, setSelectedTenseData] = useState([]);
   const [sentenceData, setsentenceData] = useState([]);
   const [showExercise, setShowExercise] = useState(false);
+
   const handleVerbs = (e) => {
     const verb = e.target.value;
 
@@ -114,6 +115,15 @@ const SelectedTenseExercise = () => {
     <>
       <Container>
         <Title>{t("Select Verb Tenses")}</Title>
+        <ButtonContainer>
+          <SelectAll
+            onClick={() => setSelectedVerbs(listOfVerb.map((verb) => verb))}
+          >
+            Select All
+          </SelectAll>
+
+          <ClearAll onClick={() => setSelectedVerbs([])}>Clear all</ClearAll>
+        </ButtonContainer>
         <CheckboxContainer>
           {listOfVerb.map((verb) => (
             <VerbItem
@@ -151,11 +161,11 @@ const SelectedTenseExercise = () => {
             onChange={(e) => setExerciseLength(e.target.value)}
           />
         </InputContainer>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
       </Container>
 
-      <div style={{ background: "red" }}>
-        {setsentenceData.length > 0 && (
+      <div>
+        {sentenceData.length > 0 && (
           <SentenceBuilderEx isActive={true} sentenceData={sentenceData} />
         )}
       </div>
@@ -169,7 +179,7 @@ const Container = styled.div`
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 300px;
+  width: 280px;
   margin: auto;
 `;
 
@@ -240,7 +250,7 @@ const NumberInput = styled.input`
   width: 100%;
   margin-top: 5px;
 `;
-const Button = styled.button`
+const SubmitButton = styled.button`
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
@@ -252,3 +262,13 @@ const Button = styled.button`
     background-color: #0056b3;
   }
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+`;
+const SelectAll = styled(SubmitButton)``;
+
+const ClearAll = styled(SubmitButton)``;
