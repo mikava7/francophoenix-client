@@ -22,15 +22,13 @@ const SelectedTenseExercise = () => {
     "aller",
     "dire",
   ]);
-  //   console.log("selectedVerbs", selectedVerbs);
-  //   console.log("listOfVerb", listOfVerb);
 
-  const [exerciseLength, setExerciseLength] = useState(2);
+  const [exerciseLength, setExerciseLength] = useState(1);
   const [selectedTense, setSelectedTense] = useState("present");
   const [selectedTenseData, setSelectedTenseData] = useState([]);
   const [sentenceData, setsentenceData] = useState([]);
   const [showExercise, setShowExercise] = useState(false);
-
+  //
   const handleVerbs = (e) => {
     const verb = e.target.value;
 
@@ -38,7 +36,9 @@ const SelectedTenseExercise = () => {
       if (!prevSelectedVerbs.includes(verb)) {
         return [...prevSelectedVerbs, verb];
       } else {
-        return prevSelectedVerbs.filter((verb) => verb !== verb);
+        return prevSelectedVerbs.filter(
+          (selectedVerb) => selectedVerb !== verb
+        );
       }
     });
   };
