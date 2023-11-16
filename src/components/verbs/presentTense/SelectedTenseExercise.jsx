@@ -117,12 +117,16 @@ const SelectedTenseExercise = () => {
         <Title>{t("Select Verb Tenses")}</Title>
         <ButtonContainer>
           <SelectAll
-            onClick={() => setSelectedVerbs(listOfVerb.map((verb) => verb))}
+            onClick={() =>
+              setSelectedVerbs(listOfVerb.map((verb) => verb.verb))
+            }
           >
-            Select All
+            {t("Tout sélectionner")}
           </SelectAll>
 
-          <ClearAll onClick={() => setSelectedVerbs([])}>Clear all</ClearAll>
+          <ClearAll onClick={() => setSelectedVerbs([])}>
+            {t("Supprimer les sélections")}
+          </ClearAll>
         </ButtonContainer>
         <CheckboxContainer>
           {listOfVerb.map((verb) => (
@@ -130,19 +134,21 @@ const SelectedTenseExercise = () => {
               key={verb.verb}
               selected={selectedVerbs.includes(verb.verb)}
             >
-              <Checkbox
-                type="checkbox"
-                value={verb.verb}
-                onChange={handleVerbs}
-                checked={selectedVerbs.includes(verb.verb)}
-              />
-              {verb.verb}
+              <label>
+                <Checkbox
+                  type="checkbox"
+                  value={verb.verb}
+                  onChange={handleVerbs}
+                  checked={selectedVerbs.includes(verb.verb)}
+                />
+                {verb.verb}
+              </label>
             </VerbItem>
           ))}
         </CheckboxContainer>
 
         <DropdownContainer>
-          <Label>{t("Select a tense")}:</Label>
+          <Label>{t("Sélectionnez un temps")}:</Label>
           <SelectStyled onChange={handleTenseChange} value={selectedTense}>
             {tenseList.map((tense) => (
               <option key={tense.name} value={tense.name}>
@@ -153,7 +159,9 @@ const SelectedTenseExercise = () => {
         </DropdownContainer>
 
         <InputContainer>
-          <Label>{t("Choose the number of sentences")}</Label>
+          <Label>
+            {t("Choisissez le nombre de phrases pour chaque verbe")}
+          </Label>
           <NumberInput
             type="number"
             min="1"
@@ -161,7 +169,7 @@ const SelectedTenseExercise = () => {
             onChange={(e) => setExerciseLength(e.target.value)}
           />
         </InputContainer>
-        <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
+        <SubmitButton onClick={handleSubmit}>{t("Choisir")}</SubmitButton>
       </Container>
 
       <div>
@@ -176,11 +184,18 @@ const SelectedTenseExercise = () => {
 export default SelectedTenseExercise;
 
 const Container = styled.div`
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 280px;
-  margin: auto;
+  background-color: ${({ theme }) => theme.secondaryBackground};
+  width: 370px;
+
+  border-radius: 0.4rem;
+  margin: 1rem auto;
+  @media (max-width: 540px) {
+    width: 270px;
+  }
 `;
 
 const Title = styled.h2`
@@ -191,20 +206,28 @@ const Title = styled.h2`
 const CheckboxContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  border-bottom: 1px solid ${({ theme }) => theme.tertiaryBackground};
+  padding-bottom: 0.4rem;
 `;
 
 const VerbItem = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
-  margin-bottom: 10px;
+  margin: 0.4rem;
+  background-color: ${({ theme }) => theme.tertiaryBackground};
+  padding: 0.2rem;
   cursor: pointer;
-  ${(props) =>
-    props.selected &&
-    `
-    background-color: #007bff;
-    color: #fff;
-  `}
+  transition: background-color 0.3s;
+
+  background-color: ${(props) =>
+    props.selected ? props.theme.highlight4 : "none"};
+  color: ${(props) => (props.selected ? props.theme.primayText : "none")};
+  border-radius: 4px;
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
 `;
 
 const Checkbox = styled.input`
@@ -212,7 +235,9 @@ const Checkbox = styled.input`
 `;
 
 const DropdownContainer = styled.div`
-  margin-bottom: 20px;
+  margin: 1rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.tertiaryBackground};
+  padding: 1rem;
 `;
 
 const Label = styled.label`
@@ -243,23 +268,25 @@ const InputContainer = styled.div`
 `;
 
 const NumberInput = styled.input`
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 0.2rem;
   border: 1px solid #ddd;
-  width: 100%;
+  /* width: 80%; */
   margin-top: 5px;
 `;
 const SubmitButton = styled.button`
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border-radius: 0.2rem;
+  background-color: ${({ theme }) => theme.secondaryText};
+  color: ${({ theme }) => theme.secondaryBackground};
+  margin-left: auto;
+  text-align: center;
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${({ theme }) => theme.primaryText};
   }
 `;
 const ButtonContainer = styled.div`

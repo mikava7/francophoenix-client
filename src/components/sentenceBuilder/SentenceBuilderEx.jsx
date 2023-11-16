@@ -17,8 +17,8 @@ import Verbs from "../verbs/Verbs";
 // import VerbSelect from "./VerbSelect";
 // import { convertTensesToSentences } from "../Utility/utils";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
-  console.log("sentenceData", sentenceData);
-  console.log("isActive", isActive);
+  // console.log("sentenceData", sentenceData);
+  // console.log("isActive", isActive);
 
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);

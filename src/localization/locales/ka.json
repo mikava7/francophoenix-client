@@ -162,5 +162,8 @@
   "Toutes nos félicitations! Vous avez terminé tous les mots.": "გილოცავ ! ყველა სიტყვა სწორად შეავსე.",
   "Vous souhaitez signaler un problème ?": "შეცდომის ან პრობლემის შეტყობინება გსურთ ?",
   "Entrez votre message ici": "შეიყვანეთ თქვენი შეტყობინება აქ",
-  "Entrez votre nom ou email ici": "შეიყვანეთ თქვენი სახელი ან ემაილი აქ"
+  "Entrez votre nom ou email ici": "შეიყვანეთ თქვენი სახელი ან ემაილი აქ",
+  "Supprimer les sélections": "არჩეულების წაშლა",
+  "Choisir": "არჩევა",
+  "Choisissez le nombre de phrases pour chaque verbe": "აირჩიეთ წინადადებების რაოდენობა თითოეული ზმნისთვის"
 }
