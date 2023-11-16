@@ -165,5 +165,10 @@
   "Entrez votre nom ou email ici": "შეიყვანეთ თქვენი სახელი ან ემაილი აქ",
   "Supprimer les sélections": "არჩეულების წაშლა",
   "Choisir": "არჩევა",
-  "Choisissez le nombre de phrases pour chaque verbe": "აირჩიეთ წინადადებების რაოდენობა თითოეული ზმნისთვის"
+  "Choisissez le nombre de phrases pour chaque verbe": "აირჩიეთ წინადადებების რაოდენობა თითოეული ზმნისთვის",
+  "Nombre de phrases": "წინადადებების რაოდენობა",
+  "Verbes séparés": "ცალკეული ზმნები",
+  "Verbes mélangés": "შერეული ზმნები",
+
+  "Choisis une option:": "აირჩიეთ ვარიანტი:"
 }

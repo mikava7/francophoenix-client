@@ -163,5 +163,9 @@
   "Entrez votre nom ou email ici": "Enter your name or email here",
   "Supprimer les sélections": "Remove selections",
   "Choisir": "Choose",
-  "Choisissez le nombre de phrases pour chaque verbe": "Choose the number of sentences for each verb"
+  "Choisissez le nombre de phrases pour chaque verbe": "Choose the number of sentences for each verb",
+  "Nombre de phrases": "Number of sentences",
+  "Verbes séparés": "Separate Verbs",
+  "Verbes mélangés": "Mixed Verbs",
+  "Choisis une option:": "Choose an option:"
 }

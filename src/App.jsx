@@ -50,6 +50,7 @@ import VerbTenseExercise from "./components/verbs/presentTense/VerbTenseExercise
 import VerbSelect from "./components/sentenceBuilder/VerbSelect";
 import Contact from "./pages/contact/Contact";
 import SelectedTenseExercise from "./components/verbs/presentTense/SelectedTenseExercise";
+import CombinedVerbExercise from "./components/sentenceBuilder/CombinedVerbExercise";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -137,7 +138,7 @@ function App() {
             />
             <Route
               path="/vocabulary/sentence-builder"
-              element={<VerbSelect />}
+              element={<CombinedVerbExercise />}
             />
 
             <Route

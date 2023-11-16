@@ -149,7 +149,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
     <>
       {/* <VerbSelect /> */}
       <BuildBoxContainer ref={buildBoxRef}>
-        <Header>
+        {/* <Header>
           <h4>{t("Construire la phrase")} </h4>
           <span>
             <h5>{t("Choisissez une catégorie")} </h5>
@@ -158,10 +158,19 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
               onCategorySelect={handleCategorySelect}
             />
           </span>
-        </Header>
-
+        </Header> */}
         <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-        {sentenceData?.length}
+        <h4>
+          {t("Nombre de phrases")} :
+          <span
+            style={{
+              padding: "0.3rem",
+              fontSize: "1.1rem",
+            }}
+          >
+            {sentenceData?.length}
+          </span>
+        </h4>
         <BuildBox>
           <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
             {selectedWords.map((wordIndex, index) => (
@@ -219,7 +228,7 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   overflow-x: hidden;
 
-  margin: 0 auto;
+  margin: 2rem auto;
 
   /* outline: 1px solid blue; */
   width: 320px;
