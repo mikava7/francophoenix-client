@@ -29,15 +29,18 @@ const VerbSelect = () => {
   );
 
   const isLoading = useSelector((state) => state.isLoading);
-  const [selectedVerb, setSelectedVerb] = useState("être");
+  const [selectedVerb, setSelectedVerb] = useState("");
   const [selectedTense, setSelectedTense] = useState("present");
   const [selectedTenseData, setSelectedTenseData] = useState([]);
   const [selectedTenseDatas, setSelectedTenseDatas] = useState([]);
 
   useEffect(() => {
     dispatch(fetchVerbList());
+  }, [dispatch]);
+  useEffect(() => {
+    // setSelectedVerb("être");
+    setSelectedTense("present");
   }, []);
-
   const handleVerbChange = (event) => {
     const selectedVerbId = event.target.value;
 
@@ -67,7 +70,7 @@ const VerbSelect = () => {
     const sentenceData = sentences.map((sentence) => {
       // Remove dots at the end of words
       const cleanedSentence = sentence.replace(/\b\.\s*/g, "");
-      console.log("cleanedSentence", cleanedSentence);
+      // console.log("cleanedSentence", cleanedSentence);
       const sentenceWord = cleanedSentence.split(" ");
       const shuffledWords = shuffleArray(sentenceWord);
       const id = uuidv4();
@@ -88,8 +91,8 @@ const VerbSelect = () => {
   return (
     <VerbSelectContainer>
       <SelectContainer>
-        <label>{t("Choisissez un verbe")}:</label>
         <SelectStyled onChange={handleVerbChange} value={selectedVerb}>
+          <option value="">{t("Choisissez un verbe")}</option>
           {listOfVerb.map((verb) => {
             const { _id } = verb;
             return (
@@ -101,8 +104,8 @@ const VerbSelect = () => {
         </SelectStyled>
       </SelectContainer>
       <SelectContainer>
-        <label>{t("Sélectionnez un temps")}:</label>
         <SelectStyled onChange={handleTenseChange} value={selectedTense}>
+          <option value="">{t("Sélectionnez un temps")}</option>
           {verbEecercise &&
             verbEecercise?.tenses &&
             Object?.keys(verbEecercise?.tenses).map((tenseName) => (

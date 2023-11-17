@@ -115,7 +115,9 @@ const BlurryVocabularyTrainer = ({ selectedFlashcards }) => {
               </Translation>
             </TranslationBox>
           </WordBox>
-          <Button onClick={handlePause}>{isPaused ? "Resume" : "Pause"}</Button>
+          <Button onClick={handlePause}>
+            {isPaused ? t("Continuer") : t("Pause")}
+          </Button>
 
           {/* Dropdown select to toggle between word and translation */}
         </>
@@ -220,7 +222,8 @@ const TranslationBox = styled.div`
 `;
 
 const Translation = styled.span`
-  font-size: 2rem;
+  text-align: center;
+  font-size: 1.6rem;
   padding: 1rem 2rem;
   font-weight: bold;
   color: ${(props) => props.theme.primaryText};

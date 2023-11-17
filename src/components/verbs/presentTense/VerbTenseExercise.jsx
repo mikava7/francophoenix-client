@@ -116,17 +116,19 @@ export const SelectStyled = styled.select`
   font-size: 16px;
   /* border: 1px solid red; */
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: ${({ theme }) => theme.tertiaryBackground};
   color: #333;
   transition: border 0.3s, background-color 0.3s;
-  width: 140px;
-  margin-left: 0.5rem;
-
+  width: 240px;
+  margin: 0 auto;
   cursor: pointer;
 
   &:focus {
     outline: none;
-    border: 1px solid #007bff;
+    border: 1px solid ${({ theme }) => theme.highlight4};
+    background-color: #fff;
+  }
+  &:active {
     background-color: #fff;
   }
 `;

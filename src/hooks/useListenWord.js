@@ -29,7 +29,7 @@ const useListenWord = () => {
   // Handle word listening functionality
   const handleListen = (word, targetLanguageCode) => (event) => {
     event.stopPropagation();
-    console.log("word", word);
+    // console.log("word", word);
     // Split the word based on both open and close parentheses
     const parts = word.split(/[()]/);
 
