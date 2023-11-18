@@ -160,7 +160,7 @@ const DialogueLine = styled.div`
   background: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
   margin-bottom: 1rem;
-
+  height: auto;
   @media (max-width: 576px) {
     flex-direction: column;
     p {
@@ -173,11 +173,12 @@ const MessageLine = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-  height: 6rem;
+  /* height: 6rem; */
   border-radius: 12px;
   width: 100%;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
+  /* outline: 1px solid red; */
 `;
 const Speaker = styled.p`
   font-weight: bold;
