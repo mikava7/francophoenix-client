@@ -64,7 +64,7 @@ const ModalWrapper = styled.div`
   z-index: 9999;
 `;
 
-const ModalContent = styled.div`
+export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.secondaryBackground};
@@ -91,7 +91,7 @@ const ModalContent = styled.div`
   }
 `;
 
-const ModalText = styled.p`
+export const ModalText = styled.p`
   font-size: 1.2rem;
   margin-bottom: 1rem;
   color: ${(props) => props.theme.primaryText};

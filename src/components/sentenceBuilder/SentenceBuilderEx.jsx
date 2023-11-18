@@ -15,7 +15,10 @@ import CategorySelect from "./CategorySelect";
 import { calculateNavbarHeight } from "./helpers";
 import Verbs from "../verbs/Verbs";
 // import VerbSelect from "./VerbSelect";
-// import { convertTensesToSentences } from "../Utility/utils";
+import {
+  ModalContent,
+  ModalText,
+} from "../vocabulary/vocabularyTopics/modal/QuizModal";
 const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   // console.log("sentenceData", sentenceData);
   // console.log("isActive", isActive);
@@ -23,6 +26,7 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   const buildBoxRef = useRef();
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [showModal, seTShowModal] = useState(false);
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
@@ -119,8 +123,14 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
     setShowAnswers(false);
     setIsSubmit(false); // Reset isSubmit to false
     setIsCorrect(false); // Reset isCorrect to false
-    if (sentenceIndex + 1 < filteredSentences().length) {
-      setSentenceIndex((prevIndex) => prevIndex + 1);
+    const nextIndex = sentenceIndex + 1;
+
+    if (nextIndex < filteredSentences().length) {
+      setSentenceIndex(nextIndex);
+    } else {
+      // Handle end of sentences, perhaps display a completion message or navigate to a different screen
+      console.log("End of sentences");
+      seTShowModal(true);
     }
   };
   useEffect(() => {
@@ -148,8 +158,9 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
   return (
     <>
       {/* <VerbSelect /> */}
-      <BuildBoxContainer ref={buildBoxRef}>
-        {/* <Header>
+      {!showModal ? (
+        <BuildBoxContainer ref={buildBoxRef}>
+          {/* <Header>
           <h4>{t("Construire la phrase")} </h4>
           <span>
             <h5>{t("Choisissez une catégorie")} </h5>
@@ -159,63 +170,75 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
             />
           </span>
         </Header> */}
-        <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-        <h4>
-          {t("Nombre de phrases")} :
-          <span
-            style={{
-              padding: "0.3rem",
-              fontSize: "1.1rem",
-            }}
-          >
-            {sentenceData?.length}
-          </span>
-        </h4>
-        <BuildBox>
-          <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
-            {selectedWords.map((wordIndex, index) => (
-              <TopWord key={index} onClick={() => handleWordRemove(wordIndex)}>
-                {words[wordIndex]}
-              </TopWord>
-            ))}
-          </TopBox>
-          <BottomBox>
-            {words &&
-              words?.map((word, index) => (
-                <BottomWord
-                  isSelected={selectedWords.includes(index)}
+          <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
+          <h4>
+            {t("Nombre de phrases")} :
+            <span
+              style={{
+                padding: "0.3rem",
+                fontSize: "1.1rem",
+              }}
+            >
+              {sentenceData?.length}
+            </span>
+          </h4>
+          <BuildBox>
+            <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
+              {selectedWords.map((wordIndex, index) => (
+                <TopWord
                   key={index}
-                  onClick={() => handleWordSelect(index)}
+                  onClick={() => handleWordRemove(wordIndex)}
                 >
-                  {word}
-                </BottomWord>
+                  {words[wordIndex]}
+                </TopWord>
               ))}
-          </BottomBox>
-        </BuildBox>
-        <div>
-          {showAnswers ? (
-            isCorrect ? (
-              nextComponent ? (
-                <div onClick={handleNext}>
-                  <Button>{t("Continue")}</Button>
-                </div>
+            </TopBox>
+            <BottomBox>
+              {words &&
+                words?.map((word, index) => (
+                  <BottomWord
+                    isSelected={selectedWords.includes(index)}
+                    key={index}
+                    onClick={() => handleWordSelect(index)}
+                  >
+                    {word}
+                  </BottomWord>
+                ))}
+            </BottomBox>
+          </BuildBox>
+          <div>
+            {showAnswers ? (
+              isCorrect ? (
+                nextComponent ? (
+                  <div onClick={handleNext}>
+                    <Button>{t("Continue")}</Button>
+                  </div>
+                ) : (
+                  <div onClick={handleNext}>
+                    <Button>{t("Suivant")}</Button>
+                  </div>
+                )
               ) : (
-                <div onClick={handleNext}>
-                  <Button>{t("Suivant")}</Button>
+                <div onClick={handleRetry}>
+                  <Button>{t("Réessayer")}</Button>
                 </div>
               )
             ) : (
-              <div onClick={handleRetry}>
-                <Button>{t("Réessayer")}</Button>
+              <div onClick={handleCheckAnswer}>
+                <Button>{t("Soumettre")}</Button>
               </div>
-            )
-          ) : (
-            <div onClick={handleCheckAnswer}>
-              <Button>{t("Soumettre")}</Button>
-            </div>
-          )}
-        </div>
-      </BuildBoxContainer>
+            )}
+          </div>
+        </BuildBoxContainer>
+      ) : (
+        <ModalContent>
+          <ModalText>
+            {" "}
+            {t("Félicitations! Vous avez répondu correctement à tous.")}
+          </ModalText>{" "}
+          <Button onClick={() => seTShowModal(false)}>{t("Fermer")}</Button>
+        </ModalContent>
+      )}
     </>
   );
 };
