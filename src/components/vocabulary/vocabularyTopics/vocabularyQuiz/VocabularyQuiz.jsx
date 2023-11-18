@@ -5,17 +5,23 @@ import { useTranslation } from "react-i18next";
 import { generateQuizQuestions } from "../../generateQuizQuestions";
 import QuizModal from "../modal/QuizModal";
 import { BackgroundOverlay } from "../../vocabularyStyles/styles";
+import { useDispatch, useSelector } from "react-redux";
+
 import Timer from "./Timer";
 import Listen from "../../../Listen";
 import { ListenIcon } from "../../../../Styles/globalStyles";
 import useListenWord from "../../../../hooks/useListenWord";
+import { LoginMessageContainer } from "../Text/TopicText";
+import { StyledLink } from "../../../../Styles/globalStyles";
+import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
 const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
   const { handleListen, isActiveStates } = useListenWord();
   const targetLanguageCode = localStorage.getItem("targetLanguageSelected");
   const nativeLanguageCode = localStorage.getItem("nativeLanguageSelected");
-
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // console.log("isAuthenticated", isAuthenticated);
   const [showModal, setShowModal] = useState(false);
 
   const [isAutoAnswerPaused, setIsAutoAnswerPaused] = useState(false);
@@ -31,8 +37,7 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
     () => generateQuizQuestions(wordsInTargetLanguage, secondLanguage),
     [wordsInTargetLanguage, secondLanguage]
   );
-  // console.log("vocabularyQuizQuestions", vocabularyQuizQuestions);
-  ///////////////////////////////////////////////////////////
+
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [incorrectlyAnsweredQuestions, setIncorrectlyAnsweredQuestions] =
     useState([]);
@@ -190,8 +195,13 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
       setShowModal(true);
     }
   };
-
   useEffect(() => {
+    // Check if it's the first question and the user is not authenticated
+    if (currentQuestionIndex === 1 && !isAuthenticated) {
+      return;
+    }
+
+    // Rest of the useEffect logic for handling quiz flow
     if (
       demonstrativeMode &&
       currentQuestionIndex < vocabularyQuizQuestions.length
@@ -199,10 +209,9 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
       autoAnswerQuestion();
     }
     if (currentQuestionIndex === vocabularyQuizQuestions.length - 1) {
-      // This is the last question, stop auto-answering
       setDemonstrativeMode(false);
     }
-  }, [demonstrativeMode, currentQuestionIndex]);
+  }, [demonstrativeMode, currentQuestionIndex, isAuthenticated]);
 
   const maxScore = vocabularyQuizQuestions.length;
   const isQuizFinished = Object.keys(answered).length === maxScore;
@@ -220,48 +229,73 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
           ? "Disable Demonstrative Mode"
           : "Enable Demonstrative Mode"}
       </button> */}
-      <QuizItem>
-        {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
-          <QuizQuestionBox key={questionIndex} id={`question-${questionIndex}`}>
-            {demonstrativeMode && currentQuestionIndex === questionIndex && (
-              <Timer initialTime={3} />
-            )}
-
-            <h2>
-              {quizItem.question}
-              <ListenIcon
-                onClick={handleListen(quizItem.question, targetLanguageCode)}
-                isActive={isActiveStates[questionIndex]}
+      {answered[0] && !isAuthenticated ? (
+        <LoginMessageContainer>
+          <p>
+            {t("Connectez-vous pour utiliser cet exercice:")}{" "}
+            <LinkWithPreviousPath to="/login">
+              {t("Connexion")}
+            </LinkWithPreviousPath>
+          </p>
+        </LoginMessageContainer>
+      ) : (
+        <div>
+          <QuizItem>
+            {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
+              <QuizQuestionBox
+                key={questionIndex}
+                id={`question-${questionIndex}`}
               >
-                <Listen />
-              </ListenIcon>{" "}
-            </h2>
-            <ul>
-              {quizItem.options.map((option, optionIndex) => (
-                <QuizOption
-                  key={optionIndex}
-                  onClick={() => handleOptionClick(questionIndex, optionIndex)}
-                  selectedAnswers={
-                    selectedAnswers[questionIndex] === optionIndex
-                  }
-                  correctAnswer={
-                    selectedAnswers[questionIndex] ===
-                    quizItem.options.indexOf(quizItem.answer)
-                  }
-                  disabled={answered[questionIndex]}
-                >
-                  {option}
-                </QuizOption>
-              ))}
-            </ul>
-            <Score>
-              {" "}
-              {t("Score")}: {score}/{vocabularyQuizQuestions.length}
-            </Score>
-          </QuizQuestionBox>
-        ))}
-      </QuizItem>
-      <RestartButton onClick={restartQuiz}> {t("Recommencer")}</RestartButton>
+                {demonstrativeMode &&
+                  currentQuestionIndex === questionIndex && (
+                    <Timer initialTime={3} />
+                  )}
+
+                <h2>
+                  {quizItem.question}
+                  <ListenIcon
+                    onClick={handleListen(
+                      quizItem.question,
+                      targetLanguageCode
+                    )}
+                    isActive={isActiveStates[questionIndex]}
+                  >
+                    <Listen />
+                  </ListenIcon>{" "}
+                </h2>
+                <ul>
+                  {quizItem.options.map((option, optionIndex) => (
+                    <QuizOption
+                      key={optionIndex}
+                      onClick={() =>
+                        handleOptionClick(questionIndex, optionIndex)
+                      }
+                      selectedAnswers={
+                        selectedAnswers[questionIndex] === optionIndex
+                      }
+                      correctAnswer={
+                        selectedAnswers[questionIndex] ===
+                        quizItem.options.indexOf(quizItem.answer)
+                      }
+                      disabled={answered[questionIndex]}
+                    >
+                      {option}
+                    </QuizOption>
+                  ))}
+                </ul>
+                <Score>
+                  {" "}
+                  {t("Score")}: {score}/{vocabularyQuizQuestions.length}
+                </Score>
+              </QuizQuestionBox>
+            ))}
+          </QuizItem>
+          <RestartButton onClick={restartQuiz}>
+            {" "}
+            {t("Recommencer")}
+          </RestartButton>
+        </div>
+      )}
       {showModal && (
         <>
           <BackgroundOverlay />

@@ -171,17 +171,10 @@ const SentenceBuilderEx = ({ sentenceData, isActive }) => {
           </span>
         </Header> */}
           <Sentence onClick={handleListen(sentence)}>{sentence}</Sentence>
-          <h4>
+          <SentenceCount>
             {t("Nombre de phrases")} :
-            <span
-              style={{
-                padding: "0.3rem",
-                fontSize: "1.1rem",
-              }}
-            >
-              {sentenceData?.length}
-            </span>
-          </h4>
+            <CountSpan>{sentenceData?.length - sentenceIndex}</CountSpan>
+          </SentenceCount>
           <BuildBox>
             <TopBox isCorrect={isCorrect} isSubmit={isSubmit}>
               {selectedWords.map((wordIndex, index) => (
@@ -393,4 +386,14 @@ const Header = styled.div`
     align-items: center;
     gap: 1rem;
   }
+`;
+const SentenceCount = styled.h4`
+  margin-top: 1rem;
+  font-size: 1.2rem;
+`;
+
+const CountSpan = styled.span`
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  /* Add any additional styling here */
 `;

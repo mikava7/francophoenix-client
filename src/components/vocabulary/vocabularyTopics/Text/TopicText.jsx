@@ -12,6 +12,7 @@ import RotatingChevron from "../../../Utility/RotatingChevron";
 import VerbsInText from "../../verbsinText/VerbsInText";
 import ReportError from "../../../Utility/report/ReportError";
 import { mapSearchResults } from "../../../Utility/utils";
+import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
 const displayCleanWord = (word) => {
   if (word?.startsWith("l'") || word.startsWith("L'")) {
     return word?.slice(2);
@@ -177,9 +178,14 @@ const TopicText = ({
           isActive={showArticle}
         />
       ) : !isAuthenticated ? (
-        <p>
-          login to use this exercise: <Link to="/login">login</Link>
-        </p>
+        <LoginMessageContainer>
+          <p>
+            {t("Connectez-vous pour utiliser cet exercice:")}{" "}
+            <LinkWithPreviousPath to="/login">
+              {t("Connexion")}
+            </LinkWithPreviousPath>{" "}
+          </p>
+        </LoginMessageContainer>
       ) : null}
     </TopicTextContainer>
   );
@@ -280,4 +286,11 @@ const VerbsInTextBox = styled.div`
   display: flex;
 
   margin: 0 1rem;
+`;
+export const LoginMessageContainer = styled.div`
+  margin: 1rem;
+  padding: 1rem;
+  background-color: ${(props) => props.theme.warningBackground};
+  color: ${(props) => props.theme.warningText};
+  border-radius: 8px;
 `;
