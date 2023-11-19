@@ -4,14 +4,19 @@ import useListenWord from "../../../../hooks/useListenWord";
 import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
-
+import { useSelector } from "react-redux";
 import {
   SubmitButton,
   NextButton,
   RestartButton,
 } from "../../../verbs/presentTense/PresentTense";
 import { shuffleArray } from "../../../Utility/utils";
-const WordJumble = ({ selectedFlashcards }) => {
+import { LoginMessageContainer } from "../../../vocabulary/vocabularyTopics/Text/TopicText";
+import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
+const WordJumble = ({ selectedFlashcards, secondLanguage }) => {
+  // console.log("selectedFlashcards", selectedFlashcards);
+  // console.log("secondLanguage", secondLanguage);
+
   const { handleListen, isActiveStates } = useListenWord();
   const { t } = useTranslation();
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
@@ -23,6 +28,7 @@ const WordJumble = ({ selectedFlashcards }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const allWordsHandled = currentFlashcardIndex >= selectedFlashcards.length;
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (
@@ -92,8 +98,9 @@ const WordJumble = ({ selectedFlashcards }) => {
         <FaVolumeUp /> {t("Écouter")}
       </PlayButton>
       <Score>
-        {t("Des mots")}: {selectedFlashcards?.length}
+        {t("Des mots")}: {selectedFlashcards?.length - currentFlashcardIndex}
       </Score>
+      <SecondLanguage>{secondLanguage[currentFlashcardIndex]}</SecondLanguage>
       <BuildBox>
         <JumbleBox>
           {/* Display jumbled letters */}
@@ -129,6 +136,15 @@ const WordJumble = ({ selectedFlashcards }) => {
             {t("Correct !")}
             <NextButton onClick={handleNext}>{t("Suivante")}</NextButton>
           </CorrectNotification>
+        ) : !isAuthenticated ? (
+          <LoginMessageContainer>
+            <p>
+              {t("Connectez-vous pour utiliser cet exercice:")}{" "}
+              <LinkWithPreviousPath to="/login">
+                {t("Connexion")}
+              </LinkWithPreviousPath>
+            </p>
+          </LoginMessageContainer>
         ) : isSubmitted ? (
           <WrongNotification>
             {t("C'est faux ! Essayer à nouveau.")}
@@ -142,6 +158,7 @@ const WordJumble = ({ selectedFlashcards }) => {
           </SubmitButton>
         )}
       </ButtonContainer>
+
       {allWordsHandled && (
         <FinalMessage>
           {t("Toutes nos félicitations! Vous avez terminé tous les mots.")}
@@ -240,8 +257,8 @@ const LetterBox = styled(JumbleBox)`
   background: ${(props) => props.theme.tertiaryBackground};
 `;
 const PlayButton = styled.button`
-  color: ${(props) => props.theme.primaryText};
-  background-color: ${(props) => props.theme.primaryBackground};
+  color: ${(props) => props.theme.primaryBackground};
+  background-color: ${(props) => props.theme.primaryText};
   margin: 1rem;
   display: flex;
   align-items: center;
@@ -293,4 +310,12 @@ const FinalMessage = styled.div`
   text-align: center;
   margin-top: 2rem;
   color: ${(props) => props.theme.primaryText};
+`;
+
+const SecondLanguage = styled.div`
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: ${(props) => props.theme.secondaryText};
 `;

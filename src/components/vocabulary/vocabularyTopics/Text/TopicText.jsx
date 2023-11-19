@@ -288,9 +288,16 @@ const VerbsInTextBox = styled.div`
   margin: 0 1rem;
 `;
 export const LoginMessageContainer = styled.div`
-  margin: 1rem;
-  padding: 1rem;
+  /* margin: 1rem; */
+  padding: 0 0.5rem;
   background-color: ${(props) => props.theme.warningBackground};
   color: ${(props) => props.theme.warningText};
   border-radius: 8px;
+  line-height: 0.01px;
+  font-size: 1rem;
+  z-index: 999;
+  p {
+    /* line-height: 2; */
+    font-size: 1rem;
+  }
 `;

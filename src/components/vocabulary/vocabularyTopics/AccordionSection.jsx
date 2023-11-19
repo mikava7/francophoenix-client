@@ -68,7 +68,10 @@ const AccordionSection = ({
             />
           )}
           {identifier === "Tapez le mot" && (
-            <WordJumble selectedFlashcards={selectedFlashcards} />
+            <WordJumble
+              selectedFlashcards={selectedFlashcards}
+              secondLanguage={secondLanguage}
+            />
           )}
         </SectionBox>
       )}

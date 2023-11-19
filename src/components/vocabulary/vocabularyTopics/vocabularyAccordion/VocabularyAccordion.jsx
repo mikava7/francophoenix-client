@@ -175,7 +175,11 @@ const DownloadButton = styled.button`
   }
 `;
 const LoginMessage = styled.div`
-  // Add styling for the login message here
+  margin: 1rem;
+  padding: 1rem;
+  background-color: ${(props) => props.theme.warningBackground};
+  color: ${(props) => props.theme.warningText};
+  border-radius: 8px;
 `;
 const AccordionItem = styled.div`
   display: flex;
