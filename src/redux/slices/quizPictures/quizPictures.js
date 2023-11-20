@@ -48,6 +48,7 @@ export const submitVocabularyProgress = createAsyncThunk(
     exerciseType,
     percentage,
     completedSentenceIndices,
+    weakWords,
   }) => {
     try {
       if (userId) {
@@ -57,6 +58,7 @@ export const submitVocabularyProgress = createAsyncThunk(
           exerciseType,
           percentage,
           completedSentenceIndices,
+          weakWords,
         });
 
         // Return the actual data from the server

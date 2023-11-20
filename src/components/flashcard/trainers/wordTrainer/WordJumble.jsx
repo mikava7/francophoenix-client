@@ -20,19 +20,30 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const dispatch = useDispatch();
   const exerciseType = WordJumble.name;
   const { topicId } = useParams();
-
   const { handleListen, isActiveStates } = useListenWord();
   const { t } = useTranslation();
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  const userId = auth._id;
+
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
   const [jumbledLetters, setJumbledLetters] = useState([]);
   const [originalWord, setOriginalWord] = useState("");
   const [currentFlashcard, setCurrentFlashcard] = useState(null);
+
   const [availableLetters, setAvailableLetters] = useState([]);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const allWordsHandled = currentFlashcardIndex >= selectedFlashcards.length;
+  const allWordsHandled = currentFlashcardIndex == selectedFlashcards.length;
+  // console.log("allWordsHandled", allWordsHandled);
+  // console.log("currentFlashcardIndex", currentFlashcardIndex);
+  // console.log("selectedFlashcards.length", selectedFlashcards.length);
+
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
+  const [wordAttempts, setWordAttempts] = useState({});
+
   const userProgress =
     useSelector(
       (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
@@ -41,12 +52,6 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const exercises = userProgress?.find(
     (topic) => topic.topic === topicId
   )?.exercises;
-  // console.log("exercise", exercises);
-
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
-  const userId = auth._id;
-  // const userProgress =
 
   useEffect(() => {
     if (userId) {
@@ -59,9 +64,26 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       exercises && exercises.length > 0
         ? exercises[0].completedSentenceIndices
         : [];
-    // console.log("index", index);
     setCompletedSentenceIndices([...index]);
   }, [exercises]);
+
+  useEffect(() => {
+    const weakWord =
+      exercises && exercises.length > 0 ? exercises[0].weakWords : {};
+    console.log("weakWord in useEffect", weakWord);
+
+    // Update wordAttempts using the callback form of setWordAttempts
+    setWordAttempts((prevWordAttempts) => {
+      console.log("prevWordAttempts", prevWordAttempts);
+
+      // Merge weakWord with the previous state
+      const newWordAttempts = { ...prevWordAttempts, ...weakWord };
+
+      console.log("newWordAttempts", newWordAttempts);
+
+      return newWordAttempts;
+    });
+  }, [topicId]);
 
   useEffect(() => {
     if (
@@ -76,7 +98,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
       setOriginalWord(flashcard);
 
-      lettersAndSpaces.sort(() => Math.random() - 0.5);
+      // lettersAndSpaces.sort(() => Math.random() - 0.5);
 
       setAvailableLetters([...lettersAndSpaces]);
       setCurrentFlashcard(flashcard);
@@ -101,11 +123,19 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const handleCheck = () => {
     const word = jumbledLetters.join("");
     const correct = word === originalWord;
+
+    setWordAttempts((prevAttempts) => ({
+      ...prevAttempts,
+      [originalWord]: (prevAttempts[originalWord] || 0) + (correct ? 0 : 1),
+    }));
+
     setIsSubmitted(true);
     setIsCorrect(correct);
   };
+  const weakWords = Object.keys(wordAttempts).filter(
+    (word) => wordAttempts[word] > 0
+  );
 
-  // Update the useEffect block to set the currentFlashcardIndex based on completed sentences
   useEffect(() => {
     if (selectedFlashcards.length > 0) {
       // Find the next incomplete sentence index
@@ -140,13 +170,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       percentage =
         ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 40;
     }
-
-    console.log(
-      "completedSentenceIndices.length ",
-      completedSentenceIndices.length
-    );
-    console.log("percentage", percentage);
-    // console.log("WordJumble", { topicId, percentage, userId, exerciseType });
+    console.log("weakWords before sent", weakWords);
 
     // Submit the progress
     if (isAuthenticated) {
@@ -157,6 +181,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
           exerciseType,
           percentage,
           completedSentenceIndices,
+          weakWords,
         })
       );
     }
@@ -168,6 +193,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
     }
   };
+
   const handleRestart = () => {
     setSelectedLetterIndices([]);
     setJumbledLetters([]);
@@ -261,24 +287,25 @@ const BuildBoxContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   width: 333px;
   /* max-width: 90%; */
-  min-height: 580px;
-  margin: 1rem auto;
+  min-height: 600px;
+  margin: 0rem auto;
   background: ${(props) => props.theme.secondaryBackground};
   -webkit-box-shadow: 14px 25px 21px -19px rgba(8, 21, 32, 0.87);
   -moz-box-shadow: 14px 25px 21px -19px rgba(16, 38, 58, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(16, 35, 53, 0.87);
   color: ${(props) => props.theme.secondaryText};
+  padding-bottom: 0.5rem;
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
-    /* max-width: 100%; */
+    min-height: 580px;
   }
 
   @media (max-width: 540px) {
-    min-height: 100vh; /* Set the minimum height to 100% viewport height on smaller screens */
+    width: 320px;
+    min-height: 580px;
   }
 `;
 const BuildBox = styled.div`
@@ -300,7 +327,7 @@ const JumbleBox = styled.div`
   flex-wrap: wrap;
   /* outline: 1px solid red; */
   @media (max-width: 576px) {
-    max-width: 329px;
+    width: 320px;
   }
 `;
 

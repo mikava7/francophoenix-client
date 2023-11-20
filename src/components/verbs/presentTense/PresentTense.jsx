@@ -402,10 +402,12 @@ export const SubmitButton = styled.button`
   @media (min-width: 394px) and (max-width: 576px) {
     font-size: 1.05rem;
     width: 8rem;
+    padding: 0.4rem 0.8rem;
   }
   @media (min-width: 301px) and (max-width: 394px) {
     width: 7rem;
     font-size: 1rem;
+    padding: 0.35rem 0.7rem;
   }
   @media (max-width: 301px) {
     font-size: 1rem;
@@ -458,15 +460,24 @@ export const RestartButton = styled.button`
   cursor: pointer;
   border: 2px solid #000c18;
   border-radius: 6px;
-
+  margin-bottom: 1rem;
   &:hover {
     background-color: ${(props) => props.theme.primaryBackground};
     color: ${(props) => props.theme.primaryText};
   }
-  @media (max-width: 451px) {
+  @media (min-width: 394px) and (max-width: 576px) {
+    font-size: 1.05rem;
+    width: 10rem;
+    padding: 0.4rem 0.8rem;
+  }
+  @media (min-width: 301px) and (max-width: 394px) {
+    width: 10rem;
     font-size: 1rem;
-    width: 8rem;
-    padding: 0.3rem;
+    padding: 0.35rem 0.7rem;
+  }
+  @media (max-width: 301px) {
+    font-size: 1rem;
+    width: 10rem;
   }
 `;
 export const NextButton = styled(SubmitButton)`
