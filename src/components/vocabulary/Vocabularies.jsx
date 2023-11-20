@@ -19,6 +19,7 @@ const Vocabularies = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const topicNames = useSelector((state) => state.quizData.topicNames) || [];
+  // console.log("topicNames", topicNames);
   const isLoading = useSelector((state) => state.quizData.isLoading);
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");

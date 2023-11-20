@@ -27,7 +27,6 @@ const AccordionSection = ({
 
   const words = vocabularyData?.words;
 
-  // console.log({ wordsInTargetLanguage, french });
   useEffect(() => {
     if (isOpen) {
       // Calculate the scroll position to account for the fixed navbar
@@ -67,6 +66,7 @@ const AccordionSection = ({
               french={french}
             />
           )}
+
           {identifier === "Tapez le mot" && (
             <WordJumble
               selectedFlashcards={selectedFlashcards}

@@ -39,7 +39,38 @@ export const fetchVerbDetails = createAsyncThunk(
     }
   }
 );
+
+export const submitVocabularyProgress = createAsyncThunk(
+  "vocabularyProgress/submitVocabularyProgress",
+  async ({
+    userId,
+    topicId,
+    exerciseType,
+    percentage,
+    completedSentenceIndices,
+  }) => {
+    try {
+      if (userId) {
+        const response = await axiosInstance.post("/vocabulary/progress", {
+          userId,
+          topicId,
+          exerciseType,
+          percentage,
+          completedSentenceIndices,
+        });
+
+        // Return the actual data from the server
+        return response.data;
+      }
+    } catch (error) {
+      console.error("Error submitting vocabulary progress", error);
+      // Don't re-throw the error, handle it at a higher level if needed
+      throw error;
+    }
+  }
+);
 const initialState = {
+  vocabularyProgress: [],
   selectedVerbDetails: [],
   currentTopic: [],
   topicNames: [],

@@ -24,6 +24,7 @@ const FindTranslationForFrenchWord = () => {
   const { handleListen, isActiveStates } = useListenWord();
   const [isActive, setIsActive] = useState(false);
   const [showDefinition, setShowDefinition] = useState(true);
+  const [searchInitiated, setSearchInitiated] = useState(false);
 
   const { t, i18n } = useTranslation();
   const isGeorgian = i18n.language === "ka";
@@ -56,6 +57,8 @@ const FindTranslationForFrenchWord = () => {
 
   // Function to handle the search query and call the action to fetch the search results
   const handleSearch = () => {
+    setSearchInitiated(true);
+
     if (!searchQuery.trim()) {
       // If the search query is empty, reset the search results
       dispatch(fetchWordsByLanguage({ language: "", query: "" }));
@@ -81,6 +84,8 @@ const FindTranslationForFrenchWord = () => {
   // Function to handle clearing the search query and results
   const handleClearSearch = () => {
     setSearchQuery("");
+    setSearchInitiated(false);
+
     dispatch(fetchWordsByLanguage({ language: "", query: "" }));
     dispatch(clearSearchResults()); // Correct way to clear the search results using the action
   };
@@ -196,9 +201,12 @@ const FindTranslationForFrenchWord = () => {
           {t("Afficher tout")}
         </ShowAllButton>
       )}{" "}
-      {searchQuery.trim() && !showAllResults && searchResults.length === 0 && (
-        <NoResultsMessage>{t("Aucun mot trouvé")}</NoResultsMessage>
-      )}
+      {searchQuery.trim() &&
+        searchInitiated &&
+        !showAllResults &&
+        searchResults.length === 0 && (
+          <NoResultsMessage>{t("Aucun mot trouvé")}</NoResultsMessage>
+        )}
     </DictionaryContainer>
   );
 };

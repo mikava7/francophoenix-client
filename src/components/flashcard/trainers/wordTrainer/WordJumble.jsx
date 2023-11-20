@@ -4,7 +4,7 @@ import useListenWord from "../../../../hooks/useListenWord";
 import { Button } from "../../../../Styles/globalStyles";
 import styled from "styled-components";
 import { FaVolumeUp } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   SubmitButton,
   NextButton,
@@ -13,9 +13,13 @@ import {
 import { shuffleArray } from "../../../Utility/utils";
 import { LoginMessageContainer } from "../../../vocabulary/vocabularyTopics/Text/TopicText";
 import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
-const WordJumble = ({ selectedFlashcards, secondLanguage }) => {
-  // console.log("selectedFlashcards", selectedFlashcards);
-  // console.log("secondLanguage", secondLanguage);
+import { submitVocabularyProgress } from "../../../../redux/slices/quizPictures/quizPictures";
+import { useParams } from "react-router-dom";
+import { fetchUserProgress } from "../../../../redux/slices/userProgress/userProgressSlice";
+const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
+  const dispatch = useDispatch();
+  const exerciseType = WordJumble.name;
+  const { topicId } = useParams();
 
   const { handleListen, isActiveStates } = useListenWord();
   const { t } = useTranslation();
@@ -28,7 +32,36 @@ const WordJumble = ({ selectedFlashcards, secondLanguage }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const allWordsHandled = currentFlashcardIndex >= selectedFlashcards.length;
+  const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
+  const userProgress =
+    useSelector(
+      (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
+    ) || [];
+
+  const exercises = userProgress?.find(
+    (topic) => topic.topic === topicId
+  )?.exercises;
+  // console.log("exercise", exercises);
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+  const userId = auth._id;
+  // const userProgress =
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserProgress(userId));
+    }
+  }, [topicId]);
+
+  useEffect(() => {
+    const index =
+      exercises && exercises.length > 0
+        ? exercises[0].completedSentenceIndices
+        : [];
+    // console.log("index", index);
+    setCompletedSentenceIndices([...index]);
+  }, [exercises]);
 
   useEffect(() => {
     if (
@@ -72,7 +105,61 @@ const WordJumble = ({ selectedFlashcards, secondLanguage }) => {
     setIsCorrect(correct);
   };
 
+  // Update the useEffect block to set the currentFlashcardIndex based on completed sentences
+  useEffect(() => {
+    if (selectedFlashcards.length > 0) {
+      // Find the next incomplete sentence index
+      const nextIncompleteIndex = selectedFlashcards.findIndex(
+        (sentence, index) => !completedSentenceIndices.includes(index)
+      );
+
+      // Set the currentFlashcardIndex to the next incomplete index
+      setCurrentFlashcardIndex(
+        nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
+      );
+
+      // Rest of the code...
+    }
+  }, [selectedFlashcards, completedSentenceIndices]);
+
   const handleNext = () => {
+    setCompletedSentenceIndices((prevIndices) =>
+      [...prevIndices, currentFlashcardIndex].sort((a, b) => a - b)
+    );
+
+    // Calculate percentage for the completed sentences
+    let percentage;
+    const totalQuestions = selectedFlashcards?.length;
+
+    if (topicType) {
+      // If it's a noun, allocate 50% to WordJumble
+      percentage =
+        ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 50;
+    } else {
+      // If it's not a noun, allocate the remaining percentage to WordJumble
+      percentage =
+        ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 40;
+    }
+
+    console.log(
+      "completedSentenceIndices.length ",
+      completedSentenceIndices.length
+    );
+    console.log("percentage", percentage);
+    // console.log("WordJumble", { topicId, percentage, userId, exerciseType });
+
+    // Submit the progress
+    if (isAuthenticated) {
+      dispatch(
+        submitVocabularyProgress({
+          userId,
+          topicId,
+          exerciseType,
+          percentage,
+          completedSentenceIndices,
+        })
+      );
+    }
     setSelectedLetterIndices([]);
     setJumbledLetters([]);
     setIsCorrect(false);

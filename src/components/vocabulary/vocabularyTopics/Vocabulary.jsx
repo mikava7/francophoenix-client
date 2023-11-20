@@ -22,6 +22,13 @@ const Vocabulary = () => {
   // console.log("currentURL", currentURL);
   const dispatch = useDispatch();
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
+  console.log("vocabularyData", vocabularyData);
+  const topicType =
+    vocabularyData &&
+    vocabularyData.type &&
+    vocabularyData.type.map((t) => t.typeEn === "noun");
+  // console.log("topicType", topicType);
+
   const isLoading = useSelector((state) => state.quizData.isLoading);
 
   const words = vocabularyData?.words;
@@ -147,6 +154,7 @@ const Vocabulary = () => {
               <AccordionSection
                 type={t("Genre des noms")}
                 identifier="Genre des noms"
+                // topicType={topicType}
                 isOpen={openComponent === "Genre des noms"}
                 onToggle={() =>
                   setOpenComponent(
@@ -161,6 +169,8 @@ const Vocabulary = () => {
         <AccordionSection
           type={t("Questionnaire")}
           identifier="Questionnaire"
+          // topicType={topicType}
+
           isOpen={openComponent === "Questionnaire"}
           onToggle={() =>
             setOpenComponent(
@@ -174,6 +184,7 @@ const Vocabulary = () => {
         <AccordionSection
           type={t("Tapez le mot")}
           identifier="Tapez le mot"
+          topicType={topicType}
           isOpen={openComponent === "Tapez le mot"}
           onToggle={() =>
             setOpenComponent(
