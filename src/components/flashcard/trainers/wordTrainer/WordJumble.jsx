@@ -37,12 +37,13 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const allWordsHandled = currentFlashcardIndex == selectedFlashcards.length;
-  // console.log("allWordsHandled", allWordsHandled);
-  // console.log("currentFlashcardIndex", currentFlashcardIndex);
-  // console.log("selectedFlashcards.length", selectedFlashcards.length);
+  const [showMessage, setShowMessage] = useState(false);
+  const [showWeakWords, setShowWeakWords] = useState(false);
 
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
   const [wordAttempts, setWordAttempts] = useState({});
+  const [weakWordIndeces, setWeakWordIndices] = useState([]);
+  const [currentMode, setCurrentMode] = useState("normal");
 
   const userProgress =
     useSelector(
@@ -52,6 +53,14 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const exercises = userProgress?.find(
     (topic) => topic.topic === topicId
   )?.exercises;
+
+  useEffect(() => {
+    if (allWordsHandled) {
+      // Trigger any actions you need when all words are handled
+      console.log("All words handled. Do something here.");
+      setShowMessage(true);
+    }
+  }, [allWordsHandled]);
 
   useEffect(() => {
     if (userId) {
@@ -68,22 +77,28 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   }, [exercises]);
 
   useEffect(() => {
-    const weakWord =
-      exercises && exercises.length > 0 ? exercises[0].weakWords : {};
-    console.log("weakWord in useEffect", weakWord);
+    if (showMessage) {
+      const weakWord =
+        exercises && exercises.length > 0 ? exercises[0].weakWords : {};
 
-    // Update wordAttempts using the callback form of setWordAttempts
-    setWordAttempts((prevWordAttempts) => {
-      console.log("prevWordAttempts", prevWordAttempts);
+      // Update wordAttempts using the callback form of setWordAttempts
+      setWordAttempts((prevWordAttempts) => {
+        // Merge weakWord with the previous state
+        const newWordAttempts = { ...prevWordAttempts, ...weakWord };
 
-      // Merge weakWord with the previous state
-      const newWordAttempts = { ...prevWordAttempts, ...weakWord };
+        return newWordAttempts;
+      });
+    }
+  }, [topicId, showMessage]);
 
-      console.log("newWordAttempts", newWordAttempts);
-
-      return newWordAttempts;
-    });
-  }, [topicId]);
+  const handleTryWeakWords = () => {
+    // Check if there are weak words to try
+    if (weakWordIndeces.length > 0) {
+      setCurrentFlashcardIndex(weakWordIndeces[0]);
+      console.log("setCurrentFlashcardIndex", currentFlashcardIndex);
+      setCurrentMode("weakWords");
+    }
+  };
 
   useEffect(() => {
     if (
@@ -128,35 +143,47 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       ...prevAttempts,
       [originalWord]: (prevAttempts[originalWord] || 0) + (correct ? 0 : 1),
     }));
+    setWeakWordIndices((prevIndices) =>
+      correct
+        ? prevIndices
+        : [...new Set([...prevIndices, currentFlashcardIndex])]
+    );
 
     setIsSubmitted(true);
     setIsCorrect(correct);
   };
+  console.log("weakWordIndeces", weakWordIndeces);
   const weakWords = Object.keys(wordAttempts).filter(
     (word) => wordAttempts[word] > 0
   );
 
-  useEffect(() => {
-    if (selectedFlashcards.length > 0) {
-      // Find the next incomplete sentence index
-      const nextIncompleteIndex = selectedFlashcards.findIndex(
-        (sentence, index) => !completedSentenceIndices.includes(index)
-      );
+  // useEffect(() => {
+  //   if (selectedFlashcards.length > 0) {
+  //     // Find the next incomplete sentence index
+  //     const nextIncompleteIndex = selectedFlashcards.findIndex(
+  //       (sentence, index) => !completedSentenceIndices.includes(index)
+  //     );
 
-      // Set the currentFlashcardIndex to the next incomplete index
-      setCurrentFlashcardIndex(
-        nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
-      );
+  //     // Set the currentFlashcardIndex to the next incomplete index
+  //     setCurrentFlashcardIndex(
+  //       nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
+  //     );
 
-      // Rest of the code...
-    }
-  }, [selectedFlashcards, completedSentenceIndices]);
+  //     // Rest of the code...
+  //   }
+  // }, [selectedFlashcards, completedSentenceIndices]);
 
   const handleNext = () => {
     setCompletedSentenceIndices((prevIndices) =>
       [...prevIndices, currentFlashcardIndex].sort((a, b) => a - b)
     );
-
+    if (
+      currentMode === "weakWords" &&
+      currentFlashcardIndex >= weakWordIndeces.length - 1
+    ) {
+      // If all weak words are done, switch back to normal mode
+      setCurrentMode("normal");
+    }
     // Calculate percentage for the completed sentences
     let percentage;
     const totalQuestions = selectedFlashcards?.length;
@@ -170,7 +197,6 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       percentage =
         ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 40;
     }
-    console.log("weakWords before sent", weakWords);
 
     // Submit the progress
     if (isAuthenticated) {
@@ -195,87 +221,102 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   };
 
   const handleRestart = () => {
-    setSelectedLetterIndices([]);
-    setJumbledLetters([]);
-
-    setAvailableLetters(shuffleArray(originalWord.split("")));
-    // setAvailableLetters(originalWord.split(""));
-    setIsCorrect(false);
-    setIsSubmitted(false);
+    // Check the current mode and handle accordingly
+    if (currentMode === "weakWords") {
+      // If in weak words mode, restart weak words
+      setWeakWordIndices([]);
+      setCurrentMode("normal");
+    } else {
+      // If in normal mode, restart the exercise
+      setSelectedLetterIndices([]);
+      setJumbledLetters([]);
+      setAvailableLetters(shuffleArray(originalWord.split("")));
+      setIsCorrect(false);
+      setIsSubmitted(false);
+    }
   };
 
   return (
     <BuildBoxContainer>
       {/* Play button for listening to the word */}
-      <PlayButton onClick={handleListen(currentFlashcard)}>
-        <FaVolumeUp /> {t("Écouter")}
-      </PlayButton>
-      <Score>
-        {t("Des mots")}: {selectedFlashcards?.length - currentFlashcardIndex}
-      </Score>
-      <SecondLanguage>{secondLanguage[currentFlashcardIndex]}</SecondLanguage>
-      <BuildBox>
-        <JumbleBox>
-          {/* Display jumbled letters */}
-          {jumbledLetters.map((letter, index) => (
-            <JumbleLetter
-              key={index}
-              onClick={() => handleJumbledLetterClick(index)}
-              disabled={jumbledLetters.length >= originalWord.length}
-              selected={true}
-              correct={isCorrect}
-              submitted={isSubmitted}
-            >
-              {letter}
-            </JumbleLetter>
-          ))}
-        </JumbleBox>
-        <LetterBox>
-          {/* Display available letters */}
-          {availableLetters.map((letter, index) => (
-            <LetterButton
-              key={index}
-              onClick={() => handleLetterClick(index)}
-              selected={selectedLetterIndices.includes(index)}
-            >
-              {letter}
-            </LetterButton>
-          ))}
-        </LetterBox>
-      </BuildBox>
-      <ButtonContainer>
-        {isSubmitted && isCorrect ? (
-          <CorrectNotification>
-            {t("Correct !")}
-            <NextButton onClick={handleNext}>{t("Suivante")}</NextButton>
-          </CorrectNotification>
-        ) : !isAuthenticated ? (
-          <LoginMessageContainer>
-            <p>
-              {t("Connectez-vous pour utiliser cet exercice:")}{" "}
-              <LinkWithPreviousPath to="/login">
-                {t("Connexion")}
-              </LinkWithPreviousPath>
-            </p>
-          </LoginMessageContainer>
-        ) : isSubmitted ? (
-          <WrongNotification>
-            {t("C'est faux ! Essayer à nouveau.")}
-            <RestartButton onClick={handleRestart}>
-              {t("Recommencer")}
-            </RestartButton>
-          </WrongNotification>
-        ) : (
-          <SubmitButton onClick={handleCheck} disabled={isSubmitted}>
-            {t("Soumettre")}
-          </SubmitButton>
-        )}
-      </ButtonContainer>
 
-      {allWordsHandled && (
+      {showMessage ? (
         <FinalMessage>
           {t("Toutes nos félicitations! Vous avez terminé tous les mots.")}
+          <Button onClick={() => setShowMessage(false)}>restart</Button>
+          <Button onClick={handleTryWeakWords}>Try weak words</Button>
         </FinalMessage>
+      ) : (
+        <div>
+          <PlayButton onClick={handleListen(currentFlashcard)}>
+            <FaVolumeUp /> {t("Écouter")}
+          </PlayButton>
+          <Score>
+            {t("Des mots")}:{" "}
+            {selectedFlashcards?.length - currentFlashcardIndex}
+          </Score>
+          <SecondLanguage>
+            {secondLanguage[currentFlashcardIndex]}
+          </SecondLanguage>
+          <BuildBox>
+            <JumbleBox>
+              {/* Display jumbled letters */}
+              {jumbledLetters.map((letter, index) => (
+                <JumbleLetter
+                  key={index}
+                  onClick={() => handleJumbledLetterClick(index)}
+                  disabled={jumbledLetters.length >= originalWord.length}
+                  selected={true}
+                  correct={isCorrect}
+                  submitted={isSubmitted}
+                >
+                  {letter}
+                </JumbleLetter>
+              ))}
+            </JumbleBox>
+            <LetterBox>
+              {/* Display available letters */}
+              {availableLetters.map((letter, index) => (
+                <LetterButton
+                  key={index}
+                  onClick={() => handleLetterClick(index)}
+                  selected={selectedLetterIndices.includes(index)}
+                >
+                  {letter}
+                </LetterButton>
+              ))}
+            </LetterBox>
+          </BuildBox>
+          <ButtonContainer>
+            {isSubmitted && isCorrect ? (
+              <CorrectNotification>
+                {t("Correct !")}
+                <NextButton onClick={handleNext}>{t("Suivante")}</NextButton>
+              </CorrectNotification>
+            ) : !isAuthenticated ? (
+              <LoginMessageContainer>
+                <p>
+                  {t("Connectez-vous pour utiliser cet exercice:")}{" "}
+                  <LinkWithPreviousPath to="/login">
+                    {t("Connexion")}
+                  </LinkWithPreviousPath>
+                </p>
+              </LoginMessageContainer>
+            ) : isSubmitted ? (
+              <WrongNotification>
+                {t("C'est faux ! Essayer à nouveau.")}
+                <RestartButton onClick={handleRestart}>
+                  {t("Recommencer")}
+                </RestartButton>
+              </WrongNotification>
+            ) : (
+              <SubmitButton onClick={handleCheck} disabled={isSubmitted}>
+                {t("Soumettre")}
+              </SubmitButton>
+            )}
+          </ButtonContainer>
+          <Button onClick={() => setCurrentFlashcardIndex(5)}>set</Button>
+        </div>
       )}
     </BuildBoxContainer>
   );
