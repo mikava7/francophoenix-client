@@ -493,8 +493,8 @@ const CorrectAnswer = styled.div`
   align-items: center;
   font-size: 1.2rem;
   color: ${(props) => props.theme.primaryText};
-  background-color: #4caf50; /* Green for correct answer */
+  background-color: #4caf50;
   border-radius: 8px;
   padding: 0.2rem 0.5rem;
-  margin-top: 0.3rem;
+  margin-top: 0.4rem;
 `;
