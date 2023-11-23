@@ -42,18 +42,22 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
   const [wordAttempts, setWordAttempts] = useState({});
-  const [weakWordIndeces, setWeakWordIndices] = useState([]);
+  const [weakWords, setWeakWords] = useState([]);
   const [currentMode, setCurrentMode] = useState("normal");
 
   const userProgress =
     useSelector(
       (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
     ) || [];
+  // console.log("userProgress.", userProgress);
 
   const exercises = userProgress?.find(
     (topic) => topic.topic === topicId
   )?.exercises;
+  console.log("exercises.", exercises);
+  console.log("topicId", topicId);
 
+  // console.log("selectedFlashcards", selectedFlashcards);
   useEffect(() => {
     if (allWordsHandled) {
       // Trigger any actions you need when all words are handled
@@ -91,12 +95,43 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     }
   }, [topicId, showMessage]);
 
+  useEffect(() => {
+    if (selectedFlashcards.length > 0) {
+      // Find the next incomplete sentence index
+      const nextIncompleteIndex = selectedFlashcards.findIndex(
+        (sentence, index) => !completedSentenceIndices.includes(index)
+      );
+
+      // Set the currentFlashcardIndex to the next incomplete index
+      setCurrentFlashcardIndex(
+        nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
+      );
+    }
+  }, [selectedFlashcards]);
+
+  useEffect(() => {
+    console.log("weakWords", weakWords);
+
+    if (currentMode === "weakWords") {
+      const nextWeakWordIndex = selectedFlashcards.findIndex(
+        (sentence, index) => !weakWords.includes(index)
+      );
+      console.log("nextWeakWordIndex", nextWeakWordIndex);
+      // Set the currentFlashcardIndex to the next incomplete index
+      setCurrentFlashcardIndex(nextWeakWordIndex !== -1 ? weakWords[0] : 0);
+      console.log({ currentMode, nextWeakWordIndex, weakWords });
+    }
+  }, [currentMode, weakWords]);
+
   const handleTryWeakWords = () => {
-    // Check if there are weak words to try
-    if (weakWordIndeces.length > 0) {
-      setCurrentFlashcardIndex(weakWordIndeces[0]);
-      console.log("setCurrentFlashcardIndex", currentFlashcardIndex);
+    console.log("weakWords", weakWords);
+    setCurrentMode("weakWords");
+    dispatch(fetchUserProgress(userId));
+    if (weakWords.length > 0) {
+      // Set the currentFlashcardIndex to the first element of weakWords
+      setCurrentFlashcardIndex(weakWords[0]);
       setCurrentMode("weakWords");
+      setShowMessage(false);
     }
   };
 
@@ -143,35 +178,17 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       ...prevAttempts,
       [originalWord]: (prevAttempts[originalWord] || 0) + (correct ? 0 : 1),
     }));
-    setWeakWordIndices((prevIndices) =>
+
+    setWeakWords((prevIndices) =>
       correct
         ? prevIndices
-        : [...new Set([...prevIndices, currentFlashcardIndex])]
+        : [...new Set([...prevIndices, +currentFlashcardIndex])]
     );
 
     setIsSubmitted(true);
     setIsCorrect(correct);
   };
-  console.log("weakWordIndeces", weakWordIndeces);
-  const weakWords = Object.keys(wordAttempts).filter(
-    (word) => wordAttempts[word] > 0
-  );
-
-  // useEffect(() => {
-  //   if (selectedFlashcards.length > 0) {
-  //     // Find the next incomplete sentence index
-  //     const nextIncompleteIndex = selectedFlashcards.findIndex(
-  //       (sentence, index) => !completedSentenceIndices.includes(index)
-  //     );
-
-  //     // Set the currentFlashcardIndex to the next incomplete index
-  //     setCurrentFlashcardIndex(
-  //       nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
-  //     );
-
-  //     // Rest of the code...
-  //   }
-  // }, [selectedFlashcards, completedSentenceIndices]);
+  // console.log("setWeakWords", weakWords);
 
   const handleNext = () => {
     setCompletedSentenceIndices((prevIndices) =>
@@ -179,7 +196,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     );
     if (
       currentMode === "weakWords" &&
-      currentFlashcardIndex >= weakWordIndeces.length - 1
+      currentFlashcardIndex >= weakWords.length - 1
     ) {
       // If all weak words are done, switch back to normal mode
       setCurrentMode("normal");
@@ -251,6 +268,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
           <PlayButton onClick={handleListen(currentFlashcard)}>
             <FaVolumeUp /> {t("Écouter")}
           </PlayButton>
+          <p>Index: {currentFlashcardIndex}</p>
           <Score>
             {t("Des mots")}:{" "}
             {selectedFlashcards?.length - currentFlashcardIndex}
