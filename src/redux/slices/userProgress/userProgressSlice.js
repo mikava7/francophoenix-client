@@ -4,7 +4,7 @@ import axios from "../../api/axiosInstance";
 // Define an initial state
 const initialState = {
   userProgressData: null,
-  status: false, // Initially false
+  loading: false, // Initially false
   error: null,
 };
 
@@ -52,14 +52,14 @@ const userProgressSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProgress.pending, (state) => {
-        state.status = false; // Loading is not complete yet
+        state.loading = true;
       })
       .addCase(fetchUserProgress.fulfilled, (state, action) => {
-        state.status = true; // Loading is completed
         state.userProgressData = action.payload;
+        state.loading = false;
       })
       .addCase(fetchUserProgress.rejected, (state, action) => {
-        state.status = false; // Loading failed
+        state.loading = false;
         state.error = action.payload;
       });
   },
