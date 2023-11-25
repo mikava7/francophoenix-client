@@ -272,6 +272,8 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       setIsSubmitted(false);
       setCurrentFlashcardIndex(0);
       setShowMessage(false);
+      // setShowMessage(false);
+
     }
   };
   if (loading) {
