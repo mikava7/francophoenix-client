@@ -272,8 +272,6 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       setIsSubmitted(false);
       setCurrentFlashcardIndex(0);
       setShowMessage(false);
-      // setShowMessage(false);
-
     }
   };
   if (loading) {
@@ -407,7 +405,6 @@ const BuildBox = styled.div`
 `;
 const JumbleBox = styled.div`
   background: ${(props) => props.theme.tertiaryBackground};
-  /* margin: 0 auto; */
   width: 330px;
   height: 10rem;
   margin-bottom: 1rem;
@@ -415,7 +412,6 @@ const JumbleBox = styled.div`
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  /* outline: 1px solid red; */
   @media (max-width: 576px) {
     width: 320px;
   }

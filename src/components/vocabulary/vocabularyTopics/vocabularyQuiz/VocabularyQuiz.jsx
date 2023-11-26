@@ -239,7 +239,7 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
           </p>
         </LoginMessageContainer>
       ) : (
-        <div>
+        <QuizBox>
           <QuizItem>
             {vocabularyQuizQuestions.map((quizItem, questionIndex) => (
               <QuizQuestionBox
@@ -294,7 +294,7 @@ const VocabularyQuiz = ({ secondLanguage, wordsInTargetLanguage }) => {
             {" "}
             {t("Recommencer")}
           </RestartButton>
-        </div>
+        </QuizBox>
       )}
       {showModal && (
         <>
@@ -323,14 +323,21 @@ const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  /* max-width: 100%; */
 `;
+const QuizBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
+  /* outline: 1px solid red; */
+  margin: 0 auto;
+`;
 const QuizItem = styled.div`
-  padding: 0 1rem;
-  /* margin: 0 auto; */
-  width: 95%;
-  max-width: 500px;
+  /* outline: 1px solid blue; */
+  margin: auto;
 `;
 
 const QuizQuestionBox = styled.div`
@@ -341,6 +348,7 @@ const QuizQuestionBox = styled.div`
   color: ${(props) => props.theme.highlihgt1};
   background-color: ${(props) => props.theme.secondaryBackground};
   /* transition: scroll-behavior 3.5s ease-in-out; */
+  width: 400px;
 
   h2 {
     padding: 1rem;
@@ -354,6 +362,9 @@ const QuizQuestionBox = styled.div`
     /* border: 2px solid orange; */
     text-align: center;
     align-self: center;
+  }
+  @media (max-width: 450px) {
+    width: 280px;
   }
 `;
 
