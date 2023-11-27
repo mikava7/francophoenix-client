@@ -28,6 +28,17 @@ const VocabularyAccordion = ({
 
   // State to manage expanded accordion item
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [fontSizes, setFontSizes] = useState([
+    "17px",
+    "18px",
+    "20px",
+    "22px",
+    "24px",
+    "28px",
+    "32px",
+    "36px",
+  ]);
+  const [selectedFontSize, setSelectedFontSize] = useState("17px");
 
   // Get user authentication status from Redux
   const auth = useSelector((state) => state?.auth?.auth?.user) || {};
@@ -55,7 +66,24 @@ const VocabularyAccordion = ({
         {t("Télécharger le PDF:")}
         {userId ? (
           // Display the download link if the user is logged in
-          <DownloadButton>
+          <>
+            <FontSizeContainer>
+              <label htmlFor="fontSize">
+                {t("Sélectionnez la taille de la police:")}
+              </label>
+              <FontSizeSelect
+                name="fontSize"
+                id="fontSize"
+                onChange={(e) => setSelectedFontSize(e.target.value)}
+              >
+                {fontSizes.map((fontSize, index) => (
+                  <option key={index} value={fontSize}>
+                    {fontSize}
+                  </option>
+                ))}
+                {/* {console.log("selectedFontSize", selectedFontSize)} */}
+              </FontSizeSelect>
+            </FontSizeContainer>
             <PDFVocabularyDocument
               wordsInTargetLanguage={wordsInTargetLanguage}
               secondLanguage={secondLanguage}
@@ -64,8 +92,9 @@ const VocabularyAccordion = ({
               currentURL={currentURL}
               contentId={contentId}
               userId={userId}
+              selectedFontSize={selectedFontSize}
             />
-          </DownloadButton>
+          </>
         ) : (
           // Display a message or hide the link if the user is not logged in
           <LoginMessage>
@@ -157,6 +186,9 @@ const AccordionContaner = styled.div`
 
 const PDFLinkBox = styled.div`
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const DownloadButton = styled.button`
@@ -340,4 +372,17 @@ export const AccordionListenIcon = styled.div`
     transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.isActive ? "scale(1.1)" : "scale(1)")};
   }
+`;
+const FontSizeSelect = styled.select`
+  padding: 8px;
+  margin: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+const FontSizeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

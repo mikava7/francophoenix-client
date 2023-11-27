@@ -21,9 +21,10 @@ const PDFVocabularyDocument = ({
   currentURL,
   userId,
   contentId,
+  selectedFontSize,
 }) => {
   const [downloadStatus, setDownloadStatus] = useState("notStarted"); // Initialize as "notStarted"
-
+  console.log("selectedFontSize in selectedFontSize", selectedFontSize);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const section = "vocabulary";
@@ -50,7 +51,7 @@ const PDFVocabularyDocument = ({
       },
       text: {
         margin: 12,
-        fontSize: "17px",
+        // fontSize: "18px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -77,6 +78,7 @@ const PDFVocabularyDocument = ({
         cursor: "pointer",
         marginLeft: "8px",
         transition: "background 0.3s",
+        outline: "1px solid red",
       },
     })
   );
@@ -92,6 +94,7 @@ const PDFVocabularyDocument = ({
           nativeLanguageTitle={nativeLanguageTitle}
           currentURL={currentURL}
           t={t}
+          selectedFontSize={selectedFontSize}
         />
       }
       fileName={`${targetedTitle}-${nativeLanguageTitle}.pdf`}
@@ -126,6 +129,7 @@ const MyDocument = ({
   nativeLanguageTitle,
   currentURL,
   t,
+  selectedFontSize,
 }) => (
   <Document>
     <Page size="A4" style={styles.body}>
@@ -143,7 +147,10 @@ const MyDocument = ({
       <View style={{ padding: 10 }}>
         {wordsInTargetLanguage &&
           wordsInTargetLanguage?.map((word, index) => (
-            <Text key={index} style={styles.text}>
+            <Text
+              key={index}
+              style={{ ...styles.text, fontSize: selectedFontSize }}
+            >
               {word} - {secondLanguage[index]}
             </Text>
           ))}
@@ -151,7 +158,7 @@ const MyDocument = ({
       <Text
         onClick={() => window.open(currentURL, "_blank")}
         style={{
-          color: "black",
+          color: "red",
           fontSize: "12px",
           textDecoration: "underline",
         }}
@@ -163,6 +170,7 @@ const MyDocument = ({
 );
 
 export default PDFVocabularyDocument;
+
 const Title = styled.div`
   display: flex;
   align-items: center;
