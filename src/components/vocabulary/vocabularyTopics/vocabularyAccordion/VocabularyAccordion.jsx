@@ -37,6 +37,8 @@ const VocabularyAccordion = ({
     "28px",
     "32px",
     "36px",
+    "40px",
+    
   ]);
   const [selectedFontSize, setSelectedFontSize] = useState("17px");
 
