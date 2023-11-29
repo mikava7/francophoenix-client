@@ -422,4 +422,5 @@ const RestartButton = styled.button`
     color: ${(props) => props.theme.highlight2};
   }
 `;
-const TimerDisplay = styled.span``;
+const TimerDisplay = styled.span`
+display:flex`;
