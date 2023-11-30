@@ -423,4 +423,8 @@ const RestartButton = styled.button`
   }
 `;
 const TimerDisplay = styled.span`
-display:flex`;
+display:flex;
+  background-color: ${(props) => props.theme.highlight2};
+
+  color: ${(props) => props.theme.primaryText};
+align-items:center;`;
