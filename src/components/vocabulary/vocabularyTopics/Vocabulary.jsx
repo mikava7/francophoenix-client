@@ -22,7 +22,7 @@ const Vocabulary = () => {
   // console.log("currentURL", currentURL);
   const dispatch = useDispatch();
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
-  console.log("vocabularyData", vocabularyData);
+  // console.log("vocabularyData", vocabularyData);
   const topicType =
     vocabularyData &&
     vocabularyData.type &&

@@ -387,7 +387,6 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   width: 333px;
-  /* max-width: 90%; */
   min-height: 600px;
   margin: 0rem auto;
   background: ${(props) => props.theme.secondaryBackground};

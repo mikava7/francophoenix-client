@@ -24,7 +24,7 @@ const PDFVocabularyDocument = ({
   selectedFontSize,
 }) => {
   const [downloadStatus, setDownloadStatus] = useState("notStarted"); // Initialize as "notStarted"
-  console.log("selectedFontSize in selectedFontSize", selectedFontSize);
+  // console.log("selectedFontSize in selectedFontSize", selectedFontSize);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const section = "vocabulary";
