@@ -46,7 +46,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const [wordAttempts, setWordAttempts] = useState({});
   const [weakWords, setWeakWords] = useState([]);
   const [currentMode, setCurrentMode] = useState("normal");
-
+  const [completed, setCompleted] = useState(false);
   const userProgress =
     useSelector(
       (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
@@ -147,7 +147,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       // Set the currentFlashcardIndex to the next incomplete index
       setCurrentFlashcardIndex(nextWeakWordIndex !== -1 ? weakWords[0] : 0);
 
-      console.log({ currentMode, nextWeakWordIndex, weakWords });
+      // console.log({ currentMode, nextWeakWordIndex, weakWords });
     }
   }, [currentMode, weakWords, dispatch]);
 
@@ -156,10 +156,6 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       selectedFlashcards.length > 0 &&
       currentFlashcardIndex < selectedFlashcards.length
     ) {
-      console.log(
-        "currentFlashcardIndex in flashcard before",
-        currentFlashcardIndex
-      );
       const flashcard = selectedFlashcards[currentFlashcardIndex]
         .replace(/\s*\(.*\)/, "")
         .replace(/^(le\/la )/, "");
@@ -172,10 +168,10 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
       setAvailableLetters([...lettersAndSpaces]);
       setCurrentFlashcard(flashcard);
-      console.log(
-        "currentFlashcardIndex in flashcard after",
-        currentFlashcardIndex
-      );
+      // console.log(
+      //   "currentFlashcardIndex in flashcard after",
+      //   currentFlashcardIndex
+      // );
       setJumbledLetters([]);
       setIsCorrect(false);
       setIsSubmitted(false);
@@ -208,10 +204,10 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
         ? prevIndices
         : [...new Set([...prevIndices, +currentFlashcardIndex])]
     );
-    console.log("weakWords", weakWords);
     setIsSubmitted(true);
     setIsCorrect(correct);
   };
+  console.log("weakWords", weakWords);
 
   const handleNext = () => {
     setCompletedSentenceIndices((prevIndices) =>
@@ -231,16 +227,35 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
     if (topicType) {
       // If it's a noun, allocate 50% to WordJumble
-      percentage =
-        ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 50;
+      percentage = 40 / totalQuestions;
     } else {
       // If it's not a noun, allocate the remaining percentage to WordJumble
-      percentage =
-        ((completedSentenceIndices.length + 1) / (totalQuestions + 1)) * 40;
+      percentage = 50 / totalQuestions;
     }
+    console.log("topicType in word jumble", topicType);
+    console.log("percentage in word jumble", percentage);
+    // Use the callback function of setCompleted
+    setCompleted((prevCompleted) => {
+      if (
+        selectedFlashcards.length - weakWords.length ===
+        selectedFlashcards.length
+      ) {
+        return true; // Set completed to true
+      }
+      return prevCompleted; // Keep the previous state
+    });
 
     // Submit the progress
     if (isAuthenticated) {
+      console.log({
+        userId,
+        topicId,
+        exerciseType,
+        percentage,
+        completedSentenceIndices: [...new Set(completedSentenceIndices)],
+        weakWords,
+        completed,
+      });
       dispatch(
         submitVocabularyProgress({
           userId,
@@ -249,6 +264,8 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
           percentage,
           completedSentenceIndices,
           weakWords,
+          topicType,
+          completed,
         })
       );
     }
@@ -292,13 +309,22 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
         <FinalMessage>
           {currentMode === "normal" ? (
             <>
-              all words are not correct, you can try weak words.
+              all words are not correct
+              <p>
+                Correct Answers: {selectedFlashcards.length - weakWords.length}/
+                {selectedFlashcards.length}
+              </p>
+              <p>{weakWords.map((word) => word)}</p>
+              <Button onClick={() => setCompleted(true)}>Finish</Button>
               <Button onClick={handleTryWeakWords}>Try weak words</Button>
             </>
           ) : (
             <>
               {t("Toutes nos félicitations! Vous avez terminé tous les mots.")}
-
+              <p>
+                Correct Answers: {completedSentenceIndices.length}/
+                {selectedFlashcards.length}
+              </p>
               <Button onClick={handleRestart}>Restart</Button>
             </>
           )}

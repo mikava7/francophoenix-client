@@ -104,7 +104,7 @@ const Vocabulary = () => {
   if (isLoading) {
     return <Loading />;
   }
-
+  console.log("topicType in vocabulary", topicType);
   return (
     <VocabularyContainer>
       <Localization />

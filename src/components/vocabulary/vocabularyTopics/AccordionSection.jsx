@@ -20,6 +20,7 @@ const AccordionSection = ({
   wordsInTargetLanguage,
   secondLanguage,
   english,
+  topicType,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
@@ -71,6 +72,7 @@ const AccordionSection = ({
             <WordJumble
               selectedFlashcards={selectedFlashcards}
               secondLanguage={secondLanguage}
+              topicType={topicType}
             />
           )}
         </SectionBox>
