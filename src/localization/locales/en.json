@@ -171,5 +171,11 @@
   "Pause": "Pause",
   "Continuer": "Continue",
   "Connectez-vous pour utiliser cet exercice:": "Login to use this exercise:",
-  "Sélectionnez la taille de la police:": "Select size of font:"
+  "Sélectionnez la taille de la police:": "Select size of font:",
+  "Ce sujet est déjà terminé !": "This topic is already completed!",
+  "Vous n'avez aucun mot faible.": "You have no weak words.",
+  "Pratiquer les mots faibles": "Practice weak words",
+  "Tous les mots sont corrects": "All words are correct",
+  "Réponses:": "Answers:",
+  "Mots faibles": "Weak words"
 }

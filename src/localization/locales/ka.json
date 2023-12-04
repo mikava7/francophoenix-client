@@ -175,5 +175,11 @@
   "Continuer": "გააგრძელე",
   "Connectez-vous pour utiliser cet exercice:": "ამ სავარჯიშოს გამოსაყენებლად გაიარე ავტორიზაცია:",
   "Nombre de mots": "სიტყვების რაოდენობა",
-  "Sélectionnez la taille de la police:": "აირჩიეთ შრიფტის ზომა:"
+  "Sélectionnez la taille de la police:": "აირჩიეთ შრიფტის ზომა:",
+  "Ce sujet est déjà terminé !": "ეს თემა დასრულებულია!",
+  "Vous n'avez aucun mot faible.": "თქვენ არ გაქვთ აქ სუსტი სიტყვები",
+  "Pratiquer les mots faibles": "ივარჯიშე სუსტ სიტყვებში",
+  "Tous les mots sont corrects": "ყველა სიტყვა სწორია",
+  "Réponses:": "პასუხები:",
+  "Mots faibles": "სუსტი სიტყვები"
 }

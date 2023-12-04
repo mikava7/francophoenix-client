@@ -44,9 +44,9 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
   const [wordAttempts, setWordAttempts] = useState({});
-  const [weakWords, setWeakWords] = useState([]);
   const [currentMode, setCurrentMode] = useState("normal");
   const [completed, setCompleted] = useState(false);
+  const [isTopicCompleted, setIsTopicCompleted] = useState(null);
 
   const userProgress =
     useSelector(
@@ -57,9 +57,15 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const exercises = userProgress?.find(
     (topic) => topic.topic === topicId
   )?.exercises;
-  const [isTopicCompleted, setIsTopicCompleted] = useState(
-    userProgress && userProgress.length > 0 && userProgress[0]?.completed
-  );
+
+  const [weakWords, setWeakWords] = useState(() => {
+    // Check if there are existing weak words in the topic data
+    const existingWeakWords =
+      exercises && exercises.length > 0 ? exercises[0].weakWords : [];
+
+    // Use existing weak words if available; otherwise, initialize as an empty array
+    return existingWeakWords || [];
+  });
 
   useEffect(() => {
     if (allWordsHandled) {
@@ -75,51 +81,31 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   }, [topicId]);
 
   useEffect(() => {
+    // Set isTopicCompleted based on user progress
+    const currentTopicProgress = userProgress.find(
+      (topic) => topic.topic === topicId
+    );
+    setIsTopicCompleted(currentTopicProgress && currentTopicProgress.completed);
+  }, [topicId]);
+
+  useEffect(() => {
     const index =
       exercises && exercises.length > 0
         ? exercises[0].completedSentenceIndices
         : [];
-    setCompletedSentenceIndices((prevIndices) => [...prevIndices, ...index]);
-  }, [exercises]);
 
-  // useEffect(() => {
-  //   if (showMessage) {
-  //     const weakWord =
-  //       exercises && exercises.length > 0 ? exercises[0].weakWords : {};
+    // Check if there are completed indices, if yes, set the current index
+    if (index.length > 0) {
+      setCurrentFlashcardIndex(index[index.length - 1]);
+    }
 
-  //     // Update wordAttempts using the callback form of setWordAttempts
-  //     setWordAttempts((prevWordAttempts) => {
-  //       // Merge weakWord with the previous state
-  //       const newWordAttempts = { ...prevWordAttempts, ...weakWord };
-
-  //       return newWordAttempts;
-  //     });
-  //   }
-  // }, [topicId, showMessage]);
-
-  // useEffect(() => {
-  //   if (selectedFlashcards.length > 0) {
-  //     // Find the next incomplete sentence index
-  //     const nextIncompleteIndex = selectedFlashcards.findIndex(
-  //       (sentence, index) => !completedSentenceIndices.includes(index)
-  //     );
-  //     console.log("selectedFlashcards", selectedFlashcards);
-  //     console.log("nextIncompleteIndex", nextIncompleteIndex);
-
-  //     console.log("completedSentenceIndices", completedSentenceIndices);
-
-  //     // Set the currentFlashcardIndex to the next incomplete index
-  //     if (currentMode === "normal") {
-  //       setCurrentFlashcardIndex(
-  //         nextIncompleteIndex !== -1 ? nextIncompleteIndex : 0
-  //       );
-  //     }
-  //     console.log("currentFlashcardIndex", currentFlashcardIndex);
-  //   }
-  // }, [selectedFlashcards, completedSentenceIndices]);
+    // Set completedSentenceIndices to the values stored in exercises
+    setCompletedSentenceIndices([...index]);
+  }, [topicId]);
 
   const handleTryWeakWords = () => {
     dispatch(fetchUserProgress(userId));
+    // console.log("currentMode", currentMode);
 
     setCurrentMode("weakWords");
 
@@ -128,12 +114,14 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       const oldWeakWords = exercises[0].weakWords;
       setWeakWords(oldWeakWords || []); // Set weakWords to oldWeakWords or an empty array
 
-      if (oldWeakWords?.length > 0) {
-        // Set the currentFlashcardIndex to the first element of oldWeakWords
+      // Set the currentFlashcardIndex to the first element of oldWeakWords
 
-        setCurrentFlashcardIndex(oldWeakWords[0]);
-        setShowMessage(false);
-      }
+      setCurrentFlashcardIndex(weakWords[0]);
+
+      setShowMessage(false);
+    }
+    if (isTopicCompleted) {
+      setIsTopicCompleted(false);
     }
   };
 
@@ -142,11 +130,13 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       const nextWeakWordIndex = selectedFlashcards.findIndex(
         (sentence, index) => !weakWords.includes(index)
       );
+      // console.log("nextWeakWordIndex in useefect", nextWeakWordIndex);
       // Set the currentFlashcardIndex to the next incomplete index
-      setCurrentFlashcardIndex(nextWeakWordIndex !== -1 ? weakWords[0] : 0);
-
-      // console.log({ currentMode, nextWeakWordIndex, weakWords });
+      setCurrentFlashcardIndex(
+        nextWeakWordIndex !== -1 ? weakWords[nextWeakWordIndex] : 0
+      );
     }
+    // console.log("setCurrentFlashcardIndex", currentFlashcardIndex);
   }, [currentMode, weakWords, dispatch]);
 
   useEffect(() => {
@@ -166,10 +156,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
       setAvailableLetters([...lettersAndSpaces]);
       setCurrentFlashcard(flashcard);
-      // console.log(
-      //   "currentFlashcardIndex in flashcard after",
-      //   currentFlashcardIndex
-      // );
+
       setJumbledLetters([]);
       setIsCorrect(false);
       setIsSubmitted(false);
@@ -231,7 +218,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     }
     const isLastIndex = selectedFlashcards.length - 1 === currentFlashcardIndex;
 
-    console.log(currentFlashcardIndex);
+    // console.log(currentFlashcardIndex);
 
     // Submit the progress
     if (isAuthenticated) {
@@ -244,7 +231,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
           completedSentenceIndices,
           weakWords,
           topicType,
-          completed: isLastIndex ? true : completed,
+          completed: isLastIndex ? true : false,
         })
       );
     }
@@ -253,7 +240,11 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     setIsCorrect(false);
     setIsSubmitted(false);
 
-    if (currentFlashcardIndex < selectedFlashcards.length) {
+    if (
+      currentMode !== "weakWords" ||
+      currentFlashcardIndex < weakWords.length - 1
+    ) {
+      // Increment the index only if not in "weakWords" mode or if weak words are not completed
       setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -272,7 +263,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       setIsCorrect(false);
       setIsSubmitted(false);
 
-      setCurrentFlashcardIndex(currentFlashcardIndex);
+      setCurrentFlashcardIndex(isTopicCompleted ? 0 : currentFlashcardIndex);
       setShowMessage(false);
       if (isTopicCompleted) {
         setIsTopicCompleted(false);
@@ -289,19 +280,23 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       <BuildBoxContainer>
         {/* Display a message indicating that the topic is already completed */}
         <FinalMessage>
-          <p>{t("This topic is already completed!")}</p>
+          <p>{t("Ce sujet est déjà terminé !")}</p>
           {weakWords.length === 0 ? (
             <>
-              <p>there are no weak words</p>
-              <p>{weakWords.map((word) => word)}</p>
-              {console.log("weakWords", weakWords)}
-              <Button onClick={handleRestart}>Restart</Button>
+              <p>{t("Vous n'avez aucun mot faible.")}</p>
+
+              <Button onClick={handleRestart}>{t("Recommencer")}</Button>
             </>
           ) : (
             <>
-              {" "}
-              <p>{weakWords.map((word) => word)}</p>
-              <Button onClick={handleTryWeakWords}>Try weak words</Button>
+              <FinalMessage3>{t("Mots faibles")}</FinalMessage3>
+              <p>{weakWords.length}</p>
+              {console.log("Current weakWords:", weakWords)}
+
+              <WeakWordButton onClick={handleTryWeakWords}>
+                {" "}
+                {t("Pratiquer les mots faibles")}
+              </WeakWordButton>
             </>
           )}
         </FinalMessage>
@@ -315,24 +310,25 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
       {showMessage ? (
         <FinalMessage>
+          <p>{t("Des mots")}</p>
           <p>
-            Correct Answers: {selectedFlashcards.length - weakWords.length}/
+            {selectedFlashcards.length - weakWords.length}/
             {selectedFlashcards.length}
           </p>
-          {currentMode === "normal" ? (
+          {weakWords.length > 0 ? (
             <>
-              all words are correct
-              <Button onClick={() => setCompleted(true)}>Finish</Button>
-              <Button onClick={handleRestart}>Restart</Button>
-              <Button onClick={handleTryWeakWords}>Try weak words</Button>
+              {/* {t("Toutes nos félicitations! Vous avez terminé tous les mots.")} */}
+              <FinalMessage3>{t("Mots faibles")}</FinalMessage3>
+              <p>{weakWords.length}</p>
+
+              <WeakWordButton onClick={handleTryWeakWords}>
+                {t("Pratiquer les mots faibles")}
+              </WeakWordButton>
             </>
           ) : (
             <>
-              {t("Toutes nos félicitations! Vous avez terminé tous les mots.")}
-
-              <p>{weakWords.map((word) => word)}</p>
-
-              <Button onClick={handleTryWeakWords}>Try weak words</Button>
+              <FinalMessage3>{t("Tous les mots sont corrects")}</FinalMessage3>
+              <Button onClick={handleRestart}>{t("Recommencer")}</Button>
             </>
           )}
         </FinalMessage>
@@ -424,7 +420,7 @@ const BuildBoxContainer = styled.section`
   margin: 0rem auto;
   background: ${(props) => props.theme.secondaryBackground};
   -webkit-box-shadow: 14px 25px 21px -19px rgba(8, 21, 32, 0.87);
-  -moz-box-shadow: 14px 25px 21px -19px rgba(16, 38, 58, 0.87);
+  -moz-box-shadow: 14px 25px 21px -19px rgba(220, 229, 236, 0.87);
   box-shadow: 14px 25px 21px -19px rgba(16, 35, 53, 0.87);
   color: ${(props) => props.theme.secondaryText};
   padding-bottom: 0.5rem;
@@ -561,4 +557,11 @@ const SecondLanguage = styled.div`
   font-weight: bold;
   margin-top: 10px;
   color: ${(props) => props.theme.secondaryText};
+`;
+const WeakWordButton = styled(Button)`
+  width: auto;
+  padding: 1rem;
+`;
+const FinalMessage3 = styled.span`
+  font-weight: 300;
 `;
