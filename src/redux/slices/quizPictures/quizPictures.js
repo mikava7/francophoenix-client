@@ -75,11 +75,30 @@ export const submitVocabularyProgress = createAsyncThunk(
     }
   }
 );
+
+export const submitToGlobalWeakWord = createAsyncThunk(
+  "vocabularyProgress/submitToGlobalWeakWord",
+  async ({ userId, weakWord }) => {
+    try {
+      const response = await axiosInstance.post("/vocabulary/progress/global", {
+        userId,
+        weakWord,
+      });
+      console.log({ userId, weakWord });
+      return response.data;
+    } catch (error) {
+      console.error("Error submitting vocabulary progress", error);
+      // Don't re-throw the error, handle it at a higher level if needed
+      throw error;
+    }
+  }
+);
 const initialState = {
   vocabularyProgress: [],
   selectedVerbDetails: [],
   currentTopic: [],
   topicNames: [],
+  globalWeekWords: [],
   isLoading: false,
   error: null,
 };
@@ -116,9 +135,6 @@ const quizDataSlice = createSlice({
       .addCase(fetchVerbDetails.fulfilled, (state, action) => {
         state.selectedVerbDetails = action.payload;
         state.isLoading = false;
-        // {
-        //   console.log("in slice", action.payload);
-        // }
       })
       .addCase(fetchVerbDetails.rejected, (state, action) => {
         state.error = action.error.message;

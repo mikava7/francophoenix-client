@@ -13,7 +13,10 @@ import {
 import { shuffleArray } from "../../../Utility/utils";
 import { LoginMessageContainer } from "../../../vocabulary/vocabularyTopics/Text/TopicText";
 import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
-import { submitVocabularyProgress } from "../../../../redux/slices/quizPictures/quizPictures";
+import {
+  submitVocabularyProgress,
+  submitToGlobalWeakWord,
+} from "../../../../redux/slices/quizPictures/quizPictures";
 import { useParams } from "react-router-dom";
 import { fetchUserProgress } from "../../../../redux/slices/userProgress/userProgressSlice";
 import Loading from "../../../loading/Loading";
@@ -28,6 +31,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const auth = useSelector((state) => state?.auth?.auth?.user) || {};
   const userId = auth._id;
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
@@ -43,9 +47,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const [showWeakWords, setShowWeakWords] = useState(false);
 
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
-  const [wordAttempts, setWordAttempts] = useState({});
   const [currentMode, setCurrentMode] = useState("normal");
-  const [completed, setCompleted] = useState(false);
   const [isTopicCompleted, setIsTopicCompleted] = useState(null);
 
   const userProgress =
@@ -75,11 +77,19 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   }, [allWordsHandled]);
 
   useEffect(() => {
+    // Fetch user progress only if the user is logged in
     if (userId) {
-      dispatch(fetchUserProgress(userId));
+      dispatch(fetchUserProgress(userId))
+        .then(() => setDataLoaded(true))
+        .catch((error) => {
+          console.error("Error fetching user progress:", error);
+          setDataLoaded(true); // Set dataLoaded to true even in case of an error
+        });
+    } else {
+      // If the user is not logged in, set dataLoaded to true
+      setDataLoaded(true);
     }
-  }, [topicId]);
-
+  }, [topicId, userId, dispatch]);
   useEffect(() => {
     // Set isTopicCompleted based on user progress
     const currentTopicProgress = userProgress.find(
@@ -178,11 +188,11 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const handleCheck = () => {
     const word = jumbledLetters.join("");
     const correct = word === originalWord;
+    const inCorrect = word !== originalWord;
 
-    setWordAttempts((prevAttempts) => ({
-      ...prevAttempts,
-      [originalWord]: (prevAttempts[originalWord] || 0) + (correct ? 0 : 1),
-    }));
+    if (userId && inCorrect) {
+      dispatch(submitToGlobalWeakWord({ userId, weakWord: originalWord }));
+    }
 
     setWeakWords((prevIndices) =>
       correct
@@ -197,13 +207,26 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     setCompletedSentenceIndices((prevIndices) =>
       [...prevIndices, currentFlashcardIndex].sort((a, b) => a - b)
     );
-    if (
-      currentMode === "weakWords" &&
-      currentFlashcardIndex >= weakWords.length - 1
-    ) {
-      setShowMessage(true);
-      // If all weak words are done, switch back to normal mode
-      setCurrentMode("normal");
+    if (currentMode === "weakWords") {
+      setCurrentFlashcardIndex(weakWords[0]);
+
+      // Check if there are more weak words to handle
+      const nextWeakWordIndex = weakWords.indexOf(currentFlashcardIndex) + 1;
+      if (nextWeakWordIndex < weakWords.length) {
+        // If there are more weak words, set the next weak word index
+        setCurrentFlashcardIndex(weakWords[nextWeakWordIndex]);
+        console.log("currentFlashcardIndex", currentFlashcardIndex);
+        console.log("weakWords", weakWords);
+      } else {
+        // If all weak words are done, switch back to normal mode
+        console.log("currentFlashcardIndex in else", currentFlashcardIndex);
+
+        setShowMessage(true);
+        setCurrentMode("normal");
+      }
+    } else {
+      // Handle normal mode increment
+      setCurrentFlashcardIndex(currentFlashcardIndex);
     }
     // Calculate percentage for the completed sentences
     let percentage;
@@ -271,7 +294,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     }
   };
 
-  if (loading) {
+  if (!dataLoaded && loading) {
     return <Loading />;
   }
 
@@ -291,7 +314,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
             <>
               <FinalMessage3>{t("Mots faibles")}</FinalMessage3>
               <p>{weakWords.length}</p>
-              {console.log("Current weakWords:", weakWords)}
+              {/* {console.log("Current weakWords:", weakWords)} */}
 
               <WeakWordButton onClick={handleTryWeakWords}>
                 {" "}
