@@ -21,17 +21,22 @@ import { useParams } from "react-router-dom";
 import { fetchUserProgress } from "../../../../redux/slices/userProgress/userProgressSlice";
 import Loading from "../../../loading/Loading";
 
-const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
+const WordJumble = ({
+  selectedFlashcards,
+  secondLanguage,
+  topicType,
+  userId,
+  userProgress,
+  exercises,
+  loading,
+}) => {
   const dispatch = useDispatch();
   const exerciseType = WordJumble.name;
   const { topicId } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
   const { t } = useTranslation();
-
+  console.log({ loading, userId, userProgress, exercises });
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
-  const userId = auth._id;
-  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
@@ -44,21 +49,10 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const allWordsHandled = currentFlashcardIndex == selectedFlashcards.length;
   const [showMessage, setShowMessage] = useState(false);
-  const [showWeakWords, setShowWeakWords] = useState(false);
 
   const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
   const [currentMode, setCurrentMode] = useState("normal");
   const [isTopicCompleted, setIsTopicCompleted] = useState(null);
-
-  const userProgress =
-    useSelector(
-      (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
-    ) || [];
-  // console.log("userProgress.", userProgress);
-  const loading = useSelector((state) => state?.userProgress?.loading);
-  const exercises = userProgress?.find(
-    (topic) => topic.topic === topicId
-  )?.exercises;
 
   const [weakWords, setWeakWords] = useState(() => {
     // Check if there are existing weak words in the topic data
@@ -77,26 +71,12 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
   }, [allWordsHandled]);
 
   useEffect(() => {
-    // Fetch user progress only if the user is logged in
-    if (userId) {
-      dispatch(fetchUserProgress(userId))
-        .then(() => setDataLoaded(true))
-        .catch((error) => {
-          console.error("Error fetching user progress:", error);
-          setDataLoaded(true); // Set dataLoaded to true even in case of an error
-        });
-    } else {
-      // If the user is not logged in, set dataLoaded to true
-      setDataLoaded(true);
-    }
-  }, [topicId, userId, dispatch]);
-  useEffect(() => {
     // Set isTopicCompleted based on user progress
     const currentTopicProgress = userProgress.find(
       (topic) => topic.topic === topicId
     );
     setIsTopicCompleted(currentTopicProgress && currentTopicProgress.completed);
-  }, [topicId]);
+  }, [userId]);
 
   useEffect(() => {
     const index =
@@ -111,7 +91,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
 
     // Set completedSentenceIndices to the values stored in exercises
     setCompletedSentenceIndices([...index]);
-  }, [topicId]);
+  }, [userId]);
 
   const handleTryWeakWords = () => {
     dispatch(fetchUserProgress(userId));
@@ -215,11 +195,9 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
       if (nextWeakWordIndex < weakWords.length) {
         // If there are more weak words, set the next weak word index
         setCurrentFlashcardIndex(weakWords[nextWeakWordIndex]);
-        console.log("currentFlashcardIndex", currentFlashcardIndex);
-        console.log("weakWords", weakWords);
       } else {
         // If all weak words are done, switch back to normal mode
-        console.log("currentFlashcardIndex in else", currentFlashcardIndex);
+        // console.log("currentFlashcardIndex in else", currentFlashcardIndex);
 
         setShowMessage(true);
         setCurrentMode("normal");
@@ -294,7 +272,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
     }
   };
 
-  if (!dataLoaded && loading) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -356,7 +334,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
           )}
         </FinalMessage>
       ) : (
-        <div>
+        <BuildBoxContainer>
           <PlayButton onClick={handleListen(currentFlashcard)}>
             <FaVolumeUp /> {t("Écouter")}
           </PlayButton>
@@ -426,7 +404,7 @@ const WordJumble = ({ selectedFlashcards, secondLanguage, topicType }) => {
             )}
           </ButtonContainer>
           <Button onClick={() => setCurrentFlashcardIndex(10)}>set</Button>
-        </div>
+        </BuildBoxContainer>
       )}
     </BuildBoxContainer>
   );

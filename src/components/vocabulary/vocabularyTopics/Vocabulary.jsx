@@ -16,6 +16,7 @@ import AccordionSection from "./AccordionSection";
 import { supportedLanguages } from "../../../localization/supportedLanguages";
 import Localization from "../../../localization/Localization";
 import WordJumble from "../../flashcard/trainers/wordTrainer/WordJumble";
+import { fetchUserProgress } from "../../../redux/slices/userProgress/userProgressSlice";
 const Vocabulary = () => {
   const { topicId } = useParams();
   const currentURL = window.location.href;
@@ -28,6 +29,24 @@ const Vocabulary = () => {
     vocabularyData.type &&
     vocabularyData.type.map((t) => t.typeEn === "noun");
   // console.log("topicType", topicType);
+  const auth = useSelector((state) => state?.auth?.auth?.user) || {};
+
+  const userId = auth._id;
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserProgress(userId));
+    }
+  }, [topicId]);
+  const userProgress =
+    useSelector(
+      (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
+    ) || [];
+  // console.log("userProgress.", userProgress);
+  const loading = useSelector((state) => state?.userProgress?.loading);
+  const exercises = userProgress?.find(
+    (topic) => topic.topic === topicId
+  )?.exercises;
 
   const isLoading = useSelector((state) => state.quizData.isLoading);
 
@@ -104,7 +123,7 @@ const Vocabulary = () => {
   if (isLoading) {
     return <Loading />;
   }
-  console.log("topicType in vocabulary", topicType);
+  // console.log("topicType in vocabulary", topicType);
   return (
     <VocabularyContainer>
       <Localization />
@@ -185,6 +204,10 @@ const Vocabulary = () => {
           type={t("Tapez le mot")}
           identifier="Tapez le mot"
           topicType={topicType}
+          userId={userId}
+          userProgress={userProgress}
+          exercises={exercises}
+          loading={loading}
           isOpen={openComponent === "Tapez le mot"}
           onToggle={() =>
             setOpenComponent(

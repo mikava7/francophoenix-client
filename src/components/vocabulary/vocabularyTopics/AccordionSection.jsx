@@ -21,6 +21,10 @@ const AccordionSection = ({
   secondLanguage,
   english,
   topicType,
+  userId,
+  userProgress,
+  exercises,
+  loading,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
@@ -73,6 +77,10 @@ const AccordionSection = ({
               selectedFlashcards={selectedFlashcards}
               secondLanguage={secondLanguage}
               topicType={topicType}
+              userId={userId}
+              userProgress={userProgress}
+              exercises={exercises}
+              loading={loading}
             />
           )}
         </SectionBox>
