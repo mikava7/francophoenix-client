@@ -25,6 +25,7 @@ const AccordionSection = ({
   userProgress,
   exercises,
   loading,
+  completedIndeces,
 }) => {
   const [rotation, setRotation] = useState(0);
   const sectionRef = useRef(null);
@@ -81,6 +82,7 @@ const AccordionSection = ({
               userProgress={userProgress}
               exercises={exercises}
               loading={loading}
+              completedIndeces={completedIndeces}
             />
           )}
         </SectionBox>

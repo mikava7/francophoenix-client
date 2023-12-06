@@ -29,16 +29,18 @@ const WordJumble = ({
   userProgress,
   exercises,
   loading,
+  completedIndeces,
 }) => {
   const dispatch = useDispatch();
   const exerciseType = WordJumble.name;
   const { topicId } = useParams();
   const { handleListen, isActiveStates } = useListenWord();
   const { t } = useTranslation();
-  console.log({ loading, userId, userProgress, exercises });
+  // console.log({ loading, userId, userProgress, exercises });
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
   const [jumbledLetters, setJumbledLetters] = useState([]);
   const [originalWord, setOriginalWord] = useState("");
@@ -50,7 +52,9 @@ const WordJumble = ({
   const allWordsHandled = currentFlashcardIndex == selectedFlashcards.length;
   const [showMessage, setShowMessage] = useState(false);
 
-  const [completedSentenceIndices, setCompletedSentenceIndices] = useState([]);
+  const [completedSentenceIndices, setCompletedSentenceIndices] = useState([
+    ...completedIndeces,
+  ]);
   const [currentMode, setCurrentMode] = useState("normal");
   const [isTopicCompleted, setIsTopicCompleted] = useState(null);
 
@@ -78,24 +82,8 @@ const WordJumble = ({
     setIsTopicCompleted(currentTopicProgress && currentTopicProgress.completed);
   }, [userId]);
 
-  useEffect(() => {
-    const index =
-      exercises && exercises.length > 0
-        ? exercises[0].completedSentenceIndices
-        : [];
-
-    // Check if there are completed indices, if yes, set the current index
-    if (index.length > 0) {
-      setCurrentFlashcardIndex(index[index.length - 1]);
-    }
-
-    // Set completedSentenceIndices to the values stored in exercises
-    setCompletedSentenceIndices([...index]);
-  }, [userId]);
-
   const handleTryWeakWords = () => {
     dispatch(fetchUserProgress(userId));
-    // console.log("currentMode", currentMode);
 
     setCurrentMode("weakWords");
 
@@ -104,9 +92,7 @@ const WordJumble = ({
       const oldWeakWords = exercises[0].weakWords;
       setWeakWords(oldWeakWords || []); // Set weakWords to oldWeakWords or an empty array
 
-      // Set the currentFlashcardIndex to the first element of oldWeakWords
-
-      setCurrentFlashcardIndex(weakWords[0]);
+      setCurrentFlashcardIndex(0);
 
       setShowMessage(false);
     }
@@ -116,42 +102,55 @@ const WordJumble = ({
   };
 
   useEffect(() => {
+    let flashcardsToRender = selectedFlashcards;
+    console.log("flashcardsToRender 1", flashcardsToRender);
     if (currentMode === "weakWords") {
-      const nextWeakWordIndex = selectedFlashcards.findIndex(
-        (sentence, index) => !weakWords.includes(index)
-      );
-      // console.log("nextWeakWordIndex in useefect", nextWeakWordIndex);
-      // Set the currentFlashcardIndex to the next incomplete index
-      setCurrentFlashcardIndex(
-        nextWeakWordIndex !== -1 ? weakWords[nextWeakWordIndex] : 0
-      );
+      // If in weak mode, filter flashcards based on weakWords array
+      const newWeakWords = weakWords.map((index) => selectedFlashcards[index]);
+      flashcardsToRender = newWeakWords;
     }
-    // console.log("setCurrentFlashcardIndex", currentFlashcardIndex);
-  }, [currentMode, weakWords, dispatch]);
+    console.log("flashcardsToRender 2 in weakwords", flashcardsToRender);
+    console.log("weakWords 2 indeces", weakWords);
+    console.log("currentFlashcardIndex", currentFlashcardIndex);
+    console.log("flashcardsToRender.length", flashcardsToRender.length);
 
-  useEffect(() => {
     if (
-      selectedFlashcards.length > 0 &&
-      currentFlashcardIndex < selectedFlashcards.length
+      flashcardsToRender.length > 0 &&
+      currentFlashcardIndex === flashcardsToRender.length
     ) {
-      const flashcard = selectedFlashcards[currentFlashcardIndex]
+      // Show the final message when currentFlashcardIndex is equal to flashcardsToRender.length
+      setShowMessage(true);
+      return; // Exit the useEffect to avoid unnecessary processing
+    }
+
+    if (
+      flashcardsToRender.length > 0 &&
+      currentFlashcardIndex < flashcardsToRender.length
+    ) {
+      const flashcard = flashcardsToRender[currentFlashcardIndex]
         .replace(/\s*\(.*\)/, "")
         .replace(/^(le\/la )/, "");
+
+      console.log("flashcard 1", flashcard);
 
       const lettersAndSpaces = flashcard.split("");
 
       setOriginalWord(flashcard);
+      console.log("originalWord", originalWord);
 
       // lettersAndSpaces.sort(() => Math.random() - 0.5);
 
       setAvailableLetters([...lettersAndSpaces]);
+      console.log("currentFlashcard before.", currentFlashcard);
+
       setCurrentFlashcard(flashcard);
+      console.log("currentFlashcard after", currentFlashcard);
 
       setJumbledLetters([]);
       setIsCorrect(false);
       setIsSubmitted(false);
     }
-  }, [selectedFlashcards, currentFlashcardIndex]);
+  }, [selectedFlashcards, currentFlashcardIndex, currentMode, weakWords]);
 
   const handleJumbledLetterClick = (index) => {
     setSelectedLetterIndices(selectedLetterIndices.filter((i) => i !== index));
@@ -187,25 +186,7 @@ const WordJumble = ({
     setCompletedSentenceIndices((prevIndices) =>
       [...prevIndices, currentFlashcardIndex].sort((a, b) => a - b)
     );
-    if (currentMode === "weakWords") {
-      setCurrentFlashcardIndex(weakWords[0]);
 
-      // Check if there are more weak words to handle
-      const nextWeakWordIndex = weakWords.indexOf(currentFlashcardIndex) + 1;
-      if (nextWeakWordIndex < weakWords.length) {
-        // If there are more weak words, set the next weak word index
-        setCurrentFlashcardIndex(weakWords[nextWeakWordIndex]);
-      } else {
-        // If all weak words are done, switch back to normal mode
-        // console.log("currentFlashcardIndex in else", currentFlashcardIndex);
-
-        setShowMessage(true);
-        setCurrentMode("normal");
-      }
-    } else {
-      // Handle normal mode increment
-      setCurrentFlashcardIndex(currentFlashcardIndex);
-    }
     // Calculate percentage for the completed sentences
     let percentage;
     const totalQuestions = selectedFlashcards?.length;
@@ -218,8 +199,6 @@ const WordJumble = ({
       percentage = 50 / totalQuestions;
     }
     const isLastIndex = selectedFlashcards.length - 1 === currentFlashcardIndex;
-
-    // console.log(currentFlashcardIndex);
 
     // Submit the progress
     if (isAuthenticated) {
@@ -241,13 +220,8 @@ const WordJumble = ({
     setIsCorrect(false);
     setIsSubmitted(false);
 
-    if (
-      currentMode !== "weakWords" ||
-      currentFlashcardIndex < weakWords.length - 1
-    ) {
-      // Increment the index only if not in "weakWords" mode or if weak words are not completed
-      setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
-    }
+    // Increment the index only if not in "weakWords" mode or if weak words are not completed
+    setCurrentFlashcardIndex((prevIndex) => prevIndex + 1);
   };
 
   const handleRestart = () => {
@@ -265,6 +239,7 @@ const WordJumble = ({
       setIsSubmitted(false);
 
       setCurrentFlashcardIndex(isTopicCompleted ? 0 : currentFlashcardIndex);
+
       setShowMessage(false);
       if (isTopicCompleted) {
         setIsTopicCompleted(false);

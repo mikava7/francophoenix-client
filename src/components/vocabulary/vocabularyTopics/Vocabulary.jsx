@@ -22,6 +22,8 @@ const Vocabulary = () => {
   const currentURL = window.location.href;
   // console.log("currentURL", currentURL);
   const dispatch = useDispatch();
+  const [openComponent, setOpenComponent] = useState(null);
+
   const vocabularyData = useSelector((state) => state.quizData.currentTopic);
   // console.log("vocabularyData", vocabularyData);
   const topicType =
@@ -37,7 +39,7 @@ const Vocabulary = () => {
     if (userId) {
       dispatch(fetchUserProgress(userId));
     }
-  }, [topicId]);
+  }, [topicId, openComponent]);
   const userProgress =
     useSelector(
       (state) => state?.userProgress?.userProgressData?.userProgress?.vocabulary
@@ -47,7 +49,10 @@ const Vocabulary = () => {
   const exercises = userProgress?.find(
     (topic) => topic.topic === topicId
   )?.exercises;
-
+  const completedIndeces =
+    exercises && exercises.length > 0
+      ? exercises[0].completedSentenceIndices
+      : [];
   const isLoading = useSelector((state) => state.quizData.isLoading);
 
   const words = vocabularyData?.words;
@@ -112,7 +117,6 @@ const Vocabulary = () => {
       dispatch(fetchQuizData(topicId));
     }
   }, []);
-  const [openComponent, setOpenComponent] = useState(null);
 
   const { vocabularyTopicId } = useParams();
 
@@ -207,6 +211,7 @@ const Vocabulary = () => {
           userId={userId}
           userProgress={userProgress}
           exercises={exercises}
+          completedIndeces={completedIndeces}
           loading={loading}
           isOpen={openComponent === "Tapez le mot"}
           onToggle={() =>
