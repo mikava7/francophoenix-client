@@ -16,6 +16,7 @@ import LinkWithPreviousPath from "../../../Utility/LinkWithPreviousPath";
 import {
   submitVocabularyProgress,
   submitToGlobalWeakWord,
+  clearWeakwords,
 } from "../../../../redux/slices/quizPictures/quizPictures";
 import { useParams } from "react-router-dom";
 import { fetchUserProgress } from "../../../../redux/slices/userProgress/userProgressSlice";
@@ -103,16 +104,11 @@ const WordJumble = ({
 
   useEffect(() => {
     let flashcardsToRender = selectedFlashcards;
-    console.log("flashcardsToRender 1", flashcardsToRender);
     if (currentMode === "weakWords") {
       // If in weak mode, filter flashcards based on weakWords array
       const newWeakWords = weakWords.map((index) => selectedFlashcards[index]);
       flashcardsToRender = newWeakWords;
     }
-    console.log("flashcardsToRender 2 in weakwords", flashcardsToRender);
-    console.log("weakWords 2 indeces", weakWords);
-    console.log("currentFlashcardIndex", currentFlashcardIndex);
-    console.log("flashcardsToRender.length", flashcardsToRender.length);
 
     if (
       flashcardsToRender.length > 0 &&
@@ -131,20 +127,15 @@ const WordJumble = ({
         .replace(/\s*\(.*\)/, "")
         .replace(/^(le\/la )/, "");
 
-      console.log("flashcard 1", flashcard);
-
       const lettersAndSpaces = flashcard.split("");
 
       setOriginalWord(flashcard);
-      console.log("originalWord", originalWord);
 
       // lettersAndSpaces.sort(() => Math.random() - 0.5);
 
       setAvailableLetters([...lettersAndSpaces]);
-      console.log("currentFlashcard before.", currentFlashcard);
 
       setCurrentFlashcard(flashcard);
-      console.log("currentFlashcard after", currentFlashcard);
 
       setJumbledLetters([]);
       setIsCorrect(false);
@@ -199,6 +190,12 @@ const WordJumble = ({
       percentage = 50 / totalQuestions;
     }
     const isLastIndex = selectedFlashcards.length - 1 === currentFlashcardIndex;
+    const isLastWeakIndex = weakWords.length - 1 === currentFlashcardIndex;
+
+    const isLastWeakWord = currentMode === "weakWords" && isLastWeakIndex;
+    console.log("dispatched", isLastWeakWord);
+    console.log("currentMode", currentMode);
+    console.log("isLastIndex", isLastWeakIndex);
 
     // Submit the progress
     if (isAuthenticated) {
@@ -212,6 +209,7 @@ const WordJumble = ({
           weakWords,
           topicType,
           completed: isLastIndex ? true : false,
+          clearWeakWords: isLastWeakWord,
         })
       );
     }

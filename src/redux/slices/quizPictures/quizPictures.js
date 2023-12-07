@@ -51,6 +51,7 @@ export const submitVocabularyProgress = createAsyncThunk(
     weakWords,
     topicType,
     completed,
+    clearWeakWords,
   }) => {
     try {
       if (userId) {
@@ -63,6 +64,7 @@ export const submitVocabularyProgress = createAsyncThunk(
           weakWords,
           topicType,
           completed,
+          clearWeakWords,
         });
 
         // Return the actual data from the server
@@ -76,6 +78,23 @@ export const submitVocabularyProgress = createAsyncThunk(
   }
 );
 
+export const clearWeakwords = createAsyncThunk(
+  "vocabularyProgress/clearWeakwords",
+  async ({ userId, topicId }) => {
+    try {
+      const response = await axiosInstance.post("/vocabulary/clearWeakWords", {
+        userId,
+        topicId,
+      });
+      return response.data;
+      console.log("response.data", response.data);
+    } catch (error) {
+      console.error("Error submitting vocabulary progress", error);
+      // Don't re-throw the error, handle it at a higher level if needed
+      throw error;
+    }
+  }
+);
 export const submitToGlobalWeakWord = createAsyncThunk(
   "vocabularyProgress/submitToGlobalWeakWord",
   async ({ userId, weakWord }) => {
@@ -84,7 +103,6 @@ export const submitToGlobalWeakWord = createAsyncThunk(
         userId,
         weakWord,
       });
-      console.log({ userId, weakWord });
       return response.data;
     } catch (error) {
       console.error("Error submitting vocabulary progress", error);
