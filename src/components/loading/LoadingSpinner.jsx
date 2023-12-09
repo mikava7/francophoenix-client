@@ -48,8 +48,8 @@ const TimerDots = styled.div`
   }
 `;
 
-const LoadingSpinner = ({ isVisible, duration = 5 }) => {
-  const [dots, setDots] = useState(5);
+const LoadingSpinner = ({ isVisible, duration = 3 }) => {
+  const [dots, setDots] = useState(3);
 
   useEffect(() => {
     let timer;
@@ -57,7 +57,7 @@ const LoadingSpinner = ({ isVisible, duration = 5 }) => {
     if (isVisible) {
       timer = setInterval(() => {
         setDots((prevDots) => (prevDots > 0 ? prevDots - 1 : 0));
-      }, (duration * 1000) / 5);
+      }, (duration * 1000) / 3);
     }
 
     return () => {
