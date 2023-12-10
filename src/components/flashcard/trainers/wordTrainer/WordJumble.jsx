@@ -40,8 +40,10 @@ const WordJumble = ({
   const { t } = useTranslation();
   // console.log({ loading, userId, userProgress, exercises });
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
-  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0);
+  // console.log({ completedIndeces, exercises });
+  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(
+    completedIndeces.length
+  );
 
   const [selectedLetterIndices, setSelectedLetterIndices] = useState([]);
   const [jumbledLetters, setJumbledLetters] = useState([]);
@@ -187,8 +189,6 @@ const WordJumble = ({
   };
 
   const handleNext = () => {
-    console.log("isCorrect 5", isCorrect);
-    console.log("jumbledLetters 5", jumbledLetters);
     setCompletedSentenceIndices((prevIndices) =>
       [...prevIndices, currentFlashcardIndex].sort((a, b) => a - b)
     );
@@ -206,7 +206,7 @@ const WordJumble = ({
     }
     const isLastIndex = selectedFlashcards.length - 1 === currentFlashcardIndex;
     const isLastWeakIndex = weakWords.length - 1 === currentFlashcardIndex;
-
+    console.log("isLastIndex", isLastIndex);
     const isLastWeakWord = currentMode === "weakWords" && isLastWeakIndex;
     setIsWeakWordsCompleted(isLastWeakWord);
 
@@ -249,8 +249,6 @@ const WordJumble = ({
 
   const handleRestart = () => {
     // Check the current mode and handle accordingly
-    console.log("isCorrect 6", isCorrect);
-    console.log("jumbledLetters 6", jumbledLetters);
     if (currentMode === "weakWords") {
       // If in weak words mode, restart weak words
       if (weakWords.length == currentFlashcardIndex) {
@@ -317,13 +315,18 @@ const WordJumble = ({
           <LoadingSpinner isVisible={true} duration={3} />
         ) : (
           <FinalMessage>
-            <p>{t("Ce sujet est déjà terminé !")}</p>
+            {/* <p>{t("Ce sujet est déjà terminé !")}</p> */}
 
             {selectedFlashcards.length - weakWords.length ==
             selectedFlashcards.length ? (
-              <FinalMessage3>
-                {t("Vous n'avez aucun mot faible.")}
-              </FinalMessage3>
+              <>
+                <CongratulationMessage>
+                  {t("Parfait! Vous avez maîtrisé tous les mots.")}
+                </CongratulationMessage>
+                <FinalMessage3>
+                  {t("Vous n'avez aucun mot faible.")}
+                </FinalMessage3>
+              </>
             ) : (
               <div>
                 <p>
@@ -370,9 +373,13 @@ const WordJumble = ({
             </>
           ) : (
             <>
-              {console.log("weakWords", weakWords)}{" "}
+              <CongratulationMessage>
+                {t("Parfait! Vous avez maîtrisé tous les mots.")}
+              </CongratulationMessage>
               <FinalMessage3>{t("Tous les mots sont corrects")}</FinalMessage3>
-              <Button onClick={handleRestartExercise}>{t("Recommence")}</Button>
+              <WeakWordButton onClick={handleRestartExercise}>
+                {t("Recommence")}
+              </WeakWordButton>
             </>
           )}
         </FinalMessage>
@@ -381,7 +388,6 @@ const WordJumble = ({
           <PlayButton onClick={handleListen(currentFlashcard)}>
             <FaVolumeUp /> {t("Écouter")}
           </PlayButton>
-          <p>Index: {currentFlashcardIndex}</p>
           <Score>
             {t("Des mots")}:{" "}
             {selectedFlashcards?.length - currentFlashcardIndex}
@@ -436,6 +442,7 @@ const WordJumble = ({
             ) : isSubmitted ? (
               <WrongNotification>
                 {t("C'est faux ! Essayer à nouveau.")}
+                <CorrectAnswer>{originalWord}</CorrectAnswer>
                 <RestartButton onClick={handleRestart}>
                   {t("Recommencer")}
                 </RestartButton>
@@ -446,7 +453,7 @@ const WordJumble = ({
               </SubmitButton>
             )}
           </ButtonContainer>
-          <Button onClick={() => setCurrentFlashcardIndex(12)}>set</Button>
+          <Button onClick={() => setCurrentFlashcardIndex(6)}>set</Button>
         </BuildBoxContainer>
       )}
     </BuildBoxContainer>
@@ -460,7 +467,7 @@ const BuildBoxContainer = styled.section`
   align-items: center;
   justify-content: center;
   width: 333px;
-  min-height: 600px;
+  min-height: 620px;
   margin: 0rem auto;
   background: ${(props) => props.theme.secondaryBackground};
   -webkit-box-shadow: 14px 25px 21px -19px rgba(8, 21, 32, 0.87);
@@ -468,6 +475,8 @@ const BuildBoxContainer = styled.section`
   box-shadow: 14px 25px 21px -19px rgba(16, 35, 53, 0.87);
   color: ${(props) => props.theme.secondaryText};
   padding-bottom: 0.5rem;
+  /* outline: 1px solid red; */
+
   @media (max-width: 576px) {
     display: flex;
     flex-direction: column;
@@ -499,7 +508,6 @@ const JumbleBox = styled.div`
     width: 320px;
   }
 `;
-
 const LetterButton = styled.button`
   background: ${(props) => props.theme.secondaryBackground};
   color: ${(props) => props.theme.primaryText};
@@ -515,11 +523,7 @@ const LetterButton = styled.button`
   width: 2.2rem;
   border-radius: 4px;
 `;
-
 const JumbleLetter = styled(LetterButton)`
-  color: ${(props) => {
-    console.log(props);
-  }};
   color: ${(props) =>
     props.selected
       ? props.correct
@@ -563,7 +567,6 @@ const PlayButton = styled.button`
     padding: 0.5rem; /* Adjust padding for smaller screens */
   }
 `;
-
 const CorrectNotification = styled.span`
   font-weight: bold;
   color: ${(props) => props.theme.highlight4};
@@ -578,7 +581,6 @@ const Score = styled.span`
   font-size: 1rem;
   font-weight: bold;
 `;
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
@@ -587,7 +589,7 @@ const ButtonContainer = styled.div`
   /* outline: 1px solid red; */
   width: 100%;
   height: 3rem;
-
+  margin: 1rem;
   /* gap: 1rem; */
 `;
 const FinalMessage = styled.div`
@@ -597,7 +599,6 @@ const FinalMessage = styled.div`
   margin-top: 2rem;
   color: ${(props) => props.theme.primaryText};
 `;
-
 const SecondLanguage = styled.div`
   text-align: center;
   font-size: 1.5rem;
@@ -611,4 +612,22 @@ const WeakWordButton = styled(Button)`
 `;
 const FinalMessage3 = styled.span`
   font-weight: 300;
+  font-size: 17px;
+`;
+const CongratulationMessage = styled.div`
+  background-color: ${(props) => props.theme.correctBack};
+  color: ${(props) => props.theme.primaryText};
+
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+  margin-bottom: 3rem;
+`;
+const CorrectAnswer = styled.p`
+  font-weight: bold;
+  color: ${(props) => props.theme.primaryText};
+  margin-top: 0.4rem;
+  font-size: 20px;
 `;
