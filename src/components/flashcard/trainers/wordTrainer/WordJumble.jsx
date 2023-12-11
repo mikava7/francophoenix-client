@@ -141,7 +141,7 @@ const WordJumble = ({
 
       setOriginalWord(flashcard);
 
-      // lettersAndSpaces.sort(() => Math.random() - 0.5);
+      lettersAndSpaces.sort(() => Math.random() - 0.5);
 
       setAvailableLetters([...lettersAndSpaces]);
 
@@ -206,7 +206,7 @@ const WordJumble = ({
     }
     const isLastIndex = selectedFlashcards.length - 1 === currentFlashcardIndex;
     const isLastWeakIndex = weakWords.length - 1 === currentFlashcardIndex;
-    console.log("isLastIndex", isLastIndex);
+    // console.log("isLastIndex", isLastIndex);
     const isLastWeakWord = currentMode === "weakWords" && isLastWeakIndex;
     setIsWeakWordsCompleted(isLastWeakWord);
 
@@ -453,7 +453,7 @@ const WordJumble = ({
               </SubmitButton>
             )}
           </ButtonContainer>
-          <Button onClick={() => setCurrentFlashcardIndex(6)}>set</Button>
+          {/* <Button onClick={() => setCurrentFlashcardIndex(6)}>set</Button> */}
         </BuildBoxContainer>
       )}
     </BuildBoxContainer>

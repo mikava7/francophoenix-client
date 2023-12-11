@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+
 import { fetchGrammer } from "../../redux/slices/grammer/grammerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../loading/Loading";
@@ -21,7 +24,19 @@ import useScrollToTopOnRouteChange from "../../hooks/useScrollToTopOnRouteChange
 const GrammerTopicPage = () => {
   const { BasicGrammerTopicId } = useParams();
   useScrollToTopOnRouteChange();
+  const currentUrl = window.location.href;
+  const handleFacebookShare = () => {
+    // Replace 'your-url' with the actual URL you want to share
+    const shareUrl = currentUrl;
 
+    // Open the Facebook Share Dialog
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        shareUrl
+      )}`,
+      "_blank"
+    );
+  };
   const { handleListen, isActiveStates } = useListenWord();
   const { t, i18n } = useTranslation();
 
@@ -56,6 +71,14 @@ const GrammerTopicPage = () => {
 
   return (
     <GrammerTopicPageContainer>
+      <ShareButton
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          currentUrl
+        )}`}
+        target="_blank"
+      >
+        Share on Facebook
+      </ShareButton>
       <TitleContainer>
         <h2>{titleFr}</h2>
       </TitleContainer>
@@ -70,6 +93,11 @@ const GrammerTopicPage = () => {
           </DescriptionBox>
         ))}
       </DescriptionContainer>
+
+      <ShareButton onClick={handleFacebookShare}>
+        <FontAwesomeIcon icon={faFacebook} />
+        Share on Facebook
+      </ShareButton>
       <ExampleContainer>
         <h2>{t("Examples")}</h2>
         {exampleFr.map((example, index) => (
@@ -92,3 +120,25 @@ const GrammerTopicPage = () => {
 };
 
 export default GrammerTopicPage;
+const ShareButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  background-color: #3b5998; /* Facebook blue color */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #2d4373; /* Darker Facebook blue on hover */
+  }
+
+  & > svg {
+    margin-right: 8px; /* Adjust the spacing between the icon and text */
+  }
+`;
